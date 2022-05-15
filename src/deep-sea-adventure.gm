@@ -1,0 +1,182 @@
+// NAME: Deep Sea Adventure
+
+// 2014
+// Designer: Jun Sasaki, Goro Sasaki
+// Players: 2-6
+// Time: 30m
+
+#include common/Game
+#include common/Boardgame
+#include common/Dice
+
+// SECTION: Vocabulary
+
+Submarine: Board
+
+AirGauge: Part of Submarine
+AirGaugeSpace: Part of AirGauge
+	// 26 spaces on Submarine: Counting down from 25 to 0
+RemainingAir: Token
+	// Red disc
+
+PlayerToken: Token
+	// 6 different colors	
+Direction: Attribute of PlayerToken
+	// What direction the player is heading: toward or away from the Submarine
+ReturnToSub: Direction
+ContinueSearch: Direction
+
+MovementDice: D3
+	// 2 d6 with 1-3 twice	
+
+Chip: Noun
+CircleChip: Chip
+	// 16 chips
+
+RuinsChip: Chip
+Dots: Attribute of RuinsChip
+	// Used to determine how far the piece starts away from the Submarine
+TreasurePoints: Attribute of RuinsChip
+	// Treasure value for this piece
+
+TriangleChip: RuinsChip
+	// 8 chips, each with 1 dot; Values: 0-3
+SquareChip: RuinsChip
+	// 8 chips, each with 2 dots; Values: 4-7
+PentagonChip: RuinsChip
+	// 8 chips, each with 3 dots; Values: 8-11
+HexagonChip: RuinsChip
+	// 8 chips, each with 4 dots; Values: 12-15
+
+ChipStack: Noun
+	// A stack of (up to) 3 RuinsChips created when you lose your treasure.
+
+Ruins: Board
+	// Line of RuinsSpaces leading out from the Submarine.
+	// This is a dynamic Board created during gameplay.
+RuinsSpace: Part of Ruins
+	// A location that contains a Chip
+
+Inventory: Noun
+	// Collection of Ruins Chips that you are holding
+TreasurePile: Noun
+	// Accumulated treasure
+
+// SECTION: Setup
+
+Setup: Verb
+	Place Submarine on table
+	ResetAirGauge
+	SetupRuins
+	ChoosePlayerColor
+	Place all PlayerTokens on Submarine
+
+ResetAirGauge: Verb
+	Place the RemainingAir token on AirGaugeSpace 25	
+
+SetupRuins: Verb
+	Flip over all RuinsChips so that only the Dots are showing
+	Sort the RuinsChips by type (number of Dots)
+	Starting with the Chips with 1 dot:
+		Build a line of RuinsChips leading out from the Submarine
+		Continue with RuinsChips with 2, 3, and 4 Dots
+					
+// SECTION: Gameplay					
+
+PlayGame: Verb
+	Repeat 3 times:
+		GameRound
+		EndRound
+
+GameRound: Verb
+	Repeat until RoundOver:
+		PlayerTurn
+		NextPlayerClockwise
+
+RoundOver: Condition
+	If any of:
+		The RemainingAir token is at 0
+		All Players are on the Submarine
+
+EndRound: Verb
+	AwardOrLoseTreasure
+	ShrinkRuins
+
+PlayerTurn: Verb
+	AdjustAir
+	ChooseDirection
+	Advance
+	SearchForTreasure
+	! Once you return to the Submarine, you do not take any actions until the next round	
+
+AdjustAir: Verb
+	Move the RemainingAir token down the number of AirGaugeSpaces equal to the number of RuinsChips in your Inventory
+	! The RemainingAir token stops when it gets to 0
+	! StackedRuinsChips
+
+Advance: Verb
+	CalcMovement
+	Move PlayerToken that many RuinsSpaces in the Direction	
+	! When moving, jump over (without counting) any RuinsSpaces that already have a PlayerToken
+	! If you would go beyond the deepest location, stop at that location	
+
+AwardOrLoseTreasure: Verb
+	For each Player, starting with Player furthest from Submarine:
+		If you are back in Submarine:
+			Add the RuinsChips from your Inventory into your TreasurePile
+		Otherwise:
+			LoseTreasure
+
+CalcMovement: Verb
+	Roll both MovementDice and add together
+	Subtract the number of RuinsChips in your Inventory
+	! StackedRuinsChips
+
+ChooseDirection: Verb
+	If your PlayerToken's Direction is ContinueSearch:
+		Decide if you want to change your Direction to ReturnToSub
+	// Your PlayerToken should be facing to match your Direction.
+	// Once you ReturnToSub, you cannot change Directions this round.
+	// If you forget to declare your Direction, it stays the same as last turn.
+	! On first turn, your Direction must be ContinueSearch (to leave the Submarine)
+
+DropTreasure: Verb
+	If your PlayerToken is on CircleChip:
+		Replace CircleChip with a RuinsChip taken from your Inventory
+	! StackedRuinsChips
+
+LoseTreasure: Verb
+	Create ChipStacks by grouping RuinsChips from your Inventory into stacks of 3 Chips
+	Place each ChipStack next in line to create a new RuinsSpace at the end of the Ruins
+	! When building ChipStacks, place any partial stacks at the end.
+		The next player will add to this partial stack first.	
+
+PickUpTreasure: Verb
+	If on RuinsChip:
+		Replace the RuinsChip with a CircleChip
+		Add the RuinsChip to your Inventory
+	! You may not look at any RuinsChip until you are back in the Submarine	
+	! StackedRuinsChips
+
+SearchForTreasure: Verb
+	Choose one:	
+		Pass
+		PickUpTreasure
+		DropTreasure
+
+ShrinkRuins: Verb
+	Remove all RuinsSpaces that contain CircleChips
+	Slide the remaining RuinsSpaces together to remove the gaps
+
+// SECTION: Constraints					
+
+StackedRuinsChips: Constraint
+	A ChipStack counts as of it was a single RuinsChip for all purposes except endgame scoring	
+
+// SECTION: EndGame
+
+CalcScore: Verb
+	Add all the TreasurePoints from the RuinsChips in your TreasurePile
+
+Winner: Noun
+	PlayerWithHighestScore

@@ -1,0 +1,46 @@
+// NAME: Tic-tac-toe
+// These rules assume that you are playing with a physical board and pieces.
+
+// Players: 2
+
+#include common/Game
+#include common/Boardgame
+
+// SECTION: Vocabulary
+
+Board: Noun
+	// 3x3 squares - Physical board
+Square: Part of Board
+	// 9 squares on the board
+Piece: Noun
+	// 10 total. 5 of each 'x' or 'o'
+
+// SECTION: Setup
+
+Setup: Verb
+	PlaceBoard
+	ChooseXO
+	ChooseFirstPlayer
+
+ChooseXO: Verb
+	ChoosePlayerComponents
+	// Choose side ('x' or 'o') and take pieces
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat the following:
+		Move Piece into an empty Square
+		CheckWin
+		SwitchPlayer
+	! If no empty Square on Board:
+		End the game as tie
+
+CheckWin: Verb
+	If you have 3 of your pieces in a row (horizontally, vertically or diagonally):
+		You win
+
+// SECTION: Endgame
+
+Winner: Noun
+	The Player who makes 3 in a row instantly wins.

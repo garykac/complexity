@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Checkers</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.4rem 0;
+	font-weight: 600;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Checkers</div>
+<div class="summary">Learning Complexity: 26</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=3>Checkers</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Played on an 8x8 board with dark and light squares.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Only the 32 dark squares are used in the game.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment"><abbr title="Defined in common/Game">Players</abbr>: 2</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#include common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#include common/Boardgame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Square">Square</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DarkSquare">DarkSquare</a></div></div>: Part of <abbr title="Defined in common/Boardgame">Board</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment"><a class="keyword" href="#Square">Squares</a> can be Dark (Black) or Light (often Red).</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DarkSquare">DarkSquare</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Capture">Capture</a><a href="#MovePiece">MovePiece</a><a href="#PlaceBoard">PlaceBoard</a><a href="#PlacePawns">PlacePawns</a></div></div>: <a class="keyword" href="#Square">Square</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">where Color = Dark</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; The light <a class="keyword" href="#Square">Squares</a> on the <abbr title="Defined in common/Boardgame">Board</abbr> are not used</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="KingRow">KingRow</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForPromotion">CheckForPromotion</a></div></div>: Part of <abbr title="Defined in common/Boardgame">Board</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Row of <a class="keyword" href="#Square">Squares</a> on the board furthest from the player.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Piece">Piece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Capture">Capture</a><a href="#King">King</a><a href="#MovePiece">MovePiece</a><a href="#Pawn">Pawn</a><a href="#PlayGame">PlayGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment"><abbr title="Defined in common/Game">Player</abbr> colors are Dark (Black) or Light (often Red).</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Pawn">Pawn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForPromotion">CheckForPromotion</a><a href="#MovePiece">MovePiece</a><a href="#PlacePawns">PlacePawns</a></div></div>: <a class="keyword" href="#Piece">Piece</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Standard piece. 24 total: 12 pawns each for Dark, Light.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="King">King</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForPromotion">CheckForPromotion</a></div></div>: <a class="keyword" href="#Piece">Piece</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Upgraded piece: Traditionally, this isn't a separate piece - a <a class="keyword" href="#King">King</a> is created</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">by stacking 2 <a class="keyword" href="#Pawn">Pawns</a> on top of each other.</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">However, that's just an implementation detail.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlaceBoard">PlaceBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>ChoosePlayerColor</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlacePawns">PlacePawns</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlaceBoard">PlaceBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place <abbr title="Defined in common/Boardgame">Board</abbr> oriented so that a <a class="keyword" href="#DarkSquare">DarkSquare</a> is in lower left corner for each <abbr title="Defined in common/Game">Player</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlacePawns">PlacePawns</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>For each <abbr title="Defined in common/Game">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Place your 12 <a class="keyword" href="#Pawn">Pawns</a> on the <a class="keyword" href="#DarkSquare">DarkSquares</a> closest to you (closest 3 rows)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until a <abbr title="Defined in common/Game">Player</abbr> cannot <a class="keyword" href="#MoveOrCapture">MoveOrCapture</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#MoveOrCapture">MoveOrCapture</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#CheckForPromotion">CheckForPromotion</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Defined in common/Game">SwitchPlayer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; <abbr title="Defined in common/Game">Player</abbr> with the dark <a class="keyword" href="#Piece">Pieces</a> plays first</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="MoveOrCapture">MoveOrCapture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Choose one of the following:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#MovePiece">MovePiece</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Capture">Capture</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you have a <a class="keyword" href="#Capture">Capture</a> available:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">you must <a class="keyword" href="#Capture">Capture</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="MovePiece">MovePiece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveOrCapture">MoveOrCapture</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Move a <a class="keyword" href="#Piece">Piece</a> diagonally into empty <a class="keyword" href="#DarkSquare">DarkSquare</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#Pawn">Pawns</a> may only move forward (away from the <abbr title="Defined in common/Game">Player</abbr>)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Capture">Capture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveOrCapture">MoveOrCapture</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Jump diagonally over a <a class="keyword" href="#Piece">Piece</a> into an empty <a class="keyword" href="#DarkSquare">DarkSquare</a> on the opposite side</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Remove the <a class="keyword" href="#Piece">Piece</a> that was jumped over from the game</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If the <a class="keyword" href="#Piece">Piece</a> that was moved has another <a class="keyword" href="#Capture">Capture</a> available:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Capture">Capture</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; You may only <a class="keyword" href="#Capture">Capture</a> an opponent's piece (not your own)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you have multiple <a class="keyword" href="#Capture">Captures</a> available:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">you may choose whichever</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc"><span class="comment">Note: Some variants differ and restrict the choice</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CheckForPromotion">CheckForPromotion</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If you have a <a class="keyword" href="#Pawn">Pawn</a> in your <a class="keyword" href="#KingRow">KingRow</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Replace that <a class="keyword" href="#Pawn">Pawn</a> with a <a class="keyword" href="#King">King</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <abbr title="Defined in common/Game">Player</abbr> who cannot make a move loses to the other <abbr title="Defined in common/Game">Player</abbr>.</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

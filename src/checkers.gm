@@ -1,0 +1,82 @@
+// NAME: Checkers
+// Played on an 8x8 board with dark and light squares.
+// Only the 32 dark squares are used in the game.
+
+// Players: 2
+
+#include common/Game
+#include common/Boardgame
+
+// SECTION: Vocabulary
+
+Square: Part of Board
+	// Squares can be Dark (Black) or Light (often Red).
+DarkSquare: Square	// where Color = Dark
+	! The light Squares on the Board are not used
+
+KingRow: Part of Board
+	// Row of Squares on the board furthest from the player.
+
+Piece: Noun
+	// Player colors are Dark (Black) or Light (often Red).
+
+Pawn: Piece
+	// Standard piece. 24 total: 12 pawns each for Dark, Light.
+
+King: Piece
+	// Upgraded piece: Traditionally, this isn't a separate piece - a King is created
+	// by stacking 2 Pawns on top of each other.
+	// However, that's just an implementation detail.
+
+// SECTION: Setup
+
+Setup: Verb
+	PlaceBoard
+	ChoosePlayerColor
+	PlacePawns
+
+PlaceBoard: Verb
+	Place Board oriented so that a DarkSquare is in lower left corner for each Player
+
+PlacePawns: Verb
+	For each Player:
+		Place your 12 Pawns on the DarkSquares closest to you (closest 3 rows)
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a Player cannot MoveOrCapture:
+		MoveOrCapture
+		CheckForPromotion
+		SwitchPlayer
+	! Player with the dark Pieces plays first
+
+MoveOrCapture: Verb
+	Choose one of the following:
+		MovePiece
+		Capture
+	! If you have a Capture available:
+		you must Capture
+
+MovePiece: Verb
+	Move a Piece diagonally into empty DarkSquare
+	! Pawns may only move forward (away from the Player)
+
+Capture: Verb
+	Jump diagonally over a Piece into an empty DarkSquare on the opposite side
+	Remove the Piece that was jumped over from the game
+	If the Piece that was moved has another Capture available:
+		Capture
+	! You may only Capture an opponent's piece (not your own)	
+	! If you have multiple Captures available:
+		you may choose whichever
+		// Note: Some variants differ and restrict the choice
+
+CheckForPromotion: Verb
+	If you have a Pawn in your KingRow:
+		Replace that Pawn with a King
+
+// SECTION: Endgame
+
+Winner: Noun
+	The Player who cannot make a move loses to the other Player.

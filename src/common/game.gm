@@ -1,0 +1,17 @@
+// Game
+
+Player: Noun
+
+Score: Noun
+
+ChooseFirstPlayer: Verb
+	Choose which Player goes first (however you like)
+
+SwitchPlayer: Verb
+	Switch player (in a 2 Player game)
+
+NextPlayerClockwise: Verb
+	Pass control to the new Player, going around clockwise
+
+PlayerWithHighestScore: Noun
+	The Player with the highest Score is the winner

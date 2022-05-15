@@ -1,0 +1,34 @@
+// French suit deck
+
+FrenchSuitDeck: Deck
+
+FrenchSuitCard: Noun
+
+Suit: Attribute of FrenchSuitCard
+
+Rank: Attribute of FrenchSuitCard
+
+Color: Attribute of FrenchSuitCard
+
+Club: Suit
+
+Diamond: Suit
+
+Heart: Suit
+
+Spade: Suit
+
+Ace: Rank
+
+// 2-10 are standard values
+
+Jack: Rank
+
+Queen: Rank
+
+King: Rank
+
+Joker: Card
+
+JQK: Noun
+	// Jack, Queen or King

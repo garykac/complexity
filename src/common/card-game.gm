@@ -1,0 +1,36 @@
+// Card Game
+
+Card: Noun
+
+Title: Attribute of Card
+
+Deck: Noun
+	// Set of cards that are the same size.
+
+Hand: Noun
+	// Set of cards that a Player keeps hidden from the other Players.
+
+Deal: Verb
+
+Dealer: Noun
+	// The player who deals the cards to all the players.
+
+DrawDeck: Deck
+
+Draw: Verb
+	Draw a Card from a Deck
+	
+DiscardPile: Noun
+	A face-up pile of Cards that are no longer in play.
+
+Shuffle: Verb
+	Randomize the Cards in a Deck
+	
+Reveal: Verb
+	Turn the Card face up so that all the Players can see
+
+Discard: Verb
+	Place a Card face up in the DiscardPile.
+
+Pass: Verb
+	Voluntarily skip your turn or choose not to perform an action

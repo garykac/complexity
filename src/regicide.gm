@@ -1,0 +1,208 @@
+// NAME: Regicide
+
+// 2020
+// Designer: Paul Abrahams, Luke Badger, Andy Richdale
+// Players: 1-4
+// Time: 15-30m
+
+#include common/Game
+#include common/CardGame
+#include common/DeckFrenchSuit
+
+// SECTION: Vocabulary					
+					
+AnimalCompanion: Noun
+	// Alternate name for Ace (value = 1)
+Attack: Noun
+	// Current attack value	
+CardValue:	Noun
+	Value is Rank of Card with the following exceptions:	
+		* Jester: 0
+		* Ace: 1
+		* Jack: 10
+		* Queen: 15
+		* King: 20
+CastleDeck: Deck
+	// Set of cards: K, Q, J	
+Combo: Noun
+	A set of 2, 3, or 4 of the same Rank as long as the total <= 10
+DeckOfCards: Deck
+	// Standard 52 card deck with 2 Jokers
+Enemy: Noun
+	// The Card representing the enemy
+EnemyAttack: Noun
+	// The current Enemy's attack value	
+EnemyHealth: Noun
+	// The current Enemy's hit points	
+IncomingDamage: Noun
+	// Damage the the Enemy is dealing to you
+Jester: Noun
+	// Alternate name for Joker (value = 0)
+MaxHandSize: Noun
+	! A player's Hand may never have more Cards than this value
+TavernDeck: Deck
+	// Set of cards: 2-10 + A and Jokers	
+
+// SECTION: Setup					
+
+Setup: Verb
+	CreateDecks
+	AdjustJesters
+	AdjustHandSize
+	RevealEnemy
+	DealInitialHand
+	
+CreateDecks: Verb
+	Extract the Kings, Queens and Jacks from DeckOfCards
+	Shuffle Kings beneath Queens beneath Jacks to create the CastleDeck
+	The remaining Cards (2-10, Ace and Jester) form the TavernDeck
+
+AdjustJesters: Verb
+	Add the following Jesters to the TavernDeck based on player count:
+		* 1-2p: 0
+		* 3p: 1
+		* 4p: 2
+
+AdjustHandSize: Verb
+	Set MaxHandSize based on player count:
+		* 1p: 8
+		* 2p: 7
+		* 3p: 6
+		* 4p: 5
+
+DealInitialHand: Verb
+	Deal from TavernDeck up to MaxHandSize for each Player
+
+// SECTION: Gameplay					
+
+Game: Verb
+	Repeat until CastleDeck is empty:	
+		TakeTurn
+		NextPlayerClockwise
+	! Players may not communicate about the contents of their hand during play	
+
+TakeTurn: Verb
+	PlayOrYield
+	Activate
+	DealDamage
+	SufferDamage
+	// Note: Cards you play are left visible until the Enemy is defeated.
+	! When you Yield, you skip ahead to the SufferDamage step	
+
+Activate: Verb
+	Activate the played card's Suit power:
+		If Hearts:
+			HealFromDiscard using Rank of played card
+		If Diamonds:
+			DealNCards starting with current player until number of Cards = Rank of played Card
+		If Clubs:
+			// See CalcAttack
+		If Spades:
+			// See CalcDefense
+	! EnemyCancelsMatchingSuitPower
+
+CalcAttack: Verb
+	Attack = CardValue
+	If tht attack Card's Suit is Clubs:
+		Double the Attack
+	! EnemyCancelsMatchingSuitPower
+
+CalcDefense: Verb
+	For each Spade that has been played against this Enemy:
+		Add Rank of the Spade to defense
+	! EnemyCancelsMatchingSuitPower
+
+CombineSuitPower: Verb
+	When multiple cards are played with different Suits:
+		Activate all the Suit powers
+	! When combining cards of the same Suit, the power is only applied once
+	! When combining Suit powers, apply Hearts before Diamonds	
+
+DealDamage: Verb
+	CalcAttack
+	Subtract Attack from EnemyHealth
+	If EnemyHealth <= 0:
+		DefeatEnemy
+	! When an Enemy is defeated, skip the SufferDamage step for that turn	
+
+DealNCards: Verb
+	Repeat until specified number of Cards have been dealt:
+		Draw from TavernDeck into Player's Hand
+		NextPlayerClockwise
+	! If a draw would increase a Player's Hand beyond the MaxHandSize:
+		Skip over that Player
+	! If you need to draw but the TavernDeck is empty:
+		Stop dealing cards
+
+DefeatEnemy: Verb
+	If EnemyHealth = 0:
+		Add Enemy card to top of TavernDeck (facedown)
+	Otherwise:
+		Add Enemy card to DiscardPile
+	Move all played cards to DiscardPile
+	RevealEnemy
+
+HandleDamage: Verb
+	Repeat until IncomingDamage <= 0:
+		Discard from Hand
+		Reduce IncomingDamage by CardValue
+	! If you cannot reduce IncomingDamage to 0:
+		You die and everyone loses	
+
+HandleJester: Verb
+	Skip to the end of the turn
+	Choose the next player to take a turn
+	// Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not.	
+	! Players may hint whether or not they'd like to take the next turn	
+
+HealFromDiscard: Verb
+	Shuffle DiscardPile
+	Count out specified number of cards
+	Add these cards to bottom of TavernDeck
+	Place remaining cards back in DiscardPile
+
+InitEnemyAttack: Verb
+	Set EnemyAttack to CardValue (only JQK are relevant)
+	
+InitEnemyHealth: Verb
+	Set EnemyHealth as follows:	
+		* Jack: 20
+		* Queen: 30
+		* King: 40
+	
+PlayOrYield: Verb
+	Choose one:	
+		Play a single card from your Hand (not the Jester)
+		Play a Combo which will CombineSuitPower	
+		Play the Jester and then HandleJester
+		Yield
+	If you play a single (non-Jester) card:
+		You may add an AnimalCompanion
+		If you do:
+			Add 1 to the Rank and CombineSuitPower	
+	! You may not Yield if every other Player has chosen Yield on their last turn
+	! If you cannot play or Yield, then you die and everyone loses	
+
+RevealEnemy: Verb
+	Reveal the top card of the CastleDeck as the Enemy
+	InitEnemyAttack
+	InitEnemyHealth
+
+SufferDamage: Verb
+	IncomingDamage = EnemyAttack - CalcDefense
+	HandleDamage
+
+Yield: Verb
+	Pass
+
+// SECTION: Constraints
+
+EnemyCancelsMatchingSuitPower: Constraint
+	If the Suit of a Card matches the Suit of the Enemy:
+		Do not Activate the Suit's power
+	Unless a Jester has been played against this Enemy	
+
+// SECTION: Endgame
+
+Winner: Noun
+	Player win or lose as a group.

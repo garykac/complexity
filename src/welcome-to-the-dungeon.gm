@@ -1,0 +1,144 @@
+// NAME: Welcome to the Dungeon
+// This covers only the first game which uses only the Warrior.
+
+// 2013
+// Designer: Hisanori Hiraoka, Masato Uesugi
+// Players: 2-4
+// Time: 30m
+
+#include common/Game
+#include common/Boardgame
+#include common/CardGame
+
+// SECTION: Vocabulary
+
+MonsterCard: Noun
+Strength: Attribute of MonsterCard
+Weakness: Attribute of MonsterCard
+	// Icon showing EquipmentTiles that can defeat this MonsterCard
+
+AdventurerTile: Noun
+	// 4 in game, but only using the Warrior
+Name: Attribute of AdventurerTile
+BaseHP: Attribute of AdventurerTile
+	// Base hit points
+
+// AdventurerTiles:
+// Warrior: HP = 3
+
+EquipmentTile: Noun
+	// 24 total. 6 per AdventurerTile.
+Title: Attribute of EquipmentTile
+BonusHP: Attribute of EquipmentTile
+	// Optional
+Effect: Attribute of EquipmentTile
+
+// EquipmentTiles:
+// Torch: Defeat Monsters with 3 or less Strength
+// PlateArmor: HP +5
+// HolyGrail: Defeat all Monsters with even-numbered strength
+// VorpalSword: Defeat one Monster chosen before Enter Dungeon
+// DragonSpear: Defeat Dragon
+// KnightShield: HP +3
+
+SuccessCard: Noun
+PlayerAid: Noun
+	// Also used to track Failures. White background on one side; red on other.
+PlayerAidBackground: Attribute of PlayerAid
+	// White = full health; Red = half health
+
+MonsterDeck: Deck
+	// Deck of MonsterCards
+
+Inventory: Noun
+	// Collection of Equipment Cards
+DungeonPile: Noun
+	// Collection of Monster Cards
+HitPoints: Noun
+	// Player's current health tracker
+
+// SECTION: Setup
+
+Setup: Verb
+	SetupAdventurer
+	SetupMonsterDeck
+	SetupPlayerAid
+	Leave space on table for the DungeonPile
+	ChooseFirstPlayer
+
+SetupAdventurer: Verb
+	ChoosePlayerComponents
+	// For first game, choosing the default Warrior as the Adventurer
+	Place AdventurerTile on table
+	Place the 6 matching EquipmentTiles in the Inventory (next to AdventurerTile)
+	// Matching EquipmentTiles are the same color as Adventurer
+
+SetupMonsterDeck: Verb
+	Shuffle all the MonsterCards
+	Place facedown to create MonsterDeck
+
+SetupPlayerAid: Verb
+	For each player:
+		Place PlayerAid in front of you with the white background side showing
+	// The PlayerAid is also a health tracker for the Player.
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until Winner:	
+		BiddingPhase
+		DungeonPhase
+					
+BiddingPhase: Verb
+	Repeat until all but one Player has chosen Pass:
+		Choose one:
+			DrawCard
+			Pass
+		NextPlayerClockwise
+	! Once you Pass, you are done until after the DungeonPhase.
+
+DungeonPhase: Verb
+	The player who did not Pass does the following:
+		CalculateHitPoints
+		EnterDungeon
+		If HitPoints >= 0:
+			Take a SuccessCard
+		Otherwise:
+			Failure
+
+DrawCard: Verb
+	Draw from the MonsterDeck
+	Choose one:
+		AddMonster
+		RemoveMonster
+
+AddMonster: Verb
+	Add the MonsterCard face down on the DungeonPile
+	
+RemoveMonster: Verb
+	Place the MonsterCard in front of you, face-down
+	Remove an EquipmentTile from the Inventory and place it on the MonsterCard
+	! You may not remove a MonsterCard your Inventory is empty
+
+CalculateHitPoints: Verb
+	HP = BaseHP from the AdventurerTile
+	Add the BonusHP from all EquipmentTiles that remain in the Inventory
+
+EnterDungeon: Verb
+	Repeat until the DungeonPile is empty:
+		Reveal top card of DungeonPile
+		If an EquipmentTile in your Inventory has an icon that matches the MonsterCard's Weakness:
+			Discard the MonsterCard
+		Otherwise:
+			Deduct MonsterCard's Strength from your HitPoints
+
+Failure: Verb
+	If PlayerAid is showing the white background:
+		Flip it to show the red background
+	Otherwise:
+		You are eliminated from the game
+
+// SECTION: Endgame
+
+Winner: Noun
+	Winner is the first Player with 2 SuccessCards or the last remaining Player
