@@ -80,7 +80,7 @@ SetupRuins: Verb
 	Starting with the Chips with 1 dot:
 		Build a line of RuinsChips leading out from the Submarine
 		Continue with RuinsChips with 2, 3, and 4 Dots
-					
+
 // SECTION: Gameplay					
 
 PlayGame: Verb
@@ -168,7 +168,7 @@ ShrinkRuins: Verb
 	Remove all RuinsSpaces that contain CircleChips
 	Slide the remaining RuinsSpaces together to remove the gaps
 
-// SECTION: Constraints					
+// SECTION: Constraints
 
 StackedRuinsChips: Constraint
 	A ChipStack counts as of it was a single RuinsChip for all purposes except endgame scoring	

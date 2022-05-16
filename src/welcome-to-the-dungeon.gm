@@ -29,8 +29,7 @@ BaseHP: Attribute of AdventurerTile
 EquipmentTile: Noun
 	// 24 total. 6 per AdventurerTile.
 Title: Attribute of EquipmentTile
-BonusHP: Attribute of EquipmentTile
-	// Optional
+BonusHP: Attribute of EquipmentTile		// Optional
 Effect: Attribute of EquipmentTile
 
 // EquipmentTiles:
@@ -44,7 +43,6 @@ Effect: Attribute of EquipmentTile
 SuccessCard: Noun
 PlayerAid: Noun
 	// Also used to track Failures. White background on one side; red on other.
-PlayerAidBackground: Attribute of PlayerAid
 	// White = full health; Red = half health
 
 MonsterDeck: Deck

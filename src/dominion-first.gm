@@ -1,0 +1,224 @@
+// NAME: Dominion
+// Just the rules necessary for the first game with the 10 suggester starter cards.
+
+#include common/Game
+#include common/CardGame
+
+// SECTION: Vocabulary
+
+Supply: Noun
+	// Shared play area that contains Base and Kingdom cards
+TrashMat: Noun
+	// Shared play area that contains trashed cards
+
+Type: Attribute	of Card
+Cost: Attribute of Card
+
+BaseCard: Card
+	// Common cards used in all games: Treasure, Victory
+Value: Attribute of BaseCard		
+
+TreasureCard: BaseCard
+	// Type = Treasure
+Copper: TreasureCard
+	// Value = 1 Coin
+Silver: TreasureCard
+	// Value = 2 Coins
+Gold: TreasureCard
+	// Value = 3 Coins
+
+VictoryCard: BaseCard
+	// Type = Victory
+Estate: VictoryCard	
+	// Value = 1 VP
+Duchy: VictoryCard
+	// Value = 3 VPs
+Province: VictoryCard
+	// Value = 6 VPs
+
+KingdomCard: Card			
+Description: Attribute of KingdomCard		
+ActionCard: KingdomCard
+	// KingdomCard that can be played as an Action
+AttackCard: KingdomCard
+	// KingdomCard that negative affects other players
+ReactionCard: KingdomCard
+	// KingdomCard that can be played in response to another player's AttackCard
+
+Pile: Noun
+	A stack of Cards in the Supply
+
+Coin: Noun
+	// Found on TreasureCards and on some KingdomCards
+VP: Noun
+	// Found on VictoryCards
+ActionPoint: Noun
+	// Each ActionPoint allows you to perform TakeAction
+BuyPoint: Noun
+	// Each BuyPoint allows you to perform BuyCard
+
+PlayerDeck: Noun
+	Your set of Cards
+
+// SECTION: Setup
+
+Setup: Verb			
+	Adjust card counts for VictoryCards (Estate, Duchy, Province):
+		* 2p: 8x
+		* 3-4p: 10x
+	ChooseKingdomCards
+	For each chosen KingdomCard:
+		Create a Pile of 10 cards
+	Place TrashMat on table
+	For each Player:
+		Create PlayerDeck by adding 3 Estates and 7 Coppers
+		Shuffle
+		Draw 5 cards from your PlayerDeck into your Hand
+		Leave space for your personal DiscardPile next to your PlayerDeck
+
+ChooseKingdomCards: Verb
+	Use standard set of 10 for starter game
+
+// SECTION: Gameplay					
+
+PlayGame: Verb
+	Repeat until GameEnd:
+		ActionPhase
+		BuyPhase
+		CleanupPhase
+		NextPlayerClockwise
+
+GameEnd: Condition
+	If any of:
+		The Province Pile is empty
+		3 or more Supply Piles are empty
+
+ActionPhase: Verb
+	Gain 1 ActionPoint
+	For each ActionPoint:
+		TakeAction
+
+BuyPhase: Verb
+	Play as many TreasureCards as you want
+	Gain 1 BuyPoint
+	For each BuyPoint:
+		BuyCard
+
+BuyCard: Verb
+	Choose a Card from the Supply with Cost <= $Coin$
+	Gain Card
+	Subtract Card's Cost from your Coins
+
+CleanupPhase: Verb
+	Cleanup
+	Reset all unspent ActionPoints, BuyPoints and Coins to 0
+	Draw 5 cards
+
+Cleanup: Verb
+	Gather all the cards in front of you you’ve played this turn
+	Place them in your DiscardPile
+
+Discard: Verb
+	Move card into your DiscardPile
+
+DrawCard: Verb
+	Draw Card from your PlayerDeck into your Hand
+	! If your PlayerDeck is empty:
+		Shuffle the DiscardPile
+		Use as your new PlayerDeck
+
+GainAction: Verb
+	Gain ActionPoints that you can spend during this turn
+
+GainBuy: Verb
+	Gain BuyPoint that you can spend during this turn
+
+GainCoin: Verb
+	Gain Coins that you can spend during this turn
+
+GainVP: Verb
+	Gain VPs (only used for scoring at end of game)
+
+GainCard: Verb
+	Move Card from the Supply into your Hand
+
+PlayTreasure: Verb
+	Play any number of TreasureCards
+	For each Card played:
+		GainCoin equal to the Card's Value
+
+Reveal: Verb
+	Show the card to all Players
+	Return card whence it came
+
+TakeAction: Verb
+	Play an ActionCard in front of you for its effect
+
+Trash: Verb
+	Move Card onto the TrashMat
+
+TrashFromHand: Verb
+	Trash a Card from your Hand
+
+// SECTION: Cards
+
+Cellar: ActionCard
+	GainAction
+	Discard any number of cards, then
+	DrawCard the same number that you discarded
+
+Market: ActionCard
+	DrawCard
+	GainAction
+	GainBuy
+	GainCoin
+
+Merchant: ActionCard
+	DrawCard
+	GainAction
+	The first time you play a Silver this turn:
+		GainCoin
+
+Militia: ActionCard, AttackCard
+	GainCoin x2
+	Each other Player:
+		Discard down to 3 Cards in Hand
+
+Mine: ActionCard
+	Optional: Trash a TreasureCard
+	If you do:
+		GainCard a TreasureCard costing up to 1 more than it
+
+Moat: ActionCard, ReactionCard
+	DrawCard x2
+	When another player plays an AttackCard:
+		You may first Reveal this from your Hand to be unaffected by the AttackCard
+
+Remodel: ActionCard
+	Optional: TrashFromHand
+	If you do:
+		GainCard costing up to 2 more than it
+
+Smithy: ActionCard
+	GainCard x3
+
+Village: ActionCard
+	DrawCard
+	GainAction x2
+
+Workshop: ActionCard
+	GainCard costing up to 4
+
+// SECTION: Constraints
+								
+Reaction: Constraint
+	When another player plays an AttackCard:
+		You may Reveal a ReactionCard to ignore the attack
+
+// SECTION: EndGame
+
+CalculateScore: Verb
+	Gain VP from each VictoryCard in your Deck, Hand and DiscardPile
+
+Winner: Noun
+	PlayerWithHighestScore

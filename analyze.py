@@ -87,8 +87,8 @@ class GambitParser:
 			self.maxIndent = indent
 		self.lines.append(["COMMENT", indent, comment])
 
-	def addDefinitionLine(self, cost, keyword, type, parent, comment):
-		self.lines.append(["DEF", cost, keyword, type, parent, comment])
+	def addDefinitionLine(self, cost, keyword, types, parent, comment):
+		self.lines.append(["DEF", cost, keyword, types, parent, comment])
 		
 	def addConstraintLine(self, cost, indent, line, comment):
 		if indent > self.maxIndent:
@@ -118,23 +118,30 @@ class GambitParser:
 
 	def addDefinition(self, keyword, type, comment):
 		parent = None
-		m = re.match("(" + KEYWORD + ")\s+of\s+(" + KEYWORD + ")", type)
-		if m:
-			type = m.group(1)
-			parent = m.group(2)
-			info = ["LOCAL", type, parent]
-			if not parent in self.vocab:
-				errorLine(self.originalLine, "Unknown parent: {0:s}".format(parent))
+		info = None
+		types = [type]
+		if type.find(',') != -1:
+			types = [x.strip() for x in type.split(',')]
 		else:
-			info = ["LOCAL", type]
-		if not type in self.vocab:
-			errorLine(self.originalLine, "Unknown term: {0:s}".format(type))
+			m = re.match("(" + KEYWORD + ")\s+of\s+(" + KEYWORD + ")", type)
+			if m:
+				types = [ m.group(1) ]
+				parent = m.group(2)
+				info = ["LOCAL", types, parent]
+				if not parent in self.vocab:
+					errorLine(self.originalLine, "Unknown parent: {0:s}".format(parent))
+		for t in types:
+			if not t in self.vocab:
+				errorLine(self.originalLine, "Unknown term: {0:s}".format(t))
+		
+		if not info:
+			info = ["LOCAL", types]
 		self.vocab[keyword] = info
 		
 		# Mapping from plural to canonical form.
 		self.vocabPlural[keyword+"s"] = keyword
 		
-		self.addDefinitionLine(1, keyword, type, parent, comment)
+		self.addDefinitionLine(1, keyword, types, parent, comment)
 
 	def addConstraint(self, line, comment):
 		indent = self.calcIndent(line)
@@ -180,6 +187,7 @@ class GambitParser:
 
 				# NEW_TYPE: TYPE
 				# NEW_ATTRIBUTE: Attribute of TYPE
+				# NEW_TYPE: TYPE1, TYPE2
 				m = re.match("(" + KEYWORD + "):\s*(.*)", line)
 				if m:
 					keyword = m.group(1)
@@ -245,10 +253,16 @@ class GambitParser:
 					r[1] = 0
 				if line in self.freeActions:
 					r[1] = 0
-				# Handle special case like: Discard it
+
+				# Handle special cases with Vocab
 				words = line.split()
-				if len(words) == 2 and words[0] in self.vocab and words[1] == "it":
-					r[1] = 0					
+				if len(words) == 2 and words[0] in self.vocab:
+					# Handle: "Discard it"
+					if words[1] == "it":
+						r[1] = 0
+					# Handle: "Discard x2"
+					if re.match('x\d+$', words[1]):
+						r[1] = 0
 			elif not type in ['COMMENT', 'SECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in updateCosts: {0:s}".format(type))
 
@@ -287,9 +301,10 @@ class GambitParser:
 		for r in self.lines:
 			type = r[0]
 			if type == "DEF":
-				(type, cost, keyword, type, parent, comment) = r
+				(type, cost, keyword, types, parent, comment) = r
 				currDef = keyword
-				self.addRef(type, currDef)
+				for t in types:
+					self.addRef(t, currDef)
 				if parent:
 					self.addRef(parent, currDef)
 				self.extractReference(comment, currDef)
@@ -344,13 +359,14 @@ class GambitParser:
 				row += self.calcTableRowDescColumn(indent, line, comment)
 				row += '</tr>\n'
 			elif type == "DEF":
-				(type, cost, keyword, type, parent, comment) = r
+				(type, cost, keyword, types, parent, comment) = r
 				row = '<tr>'
 				row += self.calcTableRowCostColumn(cost)
 				defn = self.calcDefinition(keyword)
-				fulltype = type
 				if parent != None:
-					fulltype += ' of {0:s}'.format(parent)
+					fulltype = '{0:s} of {1:s}'.format(types[0], parent)
+				else:
+					fulltype = ', '.join(types)
 				row += self.calcTableRowDescColumn(0, fulltype, comment, "{0:s}: ".format(defn))
 				row += '</tr>\n'
 			elif type == "CONSTRAINT":
@@ -588,7 +604,8 @@ def main():
 			verbose = True
 
 	processAll("src")
-	#processOne("src/welcome-to-the-dungeon.gm")
+	#processOne("src/dominion-first.gm")
+	#processOne("src/dominion-base.gm")
 
 if __name__ == '__main__':
 	main()

@@ -1,0 +1,130 @@
+// NAME: Dominion
+// Rest of the Base Set (after)
+
+#include common/Game
+#include common/CardGame
+#include DominionFirst
+
+// SECTION: Vocabulary
+
+CurseCard: BaseCard
+	// Type = Curse
+Curse: CurseCard
+	// Value = -1 VPs
+
+// SECTION: Setup
+
+AdditionalSetup: Verb			
+	Adjust card counts for CurseCards (Curse):
+		* 2p: 10x
+		* 3p: 20x
+		* 4p: 30x
+
+ChooseKingdomCards: Verb
+	Choose a random set of 10 KingdomCards
+
+// SECTION: Gameplay					
+
+GainCardToDeck: Verb
+	Move card from Supply to top of your PlayerDeck
+
+RevealAndAddToDeck: Verb
+	Reveal a Card from your Hand
+	Add Card to top of your Deck
+						
+TrashTreasure: Verb
+	Reveal the top Card of your Deck
+	If revealed Card is non-Copper TreasureCard:
+		Trash it
+	Otherwise:
+		Discard it
+
+// SECTION: Cards
+
+Artisan: ActionCard
+	GainCard costing up to 5
+	Put a Card from your Hand onto your Deck
+
+Bandit: ActionCard, AttackCard
+	GainCard Gold
+	Each other player:
+		TrashTreasure 2x
+
+Bureaucrat: ActionCard, AttackCard
+	GainCardToDeck Silver
+	Each other player:
+		Choose:
+			RevealAndAddToDeck a VictoryCard
+			Reveal entire Hand with no VictoryCards
+
+Chapel: ActionCard
+	TrashFromHand up to 4 cards
+
+CouncilRoom: ActionCard
+	DrawCard x4
+	GainBuy
+	Each other player:
+		DrawCard
+
+Festival: ActionCard
+	GainAction x2
+	GainBuy
+	GainCoin x2
+
+Gardens: VictoryCard
+	For every 10 cards you have (round down):
+		GainVP (at end of game)
+
+Harbinger: ActionCard
+	DrawCard
+	GainAction
+	Look through your DiscardPile
+	You may put a card from it onto your Deck
+
+Laboratory: ActionCard
+	DrawCard x2
+	GainAction
+
+Library: ActionCard
+	Repeat until you have 7 Cards in Hand:
+		DrawCard
+		If Card is ActionCard:
+			You may set this Card aside
+	Discard all Cards that were set aside
+	If you need to Shuffle your PlayerDeck during this action:
+		Do not include the Cards that were set aside
+
+Moneylender: ActionCard
+	You may TrashFromHand a Copper
+	If you do:
+		GainCoin x3
+
+Poacher: ActionCard
+	DrawCard
+	GainAction
+	GainCoin
+	For each empty Supply pile:
+		Discard
+
+Sentry: ActionCard
+	DrawCard
+	GainAction
+	Look at the top 2 cards of your Deck
+	For each card, choose one:
+		Trash it
+		Discard it
+		Keep it aside
+	Place cards kept aside back on Deck in any order
+
+ThroneRoom: ActionCard
+	You may play an ActionCard from your Hand twice
+
+Vassal: ActionCard
+	GainCoin x2
+	Discard top card of your Deck
+	If it's an ActionCard:
+		You may choose to play it
+
+Witch: ActionCard, AttackCard
+	Each other player:
+		GainCard Curse
