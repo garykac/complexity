@@ -12,6 +12,6 @@ PlaceBoard: Verb
 	Place board on table
 
 ChoosePlayerComponents: Verb
-	Choose one of the available Players
-	Take all the components for that Player
-
+	For each Player:
+		Choose one of the available Players
+		Take all the components for that Player

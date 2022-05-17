@@ -3,6 +3,7 @@
 // Only the 32 dark squares are used in the game.
 
 // Players: 2
+// Time: 30m
 
 #include common/Game
 #include common/Boardgame

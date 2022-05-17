@@ -2,6 +2,7 @@
 // These rules assume that you are playing with a physical board and pieces.
 
 // Players: 2
+// Time: 1m
 
 #include common/Game
 #include common/Boardgame
@@ -37,7 +38,7 @@ PlayGame: Verb
 		End the game as tie
 
 CheckWin: Verb
-	If you have 3 of your pieces in a row (horizontally, vertically or diagonally):
+	If you have 3 of your Pieces in a row (horizontally, vertically or diagonally):
 		You win
 
 // SECTION: Endgame

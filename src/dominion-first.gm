@@ -1,6 +1,11 @@
 // NAME: Dominion
 // Just the rules necessary for the first game with the 10 suggester starter cards.
 
+// Year: 2008
+// Designer: Donald X. Vaccarino
+// Players: 2-4
+// Time: 30m
+
 #include common/Game
 #include common/CardGame
 
@@ -79,7 +84,7 @@ Setup: Verb
 ChooseKingdomCards: Verb
 	Use standard set of 10 for starter game
 
-// SECTION: Gameplay					
+// SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until GameEnd:
@@ -210,7 +215,7 @@ Workshop: ActionCard
 	GainCard costing up to 4
 
 // SECTION: Constraints
-								
+
 Reaction: Constraint
 	When another player plays an AttackCard:
 		You may Reveal a ReactionCard to ignore the attack

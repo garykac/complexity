@@ -1,6 +1,11 @@
 // NAME: Dominion
 // Rest of the Base Set (after)
 
+// Year: 2008
+// Designer: Donald X. Vaccarino
+// Players: 2-4
+// Time: 30m
+
 #include common/Game
 #include common/CardGame
 #include DominionFirst
