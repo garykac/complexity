@@ -1,0 +1,801 @@
+// NAME: Leaving Earth
+
+// Year: 2015
+// Designer: Joseph Fatula
+// Players: 1-5
+// Time: 60-180m
+
+#include common/Game
+#include common/Boardgame
+#include common/CardGame
+
+// SECTION: Vocabulary
+
+Money: Noun
+
+D8: Noun
+TimeToken: Token
+
+Agency|Agencies: Noun
+AgencyCard: Card
+
+// AgencyCards:
+// CNES Agency
+// ISAS Agency
+// NASA Agenc
+// OKB-1 Agency
+// SAC Agency
+
+Advancement: Card
+NumOutcomes: Attribute of Advancement
+	// Number of OutcomeCards added
+OutcomeCondition: Attribute of Advancement
+	// Condition when to test the outcome
+SuccessResult: Attribute of Advancement
+MinorFailureResult: Attribute of Advancement
+MajorFailureResult: Attribute of Advancement
+
+RocketAdvancement: Advancement
+
+// RocketAdvancements:
+// Atlas Rockets
+// Juno Rockets
+// Saturn Rockets
+// Soyuz Rockets
+
+IonThrustersAdvancement: Advancement
+LandingAdvancement: Advancement
+LifeSupportAdvancement: Advancement
+ReEntryAdvancement: Advancement
+RendezvousAdvancement: Advancement
+SurveyingAdvancement: Advancement
+
+Outcome: Card
+Success: Outcome
+	// $10: Remove after effects
+MinorFailure: Outcome
+	// $5: Remove after effects
+MajorFailure: Outcome
+	// $5: Remove after effects
+OutcomeDeck: Noun
+	// Deck of Outcomes
+OutcomeDiscardPile: Noun
+
+Calendar: Board
+Year: Part of Calendar
+	// Start; Years 1956 - 1965; Flip; Years 1966 - 1976; End
+CalendarMarker: Token
+							
+SpacecraftToken: Token
+SpacecraftCard: Card
+Storage: Attribute of SpacecraftCard
+	// Place Component Cards and Time Tokens here
+
+// SpacecraftCards
+// CNES Spacecraft
+// ISAS Spacecraft
+// NASA Spacecraft
+// OKB-1 Spacecraft
+// SAC Spacecraft
+
+Component: Card			
+Name: Attribute of Component		
+Mass: Attribute of Component		// Optional. If missing, Mass = 0
+Cost: Attribute of Component		// Optional. If missing, cannot be purchased
+Requirement: Attribute of Component	// Optional
+
+Warehouse: Noun
+	// Collection of Components available on Earth for Assembly
+
+Supplies: Component
+
+// Supplies:
+// Supplies 1x - Mass: 1; Cost: $1; Req. Life Support
+// Supplies 5x - Mass: 1; Cost: $1; Req. Life Support; Equivalent to five 1x Supplies
+
+Sample: Component
+// Ceres Sample - Mass: 1
+// Mars Sample - Mass: 1
+// Moon Sample - Mass: 1
+// Phobos Sample - Mass: 1
+// Venus Sample - Mass: 1
+
+DamageableComponent: Component
+	// A Component that can be damaged
+Status: Attribute of DamageableComponent
+	// Normal, Damaged/Incapacitated
+Damaged: Status
+Incapacitated: Status
+
+Probe: DamageableComponent
+
+Capsule: DamageableComponent			
+Capacity: Attribute of Capsule
+	// Max number of Astronauts
+RadiationEffect: Attribute of Capsule
+	// Protection from SolarRadiation (default 0)
+AtmosphericEntryEffect: Attribute of Capsule
+	// Burn Up; Draw from Reentry
+BurnUp: AtmosphericEntryEffect
+DrawFromReentry: AtmosphericEntryEffect
+
+// Capsules:
+// Vostok Capsule - Mass: 2; Cost: $2; Capacity: 1; Atmospheric Entry: Draw from Reentry; Req: Reentry
+// Eagle Capsule - Mass: 1; Cost: $4; Capacity: 2; Atmospheric Entry: Burn Up; Req: Landing
+// Apollo Capsule - Mass: 3; Cost: $4; Capacity: 3; Atmospheric Entry: Draw from Reentry; Req: Reentry
+// Aldrin Capsule - Mass: 3; Cost: $4; Capacity: 8; Radiation: -1; Atmospheric Entry: Burn Up; Req: Life Support
+
+Astronaut: DamageableComponent
+Skills: Attribute of Astronaut		
+PilotAstronaut: Astronaut
+	// Skills: "Landing +1; Rendezvous +1"
+MechanicAstronaut: Astronaut
+	// Skills: "Life Support +1; Supply: Repair"
+DoctorAstronaut: Astronaut
+	// Skills: "Heal all astronauts"
+
+ThrustGenerator: DamageableComponent
+Thrust: Attribute of ThrustGenerator
+							
+Rocket: ThrustGenerator
+
+// Rockets:
+// Atlas - Mass: 4; Cost: $5; Thrust: 27; Discard; Req: Atlas
+// Juno - Mass: 1; Cost: $1; Thrust: 4; Discard; Req: Juno
+// Saturn - Mass: 20; Cost: $15; Thrust: 200; Discard; Req: Saturn
+// Soyuz - Mass: 9; Cost: $8; Thrust: 80; Discard; Req: Soyuz
+
+IonThruster: ThrustGenerator
+// Ion - Mass: 1; Cost $10; Thrust: 5; Req: Ion Thrusters
+
+Location: Card
+Name: Attribute of Location
+Maneuver: Attribute of Location
+	// Set of connection between LocationCards
+TargetLocation: Attribute of Maneuver
+	// Destination if the Maneuver is successful
+Difficulty: Attribute of Maneuver
+	// Difficulty = "!" for Automatic Maneuvers
+Hazards: Attribute of Maneuver
+	// Ordered list of Hazard Icons
+HazardIcon: Noun
+HourglassIcon: HazardIcon	// Indicates a multi-year maneuver
+RadiationIcon: HazardIcon
+CloudIcon: HazardIcon	// Atmospheric Entry
+LanderIcon: HazardIcon	// Landing
+
+ExplorationHazardIcon: HazardIcon
+
+// ExplorationHazardIcons:
+// MoonIcon
+// MarsIcon
+// PhobosIcon
+// VenusIcon
+// CeresIcon
+// SuborbitalFlightIcon
+
+OptionalHazard: Attribute of HazardIcon
+	// Parentheses around the icon
+
+Space: Location
+	Any Location other than Earth
+Lost: Location
+
+DiscoveryIcon: Noun
+	// Revealed when Location is explored
+Intensity: Attribute of DiscoveryIcon
+AlienLife: DiscoveryIcon
+AlienTechnology: DiscoveryIcon
+PlentifulSupplies: DiscoveryIcon
+Radiation: DiscoveryIcon
+	// SolarRadiation; Intensity 0 - 2
+Sickness: DiscoveryIcon
+	// SuborbitalSpace; Intensity 1 or 3
+SpacecraftDestroyed: DiscoveryIcon
+ValuableMinerals: DiscoveryIcon
+	// Sell on Earth to get Money at start of Year
+
+UnderstoodLocation: Location
+	// A place with a single Location card - Nothing to explore
+Earth: UnderstoodLocation
+
+// UnderstoodLocations:
+// Earth Orbit
+// Lunar Fly-by
+// Lunar Orbit
+// Inner Planets Transfer
+// Mars Fly-by
+// Mars Orbit
+// Venus Fly-by
+// Venus Orbit
+
+ExplorableLocation: Location
+	// A place with multiple possible Location cards
+UnexploredSide: Attribute of ExplorableLocation
+ExplorableSide: Attribute of ExplorableLocation
+
+// ExplorableLocations:
+// Moon
+// Mars
+// Phobos
+// Venus
+// Ceres
+
+SuborbitalSpace: ExplorableLocation
+SolarRadiation: ExplorableLocation
+RadiationLevel: Attribute of SolarRadiation
+
+Mission: Card
+Difficulty: Attribute of Mission
+Easy: Difficulty
+Medium: Difficulty
+Hard: Difficulty
+VP: Attribute of Mission
+	// Ranging from 1 - 40
+MissionLocation: Attribute of Mission
+
+ActiveMissions: Noun
+	Set of incomplete missions that the Agencies are trying to complete
+
+ProbeMission: Mission
+	// "Working Probe/Capsule in X"
+// Sounding Rocket - Easy, 1VP, "Working Probe/Capsule in Space"
+// Artificial Satellite - Easy, 2VP, "Working Probe/Capsule in Earth Orbit"
+// Lunar Lander - Medium, 6VP, "Working Probe/Capsule on the Moon"
+// Mars Lander - Medium, 7VP, "Working Probe/Capsule on Mars"
+// Ceres Lander - Medium, 8VP, "Working Probe/Capsule on Ceres"
+// Venus Lander - Medium, 11VP, "Working Probe/Capsule on Venus"
+							
+SurveyMission: Mission
+	// "Reveal X Location"
+// Lunar Survey - Easy, 4VP, "Reveal Moon Location"
+// Mars Survey - Easy, 5VP, "Reveal Mars Location"
+// Venus Survey - Medium, 6VP, "Reveal Venus Location"
+
+SampleReturnMission: Mission
+	// "X Sample on Earth"
+// Lunar Sample Return - Medium, 10VP, "Moon Sample on Earth"
+// Phobos Sample Return - Medium, 12VP, "Phobos Sample on Earth"
+// Ceres Sample Return - Hard, 14VP, "Ceres Sample on Earth"
+// Mars Sample Return - Hard, 16VP, "Mars Sample on Earth"
+// Venus Sample Return - Hard, 24VP, "Venus Sample on Earth"
+
+ExtrateerrestrialLifeMission: Mission
+	// "Sample of Extraterrestrial Life Brought to Earth"
+// Extraterrestrial Life - Hard, 40VP, "Sample of Extraterrestrial Life Brought to Earth"
+
+StartOfYearMission: Mission
+	A Mission that is completed at the start of a Year
+
+MannedSpaceFlightMission: StartOfYearMission
+	// "Man to X and Back" or "Man in X at Start of Year"
+// Man in Space - Easy, 2VP, "Man to Space and Back"
+// Man in Orbit - Easy, 4VP, "Man to Earth Orbit and Back"
+// Man on the Moon - Medium, 12VP, "Man on the Moon and Back"
+// Man on Mars - Hard, 24VP, "Man on Mars and Back"
+// Man on Venus - Hard, 32VP, "Man on Venus and Back"
+
+SpaceStationMission: StartOfYearMission
+	// "Man on X at Start of Year"
+// Space Station - Medium, 6VP, "Man in Space at Start of Year"
+// Lunar Station - Hard, 15VP, "Man on Moon at Start of Year"
+// Mars Station - Hard, 20VP, "Man on Mars at Start of Year"
+// Venus Station - Hard, 27VP, "Man on Venus at Start of Year"
+
+// SECTION: Setup
+
+Setup: Verb
+	ChooseAgency
+	SetupMissions
+	BuildSolarSystem
+	ArrangeComponents
+	SetupOutcomes
+	SetupCalendar
+
+ChooseAgency: Verb
+	ChoosePlayerComponents
+	// Choose an Agency
+	// Take corresponding AgencyCard
+	// Take Agency's 4 SpacecraftCards and matching SpacecraftTokens
+
+SetupMissions: Verb
+	Separate the Missions by level (Easy Medium Hard)
+	Shuffle
+	SelectMissions
+	Reveal ActiveMissions and place on table
+	Return remaining Mission Cards to Box
+
+SelectMissions: Verb
+	Draw Missions based on desired challenge to create the ActiveMissions:
+		* Easy: 5 Easy
+		* Normal: 4 Easy, 2 Medium
+		* Hard: 3 Easy, 3 Medium, 2 Hard
+		* Very hard: 1 Easy, 4 Medium, 4 Hard
+
+BuildSolarSystem: Verb
+	For each UnderstoodLocation:
+		AddLocationToMap
+	For each ExplorableLocation:
+		PlaceExplorableLocation
+
+PlaceExplorableLocation: Verb
+	Gather all copies of this ExplorableLocation
+	Stack them so the UnexploredSide is up
+	Shuffle
+	Draw one card without looking at the ExplorableSide
+	AddLocationToMap
+	Return remaining copies of this Location to the Box
+
+AddLocationToMap: Verb
+	Place card as shown in the Rulebook diagram
+
+ArrangeComponents: Verb
+	Arrange the following components into stacks by type:
+		Components
+		Advancements
+		TimeTokens
+		Money
+
+SetupOutcomes: Verb
+	Shuffle Outcomes to create OutcomeDeck
+	Leave space next to deck for OutcomeDiscardPile
+
+SetupCalendar: Verb
+	Place Calendar on table
+	Place CalendarMarker on "Start"
+	UpdateCalendar
+
+// SECTION: Gameplay
+
+Gameplay: Verb
+	Repeat until GameEnd:
+		Funding
+		StartOfYear
+		AllAgencyTurns
+		EndOfYear
+
+GameEnd: Condition
+	If any of:
+		CalendarMarker is on "End"
+		An Agency has enough points that no other Agency can catch up
+		ActiveMissions is empty
+
+Funding: Verb
+	For each Agency:
+		Return all unspent money
+		Take $25
+
+StartOfYear: Verb
+	For each StartOfYearMission in the ActiveMissions, ordered by Mission VP from lowest to highest:
+		If Mission completed by a single Agency:
+			AwardMissionComplete to that Agency
+		Otherwise:
+			AwardMissionComplete to the Agency with least VP
+			If tie for least VP, then award randomly between those Agencies
+
+AwardMissionComplete: Verb
+	Remove Mission from ActiveMissions and give it to the Agency that completed it
+	All other Agencies gain $10
+
+AllAgencyTurns: Verb
+	Repeat until all Agencies Pass, starting with Agency with fewest VPs:
+		AgencyTurn
+		AutomaticManeuvers
+		NextPlayerClockwise
+
+EndOfYear: Verb
+	EarthRepair
+	CheckSpaceAstronauts
+	UpdateCalendar
+	RemoveTimeTokens
+
+EarthRepair: Verb
+	For each DamageableComponent on Earth that is Damaged/Incapacitated:
+		Turn the card face-up
+
+CheckSpaceAstronauts: Verb
+	For each Astronaut in Space:
+		If the Astronaut's Status is Damaged/Incapacitated:
+			KillAstronaut
+	If there are multiple Capsules on a SpacecraftCard:
+		Rearrange the Astronauts in the Capsules
+	For each Capsule in Space:
+		CheckCapsuleLifeSupport
+		FeedAstronautsInCapsule
+
+CheckCapsuleLifeSupport: Verb
+	If Capsule is Damaged
+		KillEveryoneInCapsule
+	If Agency doesn't have LifeSupportAdvancement:
+		KillEveryoneInCapsule
+	DrawOutcome from LifeSupportAdvancement
+	If a MechanicAstronaut is present on the SpacecraftCard:
+		Change MinorFailure to Success
+	If drawn Outcome is not Success:
+		KillEveryoneInCapsule
+	KeepOrRemoveOutcomeCard
+							
+FeedAstronautsInCapsule: Verb
+	Food needed = number of Astronauts in Capsule divided by 5 (round up)
+	Discard Supplies from SpacecraftCard's Storage equal to food needed
+	If not enough Supplies:
+		Choose which Astronauts get fed
+		For each unfed Astronaut in Capsule:
+			KillAstronaut
+
+UpdateCalendar: Verb
+	Move CalendarMarker to next year on Calendar
+	If CalendarMarker is on "Flip":
+		Flip Calendar over and start on new side in 1966
+
+RemoveTimeTokens: Verb
+	For each SpacecraftCard with a TimeToken:
+		Remove one TimeToken
+		If no more TimeTokens on the card:
+			DealWithEntryHazards
+
+AutomaticManeuvers: Verb
+	For each SpacecraftToken in Space that doesn't have TimeTokens:
+		If in a Location with a Maneuver that has a Difficulty of "!":
+			AutomaticManeuver
+
+AutomaticManeuver: Verb
+	If Maneuver's TargetLocation is Lost:
+		DestroySpacecraft
+	Move SpacecraftToken to the Maneuver's TargetLocation
+
+AgencyTurn: Verb
+	Do as many actions as you wish, in any order:
+		ResearchAdvancement
+		BuyComponent
+		AssembleSpacecraft
+		DisassembleSpacecraft
+		PerformManeuver
+		DockSpacecraft
+		SeparateSpacecraft
+		FullRendezvousTest
+		SurveyConditions
+		CollectSample
+		RepairComponent
+		HealAstronaut
+		Cooperate
+		Pass
+
+ResearchAdvancement: Verb
+	Pay $10
+	AcquireAdvancement
+
+AcquireAdvancement: Verb
+	Take chosen Advancement and place in front of you
+	Draw Outcomes from the OutcomeDeck equal to the Advancement's NumOutcomes
+	Place Outcomes (facedown without looking) on the Advancement
+
+CopyAdvancement: Verb
+	Take Advancement card that matches the one being copied
+	Draw Outcomes from the OutcomeDeck equal to the number of Outcomes on the Advancement being copied
+	Place Outcomes (facedown without looking) on the Advancement
+
+BuyComponent: Verb
+	Select a Component with a Cost
+	If Component has a Requirement:
+		If you have the required Advancement:
+			Pay Cost
+			Place Component in your Warehouse (in undamaged state)
+
+AssembleSpacecraft: Verb
+	Select SpacecraftCard
+	Place corresponding SpacecraftToken on Earth
+	Add any number of Components from your Warehouse (at least one)
+	If you add Astronauts:
+		The number of Astronauts must not exceed the Capsule's Capacity
+
+DisassembleSpacecraft: Verb
+	If SpacecraftToken is on Earth:
+		Remove the Components and place them in your Warehouse
+		Remove SpacecraftToken and SpacecraftCard
+
+PerformManeuver: Verb
+	Select Maneuver from Location where the SpacecraftToken is located
+	If Difficulty of Maneuver = "!":
+		AutomaticManeuver
+		Exit
+	total_mass = sum of Mass of each Component on the SpacecraftCard
+	thrust_required = (total_mass) x (Maneuver's Difficulty)
+	thrust_generated = 0
+	Repeat while thrust_generated < thrust_required:
+		Choose ThrustGenerator from SpacecraftCard
+		If GenerateThrustForManeuver is successful:
+			Add thrust to thrust_generated
+	If you can't generate enough thrust:
+		The Maneuver fails and the SpacecraftToken stays in the same location
+	DealWithHazards
+	Move SpacecraftToken to Maneuver's TargetLocation
+
+GenerateThrustForManeuver: Verb
+	If Rocket:
+		Select based on DrawOutcome for the Advancement corresponding to the Rocket:
+			Success
+			MinorFailure: DamageRocket
+			MajorFailure: DestroySpacecraft
+		Discard Rocket
+	If IonThruster:
+		If Maneuver's Hazards does not have HourglassIcon:
+			You may not use IonThruster
+		Select based on DrawOutcome for the IonThrustersAdvancement:
+			Success: add TimeToken to SpacecraftToken
+			MinorFailure: DamageRocket
+			MajorFailure: DamageRocket
+
+DealWithHazards: Verb
+	If Maneuver's Hazards contains RadiationIcon:
+		IrradiateAstronauts
+	If Maneuver's Hazards contains one or more HourglassIcons:
+		MultiYearManeuver
+	If SpacecraftToken does not have any TimeTokens on it:
+		DealWithEntryHazards
+
+IrradiateAstronauts: Verb
+	ExploreLocation SolarRadiation
+	For each Astronaut on the SpacecraftCard:
+		solar_rad_protection = the RadiationEffect of the Capsule that contains this Astronaut (usually 0)
+		solar_rad = (SolarRadiation's RadiationLevel) - solar_rad_protection
+		total_radiation = (number of HourglassIcons in Maneuver) x solar_rad
+		Roll D8
+		If roll <= total_radiation:
+			IncapacitateAstronaut
+
+MultiYearManeuver: Verb
+	min_time_tokens = number of HourglassIcons in Maneuver's Hazards
+	Don't count HourglassIcons that are within parentheses
+	Repeat until number of TimeTokens on the SpacecraftToken >= min_time_tokens:
+		Place TimeToken on the SpacecraftToken
+
+DealWithEntryHazards: Verb
+	If Maneuver's Hazards contains CloudIcon:
+		AtmosphericEntry
+	If Maneuver's Hazards contains LanderIcon:
+		PerformLanding
+	If Maneuver's Hazards contains ExplorationHazardIcon:
+		ExploreLocation corresponding to the ExplorationHazardIcon
+
+AtmosphericEntry: Verb
+	Assign Astronauts to Capsules on SpacecraftCard
+	For each Capsule:
+		If Agency doesn't have ReEntryAdvancement:
+			DestroyCapsule
+		If Capsule is Damaged:
+			DestroyCapsule
+		If Capsule's AtmosphericEntryEffect is BurnUp:
+			DestroyCapsule
+		Select based on DrawOutcome for ReEntryAdvancement:
+			Success
+			MinorFailure: DamageCapsule
+			MajorFailure: DestroyCapsule
+		KeepOrRemoveOutcomeCard
+
+PerformLanding: Verb
+	If LanderIcon is in parentheses:
+		Landing is not required, but you may attempt a landing if you wish
+	If Agency doesn't have LandingAdvancement:
+		DestroySpacecraft
+	Select based on DrawOutcome for LandingAdvancement:
+		Success
+		MinorFailure: DamageSelectedComponent
+		MajorFailure: DestroySpacecraft
+	AdjustOutcomeForPilot
+	KeepOrRemoveOutcomeCard
+
+ExploreLocation: Verb
+	If Location has not already been revealed:
+		Look at the Location card
+		Choose one:
+			Reveal the Location so everyone can see
+			DestroySpacecraft
+	For each DiscoveryIcon in Location:
+		HandleNewDiscovery
+
+HandleNewDiscovery: Verb
+	If DiscoveryIcon is Radiation:
+		Set RadiationLevel = DiscoveryIcon's Intensity
+	If DiscoveryIcon is SpacecraftDestroyed:
+		DestroySpacecraft
+	If SpacecraftCard has an Astronaut:
+		If DiscoveryIcon is Sickness:
+			CheckSickness
+
+CheckSickness: Verb
+	sickness_level = DiscoveryIcon's Intensity
+	For each Astronaut on SpacecraftCard:
+		Roll D8
+		If value <= sickness_level:
+			IncapacitateAstronaut
+
+DockSpacecraft: Verb
+	VerifyRendezvousRequirements
+	Choose 2 SpacecraftTokens (with no TimeTokens) in the same Location
+	Select based on DrawOutcome for RendezvousAdvancement:
+		Success: DockingSuccess
+		MinorFailure: DamageSelectedComponent
+		MajorFailure: DamageSelectedComponent
+	AdjustOutcomeForPilot
+	KeepOrRemoveOutcomeCard
+
+VerifyRendezvousRequirements: Verb
+	Must have RendezvousAdvancement
+	Docking/Separation is only allowed in Space (except for SuborbitalSpace)
+
+AdjustOutcomeForPilot: Verb
+	If there is a PilotAstronaut on the SpacecraftCard:
+		Improve Outcome so that MinorFailure becomes Success and MajorFailure becomes MinorFailure
+
+DockingSuccess: Verb
+	Move all Components from one SpacecraftCard to the other
+	Remove extra SpacecraftToken from Location
+
+SeparateSpacecraft: Verb
+	VerifyRendezvousRequirements
+	Select based on DrawOutcome for RendezvousAdvancement:
+		Success: SeparationSuccess
+		MinorFailure: DamageSelectedComponent
+		MajorFailure: DamageSelectedComponent
+	AdjustOutcomeForPilot
+	KeepOrRemoveOutcomeCard
+
+SeparationSuccess: Verb
+	Add new SpacecraftToken to Location
+	Take corresponding SpacecraftCard
+	Move whichever Components you wish to new SpacecraftCard
+	! The Capsule Capacity on each SpacecraftCard must be suffient for the number of Astronauts it contains
+
+FullRendezvousTest: Verb
+	Repeat until failure or there are no more Outcome Cards to draw:
+		DrawOutcome for RendezvousAdvancement
+		If you want to discard this Outcome Card:
+			Pay CostToDiscardOutcomeCard to discard the Outcome Card
+	Shuffle the Outcomes that you drew (but did not discard) back into stack on the Advancement
+
+SurveyConditions: Verb
+	You must have the SurveyingAdvancement to survey
+	If you have all of the following:
+		A SpacecraftCard that contains a Probe or Capsule
+		The corresponding SpacecraftToken is in a Location with a Maneuver that has an ExplorationHazardIcon
+	Then:
+		SurveyLocation on the Maneuver's TargetLocation
+	! You may not survey SuborbitalSpace
+
+SurveyLocation: Verb
+	DrawOutcome for SurveyingAdvancement
+	KeepOrRemoveOutcomeCard
+	If Outcome is Success:
+		If Location has not already been revealed:
+			Look at the Location card
+			Optionally, Reveal the Location so everyone can see
+
+CollectSample: Verb
+	If you have a SpacecraftToken in an ExplorableLocation:
+		If you have any of the following (not Damaged or Incapacitated):
+			Probe
+			Capsule
+			Astronaut
+		Then:
+			TakeSample
+
+TakeSample: Verb
+	If Location has a DiscoveryIcon:
+		Select based on DiscoveryIcon:
+			AlienLife: take back to Earth to complete Mission
+			AlienTechnology: AlienAdvancement
+			PlentifulSupplies: take Supplies for free
+			ValuableMinerals: minerals can be traded for Money at start of year
+	Move a Sample card corresponding to your Location onto your SpacecraftCard
+
+AlienAdvancement: Verb
+	Choose one:
+		Gain a new Advancement card with all Outcomes removed
+		Remove all Outcomes from one of your Advancement cards
+
+RepairComponent: Verb
+	If a SpacecraftCard has a MechanicAstronaut
+		AND SpacecraftToken is not in SuborbitalSpace:
+	Then:
+		Repair all non-Astronaut DamageableComponents
+
+HealAstronaut: Verb
+	If a SpacecraftCard has a DoctorAstronaut:
+		Heal all Astronauts (except themself)
+
+Cooperate: Verb
+	You may trade Components, Money, or Advancement research with other Agencies
+	If you share research or transfer a Component that requires an Advancement:
+		CopyAdvancement
+
+DamageComponent: Verb
+	Flip over Component card to indicate its Status is Damaged/Incapacitated
+
+DamageSelectedComponent: Verb
+	Choose a Component on the SpacecraftCard
+	DamageComponent it
+
+DamageCapsule: Verb
+	DamageComponent the Capsule
+
+DamageRocket: Verb
+	DamageComponent the Rocket
+
+DestroyCapsule: Verb
+	KillEveryoneInCapsule
+	Remove Capsule from SpacecraftCard and Discard
+
+DestroySpacecraft: Verb
+	For each Capsule on SpacecraftCard:
+		DestroyCapsule
+	Discard all remaining Components
+	Discard SpacecraftCard and SpacecraftToken
+
+IncapacitateAstronaut: Verb
+	Flip over Astronaut card to indicate its Status is Incapacitated
+
+KillAstronaut: Verb
+	Tuck Astronaut under the AgencyCard
+
+KillEveryoneInCapsule: Verb
+	For each Astronaut in Capsule:
+		KillAstronaut
+
+DrawOutcome: Verb
+	If there are no Outcome Cards on the Advancement:
+		Success
+	Randomly choose one of the Outcome Cards
+
+KeepOrRemoveOutcomeCard: Verb
+	Choose one:
+		Pay CostToDiscardOutcomeCard to discard the Outcome Card
+		Shuffle Outcome Card back into stack on the Advancement
+	! Skip if no Outcome Card was drawn
+
+CostToDiscardOutcomeCard: Verb
+	If Outcome is Success:
+		If this is the only Outcome Card on the Advancement:
+			The cost to Discard = $0
+		Otherwise:
+			The cost to Discard = $10
+	Otherwise:
+		The cost to Discard = $5
+	If an Astronaut's Skills were used to improve a MinorFailure to a Success:
+		The cost to Discard is still $5
+
+// SECTION: Constraints
+
+NotComponentLimited: Constraint
+	If any component runs out, you may use substitute components
+
+ImpossibleMissions: Constraint
+	If all of:
+		The Location associated with a Mission has been revealed
+		It is no longer possible to complete the Mission
+	Then:
+		Remove the Mission from the game
+
+MultiYearTravel: Constraint
+	A SpacecraftToken with a TimeToken on it cannot perform any actions (unless otherwise specified)
+
+FasterManeuvers: Constraint
+	To reduce by half (rounded up) the time required for a Maneuver:
+		Double the Maneuver's Difficulty
+
+//ReshuffleOutcomes:
+//	If you run out of Outcome Cards:						Basic knowledge
+//		Reshuffle OutcomeDiscardPile into OutcomeDeck					
+
+//NoMoney:					BuyComponent		
+//	You need to have enough Money to buy items						Basic knowledge
+
+// SECTION: EndGame
+
+CalculateScore: Verb
+	Add VPs from each Mission						
+	For each dead Astronaut (tucked underneath Agency card):
+		Subtract 2 VP
+
+Winner: Noun
+	PlayerWithHighestScore
