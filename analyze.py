@@ -7,6 +7,7 @@ import re
 import sys
 
 KEYWORD = "[A-Z][A-Za-z0-9_]*"
+MULTI_KEYWORDS = "[A-Z][A-Za-z0-9\|_]*"
 TAB_SIZE = 4
 
 GM_CSS_PATH = "gm.css"
@@ -18,7 +19,9 @@ FREE_ACTIONS = [
 	"Otherwise:",
 	"If you do:",
 	"If any of:",
+	"If all of:",
 	"For each Player:",
+	"Choose one:",
 ]
 
 def error(msg):
@@ -59,6 +62,7 @@ class GambitParser:
 		self.vocab["Part"] = ["BASE"]
 		self.vocab["Condition"] = ["BASE"]
 		self.vocab["Constraint"] = ["BASE"]
+		self.vocab["Exit"] = ["BASE"]
 
 	def calcIndent(self, str):
 		m = re.match("(\t*)", str)
@@ -116,7 +120,15 @@ class GambitParser:
 				return
 		self.addCommentLine(indent, comment)
 
-	def addDefinition(self, keyword, type, comment):
+	def addDefinition(self, keywords, type, comment):
+		keyword = keywords[0]
+		if len(keywords) == 2:
+			keywordPlural = keywords[1]
+		elif keyword[-1] == 's':
+			keywordPlural = keyword
+		else:
+			keywordPlural = keyword + "s"
+
 		parent = None
 		info = None
 		types = [type]
@@ -139,7 +151,7 @@ class GambitParser:
 		self.vocab[keyword] = info
 		
 		# Mapping from plural to canonical form.
-		self.vocabPlural[keyword+"s"] = keyword
+		self.vocabPlural[keywordPlural] = keyword
 		
 		self.addDefinitionLine(1, keyword, types, parent, comment)
 
@@ -186,13 +198,15 @@ class GambitParser:
 				line = line.rstrip()
 
 				# NEW_TYPE: TYPE
+				# NEW_TYPE|PLURAL: TYPE
 				# NEW_ATTRIBUTE: Attribute of TYPE
 				# NEW_TYPE: TYPE1, TYPE2
-				m = re.match("(" + KEYWORD + "):\s*(.*)", line)
+				m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
 				if m:
 					keyword = m.group(1)
 					type = m.group(2)
-					self.addDefinition(keyword, type, comment)
+					keywords = keyword.split('|')
+					self.addDefinition(keywords, type, comment)
 					continue
 
 				if line.strip().startswith("!"):
@@ -249,23 +263,36 @@ class GambitParser:
 					r[1] = None
 			elif type in ["DESC", "CONSTRAINT"]:
 				(type, cost, indent, line, comment) = r
-				if line in self.vocab:
+				if self.isVocab(line):
 					r[1] = 0
 				if line in self.freeActions:
 					r[1] = 0
 
 				# Handle special cases with Vocab
 				words = line.split()
-				if len(words) == 2 and words[0] in self.vocab:
+				# Handle "Discard xxx"
+				if len(words) == 2 and self.isVocab(words[0]):
 					# Handle: "Discard it"
 					if words[1] == "it":
 						r[1] = 0
 					# Handle: "Discard x2"
 					if re.match('x\d+$', words[1]):
 						r[1] = 0
+				# Handle "Success:" and "Success: DrawCard"
+				if words[0][-1] == ':' and self.isVocab(words[0][0:-1]):
+					if len(words) == 1 or  self.isVocab(words[1]):
+						r[1] = 0
 			elif not type in ['COMMENT', 'SECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in updateCosts: {0:s}".format(type))
 
+	def isVocab(self, word):
+		# Normalize plural forms.
+		canonicalForm = word
+		if word in self.vocabPlural:
+			canonicalForm = self.vocabPlural[word]
+
+		return canonicalForm in self.vocab
+	
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
 	def defHasDesc(self, iDef):
@@ -330,6 +357,10 @@ class GambitParser:
 	# changes are needed both places.
 	def extractReference(self, str, currDef):
 		for word in str.split():
+			# Ignore strings (or first/last word in a string).
+			# Note: This will not skip middle words in string: "skip not not not skip"
+			if word[0] == '"' or word[-1] == '"':
+				continue
 			# Strip non-alphanumeric from beginning/end of token.
 			# Also remove contraction endings like "'s".
 			m = re.match("([^A-Za-z0-9_]*)(" + KEYWORD + ")([^A-Za-z0-9_]*.*)", word)
@@ -424,9 +455,7 @@ class GambitParser:
 			if comment != "":
 				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
 		if comment != "":
-			row += '<span class="comment">'
-			row += self.calcKeywordLinks(comment)
-			row += '</span>'
+			row += '<span class="comment">{0:s}</span>'.format(comment)
 		row += '</td>'
 		return row
 	
@@ -460,6 +489,11 @@ class GambitParser:
 				# Don't update firstWord since the next word might be capitalized.
 				continue
 				
+			# Ignore strings (or first/last word in a string).
+			# Note: This will not skip middle words in string: "skip not not not skip"
+			if word[0] == '"' or word[-1] == '"':
+				continue
+
 			prefix = ""
 			postfix = ""
 			# Strip non-alphanumeric from beginning/end of token.
@@ -481,7 +515,7 @@ class GambitParser:
 				if scope == "BASE":
 					words.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
 				elif scope == "IMPORT":
-					words.append('{0:s}<abbr title="Defined in {1:s}">{2:s}</abbr>{3:s}'
+					words.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
 							.format(prefix, info[1], word, postfix))
 					
 				else:
@@ -497,9 +531,6 @@ class GambitParser:
 			
 		return ' '.join(words)
 		
-	def calcComment(self, comment):
-		return '<span class="comment">{0:s}</span>'.format(comment)
-
 	def lookupCanonicalForm(self, word):
 		prefix = ""
 		postfix = ""
@@ -604,8 +635,7 @@ def main():
 			verbose = True
 
 	processAll("src")
-	#processOne("src/dominion-first.gm")
-	#processOne("src/dominion-base.gm")
+	#processOne("src/leaving-earth.gm")
 
 if __name__ == '__main__':
 	main()
