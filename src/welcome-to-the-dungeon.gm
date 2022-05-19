@@ -8,7 +8,7 @@
 // BGG Weight: 1.23 = 269 / 64 / 4 / 1 / 1
 
 #include common/Game
-#include common/Boardgame
+#include common/BoardGame
 #include common/CardGame
 
 // SECTION: Vocabulary

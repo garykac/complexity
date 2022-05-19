@@ -7,7 +7,7 @@
 // BGG Weight: 2.08 = 576 / 1139 / 422 / 116 / 33
 
 #include common/Game
-#include common/Boardgame
+#include common/BoardGame
 #include common/CardGame
 #include common/Dice
 
