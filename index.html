@@ -4,81 +4,36 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Boardgame Learning Complexity</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<title>Boardgame Learning Complexity</title>	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
-<style>
-html {
-	font-size: 1rem;
-	font-family: 'Noto Sans', sans;
-}
-body {
-	background-color: #dce1e3;
-	margin: auto;
-	color: #5c5f58;
-	width: 95%;
-	padding: 0;
-}
-.container {
-	width: 80%;
-	margin: auto;
-	min-width: 310px;
-	max-width: 630px;
-}
-.title {
-	display: block;
-	margin: auto;
-	text-align: center;
-	margin: 1rem 0 0.4rem 0;
-	font-weight: 700;
-	font-size: 2rem;
-}
-.list {
-	display: grid;
-	align-items: center;
-	text-align: center;
-	justify-content: center;
-	grid-template-columns: repeat(auto-fill, 150px);
-	grid-template-rows: repeat(auto-fill, 60px);
-	grid-gap: 10px;
-}
-.entry {
-	display: flex;
-	background-color: #ffffff;
-	align-items: center;
-	text-align: center;
-	justify-content: center;
-	width: 150px;
-	min-height: 60px;
-}
-.entry a:link, a:visited, a:active {
-	color: #5c5f58;
-	text-decoration: none;
-}
-.entry a:hover {
-	color: #0c0f08;
-	text-decoration: underline;
-}
-.footer {
-	display: block;
-	margin: 0.4rem 0;
-}
-</style>
+	<link rel="stylesheet" href="index.css">
 </head>
 <body>
 <div class="container">
-<div class="title">Boardgame Learning Complexity</div>
+<div class="pagetitle">Boardgame Learning Complexity</div>
+<div class="section">1-30</div>
 <div class="list">
-<div class="entry"><a href="games/checkers.html">Checkers</a></div>
-<div class="entry"><a href="games/crazy-eights-28.html">Crazy Eights<br/>(28-card)</a></div>
-<div class="entry"><a href="games/deep-sea-adventure.html">Deep Sea Adventure</a></div>
-<div class="entry"><a href="games/dominion-first.html">Dominion<br/>(starter cards)</a></div>
-<div class="entry"><a href="games/dominion-base.html">Dominion<br/>(rest of base set)</a></div>
-<div class="entry"><a href="games/leaving-earth.html">Leaving Earth</a></div>
-<div class="entry"><a href="games/regicide.html">Regicide</a></div>
-<div class="entry"><a href="games/tic-tac-toe.html">Tic Tac Toe</a></div>
-<div class="entry"><a href="games/welcome-to-the-dungeon.html">Welcome to the Dungeon</a></div>
+<div class="entry"><a href="games/tic-tac-toe.html"><span class="title">Tic Tac Toe</span><br/><span class="score">10</span></a></div>
+<div class="entry"><a href="games/checkers.html"><span class="title">Checkers</span><br/><span class="score">26</span></a></div>
+<div class="entry"><a href="games/crazy-eights-28.html"><span class="title">Crazy Eights</span><br/><span class="subtitle">28-card</span><br/><span class="score">26</span></a></div>
+</div>
+<div class="section">31-75</div>
+<div class="list">
+<div class="entry"><a href="games/welcome-to-the-dungeon.html"><span class="title">Welcome to the Dungeon</span><br/><span class="score">45</span></a></div>
+<div class="entry"><a href="games/splendor.html"><span class="title">Splendor</span><br/><span class="score">62</span></a></div>
+<div class="entry"><a href="games/deep-sea-adventure.html"><span class="title">Deep Sea Adventure</span><br/><span class="score">65</span></a></div>
+<div class="entry"><a href="games/risk.html"><span class="title">Risk</span><br/><span class="score">67</span></a></div>
+</div>
+<div class="section">76-120</div>
+<div class="list">
+<div class="entry"><a href="games/regicide.html"><span class="title">Regicide</span><br/><span class="score">80</span></a></div>
+<div class="entry"><a href="games/dominion-first.html"><span class="title">Dominion</span><br/><span class="subtitle">10 starter cards</span><br/><span class="score">81</span></a></div>
+<div class="entry"><a href="games/dominion-base.html"><span class="title">Dominion</span><br/><span class="subtitle">Rest of base set</span><br/><span class="score">(81)+43</span></a></div>
+</div>
+<div class="section">121+</div>
+<div class="list">
+<div class="entry"><a href="games/leaving-earth.html"><span class="title">Leaving Earth</span><br/><span class="score">325</span></a></div>
 </div>
 <div class="footer">&nbsp;</div>
 </div>

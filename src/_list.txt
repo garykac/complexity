@@ -1,0 +1,11 @@
+checkers;Checkers;;;26
+crazy-eights-28;Crazy Eights;28-card;;26
+deep-sea-adventure;Deep Sea Adventure;;;65
+dominion-first;Dominion;10 starter cards;;81
+dominion-base;Dominion;Rest of base set;dominion-first;43
+leaving-earth;Leaving Earth;;;325
+regicide;Regicide;;;80
+risk;Risk;;;67
+splendor;Splendor;;;62
+tic-tac-toe;Tic Tac Toe;;;10
+welcome-to-the-dungeon;Welcome to the Dungeon;;;45
