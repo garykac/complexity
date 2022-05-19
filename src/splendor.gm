@@ -121,6 +121,7 @@ PayCardCost: Verb
 	To pay the remaining Cost, use any of the following:
 		GemTokens can be used to pay for the matching Color
 		GoldTokens can be used to pay for any Color
+	// If you have enough BonusGems, you may be able to claim the Card for free
 
 ReserveCard: Verb
 	Choose one:
