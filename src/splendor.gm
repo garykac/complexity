@@ -1,0 +1,167 @@
+// NAME: Splendor
+
+// Year: 2014
+// Designer: Marc André
+// Players: 2-4
+// Time: 30m
+// BGG Weight: 1.79 = 700 / 1486 / 157 / 14 / 5
+
+#include common/Game
+#include common/Boardgame
+#include common/CardGame
+
+// SECTION: Vocabulary
+
+GemToken: Token
+Color: Attribute of GemToken
+
+// GemTokens:
+// Emerald
+// Sapphire
+// Ruby
+// Diamond
+// Onyx
+
+GoldToken: Token
+	A special Token that can be used in place of a GemToken
+
+Pile: Noun
+	A stack of Tokens
+
+DevelopmentCard: Noun
+Level: Attribute of DevelopmentCard
+DevelopmentPP: Attribute of DevelopmentCard
+	PrestigePoints earned from this DevelopmentCard
+Cost: Attribute of DevelopmentCard
+	Cost to acquire this Card
+BonusGem: Attribute of DevelopmentCard
+	Gem that this Card grants once you purchase it
+
+DevelopmentDeck: Noun
+	A stack of DevelopmentCards with the same Level
+
+NobleTile: Noun
+NoblePP: Attribute of NobleTile
+	PrestigePoints earned from this NobleTile
+VisitRequirement: Attribute of NobleTile
+
+Market: Noun
+	A collection of available DevelopmentCards
+
+InactiveArea: Noun
+	An area to store DevelopmentCards that you have reserved
+
+PrestigePoints: Noun
+	Victory points
+
+// SECTION: Setup
+
+Setup: Verb
+	SetupMarket
+	SetupNobleTiles
+	SetupTokens
+	
+SetupMarket: Verb
+	Separate DevelopmentCards by Level
+	Shuffle into 3 DevelopmentDecks
+	Arrange in a column to start 3 rows
+	For each DevelopmentDeck:
+		Reveal 4 cards into the row for this Deck
+
+SetupNobleTiles: Verb
+	Shuffle NobleTiles
+	Reveal tiles equal to the number of Players + 1
+	Place remaining (unused) NobleTiles in Box
+
+SetupTokens: Verb
+	Create a pile for each Token
+	Remove Tokens from each Pile as follows, based on Player count:
+		* 2p: remove 3
+		* 3p: remove 2
+		* 4p: remove none
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	ChooseFirstPlayer
+	Repeat until a Player has 15 or more PrestigePoints:
+		AllPlayerTurns
+
+AllPlayerTurns: Verb
+	For each Player, starting with the FirstPlayer:
+		PlayerTurn
+		CheckForNobleVisit
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	Choose one:
+		Take3DifferentGems
+		Take2SameGems
+		PurchaseCard
+		ReserveCard
+		PurchaseReservedCard
+	! If you have more than 10 Tokens at the end of your turn:
+		Return Tokens to their Piles until you have only 10
+
+Take3DifferentGems: Verb
+	Take 3 GemTokens of different Colors
+
+Take2SameGems: Verb
+	Take 2 GemTokens of the same Color
+	! You may only take 2 GemTokens of the same color if there are at least 4 available
+
+PurchaseCard: Verb
+	Take a DevelopmentCard from the Market
+	PayCardCost
+	RefillMarket
+
+PayCardCost: Verb
+	For each DevelopmentCard that you have already purchased:
+		Reduce the Cost by the BonusGem's Color
+	To pay the remaining Cost, use any of the following:
+		GemTokens can be used to pay for the matching Color
+		GoldTokens can be used to pay for any Color
+
+ReserveCard: Verb
+	Choose one:
+		Select a DevelopmentCard from the Market
+		Draw from one of the DevelopmentDecks
+	Add the chosen DevelopmentCard to your InactiveArea
+	Place a GoldToken on the newly reserved DevelopmentCard
+	RefillMarket
+	! You may not have more than 3 Cards in your InactiveArea
+	! If there aren't any GoldTokens remaining:
+		You may still reserve a Card, but you don't get a GoldToken
+	! If you Draw directly from a DevelopmentDeck:
+		You may keep the reserved DevelopmentCard hidden from other Players
+
+PurchaseReservedCard: Verb
+	Move a DevelopmentCard out of your InactiveArea
+	PayCardCost
+
+RefillMarket: Verb
+	Draw from the respective DevelopmentDeck to fill any empty spots
+
+CheckForNobleVisit: Verb
+	If you have BonusGems that match the VisitRequirement of a NobleTile:
+		Place the matching NobleTile in front of you
+	! If your BonusGems match more than one NobleTile:
+		Choose which NobleTile to take
+
+// SECTION: Constraints
+
+VisibleCards: Constraint
+	Your DevelopmentCards should be arranged so that all Players can see the BonusGems they grant
+
+// SECTION: Endgame
+
+Scoring: Verb
+	For each of your DevelopmentCards:
+		Add DevelopmentPP to your PrestigePoints
+	For each of your NobleTiles:
+		Add NoblePP to your PrestigePoints
+	
+Winner: Noun
+	Winner is the Player with the most PrestigePoints
+	! In case of a tie:
+		Player with fewest DevelopmentCards wins

@@ -1,0 +1,169 @@
+// NAME: Risk
+
+// Year: 1959
+// Designer: Albert Lamorisse
+// Players: 3-6
+// Time: 120-240m
+// BGG Weight: 2.08 = 576 / 1139 / 422 / 116 / 33
+
+#include common/Game
+#include common/Boardgame
+#include common/CardGame
+#include common/Dice
+
+// SECTION: Vocabulary
+
+RiskBoard: Board
+Territory|Territories: Part of RiskBoard
+	// 42 territories on map
+
+Continent: Part of RiskBoard
+	// A collection of Territories
+BonusArmies: Attribute of Continent
+	// Extra Armies gained if you occupy all Territories in this Continent
+
+Army|Armies: Noun
+
+RiskCard: Card
+Territory: Attribute of RiskCard
+Design: Attribute of RiskCard
+	// 3 Designs: Horseman, Cannon, FootSoldier
+
+WildCard: RiskCard
+	A card with no Territory, but will all 3 Designs present
+
+RiskDeck: Deck
+	// Deck of RiskCards
+
+MatchedSet: Noun
+	A set of 3 RiskCards that either:
+		All share the same Design
+		All have different Designs
+		Contain a WildCard (with any other 2 RiskCards)
+
+AttackerDice|AttackerDie: D6
+	// 3 red dice
+DefenderDice|DefenderDie: D6
+	// 2 white dice
+	
+// SECTION: Setup
+
+Setup: Verb
+	Shuffle the RiskCards into the RiskDeck
+	GatherArmies
+	Roll to determine first Player (highest roll)
+	InitialArmyPlacement
+
+GetherArmies: Verb
+	ChoosePlayerComponents
+	Each Player takes the following Armies, based on Player count:
+		* 3p: 35 Armies
+		* 4p: 30 Armies
+		* 5p: 25 Armies
+		* 6p: 20 Armies
+
+InitialArmyPlacement: Verb
+	Repeat until all Territories are occupied:
+		Place one Army in an unoccupied Territory
+		NextPlayerClockwise
+	Repeat until all Player's Armies have been distributed:
+		Place one Army in a Territory where you already have an Army
+		NextPlayerClockwise
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a single Player occupies all the Territories:
+		PlayerTurn
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	DeployArmies
+	AttackOpposition
+	Fortify
+
+DeployArmies: Verb
+	GainArmiesFromTerritories
+	GainArmiesFromContinents
+	GainArmiesFromCards
+	Place these Armies on any of the Territories that you occupy
+
+GainArmiesFromTerritories: Verb
+	Gain Armies equal to (number of Territories occupied by Player) / 3 (round down)
+	! You always gain at least 3 Armies, even if you have fewer than 9 Territories
+
+GainArmiesFromContinents: Verb
+	If you occupy all of the Territories in a Continent:
+		Gain Armies equal to the Continent's BonusArmies
+
+GainArmiesFromCards: Verb
+	You may trade in a MatchedSet of RiskCards from your Hand
+	If you do:
+		Gain Armies based on how many sets have been matched so far (by any Player):
+			* 1st set: 4 Armies
+			* 2nd set: 6 Armies
+			* 3rd set: 8 Armies
+			* 4tg set: 10 Armies
+			* 5th set: 12 Armies
+			* 6th set: 15 Armies
+			* 7th+ set: same as previous +5 additional Armies
+		If any of the matched cards has a Territory that matches a Territory you occupy:
+			Immediately place 2 Armies on that Territory
+	! You must trade in a match if you have 5 RiskCards in your Hand
+		
+AttackOpposition: Verb
+	Repeat until you feel like stopping:
+		AttackAdjacentTerritory
+		If all Armies have been removed from the defending Territory:
+			Move Armies from attacking Territory into defending Territory
+			Number of Armies moved must be at least equal to the number of AttackerDice used
+			CheckForPlayerElimination
+	If you have conquered at least one Territory this turn:
+		Draw from the RiskDeck into your Hand
+
+AttackAdjacentTerritory: Verb
+	Choose an attacking Territory where you have 2 or more Armies
+	Choose the defending Territory:
+		It must be an adjacent Territory occupied by another Player (the defender)
+	Choose the number of Armies partipating in the attack:
+		Up to one less than the number of Armies in the attacking Territory
+		Max 3
+	The defender chooses the number of Armies partipating in the defense:
+		Up to the number of Armies in the defending Territory
+		Max 2
+	Simultaneously:
+		You (the attacker) Roll AttackerDice equal to the number of Armies attacking
+		The defender Rolls DefenderDice equal to the number of Armies defending
+	ResolveAttack
+	! Territories connected by a dotted line are also considered to be adjacent
+	! TerritoriesMustAlwaysBeOccupied
+
+ResolveAttack: Verb
+	Repeat while there is at least one AttackerDie and one DefenderDie:
+		Compare the highest AttackerDie with the highest DefenderDie
+			If the AttackerDie is > the DefenderDie:
+				Remove 1 Army from the defender
+			Otherwise:
+				Remove 1 Army from the attacker
+		Remove these Dice from the AttackerDice/DefenderDice
+	// Note the defender win ties.
+
+CheckForPlayerElimination: Verb
+	If defending Player has no more Armies left anywhere on the Board:
+		You take all the RiskCards from the defender
+		If you have 6 or more RiskCards in your Hand:
+			Repeat until you have 4 or fewer:
+				GainArmiesFromCards
+
+Fortify: Verb
+	You may move Armies from one of your Territories into an adjacent Territory that you also occupy
+	! TerritoriesMustAlwaysBeOccupied
+
+// SECTION: Constraints
+
+TerritoriesMustAlwaysBeOccupied: Constraint
+	A Territory must always have at least one Army on it
+
+// SECTION: Endgame
+
+Winner: Noun
