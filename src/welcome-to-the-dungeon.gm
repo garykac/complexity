@@ -1,10 +1,11 @@
 // NAME: Welcome to the Dungeon
 // This covers only the first game which uses only the Warrior.
 
-// 2013
+// Year: 2013
 // Designer: Hisanori Hiraoka, Masato Uesugi
 // Players: 2-4
 // Time: 30m
+// BGG Weight: 1.23 = 269 / 64 / 4 / 1 / 1
 
 #include common/Game
 #include common/Boardgame
@@ -41,6 +42,8 @@ Effect: Attribute of EquipmentTile
 // KnightShield: HP +3
 
 SuccessCard: Noun
+	Used to track successful runs through the dungeon
+
 PlayerAid: Noun
 	// Also used to track Failures. White background on one side; red on other.
 	// White = full health; Red = half health

@@ -5,6 +5,7 @@
 // Designer: Donald X. Vaccarino
 // Players: 2-4
 // Time: 30m
+// BGG Weight: 2.35 = 406 / 2828 / 1499 / 209 / 90
 
 #include common/Game
 #include common/CardGame

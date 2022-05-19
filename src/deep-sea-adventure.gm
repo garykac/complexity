@@ -1,9 +1,10 @@
 // NAME: Deep Sea Adventure
 
-// 2014
+// Year: 2014
 // Designer: Jun Sasaki, Goro Sasaki
 // Players: 2-6
 // Time: 30m
+// BGG Weight: 1.17 = 262 / 47 / 3 / 0 / 0
 
 #include common/Game
 #include common/Boardgame

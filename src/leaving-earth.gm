@@ -4,6 +4,7 @@
 // Designer: Joseph Fatula
 // Players: 1-5
 // Time: 60-180m
+// BGG Weight: 3.72 = 2 / 6 / 59 / 81 / 28
 
 #include common/Game
 #include common/Boardgame
@@ -281,6 +282,16 @@ SpaceStationMission: StartOfYearMission
 // Lunar Station - Hard, 15VP, "Man on Moon at Start of Year"
 // Mars Station - Hard, 20VP, "Man on Mars at Start of Year"
 // Venus Station - Hard, 27VP, "Man on Venus at Start of Year"
+
+// Mercury Expansion:
+// MercuryIcon - LocationHazardIcon			
+// Mercury Sample - Sample - Mass: 1
+// Mercury Survey - SurveyMission - Medium, 7VP, "Reveal Mercury Location"
+// Mercury Lander - ProbeMission - Medium, 13VP, "Working Probe/Capsule on Mercury"
+// Mercury Sample Return - SampleReturnMission - Hard, 19VP, "Mercury Sample on Earth"
+// Mercury Fly-by - UnderstoodLocations
+// Mercury Orbit - UnderstoodLocations
+// Mercury - ExplorableLocations
 
 // SECTION: Setup
 
@@ -650,9 +661,10 @@ SeparationSuccess: Verb
 FullRendezvousTest: Verb
 	Repeat until failure or there are no more Outcome Cards to draw:
 		DrawOutcome for RendezvousAdvancement
-		If you want to discard this Outcome Card:
-			Pay CostToDiscardOutcomeCard to discard the Outcome Card
-	Shuffle the Outcomes that you drew (but did not discard) back into stack on the Advancement
+		Choose one:
+			PayToDiscardOutcomeCard
+			Set aside Outcome Card
+	Shuffle the Outcomes that you set aside back into stack on the Advancement
 
 SurveyConditions: Verb
 	You must have the SurveyingAdvancement to survey
@@ -724,7 +736,7 @@ DamageRocket: Verb
 
 DestroyCapsule: Verb
 	KillEveryoneInCapsule
-	Remove Capsule from SpacecraftCard and Discard
+	Discard the Capsule from the SpacecraftCard
 
 DestroySpacecraft: Verb
 	For each Capsule on SpacecraftCard:
@@ -749,9 +761,13 @@ DrawOutcome: Verb
 
 KeepOrRemoveOutcomeCard: Verb
 	Choose one:
-		Pay CostToDiscardOutcomeCard to discard the Outcome Card
+		PayToDiscardOutcomeCard
 		Shuffle Outcome Card back into stack on the Advancement
 	! Skip if no Outcome Card was drawn
+
+PayToDiscardOutcomeCard: Verb
+	Pay CostToDiscardOutcomeCard
+	Move the Outcome Card to the OutcomeDiscardPile
 
 CostToDiscardOutcomeCard: Verb
 	If Outcome is Success:

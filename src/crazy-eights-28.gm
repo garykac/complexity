@@ -4,6 +4,7 @@
 
 // Players: 2-4
 // Time: 15m
+// BGG Weight: 1.07 = 78 / 6 / 0 / 0 / 0
 
 #include common/Game
 #include common/CardGame

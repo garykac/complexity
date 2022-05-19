@@ -1,29 +1,30 @@
 // NAME: Regicide
 
-// 2020
+// Year: 2020
 // Designer: Paul Abrahams, Luke Badger, Andy Richdale
 // Players: 1-4
 // Time: 15-30m
+// BGG Weight: 2.08 = 7 / 22 / 8 / 1 / 0
 
 #include common/Game
 #include common/CardGame
 #include common/DeckFrenchSuit
 
-// SECTION: Vocabulary					
-					
+// SECTION: Vocabulary
+
 AnimalCompanion: Noun
 	// Alternate name for Ace (value = 1)
 Attack: Noun
 	// Current attack value	
 CardValue:	Noun
-	Value is Rank of Card with the following exceptions:	
+	Value is Rank of Card with the following exceptions:
 		* Jester: 0
 		* Ace: 1
 		* Jack: 10
 		* Queen: 15
 		* King: 20
 CastleDeck: Deck
-	// Set of cards: K, Q, J	
+	// Set of cards: K, Q, J
 Combo: Noun
 	A set of 2, 3, or 4 of the same Rank as long as the total <= 10
 DeckOfCards: Deck
@@ -31,9 +32,9 @@ DeckOfCards: Deck
 Enemy: Noun
 	// The Card representing the enemy
 EnemyAttack: Noun
-	// The current Enemy's attack value	
+	// The current Enemy's attack value
 EnemyHealth: Noun
-	// The current Enemy's hit points	
+	// The current Enemy's hit points
 IncomingDamage: Noun
 	// Damage the the Enemy is dealing to you
 Jester: Noun
@@ -43,7 +44,7 @@ MaxHandSize: Noun
 TavernDeck: Deck
 	// Set of cards: 2-10 + A and Jokers	
 
-// SECTION: Setup					
+// SECTION: Setup
 
 Setup: Verb
 	CreateDecks
@@ -73,10 +74,10 @@ AdjustHandSize: Verb
 DealInitialHand: Verb
 	Deal from TavernDeck up to MaxHandSize for each Player
 
-// SECTION: Gameplay					
+// SECTION: Gameplay
 
-Game: Verb
-	Repeat until CastleDeck is empty:	
+PlayGame: Verb
+	Repeat until CastleDeck is empty:
 		TakeTurn
 		NextPlayerClockwise
 	! Players may not communicate about the contents of their hand during play	
@@ -152,8 +153,8 @@ HandleDamage: Verb
 HandleJester: Verb
 	Skip to the end of the turn
 	Choose the next player to take a turn
-	// Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not.	
-	! Players may hint whether or not they'd like to take the next turn	
+	// Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not.
+	! Players may hint whether or not they'd like to take the next turn
 
 HealFromDiscard: Verb
 	Shuffle DiscardPile
@@ -165,7 +166,7 @@ InitEnemyAttack: Verb
 	Set EnemyAttack to CardValue (only JQK are relevant)
 	
 InitEnemyHealth: Verb
-	Set EnemyHealth as follows:	
+	Set EnemyHealth as follows:
 		* Jack: 20
 		* Queen: 30
 		* King: 40
@@ -200,7 +201,7 @@ Yield: Verb
 EnemyCancelsMatchingSuitPower: Constraint
 	If the Suit of a Card matches the Suit of the Enemy:
 		Do not Activate the Suit's power
-	Unless a Jester has been played against this Enemy	
+	Unless a Jester has been played against this Enemy
 
 // SECTION: Endgame
 
