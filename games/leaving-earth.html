@@ -491,7 +491,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupCalendar">SetupCalendar</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Calendar">Calendar</a> on table</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#CalendarMarker">CalendarMarker</a> on</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#CalendarMarker">CalendarMarker</a> on "Start"</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#UpdateCalendar">UpdateCalendar</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
@@ -505,7 +505,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GameEnd">GameEnd</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Gameplay">Gameplay</a></div></div>: Condition</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If any of:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CalendarMarker">CalendarMarker</a> is on</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CalendarMarker">CalendarMarker</a> is on "End"</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>An <a class="keyword" href="#Agency">Agency</a> has enough points that no other <a class="keyword" href="#Agency">Agency</a> can catch up</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ActiveMissions">ActiveMissions</a> is empty</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -574,7 +574,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpdateCalendar">UpdateCalendar</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndOfYear">EndOfYear</a><a href="#SetupCalendar">SetupCalendar</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move <a class="keyword" href="#CalendarMarker">CalendarMarker</a> to next year on <a class="keyword" href="#Calendar">Calendar</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#CalendarMarker">CalendarMarker</a> is on</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#CalendarMarker">CalendarMarker</a> is on "Flip":</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Flip <a class="keyword" href="#Calendar">Calendar</a> over and start on new side in 1966</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemoveTimeTokens">RemoveTimeTokens</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndOfYear">EndOfYear</a></div></div>: Verb</td></tr>
@@ -585,7 +585,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AutomaticManeuvers">AutomaticManeuvers</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> in <a class="keyword" href="#Space">Space</a> that doesn't have <a class="keyword" href="#TimeToken">TimeTokens</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If in a <a class="keyword" href="#Location">Location</a> with a <a class="keyword" href="#Maneuver">Maneuver</a> that has a <a class="keyword" href="#Difficulty">Difficulty</a> of</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If in a <a class="keyword" href="#Location">Location</a> with a <a class="keyword" href="#Maneuver">Maneuver</a> that has a <a class="keyword" href="#Difficulty">Difficulty</a> of "!":</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#AutomaticManeuver">AutomaticManeuver</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AutomaticManeuver">AutomaticManeuver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllAgencyTurns">AllAgencyTurns</a><a href="#AutomaticManeuvers">AutomaticManeuvers</a><a href="#PerformManeuver">PerformManeuver</a></div></div>: Verb</td></tr>
@@ -645,7 +645,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformManeuver">PerformManeuver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AgencyTurn">AgencyTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Select <a class="keyword" href="#Maneuver">Maneuver</a> from <a class="keyword" href="#Location">Location</a> where the <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> is located</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#Difficulty">Difficulty</a> of <a class="keyword" href="#Maneuver">Maneuver</a> =</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#Difficulty">Difficulty</a> of <a class="keyword" href="#Maneuver">Maneuver</a> = "!":</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AutomaticManeuver">AutomaticManeuver</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Exit</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>total_mass = sum of <a class="keyword" href="#Mass">Mass</a> of each <a class="keyword" href="#Component">Component</a> on the <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a></td></tr>

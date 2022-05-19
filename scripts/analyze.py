@@ -505,6 +505,7 @@ class GambitParser:
 			# Ignore strings (or first/last word in a string).
 			# Note: This will not skip middle words in string: "skip not not not skip"
 			if word[0] == '"' or word[-1] == '"':
+				words.append(word)
 				continue
 
 			prefix = ""
