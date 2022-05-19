@@ -4,6 +4,9 @@ Rulebook: Noun
 
 Player: Noun
 
+FirstPlayer: Noun
+	The Player who takes the first turn
+
 Score: Noun
 
 ChooseFirstPlayer: Verb

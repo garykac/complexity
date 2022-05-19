@@ -1,6 +1,8 @@
 // Dice
 // Standard dice.
 
+Dice: Noun
+
 D3: Noun
 	// Standard 6-sided die with values from 1-3 (each repeated twice)
 
