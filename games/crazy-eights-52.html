@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Crazy Eights (52-card)</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.4rem 0;
+	font-weight: 600;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Crazy Eights (52-card)</div>
+<div class="summary">Learning Complexity: 38</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=4>Crazy Eights (52-card)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Historically, this game was played with a 28-card deck, but as it gained in popularity it was more comonly played with a full 52-card deck.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 15m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/DeckFrenchSuit</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Crazy8Deck">Crazy8Deck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/DeckFrenchSuit">FrenchSuitDeck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TopCard">TopCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MatchingCard">MatchingCard</a><a href="#PlayerTurn">PlayerTurn</a><a href="#RevealStartCard">RevealStartCard</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The top card of the DiscardPile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CurrentSuit">CurrentSuit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MatchingCard">MatchingCard</a><a href="#PlayMatchingCard">PlayMatchingCard</a></div></div>: <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Normally matches the TopCard, but may differ for 8s.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MatchingCard">MatchingCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a><a href="#PlayMatchingCard">PlayMatchingCard</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#MatchingCard">MatchingCard</a> is one that satisfies one or more of the following:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Matches the <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of the <a class="keyword" href="#TopCard">TopCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Matches the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> of the <a class="keyword" href="#TopCard">TopCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">or the <a class="keyword" href="#CurrentSuit">CurrentSuit</a> if the <a class="keyword" href="#TopCard">TopCard</a> is an 8</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Is an 8 (which matches anything)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayDirection">PlayDirection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextPlayer">NextPlayer</a><a href="#ReverseDirection">ReverseDirection</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The direction of play around the table, either clockwise or counterclockwise</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Draw2Multiplier">Draw2Multiplier</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#HandleDraw2">HandleDraw2</a><a href="#PlayMatchingCard">PlayMatchingCard</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The number of 2s played in a row on the top of the <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> the <a class="keyword" href="#Crazy8Deck">Crazy8Deck</a> to create a <abbr title="Imported from common/CardGame">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <abbr title="Imported from common/Game">Player</abbr> to be the <abbr title="Imported from common/CardGame">Dealer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set the <a class="keyword" href="#PlayDirection">PlayDirection</a> to clockwise</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Have the <abbr title="Imported from common/CardGame">Dealer</abbr> <abbr title="Imported from common/CardGame">Deal</abbr> a <abbr title="Imported from common/CardGame">Hand</abbr> of 5 cards to each <abbr title="Imported from common/Game">Player</abbr> from the <abbr title="Imported from common/CardGame">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <abbr title="Imported from common/CardGame">DrawDeck</abbr> in center of table</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Leave room next to the <abbr title="Imported from common/CardGame">DrawDeck</abbr> for the <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#RevealStartCard">RevealStartCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RevealStartCard">RevealStartCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until the <a class="keyword" href="#TopCard">TopCard</a>'s <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> is something other than 8:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Reveal</abbr> the top card of the <abbr title="Imported from common/CardGame">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Discard</abbr> it</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until a <abbr title="Imported from common/Game">Player</abbr> runs out of cards:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#NextPlayer">NextPlayer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Starting with the <abbr title="Imported from common/Game">Player</abbr> to the left of the <abbr title="Imported from common/CardGame">Dealer</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of the <a class="keyword" href="#TopCard">TopCard</a> is a 2:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#HandleDraw2">HandleDraw2</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Exit</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose one of the following:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayMatchingCard">PlayMatchingCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you can't play a matching card, then you must <a class="keyword" href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleDraw2">HandleDraw2</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You must play a <abbr title="Imported from common/CardGame">Card</abbr> with <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of 2:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If you do:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Increment the <a class="keyword" href="#Draw2Multiplier">Draw2Multiplier</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> <abbr title="Imported from common/CardGame">Cards</abbr> from <abbr title="Imported from common/CardGame">DrawDeck</abbr> equal to 2 x <a class="keyword" href="#Draw2Multiplier">Draw2Multiplier</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawCardsUntilMatch">DrawCardsUntilMatch</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you have a <a class="keyword" href="#MatchingCard">MatchingCard</a> in your <abbr title="Imported from common/CardGame">Hand</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> <abbr title="Imported from common/CardGame">Card</abbr> from <abbr title="Imported from common/CardGame">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlayMatchingCard">PlayMatchingCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayMatchingCard">PlayMatchingCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have a <a class="keyword" href="#MatchingCard">MatchingCard</a> in your <abbr title="Imported from common/CardGame">Hand</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Discard</abbr> it</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If you discarded one of these cards:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of 8: choose new <a class="keyword" href="#CurrentSuit">CurrentSuit</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of 2: set <a class="keyword" href="#Draw2Multiplier">Draw2Multiplier</a> to 1</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of <abbr title="Imported from common/DeckFrenchSuit">Queen</abbr>: <a class="keyword" href="#SkipPlayer">SkipPlayer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of <abbr title="Imported from common/DeckFrenchSuit">Ace</abbr>: <a class="keyword" href="#ReverseDirection">ReverseDirection</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you have multiple <abbr title="Imported from common/CardGame">Cards</abbr> that match, you may choose any one.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ReverseDirection">ReverseDirection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayMatchingCard">PlayMatchingCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Swap current <a class="keyword" href="#PlayDirection">PlayDirection</a> between clockwise and counterclockwise</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SkipPlayer">SkipPlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayMatchingCard">PlayMatchingCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#NextPlayer">NextPlayer</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NextPlayer">NextPlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#SkipPlayer">SkipPlayer</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>if <a class="keyword" href="#PlayDirection">PlayDirection</a> is clockwise:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerCounterClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported from common/Game">Player</abbr> who ran out of <abbr title="Imported from common/CardGame">Cards</abbr> in their <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

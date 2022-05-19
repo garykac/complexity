@@ -18,5 +18,8 @@ SwitchPlayer: Verb
 NextPlayerClockwise: Verb
 	Pass control to the new Player, going around clockwise
 
+NextPlayerCounterClockwise: Verb
+	Pass control to the new Player, going around counter-clockwise
+
 PlayerWithHighestScore: Noun
 	The Player with the highest Score is the winner

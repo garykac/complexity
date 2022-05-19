@@ -1,0 +1,105 @@
+// NAME: Crazy Eights (52-card)
+// Historically, this game was played with a 28-card deck, but as it gained in popularity it was more comonly played with a full 52-card deck.
+
+// Players: 2-4
+// Time: 15m
+// BGG Weight: 1.07 = 78 / 6 / 0 / 0 / 0
+
+#import common/Game
+#import common/CardGame
+#import common/DeckFrenchSuit
+	
+// SECTION: Vocabulary
+
+Crazy8Deck: FrenchSuitDeck
+
+TopCard: Card
+	// The top card of the DiscardPile.
+
+CurrentSuit: Suit
+	// Normally matches the TopCard, but may differ for 8s.
+
+MatchingCard: Noun
+	A MatchingCard is one that satisfies one or more of the following:
+		Matches the Rank of the TopCard
+		Matches the Suit of the TopCard
+			or the CurrentSuit if the TopCard is an 8
+		Is an 8 (which matches anything)
+
+PlayDirection: Noun
+	The direction of play around the table, either clockwise or counterclockwise
+
+Draw2Multiplier: Noun
+	The number of 2s played in a row on the top of the DiscardPile
+
+// SECTION: Setup
+
+Setup: Verb
+	Shuffle the Crazy8Deck to create a DrawDeck
+	Choose a Player to be the Dealer
+	Set the PlayDirection to clockwise
+	Have the Dealer Deal a Hand of 5 cards to each Player from the DrawDeck
+	Place DrawDeck in center of table
+	Leave room next to the DrawDeck for the DiscardPile
+	RevealStartCard
+	
+RevealStartCard: Verb
+	Repeat until the TopCard's Rank is something other than 8:
+		Reveal the top card of the DrawDeck
+		Discard it
+		
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a Player runs out of cards:
+		PlayerTurn
+		NextPlayer
+	! Starting with the Player to the left of the Dealer	
+
+PlayerTurn: Verb
+	If Rank of the TopCard is a 2:
+		HandleDraw2
+		Exit
+	Choose one of the following:
+		PlayMatchingCard
+		DrawCardsUntilMatch
+	! If you can't play a matching card, then you must DrawCardsUntilMatch
+
+HandleDraw2: Verb
+	You must play a Card with Rank of 2:
+	If you do:
+		Increment the Draw2Multiplier
+	Otherwise:
+		Draw Cards from DrawDeck equal to 2 x Draw2Multiplier
+
+DrawCardsUntilMatch: Verb
+	Repeat until you have a MatchingCard in your Hand:
+		Draw Card from DrawDeck
+	PlayMatchingCard
+
+PlayMatchingCard: Verb
+	If you have a MatchingCard in your Hand:
+		Discard it
+		If you discarded one of these cards:
+			Rank of 8: choose new CurrentSuit
+			Rank of 2: set Draw2Multiplier to 1
+			Rank of Queen: SkipPlayer
+			Rank of Ace: ReverseDirection
+	! If you have multiple Cards that match, you may choose any one.
+
+ReverseDirection: Verb
+	Swap current PlayDirection between clockwise and counterclockwise
+
+SkipPlayer: Verb
+	NextPlayer
+
+NextPlayer: Verb
+	if PlayDirection is clockwise:
+		NextPlayerClockwise
+	Otherwise:
+		NextPlayerCounterClockwise
+
+// SECTION: Endgame
+
+Winner: Noun
+	The Player who ran out of Cards in their Hand

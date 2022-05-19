@@ -1,5 +1,6 @@
 checkers;Checkers;;;26
 crazy-eights-28;Crazy Eights;28-card;;26
+crazy-eights-52;Crazy Eights;52-card;;38
 deep-sea-adventure;Deep Sea Adventure;;;65
 dominion-first;Dominion;10 starter cards;;81
 dominion-base;Dominion;Rest of base set;dominion-first;43
