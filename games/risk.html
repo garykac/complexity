@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Risk</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.4rem 0;
+	font-weight: 600;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Risk</div>
+<div class="summary">Learning Complexity: 67</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=5>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=5>Risk</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Year: 1959</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Designer: Albert Lamorisse</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Players: 3-6</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Time: 120-240m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">#include common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">#include common/Boardgame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">#include common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">#include common/Dice</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RiskBoard">RiskBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Continent">Continent</a><a href="#Territory">Territory</a></div></div>: <abbr title="Imported from common/Boardgame">Board</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Territory">Territory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a><a href="#AttackOpposition">AttackOpposition</a><a href="#DeployArmies">DeployArmies</a><a href="#Fortify">Fortify</a><a href="#GainArmiesFromCards">GainArmiesFromCards</a><a href="#GainArmiesFromContinents">GainArmiesFromContinents</a><a href="#GainArmiesFromTerritories">GainArmiesFromTerritories</a><a href="#InitialArmyPlacement">InitialArmyPlacement</a><a href="#PlayGame">PlayGame</a><a href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a><a href="#WildCard">WildCard</a></div></div>: Part of <a class="keyword" href="#RiskBoard">RiskBoard</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">42 territories on map</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Continent">Continent</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BonusArmies">BonusArmies</a><a href="#GainArmiesFromContinents">GainArmiesFromContinents</a></div></div>: Part of <a class="keyword" href="#RiskBoard">RiskBoard</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">A collection of Territories</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BonusArmies">BonusArmies</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainArmiesFromContinents">GainArmiesFromContinents</a></div></div>: Attribute of <a class="keyword" href="#Continent">Continent</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">Extra Armies gained if you occupy all Territories in this Continent</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Army">Army</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a><a href="#AttackOpposition">AttackOpposition</a><a href="#CheckForPlayerElimination">CheckForPlayerElimination</a><a href="#DeployArmies">DeployArmies</a><a href="#Fortify">Fortify</a><a href="#GainArmiesFromCards">GainArmiesFromCards</a><a href="#GainArmiesFromContinents">GainArmiesFromContinents</a><a href="#GainArmiesFromTerritories">GainArmiesFromTerritories</a><a href="#GetherArmies">GetherArmies</a><a href="#InitialArmyPlacement">InitialArmyPlacement</a><a href="#ResolveAttack">ResolveAttack</a><a href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RiskCard">RiskCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForPlayerElimination">CheckForPlayerElimination</a><a href="#Design">Design</a><a href="#GainArmiesFromCards">GainArmiesFromCards</a><a href="#MatchedSet">MatchedSet</a><a href="#Setup">Setup</a><a href="#Territory">Territory</a><a href="#WildCard">WildCard</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Territory">Territory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a><a href="#AttackOpposition">AttackOpposition</a><a href="#DeployArmies">DeployArmies</a><a href="#Fortify">Fortify</a><a href="#GainArmiesFromCards">GainArmiesFromCards</a><a href="#GainArmiesFromContinents">GainArmiesFromContinents</a><a href="#GainArmiesFromTerritories">GainArmiesFromTerritories</a><a href="#InitialArmyPlacement">InitialArmyPlacement</a><a href="#PlayGame">PlayGame</a><a href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a><a href="#WildCard">WildCard</a></div></div>: Attribute of <a class="keyword" href="#RiskCard">RiskCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Design">Design</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MatchedSet">MatchedSet</a><a href="#WildCard">WildCard</a></div></div>: Attribute of <a class="keyword" href="#RiskCard">RiskCard</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">3 Designs: Horseman, Cannon, FootSoldier</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="WildCard">WildCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MatchedSet">MatchedSet</a></div></div>: <a class="keyword" href="#RiskCard">RiskCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A card with no <a class="keyword" href="#Territory">Territory</a>, but will all 3 <a class="keyword" href="#Design">Designs</a> present</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RiskDeck">RiskDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackOpposition">AttackOpposition</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">Deck of RiskCards</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="MatchedSet">MatchedSet</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainArmiesFromCards">GainArmiesFromCards</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A set of 3 <a class="keyword" href="#RiskCard">RiskCards</a> that either:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>All share the same <a class="keyword" href="#Design">Design</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>All have different <a class="keyword" href="#Design">Designs</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Contain a <a class="keyword" href="#WildCard">WildCard</a> (with any other 2 <a class="keyword" href="#RiskCard">RiskCards</a>)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AttackerDice">AttackerDice</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a><a href="#AttackOpposition">AttackOpposition</a><a href="#ResolveAttack">ResolveAttack</a></div></div>: <abbr title="Imported from common/Dice">D6</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">3 red dice</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DefenderDice">DefenderDice</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a><a href="#ResolveAttack">ResolveAttack</a></div></div>: <abbr title="Imported from common/Dice">D6</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">2 white dice</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported from common/CardGame">Shuffle</abbr> the <a class="keyword" href="#RiskCard">RiskCards</a> into the <a class="keyword" href="#RiskDeck">RiskDeck</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>GatherArmies</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported from common/Dice">Roll</abbr> to determine first <abbr title="Imported from common/Game">Player</abbr> (highest roll)</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#InitialArmyPlacement">InitialArmyPlacement</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GetherArmies">GetherArmies</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported from common/Boardgame">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Each <abbr title="Imported from common/Game">Player</abbr> takes the following <a class="keyword" href="#Army">Armies</a>, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 3p: 35 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 4p: 30 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 5p: 25 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 6p: 20 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="InitialArmyPlacement">InitialArmyPlacement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until all <a class="keyword" href="#Territory">Territories</a> are occupied:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place one <a class="keyword" href="#Army">Army</a> in an unoccupied <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until all <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#Army">Armies</a> have been distributed:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place one <a class="keyword" href="#Army">Army</a> in a <a class="keyword" href="#Territory">Territory</a> where you already have an <a class="keyword" href="#Army">Army</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until a single <abbr title="Imported from common/Game">Player</abbr> occupies all the <a class="keyword" href="#Territory">Territories</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DeployArmies">DeployArmies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#AttackOpposition">AttackOpposition</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#Fortify">Fortify</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DeployArmies">DeployArmies</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#GainArmiesFromTerritories">GainArmiesFromTerritories</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#GainArmiesFromContinents">GainArmiesFromContinents</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#GainArmiesFromCards">GainArmiesFromCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place these <a class="keyword" href="#Army">Armies</a> on any of the <a class="keyword" href="#Territory">Territories</a> that you occupy</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainArmiesFromTerritories">GainArmiesFromTerritories</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeployArmies">DeployArmies</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Gain <a class="keyword" href="#Army">Armies</a> equal to (number of <a class="keyword" href="#Territory">Territories</a> occupied by <abbr title="Imported from common/Game">Player</abbr>) / 3 (round down)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; You always gain at least 3 <a class="keyword" href="#Army">Armies</a>, even if you have fewer than 9 <a class="keyword" href="#Territory">Territories</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainArmiesFromContinents">GainArmiesFromContinents</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeployArmies">DeployArmies</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you occupy all of the <a class="keyword" href="#Territory">Territories</a> in a <a class="keyword" href="#Continent">Continent</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Gain <a class="keyword" href="#Army">Armies</a> equal to the <a class="keyword" href="#Continent">Continent</a>'s <a class="keyword" href="#BonusArmies">BonusArmies</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainArmiesFromCards">GainArmiesFromCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForPlayerElimination">CheckForPlayerElimination</a><a href="#DeployArmies">DeployArmies</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>You may trade in a <a class="keyword" href="#MatchedSet">MatchedSet</a> of <a class="keyword" href="#RiskCard">RiskCards</a> from your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>If you do:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Gain <a class="keyword" href="#Army">Armies</a> based on how many sets have been matched so far (by any <abbr title="Imported from common/Game">Player</abbr>):</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 1st set: 4 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 2nd set: 6 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 3rd set: 8 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 4tg set: 10 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 5th set: 12 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 6th set: 15 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 7th+ set: same as previous +5 additional <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If any of the matched cards has a <a class="keyword" href="#Territory">Territory</a> that matches a <a class="keyword" href="#Territory">Territory</a> you occupy:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Immediately place 2 <a class="keyword" href="#Army">Armies</a> on that <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; You must trade in a match if you have 5 <a class="keyword" href="#RiskCard">RiskCards</a> in your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AttackOpposition">AttackOpposition</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until you feel like stopping:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If all <a class="keyword" href="#Army">Armies</a> have been removed from the defending <a class="keyword" href="#Territory">Territory</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Move <a class="keyword" href="#Army">Armies</a> from attacking <a class="keyword" href="#Territory">Territory</a> into defending <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Number of <a class="keyword" href="#Army">Armies</a> moved must be at least equal to the number of <a class="keyword" href="#AttackerDice">AttackerDice</a> used</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CheckForPlayerElimination">CheckForPlayerElimination</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you have conquered at least one <a class="keyword" href="#Territory">Territory</a> this turn:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> from the <a class="keyword" href="#RiskDeck">RiskDeck</a> into your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AttackAdjacentTerritory">AttackAdjacentTerritory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackOpposition">AttackOpposition</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Choose an attacking <a class="keyword" href="#Territory">Territory</a> where you have 2 or more <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Choose the defending <a class="keyword" href="#Territory">Territory</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>It must be an adjacent <a class="keyword" href="#Territory">Territory</a> occupied by another <abbr title="Imported from common/Game">Player</abbr> (the defender)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Choose the number of <a class="keyword" href="#Army">Armies</a> partipating in the attack:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Up to one less than the number of <a class="keyword" href="#Army">Armies</a> in the attacking <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Max 3</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The defender chooses the number of <a class="keyword" href="#Army">Armies</a> partipating in the defense:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Up to the number of <a class="keyword" href="#Army">Armies</a> in the defending <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Max 2</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Simultaneously:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>You (the attacker) <abbr title="Imported from common/Dice">Roll</abbr> <a class="keyword" href="#AttackerDice">AttackerDice</a> equal to the number of <a class="keyword" href="#Army">Armies</a> attacking</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The defender <abbr title="Imported from common/Dice">Rolls</abbr> <a class="keyword" href="#DefenderDice">DefenderDice</a> equal to the number of <a class="keyword" href="#Army">Armies</a> defending</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ResolveAttack">ResolveAttack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#Territory">Territories</a> connected by a dotted line are also considered to be adjacent</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResolveAttack">ResolveAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat while there is at least one <a class="keyword" href="#AttackerDice">AttackerDie</a> and one <a class="keyword" href="#DefenderDice">DefenderDie</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Compare the highest <a class="keyword" href="#AttackerDice">AttackerDie</a> with the highest <a class="keyword" href="#DefenderDice">DefenderDie</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>If the <a class="keyword" href="#AttackerDice">AttackerDie</a> is > the <a class="keyword" href="#DefenderDice">DefenderDie</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc">Remove 1 <a class="keyword" href="#Army">Army</a> from the defender</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc">Remove 1 <a class="keyword" href="#Army">Army</a> from the attacker</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Remove these <abbr title="Imported from common/Dice">Dice</abbr> from the <a class="keyword" href="#AttackerDice">AttackerDice</a>/DefenderDice</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">Note the defender win ties.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CheckForPlayerElimination">CheckForPlayerElimination</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackOpposition">AttackOpposition</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If defending <abbr title="Imported from common/Game">Player</abbr> has no more <a class="keyword" href="#Army">Armies</a> left anywhere on the <abbr title="Imported from common/Boardgame">Board</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>You take all the <a class="keyword" href="#RiskCard">RiskCards</a> from the defender</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If you have 6 or more <a class="keyword" href="#RiskCard">RiskCards</a> in your <abbr title="Imported from common/CardGame">Hand</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Repeat until you have 4 or fewer:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#GainArmiesFromCards">GainArmiesFromCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Fortify">Fortify</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>You may move <a class="keyword" href="#Army">Armies</a> from one of your <a class="keyword" href="#Territory">Territories</a> into an adjacent <a class="keyword" href="#Territory">Territory</a> that you also occupy</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Constraints</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a><a href="#Fortify">Fortify</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <a class="keyword" href="#Territory">Territory</a> must always have at least one <a class="keyword" href="#Army">Army</a> on it</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Noun</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

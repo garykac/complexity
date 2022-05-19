@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Splendor</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.4rem 0;
+	font-weight: 600;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Splendor</div>
+<div class="summary">Learning Complexity: 62</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=3>Splendor</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">2014</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Designer: Marc André</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Players: 2-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Time: 30m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#include common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#include common/Boardgame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#include common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GemToken">GemToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Color">Color</a><a href="#GoldToken">GoldToken</a><a href="#PayCardCost">PayCardCost</a><a href="#Take2SameGems">Take2SameGems</a><a href="#Take3DifferentGems">Take3DifferentGems</a></div></div>: <abbr title="Imported from common/Boardgame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Color">Color</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PayCardCost">PayCardCost</a><a href="#Take2SameGems">Take2SameGems</a><a href="#Take3DifferentGems">Take3DifferentGems</a></div></div>: Attribute of <a class="keyword" href="#GemToken">GemToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">GemTokens:</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Emerald</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Sapphire</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Ruby</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Diamond</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Onyx</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GoldToken">GoldToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PayCardCost">PayCardCost</a><a href="#ReserveCard">ReserveCard</a></div></div>: <abbr title="Imported from common/Boardgame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A special <abbr title="Imported from common/Boardgame">Token</abbr> that can be used in place of a <a class="keyword" href="#GemToken">GemToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Pile">Pile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a><a href="#SetupTokens">SetupTokens</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A stack of <abbr title="Imported from common/Boardgame">Tokens</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DevelopmentCard">DevelopmentCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BonusGem">BonusGem</a><a href="#Cost">Cost</a><a href="#DevelopmentDeck">DevelopmentDeck</a><a href="#DevelopmentPP">DevelopmentPP</a><a href="#InactiveArea">InactiveArea</a><a href="#Level">Level</a><a href="#Market">Market</a><a href="#PayCardCost">PayCardCost</a><a href="#PurchaseCard">PurchaseCard</a><a href="#PurchaseReservedCard">PurchaseReservedCard</a><a href="#ReserveCard">ReserveCard</a><a href="#Scoring">Scoring</a><a href="#SetupMarket">SetupMarket</a><a href="#VisibleCards">VisibleCards</a><a href="#Winner">Winner</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Level">Level</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DevelopmentDeck">DevelopmentDeck</a><a href="#SetupMarket">SetupMarket</a></div></div>: Attribute of <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DevelopmentPP">DevelopmentPP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Scoring">Scoring</a></div></div>: Attribute of <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PrestigePoints">PrestigePoints</a> earned from this <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Cost">Cost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PayCardCost">PayCardCost</a></div></div>: Attribute of <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Cost">Cost</a> to acquire this <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BonusGem">BonusGem</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForNobleVisit">CheckForNobleVisit</a><a href="#PayCardCost">PayCardCost</a><a href="#VisibleCards">VisibleCards</a></div></div>: Attribute of <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gem that this <abbr title="Imported from common/CardGame">Card</abbr> grants once you purchase it</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DevelopmentDeck">DevelopmentDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RefillMarket">RefillMarket</a><a href="#ReserveCard">ReserveCard</a><a href="#SetupMarket">SetupMarket</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A stack of <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> with the same <a class="keyword" href="#Level">Level</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="NobleTile">NobleTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForNobleVisit">CheckForNobleVisit</a><a href="#NoblePP">NoblePP</a><a href="#Scoring">Scoring</a><a href="#SetupNobleTiles">SetupNobleTiles</a><a href="#VisitRequirement">VisitRequirement</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="NoblePP">NoblePP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Scoring">Scoring</a></div></div>: Attribute of <a class="keyword" href="#NobleTile">NobleTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PrestigePoints">PrestigePoints</a> earned from this <a class="keyword" href="#NobleTile">NobleTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="VisitRequirement">VisitRequirement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForNobleVisit">CheckForNobleVisit</a></div></div>: Attribute of <a class="keyword" href="#NobleTile">NobleTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Market">Market</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseCard">PurchaseCard</a><a href="#ReserveCard">ReserveCard</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A collection of available <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="InactiveArea">InactiveArea</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseReservedCard">PurchaseReservedCard</a><a href="#ReserveCard">ReserveCard</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>An area to store <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> that you have reserved</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PrestigePoints">PrestigePoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DevelopmentPP">DevelopmentPP</a><a href="#NoblePP">NoblePP</a><a href="#PlayGame">PlayGame</a><a href="#Scoring">Scoring</a><a href="#Winner">Winner</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Victory points</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#SetupMarket">SetupMarket</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#SetupNobleTiles">SetupNobleTiles</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#SetupTokens">SetupTokens</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SetupMarket">SetupMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Separate <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> by <a class="keyword" href="#Level">Level</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Shuffle</abbr> into 3 <a class="keyword" href="#DevelopmentDeck">DevelopmentDecks</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Arrange in a column to start 3 rows</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Reveal</abbr> 4 cards into the row for this <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SetupNobleTiles">SetupNobleTiles</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Shuffle</abbr> <a class="keyword" href="#NobleTile">NobleTiles</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Reveal</abbr> tiles equal to the number of <abbr title="Imported from common/Game">Players</abbr> + 1</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place remaining (unused) <a class="keyword" href="#NobleTile">NobleTiles</a> in <abbr title="Imported from common/Boardgame">Box</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SetupTokens">SetupTokens</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Create a pile for each <abbr title="Imported from common/Boardgame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Remove <abbr title="Imported from common/Boardgame">Tokens</abbr> from each <a class="keyword" href="#Pile">Pile</a> as follows, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 2p: remove 3</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 3p: remove 2</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 4p: remove none</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until a <abbr title="Imported from common/Game">Player</abbr> has 15 or more <a class="keyword" href="#PrestigePoints">PrestigePoints</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#AllPlayerTurns">AllPlayerTurns</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AllPlayerTurns">AllPlayerTurns</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each <abbr title="Imported from common/Game">Player</abbr>, starting with the <abbr title="Imported from common/Game">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#CheckForNobleVisit">CheckForNobleVisit</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllPlayerTurns">AllPlayerTurns</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Take3DifferentGems">Take3DifferentGems</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Take2SameGems">Take2SameGems</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PurchaseCard">PurchaseCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#ReserveCard">ReserveCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PurchaseReservedCard">PurchaseReservedCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you have more than 10 <abbr title="Imported from common/Boardgame">Tokens</abbr> at the end of your turn:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Return <abbr title="Imported from common/Boardgame">Tokens</abbr> to their <a class="keyword" href="#Pile">Piles</a> until you have only 10</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Take3DifferentGems">Take3DifferentGems</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Take 3 <a class="keyword" href="#GemToken">GemTokens</a> of different <a class="keyword" href="#Color">Colors</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Take2SameGems">Take2SameGems</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Take 2 <a class="keyword" href="#GemToken">GemTokens</a> of the same <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; You may only take 2 <a class="keyword" href="#GemToken">GemTokens</a> of the same color if there are at least 4 available</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PurchaseCard">PurchaseCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Take a <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> from the <a class="keyword" href="#Market">Market</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PayCardCost">PayCardCost</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RefillMarket">RefillMarket</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PayCardCost">PayCardCost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseCard">PurchaseCard</a><a href="#PurchaseReservedCard">PurchaseReservedCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> that you have already purchased:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Reduce the <a class="keyword" href="#Cost">Cost</a> by the <a class="keyword" href="#BonusGem">BonusGem</a>'s <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>To pay the remaining <a class="keyword" href="#Cost">Cost</a>, use any of the following:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#GemToken">GemTokens</a> can be used to pay for the matching <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#GoldToken">GoldTokens</a> can be used to pay for any <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ReserveCard">ReserveCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>Choose one:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Select a <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> from the <a class="keyword" href="#Market">Market</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Draw</abbr> from one of the <a class="keyword" href="#DevelopmentDeck">DevelopmentDecks</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add the chosen <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> to your <a class="keyword" href="#InactiveArea">InactiveArea</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place a <a class="keyword" href="#GoldToken">GoldToken</a> on the newly reserved <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RefillMarket">RefillMarket</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; You may not have more than 3 <abbr title="Imported from common/CardGame">Cards</abbr> in your <a class="keyword" href="#InactiveArea">InactiveArea</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If there aren't any <a class="keyword" href="#GoldToken">GoldTokens</a> remaining:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">You may still reserve a <abbr title="Imported from common/CardGame">Card</abbr>, but you don't get a <a class="keyword" href="#GoldToken">GoldToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you <abbr title="Imported from common/CardGame">Draw</abbr> directly from a <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">You may keep the reserved <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> hidden from other <abbr title="Imported from common/Game">Players</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PurchaseReservedCard">PurchaseReservedCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Move a <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> out of your <a class="keyword" href="#InactiveArea">InactiveArea</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PayCardCost">PayCardCost</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="RefillMarket">RefillMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseCard">PurchaseCard</a><a href="#ReserveCard">ReserveCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> from the respective <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a> to fill any empty spots</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CheckForNobleVisit">CheckForNobleVisit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllPlayerTurns">AllPlayerTurns</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If you have <a class="keyword" href="#BonusGem">BonusGems</a> that match the <a class="keyword" href="#VisitRequirement">VisitRequirement</a> of a <a class="keyword" href="#NobleTile">NobleTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Place the matching <a class="keyword" href="#NobleTile">NobleTile</a> in front of you</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If your <a class="keyword" href="#BonusGem">BonusGems</a> match more than one <a class="keyword" href="#NobleTile">NobleTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Choose which <a class="keyword" href="#NobleTile">NobleTile</a> to take</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Constraints</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="VisibleCards">VisibleCards</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Your <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> should be arranged so that all <abbr title="Imported from common/Game">Players</abbr> can see the <a class="keyword" href="#BonusGem">BonusGems</a> they grant</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Scoring">Scoring</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each of your <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add <a class="keyword" href="#DevelopmentPP">DevelopmentPP</a> to your <a class="keyword" href="#PrestigePoints">PrestigePoints</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each of your <a class="keyword" href="#NobleTile">NobleTiles</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add <a class="keyword" href="#NoblePP">NoblePP</a> to your <a class="keyword" href="#PrestigePoints">PrestigePoints</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Winner">Winner</a> is the <abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#PrestigePoints">PrestigePoints</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; In case of a tie:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">Player</abbr> with fewest <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> wins</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>
