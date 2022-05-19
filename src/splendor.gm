@@ -6,9 +6,9 @@
 // Time: 30m
 // BGG Weight: 1.79 = 700 / 1486 / 157 / 14 / 5
 
-#include common/Game
-#include common/BoardGame
-#include common/CardGame
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
 
 // SECTION: Vocabulary
 

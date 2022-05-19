@@ -193,7 +193,7 @@ class GambitParser:
 				self.originalLine = line.rstrip()
 				comment = ""
 				
-				if line.startswith("#include"):
+				if line.startswith("#import"):
 					self.importFile(os.path.dirname(filepath), line[8:].strip())
 					self.addComment("", line.strip())
 					continue

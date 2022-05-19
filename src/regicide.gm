@@ -6,9 +6,9 @@
 // Time: 15-30m
 // BGG Weight: 2.08 = 7 / 22 / 8 / 1 / 0
 
-#include common/Game
-#include common/CardGame
-#include common/DeckFrenchSuit
+#import common/Game
+#import common/CardGame
+#import common/DeckFrenchSuit
 
 // SECTION: Vocabulary
 

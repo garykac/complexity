@@ -6,9 +6,9 @@
 // Players: 2-4
 // Time: 30m
 
-#include common/Game
-#include common/CardGame
-#include DominionFirst
+#import common/Game
+#import common/CardGame
+#import DominionFirst
 
 // SECTION: Vocabulary
 

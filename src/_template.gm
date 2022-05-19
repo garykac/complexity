@@ -1,12 +1,13 @@
-// NAME: Risk
+// NAME: GameTitle
 
-// Year: 1959
-// Designer: Albert Lamorisse, Michael I. Levin
-// Players: 2-6
-// Time: 120-240m
+// Year: xxxx
+// Designer: xxx
+// Players: 2-4
+// Time: 1m
 
-#include common/Game
-#include common/CardGame
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
 
 // SECTION: Vocabulary
 
