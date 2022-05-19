@@ -11,7 +11,9 @@ MULTI_KEYWORDS = "[A-Z][A-Za-z0-9\|_]*"
 TAB_SIZE = 4
 
 GM_CSS_PATH = "gm.css"
-OUTPUT_DIR = "games"
+SRC_DIR = "../src"
+OUTPUT_DIR = "../games"
+LIST_FILE = "_list.txt"
 
 FREE_ACTIONS = [
 	"Then:",
@@ -35,6 +37,15 @@ def errorLine(line, msg):
 class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
+		self.reset()
+
+		self.games = None
+		
+		# Special actions with 0 cost.
+		self.freeActions = {}
+		self.initFreeActions()
+	
+	def reset(self):
 		self.vocab = {}
 		self.initVocab()
 
@@ -43,11 +54,7 @@ class GambitParser:
 		self.maxIndent = 0
 		self.costTotal = 0
 		self.gameTitle = "Unknown"
-
-		# Special actions with 0 cost.
-		self.freeActions = {}
-		self.initFreeActions()
-		
+	
 		# Dict of defs that reference this def.
 		self.referencedBy = {}
 	
@@ -118,6 +125,9 @@ class GambitParser:
 				self.gameTitle = comment[5:].strip()
 				self.addTitleLine(self.gameTitle)
 				return
+			elif comment.startswith("BGG Weight:"):
+				# Ignore
+				return
 		self.addCommentLine(indent, comment)
 
 	def addDefinition(self, keywords, type, comment):
@@ -175,7 +185,9 @@ class GambitParser:
 	# Process a Gambit file to calculate cost and generate HTML.
 	# ==========
 	
-	def process(self, filepath):
+	def process(self, id):
+		filename = "{0:s}.gm".format(id)
+		filepath = os.path.join(SRC_DIR, filename)
 		with open(filepath, 'r') as file:
 			for line in file:
 				self.originalLine = line.rstrip()
@@ -217,6 +229,7 @@ class GambitParser:
 		
 		self.updateCosts()
 		self.calcCost()
+		self.updateIndexList(id, self.costTotal)
 		
 		self.extractAllReferences()
 		
@@ -600,19 +613,46 @@ class GambitParser:
 		out.write('</body>\n')
 		out.write('</html>\n')
 
-def processAll(dir):
-	for item in os.listdir(dir):
-		path = os.path.join(dir, item)
-		if os.path.isfile(path):
-			ext = os.path.splitext(path)[1]
-			if ext == ".gm":
-				processOne(path)
+	def loadGameList(self):
+		if self.games:
+			return
 
-def processOne(path):
-	print("Analyzing {0:s}...".format(path))
+		if not os.path.isdir(OUTPUT_DIR):
+			os.makedirs(OUTPUT_DIR)
+		listfile = os.path.join(SRC_DIR, LIST_FILE)
 
-	parser = GambitParser()
-	parser.process(path)
+		self.games = {}
+		with open(listfile, 'r') as file:
+			for line in file:
+				(id, title, subtitle, parentId, score) = line.strip().split(';')
+				self.games[id] = [title, subtitle, parentId, score]
+
+	def updateIndexList(self, id, newScore):
+		(title, subtitle, parentId, score) = self.games[id]
+		if score != newScore:
+			# Update the score in the games dict.
+			self.games[id][3] = newScore
+
+			# Update _list.txt
+			listfile = os.path.join(SRC_DIR, LIST_FILE)
+			with open(listfile, 'w') as out:
+				for key, value in self.games.items():
+					(title, subtitle, parentId, score) = value					
+					out.write(';'.join([key, title, subtitle, str(parentId), str(score)]))
+					out.write('\n')
+			
+	def processAll(self):
+		self.loadGameList()
+		for id in self.games:
+			self.processOne(id)
+
+	def processOne(self, id):
+		print("Analyzing {0:s}...".format(id))
+		self.loadGameList()
+		if not id in self.games:
+			error('Unable to find "{0:s}" in game list'.format(id))
+		self.reset()
+		self.process(id)
 
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
@@ -622,20 +662,26 @@ def usage():
 def main():
 	try:
 		opts, args = getopt.getopt(sys.argv[1:],
-			'v',
-			['verbose'])
+			'g:v',
+			['game=', 'verbose'])
 	except getopt.GetoptError:
 		usage()
 		exit()
 
+	gameId = None
 	verbose = False
 	
 	for opt, arg in opts:
+		if opt in ('-g', '--game'):
+			gameId = arg
 		if opt in ('-v', '--verbose'):
 			verbose = True
 
-	processAll("src")
-	#processOne("src/leaving-earth.gm")
+	parser = GambitParser()
+	if gameId:
+		parser.processOne(gameId)
+	else:
+		parser.processAll()
 
 if __name__ == '__main__':
 	main()
