@@ -1,0 +1,27 @@
+// NAME: Risk
+
+// Year: 1959
+// Designer: Albert Lamorisse, Michael I. Levin
+// Players: 2-6
+// Time: 120-240m
+
+#include common/Game
+#include common/CardGame
+
+// SECTION: Vocabulary
+
+// SECTION: Setup
+
+Setup: Verb
+	Pass
+	
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Pass
+
+// SECTION: Constraints
+
+// SECTION: Endgame
+
+Winner: Noun
