@@ -26,6 +26,15 @@ FREE_ACTIONS = [
 	"Choose one:",
 ]
 
+# Handle suffix words like "Discard it" or "Shuffle them"
+FREE_SUFFIX_WORDS = [
+	"it",
+	"them",
+]
+
+def warning(msg):
+	print("WARNING: {0:s}".format(msg))
+
 def error(msg):
 	print("ERROR: {0:s}".format(msg))
 	exit()
@@ -54,6 +63,7 @@ class GambitParser:
 		self.maxIndent = 0
 		self.costTotal = 0
 		self.gameTitle = "Unknown"
+		self.currentDir = None
 	
 		# Dict of defs that reference this def.
 		self.referencedBy = {}
@@ -188,58 +198,60 @@ class GambitParser:
 	def process(self, id):
 		filename = "{0:s}.gm".format(id)
 		filepath = os.path.join(SRC_DIR, filename)
+		self.currentDir = SRC_DIR
 		with open(filepath, 'r') as file:
 			for line in file:
-				self.originalLine = line.rstrip()
-				comment = ""
-				
-				if line.startswith("#import"):
-					self.importFile(os.path.dirname(filepath), line[8:].strip())
-					self.addComment("", line.strip())
-					continue
-
-				# Handle comments and empty lines.
-				m = re.match("(.*?)//(.*)", line)
-				if m:
-					line = m.group(1)
-					comment = m.group(2)
-				comment = comment.strip()
-				if line.strip() == "":
-					self.addComment(line, comment)
-					continue
-				line = line.rstrip()
-
-				# NEW_TYPE: TYPE
-				# NEW_TYPE|PLURAL: TYPE
-				# NEW_ATTRIBUTE: Attribute of TYPE
-				# NEW_TYPE: TYPE1, TYPE2
-				m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
-				if m:
-					keyword = m.group(1)
-					type = m.group(2)
-					keywords = keyword.split('|')
-					self.addDefinition(keywords, type, comment)
-					continue
-
-				if line.strip().startswith("!"):
-					self.addConstraint(line, comment)
-					continue
-					
-				self.addDescription(line, comment)
+				self.processLine(line)
 		
 		self.updateCosts()
 		self.calcCost()
 		self.updateIndexList(id, self.costTotal)
 		
 		self.extractAllReferences()
+
+	def processLine(self, line):
+		self.originalLine = line.rstrip()
+		comment = ""
 		
-		self.writeHtml(filepath)
-	
-	def importFile(self, dir, name):
+		if line.startswith("#import"):
+			self.importFile(line[8:].strip())
+			self.addComment("", line.strip())
+			return
+
+		# Handle comments and empty lines.
+		m = re.match("(.*?)//(.*)", line)
+		if m:
+			line = m.group(1)
+			comment = m.group(2)
+		comment = comment.strip()
+		if line.strip() == "":
+			self.addComment(line, comment)
+			return
+		line = line.rstrip()
+
+		# NEW_TYPE: TYPE
+		# NEW_TYPE|PLURAL: TYPE
+		# NEW_ATTRIBUTE: Attribute of TYPE
+		# NEW_TYPE: TYPE1, TYPE2
+		m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
+		if m:
+			keyword = m.group(1)
+			type = m.group(2)
+			keywords = keyword.split('|')
+			self.addDefinition(keywords, type, comment)
+			return
+
+		if line.strip().startswith("!"):
+			self.addConstraint(line, comment)
+			return
+			
+		self.addDescription(line, comment)
+
+	def importFile(self, name):
 		basename = os.path.basename(name)
 		dirname = os.path.dirname(name)
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
-		with open(os.path.join(dir, dirname, basename), 'r') as file:
+		with open(os.path.join(self.currentDir, dirname, basename), 'r') as file:
 			for line in file:
 				m = re.match("(" + KEYWORD + "):\s*(.*)", line)
 				if m:
@@ -286,7 +298,7 @@ class GambitParser:
 				# Handle "Discard xxx"
 				if len(words) == 2 and self.isVocab(words[0]):
 					# Handle: "Discard it"
-					if words[1] == "it":
+					if words[1] in FREE_SUFFIX_WORDS:
 						r[1] = 0
 					# Handle: "Discard x2"
 					if re.match('x\d+$', words[1]):
@@ -574,8 +586,8 @@ class GambitParser:
 	def writeTableFooter(self, out):
 		out.write('</table>\n')
 
-	def writeHtml(self, filepath):
-		outfile = os.path.splitext(os.path.basename(filepath))[0] + ".html"
+	def writeHtml(self, id):
+		outfile = "{0:s}.html".format(id)
 		outpath = os.path.join(OUTPUT_DIR, outfile)
 		with open(outpath, 'w') as out:
 			self.writeHtmlHeader(out, self.gameTitle, self.costTotal)
@@ -629,6 +641,9 @@ class GambitParser:
 				self.games[id] = [title, subtitle, parentId, score]
 
 	def updateIndexList(self, id, newScore):
+		if not id in self.games:
+			warning("Unable to update score for {0:s}".format(id))
+			return
 		(title, subtitle, parentId, score) = self.games[id]
 		if score != newScore:
 			# Update the score in the games dict.
@@ -651,9 +666,10 @@ class GambitParser:
 		print("Analyzing {0:s}...".format(id))
 		self.loadGameList()
 		if not id in self.games:
-			error('Unable to find "{0:s}" in game list'.format(id))
+			warning('Unable to find "{0:s}" in game list'.format(id))
 		self.reset()
 		self.process(id)
+		self.writeHtml(id)
 
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
