@@ -4,6 +4,7 @@
 // Designer: xxx
 // Players: 2-4
 // Time: 1m
+// BGG Weight: 1.75 = 283 / 223 / 69 / 14 / 12
 
 #import common/Game
 #import common/BoardGame
