@@ -1,0 +1,358 @@
+// NAME: 1830 Starter
+// This is a simplified version of 1830 that eliminates the stock investment portion.
+// It was included in the 2011 Mayfair release of 1830.
+// It is intended as an introductory game to learn the train-related rules before tackling the full game.
+
+// Year: 2011
+// Designer: Francis Tresham
+// Players: 2-6
+// Time: 60-90m
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+MapBoard: Board
+
+Hex: Noun
+	A part of the map, either part of the MapBoard or a TrackTile laid on the board
+Label: Attribute of Hex
+	Some locations have a special label: "OO", "B", or "NY"
+Edge: Attribute of Hex
+	One of the 6 edges around the Hex
+TrackEdge: Attribute of Hex
+	An Edge of the Hex that has a track connection running through it
+RedEdge: Edge
+	An Edge that crosses a large body of water
+
+City|Cities: Attribute of Hex
+Value: Attribute of City
+LargeCity|LargeCities: City
+	Location that can contain one or more StationCircles
+StationCircle: Part of LargeCity
+	A place where a Station can be placed
+SmallCity|SmallCities: City
+	A small city, represented by a small circle or a short line across the track
+OffmapCity: City
+	A City along the edge of the map that cannot be upgraded
+	// Only found on Red MapHexes
+
+MapHex|MapHexes: Hex
+	A Hex that is part of the MapBoard
+DevelopmentCost: Attribute of MapHex
+	Cost to LayTrack in this location
+SplitValue: Attribute of MapHex
+	A MapHex with an OffmapCity that has different Values depending on the Phase
+	// Only found on Red MapHexes
+Color: Attribute of MapHex
+Tan: Color
+	Basic locations that can be upgraded with a YellowTile
+Yellow: Color
+	Major cities that can be upgraded with a GreenTile
+Red: Color
+	Off-map locations that cannot be upgraded
+Gray: Color
+	MapHexes that cannot be upgraded
+
+TrackTile: Hex
+	Hexagonal tile that is placed on the MapBoard's MapHexes
+YellowTile: TrackTile
+GreenTile: TrackTile
+BrownTile: TrackTile
+
+Supply: Noun
+	Storage for TrackTiles
+	
+Railroad: Noun
+Name: Attribute of Railroad
+HomeCity: Attribute of Railroad
+	Indicated on the MapBoard with a the Railroad's logo next to the city.
+
+Charter: Noun
+	A card used to hold the Money, Trains and available Stations for a Railroad.
+
+StationSpace: Part of Charter
+	Storage for new Stations
+Cost: Attribute of StationSpace
+	Cost to purchase the Station
+
+// Railroads:
+// PRR: Pennsylvania Railroad - HomeCity: Altoona
+// NYC: New York Central - HomeCity: Albany
+// C&O: Chesapeake & Ohio - HomeCity: Cleveland
+// B&M: Boston & Maine - HomeCity: Boston
+// NNH: NY, New Haven & Hartford - HomeCity: New York
+// B&O: Baltimore & Ohio - HomeCity: Baltimore
+
+Station: Token
+	Placed on a StationCircle when the Railroad builds a Station in a LargeCity.
+
+Train: Card
+	Represents a train owned by the Railroad (or the Bank)
+Type: Attribute of Train
+	Train type: 2,3,4,5
+Cost: Attribute of Train
+	Cost to purchase the Train
+
+MaxTrains: Noun
+	The maximum number of Trains a Railroad may own
+
+OpenMarket: Noun
+	Place where used Trains are sold
+	
+Phase: Noun
+	Current phase of the game
+EndGameTriggered: Noun
+	Whether or not the endgame conditions have been triggered
+
+Money: Noun
+
+Bank: Noun
+	Contains the Money and unsold Trains
+Banker: Noun
+	Player who manages the Bank
+
+// SECTION: Setup
+
+Setup: Verb
+	SetupBank
+	SetupPlayerMoney
+	SetupTrains
+	SetupRailroads
+	SetupStations
+	SetupTrackTiles
+
+SetupBank: Verb
+	Assign one Player to be the Banker
+	Initialize Bank with $5,600
+
+SetupPlayerMoney: Verb
+	From the Bank, give the following amount to each Player, based on Player count:
+		* 2p: $200
+		* 3p: $180
+		* 4p: $180
+		* 5p: $150
+		* 6p: $150
+
+SetupTrains: Verb
+	Gather the following Trains (Type = 2,3,4,5) into stacks, based on Player count:
+		* 2p: 4 / 3 / 2 / 1
+		* 3p: 4 / 4 / 3 / 1
+		* 4p: 5 / 5 / 4 / 1
+		* 5p: 6 / 6 / 5 / 1
+		* 6p: 7 / 6 / 5 / 2
+	Remaining Trains will not be used and should be returned to the Box
+
+SetupRailroads: Verb
+	Gather the Charters with the following Names, based on Player count:
+		* 2p: "PRR", "NYC"
+		* 3p: "PRR", "NYC", "C&O"
+		* 4p: "PRR", "NYC", "C&O", "B&M"
+		* 5p: "PRR", "NYC", "C&O", "B&M", "NNH"
+		* 6p: "PRR", "NYC", "C&O", "B&M", "NNH", "B&O"
+	Shuffle them
+	Deal one to each Player
+	
+SetupStations: Verb
+	For each "PRR", "NYC", "C&O", "B&M", "NHH", "B&O":
+		Place a matching Station on the Railroad's HomeCity
+		// Note: this is done for all 6 Railroads regardless of Player count
+	For each Player's Charter:
+		Place a matching Station on the StationSpace with a Cost of $40
+
+SetupTrackTiles: Verb
+	Arrange TrackTiles by color and other attributes so they can be found easily
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Set Phase to 1
+	Set MaxTrains to 4
+	Set EndGameTriggered to "No"
+	Repeat until EndGameTriggered:
+		AllRailroadTurns
+
+AllRailroadTurns: Verb
+	For each Railroad in "PRR", "NYC", "C&O", "B&M", "NNH", "B&O":
+		RailroadTurn
+	! Skip over Railroads not controlled by a Player
+
+TriggerEndGame: Verb
+	Put remaining Money in Bank
+	If the Bank didn't have enough Money to pay out a Train run:
+		Make the rest of the Bank payment to the Railroad
+	Set EndGameTriggered to "Yes"
+	// Note: Once the endgame is triggered, players keep taking turns until it gets back to the first player
+
+RailroadTurn: Verb
+	ConstructTrack
+	BuildStation
+	OperateTrains
+	PurchaseTrains
+
+ConstructTrack: Verb
+	You may choose one of the following:
+		LayTrack
+		UpgradeTrack
+
+LayTrack: Verb
+	Choose a MapHex that doesn't have any TrackTiles
+	Select based on the Color of the MapHex:
+		Tan: LayYellowTrack
+		Yellow: LayGreenTrack
+	! TrackTiles may not be placed on Red or Gray MapHexes
+
+LayYellowTrack: Verb
+	If the MapHex has a DevelopmentCost:
+		Your Railroad must pay 1/2 this cost to lay track here
+		// 1/2 cost is for the starter game
+	Place a YellowTile in the MapHex
+	! MustMatchTileOrientation
+	! MustMatchCities
+	! NoRailLeadingIntoForbiddenEdges
+
+LayGreenTrack: Verb
+	Place a GreenTile in the MapHex
+	! GreenTilesOnlyInPhase2
+	! MustTracePathToYourStation
+	! MustMatchExistingTrack
+	! MustMatchCities
+	! NoRailLeadingIntoForbiddenEdges
+	! MustMatchCityLabel
+
+UpgradeTrack: Verb
+	Choose a MapHex with a YellowTile or GreenTile
+	Choose an upgrade TrackTile based on the tile being upgraded:
+		YellowTile: GreenTile
+		GreenTile: BrownTile
+	Replace the existing TrackTile in the MapHex with the new one
+	Add the previous TrackTile to the Supply
+	! GreenTilesOnlyInPhase2
+	! BrownTilesOnlyInPhase4
+	! MustTracePathToYourStation
+	! MustMatchExistingTrack
+	! MustMatchCities
+	! NoRailLeadingIntoForbiddenEdges
+	! MustMatchCityLabel
+	// There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost
+
+BuildStation: Verb
+	If you have a Station available on one of your Charter's StationSpaces:
+		You may pay the associated Cost to PlaceStation
+
+PlaceStation: Verb
+	Choose a LargeCity with an available StationCircle
+	You must be able to track a continuous path from this LargeCity back to your HomeCity
+	Place Station on the LargeCity's StationCircle
+	! Multiple Stations may not be placed in the same StationCircle
+
+OperateTrains: Verb
+	For each Train owned by the Railroad, you may:
+		RunTrain
+		CalcRunValue
+		The Railroad gains (from the Bank) Money equal to the value of the run
+		If the Bank doesn't have enough Money to pay:
+			TriggerEndGame
+
+RunTrain: Verb
+	Choose a start and destination City on the MapBoard, with the following restrictions:
+		The two Cities must be connected by a contiguous route
+		The maximum number of Cities for the route is equal to the Train's Type
+		You may not skip over Cities on your route
+		The route may not use the same segment of track more than once
+		The route may not visit the same City more than once
+	At least one of the Cities on the route must contain one of your Stations
+	The train may not reverse direction at a junction
+	If you're running multiple trains as part of the same operation:
+		You may not use track already used by one of your previous runs this turn
+		// But you may use the same City in multiple runs
+	! You may not skip over Cities on your route
+
+CalcRunValue: Verb
+	The value of the run is the sum of the Value of each City visited
+	If the run includes an OffmapCity (in a Red MapHex) with a SplitValue:
+		Choose the value based on the current Phase:
+			* Phase 1-3: use the lower value
+			* Phase 4: use the higher value
+	// Including the start and destination City
+
+PurchaseTrains: Verb
+	You may choose one:
+		PurchaseTrainFromBank
+		PurchaseTrainFromMarket
+	If you do not have any Trains:
+		You must buy a Train
+		If you can't buy a Train:
+			TriggerEndGame
+
+PurchaseTrainFromBank: Verb
+	You may purchase the lowest numbered Train available in the Bank
+	If you do:
+		PayBankForTrain
+		If this is the first 3, 4 or 5 Train purchased (by any Player):
+			NextPhase
+
+PurchaseTrainFromMarket: Verb
+	You may purchase any Train from the OpenMarket
+	If you do:
+		PayBankForTrain
+
+PayBankForTrain: Verb
+	Pay the Cost of the Train to the Bank
+	Put the Train on your Railroad's Charter
+
+NextPhase: Verb
+	Add 1 to Phase
+	If Phase is 3:
+		Set MaxTrains to 3
+		For each Railroad with a Train of Type 2:
+			RemoveTrain
+	If Phase is 4:
+		Set MaxTrains to 2
+	For each Railroad with more than MaxTrains Trains:
+		AddTrainToMarket
+
+RemoveTrain: Verb
+	Remove Train from game
+
+AddTrainToMarket: Verb
+	Add the Train to the OpenMarket
+
+// SECTION: Constraints
+
+BrownTilesOnlyInPhase4: Constraint
+	BrownTiles may only be chosen if Phase >= 4
+		
+GreenTilesOnlyInPhase2: Constraint
+	GreenTiles may only be used if Phase >= 2
+
+MustMatchCities: Constraint
+	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
+		The new TrackTile being placed must:
+			Match the number of LargeCities and SmallCities
+			Maintain the connections (or lack thereof) between the Cities
+
+MustMatchCityLabel: Constraint
+	If the MapHex or existingTrackTile has a Label:
+		The new TrackTile being placed must also have the same Label
+
+MustMatchExistingTrack: Constraint
+	The orientation of the new TrackTile being placed must match all the existing TrackEdges
+
+MustTracePathToYourStation: Constraint
+	You must be able to track a continuous path from this TrackTile to one of the Railroad's Stations
+
+NoRailLeadingIntoForbiddenEdges: Constraint
+	If the MapHex has an Edge that matches any of:
+		Is along the outside of the MapBoard
+		Is a RedEdge
+		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
+	Then:
+		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
+
+// SECTION: Endgame
+
+DetermineWinner: Verb
+	The Player with the most Money

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>1830 Starter</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">1830 Starter</div>
+<div class="summary">Learning Complexity: 134</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=4>1830 Starter</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">This is a simplified version of 1830 that eliminates the stock investment portion.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">It was included in the 2011 Mayfair release of 1830.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">It is intended as an introductory game to learn the train-related rules before tackling the full game.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2011</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Francis Tresham</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2-6</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 60-90m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/BoardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MapBoard">MapBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Hex">Hex</a><a href="#HomeCity">HomeCity</a><a href="#MapHex">MapHex</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><a href="#RunTrain">RunTrain</a><a href="#TrackTile">TrackTile</a></div></div>: <abbr title="Imported from common/BoardGame">Board</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Hex">Hex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#City">City</a><a href="#Edge">Edge</a><a href="#Label">Label</a><a href="#MapHex">MapHex</a><a href="#TrackEdge">TrackEdge</a><a href="#TrackTile">TrackTile</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A part of the map, either part of the <a class="keyword" href="#MapBoard">MapBoard</a> or a <a class="keyword" href="#TrackTile">TrackTile</a> laid on the board</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Label">Label</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustMatchCityLabel">MustMatchCityLabel</a></div></div>: Attribute of <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Some locations have a special label: "OO", "B", or "NY"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Edge">Edge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><a href="#RedEdge">RedEdge</a><a href="#TrackEdge">TrackEdge</a></div></div>: Attribute of <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>One of the 6 edges around the <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrackEdge">TrackEdge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustMatchExistingTrack">MustMatchExistingTrack</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></div></div>: Attribute of <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>An <a class="keyword" href="#Edge">Edge</a> of the <a class="keyword" href="#Hex">Hex</a> that has a track connection running through it</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RedEdge">RedEdge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></div></div>: <a class="keyword" href="#Edge">Edge</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>An <a class="keyword" href="#Edge">Edge</a> that crosses a large body of water</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="City">City</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcRunValue">CalcRunValue</a><a href="#LargeCity">LargeCity</a><a href="#MustMatchCities">MustMatchCities</a><a href="#OffmapCity">OffmapCity</a><a href="#RunTrain">RunTrain</a><a href="#SmallCity">SmallCity</a><a href="#Value">Value</a></div></div>: Attribute of <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcRunValue">CalcRunValue</a><a href="#SplitValue">SplitValue</a></div></div>: Attribute of <a class="keyword" href="#City">City</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LargeCity">LargeCity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustMatchCities">MustMatchCities</a><a href="#PlaceStation">PlaceStation</a><a href="#Station">Station</a><a href="#StationCircle">StationCircle</a></div></div>: <a class="keyword" href="#City">City</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Location that can contain one or more <a class="keyword" href="#StationCircle">StationCircles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StationCircle">StationCircle</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LargeCity">LargeCity</a><a href="#PlaceStation">PlaceStation</a><a href="#Station">Station</a></div></div>: Part of <a class="keyword" href="#LargeCity">LargeCity</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A place where a <a class="keyword" href="#Station">Station</a> can be placed</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SmallCity">SmallCity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustMatchCities">MustMatchCities</a></div></div>: <a class="keyword" href="#City">City</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A small city, represented by a small circle or a short line across the track</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="OffmapCity">OffmapCity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcRunValue">CalcRunValue</a><a href="#SplitValue">SplitValue</a></div></div>: <a class="keyword" href="#City">City</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#City">City</a> along the edge of the map that cannot be upgraded</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Only found on Red MapHexes</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MapHex">MapHex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcRunValue">CalcRunValue</a><a href="#Color">Color</a><a href="#DevelopmentCost">DevelopmentCost</a><a href="#Gray">Gray</a><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayTrack">LayTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#MustMatchCities">MustMatchCities</a><a href="#MustMatchCityLabel">MustMatchCityLabel</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><a href="#SplitValue">SplitValue</a><a href="#TrackTile">TrackTile</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#Hex">Hex</a> that is part of the <a class="keyword" href="#MapBoard">MapBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DevelopmentCost">DevelopmentCost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayYellowTrack">LayYellowTrack</a></div></div>: Attribute of <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Cost">Cost</a> to <a class="keyword" href="#LayTrack">LayTrack</a> in this location</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SplitValue">SplitValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcRunValue">CalcRunValue</a></div></div>: Attribute of <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#MapHex">MapHex</a> with an <a class="keyword" href="#OffmapCity">OffmapCity</a> that has different <a class="keyword" href="#Value">Values</a> depending on the <a class="keyword" href="#Phase">Phase</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Only found on Red MapHexes</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Color">Color</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Gray">Gray</a><a href="#LayTrack">LayTrack</a><a href="#Red">Red</a><a href="#Tan">Tan</a><a href="#Yellow">Yellow</a></div></div>: Attribute of <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Tan">Tan</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Basic locations that can be upgraded with a <a class="keyword" href="#YellowTile">YellowTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Yellow">Yellow</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Major cities that can be upgraded with a <a class="keyword" href="#GreenTile">GreenTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Red">Red</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcRunValue">CalcRunValue</a><a href="#LayTrack">LayTrack</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></div></div>: <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Off-map locations that cannot be upgraded</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gray">Gray</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></div></div>: <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MapHex">MapHexes</a> that cannot be upgraded</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrackTile">TrackTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BrownTile">BrownTile</a><a href="#GreenTile">GreenTile</a><a href="#Hex">Hex</a><a href="#LayTrack">LayTrack</a><a href="#MustMatchCities">MustMatchCities</a><a href="#MustMatchCityLabel">MustMatchCityLabel</a><a href="#MustMatchExistingTrack">MustMatchExistingTrack</a><a href="#MustTracePathToYourStation">MustTracePathToYourStation</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><a href="#SetupTrackTiles">SetupTrackTiles</a><a href="#Supply">Supply</a><a href="#UpgradeTrack">UpgradeTrack</a><a href="#YellowTile">YellowTile</a></div></div>: <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Hexagonal tile that is placed on the <a class="keyword" href="#MapBoard">MapBoard</a>'s <a class="keyword" href="#MapHex">MapHexes</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="YellowTile">YellowTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayYellowTrack">LayYellowTrack</a><a href="#Tan">Tan</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: <a class="keyword" href="#TrackTile">TrackTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GreenTile">GreenTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a><a href="#Yellow">Yellow</a></div></div>: <a class="keyword" href="#TrackTile">TrackTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BrownTile">BrownTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: <a class="keyword" href="#TrackTile">TrackTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Supply">Supply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Storage for <a class="keyword" href="#TrackTile">TrackTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Railroad">Railroad</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllRailroadTurns">AllRailroadTurns</a><a href="#Charter">Charter</a><a href="#HomeCity">HomeCity</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#MaxTrains">MaxTrains</a><a href="#MustTracePathToYourStation">MustTracePathToYourStation</a><a href="#Name">Name</a><a href="#NextPhase">NextPhase</a><a href="#OperateTrains">OperateTrains</a><a href="#PayBankForTrain">PayBankForTrain</a><a href="#SetupStations">SetupStations</a><a href="#Station">Station</a><a href="#Train">Train</a><a href="#TriggerEndGame">TriggerEndGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Name">Name</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRailroads">SetupRailroads</a></div></div>: Attribute of <a class="keyword" href="#Railroad">Railroad</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HomeCity">HomeCity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceStation">PlaceStation</a><a href="#SetupStations">SetupStations</a></div></div>: Attribute of <a class="keyword" href="#Railroad">Railroad</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Indicated on the <a class="keyword" href="#MapBoard">MapBoard</a> with a the <a class="keyword" href="#Railroad">Railroad</a>'s logo next to the city.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Charter">Charter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a><a href="#PayBankForTrain">PayBankForTrain</a><a href="#SetupRailroads">SetupRailroads</a><a href="#SetupStations">SetupStations</a><a href="#StationSpace">StationSpace</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A card used to hold the <a class="keyword" href="#Money">Money</a>, <a class="keyword" href="#Train">Trains</a> and available <a class="keyword" href="#Station">Stations</a> for a <a class="keyword" href="#Railroad">Railroad</a>.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StationSpace">StationSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a><a href="#Cost">Cost</a><a href="#SetupStations">SetupStations</a></div></div>: Part of <a class="keyword" href="#Charter">Charter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Storage for new <a class="keyword" href="#Station">Stations</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Cost">Cost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a><a href="#DevelopmentCost">DevelopmentCost</a><a href="#PayBankForTrain">PayBankForTrain</a><a href="#SetupStations">SetupStations</a></div></div>: Attribute of <a class="keyword" href="#StationSpace">StationSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Cost">Cost</a> to purchase the <a class="keyword" href="#Station">Station</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Railroads:</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">PRR: Pennsylvania Railroad - HomeCity: Altoona</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">NYC: New York Central - HomeCity: Albany</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">C&O: Chesapeake & Ohio - HomeCity: Cleveland</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">B&M: Boston & Maine - HomeCity: Boston</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">NNH: NY, New Haven & Hartford - HomeCity: New York</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">B&O: Baltimore & Ohio - HomeCity: Baltimore</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Station">Station</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a><a href="#Charter">Charter</a><a href="#Cost">Cost</a><a href="#MustTracePathToYourStation">MustTracePathToYourStation</a><a href="#PlaceStation">PlaceStation</a><a href="#RunTrain">RunTrain</a><a href="#SetupStations">SetupStations</a><a href="#StationCircle">StationCircle</a><a href="#StationSpace">StationSpace</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Placed on a <a class="keyword" href="#StationCircle">StationCircle</a> when the <a class="keyword" href="#Railroad">Railroad</a> builds a <a class="keyword" href="#Station">Station</a> in a <a class="keyword" href="#LargeCity">LargeCity</a>.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Train">Train</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddTrainToMarket">AddTrainToMarket</a><a href="#Bank">Bank</a><a href="#Charter">Charter</a><a href="#Cost">Cost</a><a href="#MaxTrains">MaxTrains</a><a href="#NextPhase">NextPhase</a><a href="#OpenMarket">OpenMarket</a><a href="#OperateTrains">OperateTrains</a><a href="#PayBankForTrain">PayBankForTrain</a><a href="#PurchaseTrainFromBank">PurchaseTrainFromBank</a><a href="#PurchaseTrainFromMarket">PurchaseTrainFromMarket</a><a href="#PurchaseTrains">PurchaseTrains</a><a href="#RemoveTrain">RemoveTrain</a><a href="#RunTrain">RunTrain</a><a href="#SetupTrains">SetupTrains</a><a href="#TriggerEndGame">TriggerEndGame</a><a href="#Type">Type</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Represents a train owned by the <a class="keyword" href="#Railroad">Railroad</a> (or the <a class="keyword" href="#Bank">Bank</a>)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Type">Type</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextPhase">NextPhase</a><a href="#RunTrain">RunTrain</a><a href="#SetupTrains">SetupTrains</a></div></div>: Attribute of <a class="keyword" href="#Train">Train</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Train">Train</a> type: 2,3,4,5</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Cost">Cost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a><a href="#DevelopmentCost">DevelopmentCost</a><a href="#PayBankForTrain">PayBankForTrain</a><a href="#SetupStations">SetupStations</a></div></div>: Attribute of <a class="keyword" href="#Train">Train</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Cost">Cost</a> to purchase the <a class="keyword" href="#Train">Train</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MaxTrains">MaxTrains</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextPhase">NextPhase</a><a href="#PlayGame">PlayGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The maximum number of <a class="keyword" href="#Train">Trains</a> a <a class="keyword" href="#Railroad">Railroad</a> may own</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="OpenMarket">OpenMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddTrainToMarket">AddTrainToMarket</a><a href="#PurchaseTrainFromMarket">PurchaseTrainFromMarket</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place where used <a class="keyword" href="#Train">Trains</a> are sold</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Phase">Phase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a><a href="#CalcRunValue">CalcRunValue</a><a href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a><a href="#NextPhase">NextPhase</a><a href="#PlayGame">PlayGame</a><a href="#SplitValue">SplitValue</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Current phase of the game</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EndGameTriggered">EndGameTriggered</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#TriggerEndGame">TriggerEndGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Whether or not the endgame conditions have been triggered</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Money">Money</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Bank">Bank</a><a href="#Charter">Charter</a><a href="#DetermineWinner">DetermineWinner</a><a href="#OperateTrains">OperateTrains</a><a href="#TriggerEndGame">TriggerEndGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bank">Bank</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Banker">Banker</a><a href="#OperateTrains">OperateTrains</a><a href="#PayBankForTrain">PayBankForTrain</a><a href="#PurchaseTrainFromBank">PurchaseTrainFromBank</a><a href="#SetupBank">SetupBank</a><a href="#SetupPlayerMoney">SetupPlayerMoney</a><a href="#Train">Train</a><a href="#TriggerEndGame">TriggerEndGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Contains the <a class="keyword" href="#Money">Money</a> and unsold <a class="keyword" href="#Train">Trains</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Banker">Banker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupBank">SetupBank</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Player</abbr> who manages the <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupBank">SetupBank</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupPlayerMoney">SetupPlayerMoney</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupTrains">SetupTrains</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupRailroads">SetupRailroads</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupStations">SetupStations</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupTrackTiles">SetupTrackTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupBank">SetupBank</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Assign one <abbr title="Imported from common/Game">Player</abbr> to be the <a class="keyword" href="#Banker">Banker</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Initialize <a class="keyword" href="#Bank">Bank</a> with $5,600</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupPlayerMoney">SetupPlayerMoney</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>From the <a class="keyword" href="#Bank">Bank</a>, give the following amount to each <abbr title="Imported from common/Game">Player</abbr>, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2p: $200</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3p: $180</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4p: $180</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 5p: $150</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 6p: $150</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupTrains">SetupTrains</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Gather the following <a class="keyword" href="#Train">Trains</a> (<a class="keyword" href="#Type">Type</a> = 2,3,4,5) into stacks, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2p: 4 / 3 / 2 / 1</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3p: 4 / 4 / 3 / 1</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4p: 5 / 5 / 4 / 1</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 5p: 6 / 6 / 5 / 1</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 6p: 7 / 6 / 5 / 2</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remaining <a class="keyword" href="#Train">Trains</a> will not be used and should be returned to the <abbr title="Imported from common/BoardGame">Box</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupRailroads">SetupRailroads</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Gather the <a class="keyword" href="#Charter">Charters</a> with the following <a class="keyword" href="#Name">Names</a>, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2p: "PRR", "NYC"</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3p: "PRR", "NYC", "C&O"</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4p: "PRR", "NYC", "C&O", "B&M"</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 5p: "PRR", "NYC", "C&O", "B&M", "NNH"</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 6p: "PRR", "NYC", "C&O", "B&M", "NNH", "B&O"</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> them</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Deal</abbr> one to each <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupStations">SetupStations</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each "PRR", "NYC", "C&O", "B&M", "NHH", "B&O":</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place a matching <a class="keyword" href="#Station">Station</a> on the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: this is done for all 6 Railroads regardless of Player count</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#Charter">Charter</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place a matching <a class="keyword" href="#Station">Station</a> on the <a class="keyword" href="#StationSpace">StationSpace</a> with a <a class="keyword" href="#Cost">Cost</a> of $40</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupTrackTiles">SetupTrackTiles</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Arrange <a class="keyword" href="#TrackTile">TrackTiles</a> by color and other attributes so they can be found easily</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#Phase">Phase</a> to 1</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#MaxTrains">MaxTrains</a> to 4</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#EndGameTriggered">EndGameTriggered</a> to "No"</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#EndGameTriggered">EndGameTriggered</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AllRailroadTurns">AllRailroadTurns</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AllRailroadTurns">AllRailroadTurns</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Railroad">Railroad</a> in "PRR", "NYC", "C&O", "B&M", "NNH", "B&O":</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#RailroadTurn">RailroadTurn</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Skip over <a class="keyword" href="#Railroad">Railroads</a> not controlled by a <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TriggerEndGame">TriggerEndGame</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperateTrains">OperateTrains</a><a href="#PurchaseTrains">PurchaseTrains</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Put remaining <a class="keyword" href="#Money">Money</a> in <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#Bank">Bank</a> didn't have enough <a class="keyword" href="#Money">Money</a> to pay out a <a class="keyword" href="#Train">Train</a> run:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Make the rest of the <a class="keyword" href="#Bank">Bank</a> payment to the <a class="keyword" href="#Railroad">Railroad</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#EndGameTriggered">EndGameTriggered</a> to "Yes"</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note: Once the endgame is triggered, players keep taking turns until it gets back to the first player</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RailroadTurn">RailroadTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllRailroadTurns">AllRailroadTurns</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ConstructTrack">ConstructTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#BuildStation">BuildStation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#OperateTrains">OperateTrains</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PurchaseTrains">PurchaseTrains</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ConstructTrack">ConstructTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RailroadTurn">RailroadTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may choose one of the following:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#LayTrack">LayTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#UpgradeTrack">UpgradeTrack</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LayTrack">LayTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a><a href="#DevelopmentCost">DevelopmentCost</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#MapHex">MapHex</a> that doesn't have any <a class="keyword" href="#TrackTile">TrackTiles</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Select based on the <a class="keyword" href="#Color">Color</a> of the <a class="keyword" href="#MapHex">MapHex</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Tan">Tan</a>: <a class="keyword" href="#LayYellowTrack">LayYellowTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Yellow">Yellow</a>: <a class="keyword" href="#LayGreenTrack">LayGreenTrack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#TrackTile">TrackTiles</a> may not be placed on <a class="keyword" href="#Red">Red</a> or <a class="keyword" href="#Gray">Gray</a> <a class="keyword" href="#MapHex">MapHexes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LayYellowTrack">LayYellowTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#MapHex">MapHex</a> has a <a class="keyword" href="#DevelopmentCost">DevelopmentCost</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Your <a class="keyword" href="#Railroad">Railroad</a> must pay 1/2 this cost to lay track here</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">1/2 cost is for the starter game</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place a <a class="keyword" href="#YellowTile">YellowTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; MustMatchTileOrientation</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LayGreenTrack">LayGreenTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place a <a class="keyword" href="#GreenTile">GreenTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustTracePathToYourStation">MustTracePathToYourStation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeTrack">UpgradeTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#MapHex">MapHex</a> with a <a class="keyword" href="#YellowTile">YellowTile</a> or <a class="keyword" href="#GreenTile">GreenTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose an upgrade <a class="keyword" href="#TrackTile">TrackTile</a> based on the tile being upgraded:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#YellowTile">YellowTile</a>: <a class="keyword" href="#GreenTile">GreenTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#GreenTile">GreenTile</a>: <a class="keyword" href="#BrownTile">BrownTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Replace the existing <a class="keyword" href="#TrackTile">TrackTile</a> in the <a class="keyword" href="#MapHex">MapHex</a> with the new one</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add the previous <a class="keyword" href="#TrackTile">TrackTile</a> to the <a class="keyword" href="#Supply">Supply</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustTracePathToYourStation">MustTracePathToYourStation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildStation">BuildStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RailroadTurn">RailroadTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have a <a class="keyword" href="#Station">Station</a> available on one of your <a class="keyword" href="#Charter">Charter</a>'s <a class="keyword" href="#StationSpace">StationSpaces</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may pay the associated <a class="keyword" href="#Cost">Cost</a> to <a class="keyword" href="#PlaceStation">PlaceStation</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceStation">PlaceStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#LargeCity">LargeCity</a> with an available <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You must be able to track a continuous path from this <a class="keyword" href="#LargeCity">LargeCity</a> back to your <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Station">Station</a> on the <a class="keyword" href="#LargeCity">LargeCity</a>'s <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Multiple <a class="keyword" href="#Station">Stations</a> may not be placed in the same <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="OperateTrains">OperateTrains</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RailroadTurn">RailroadTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Train">Train</a> owned by the <a class="keyword" href="#Railroad">Railroad</a>, you may:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#RunTrain">RunTrain</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CalcRunValue">CalcRunValue</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#Railroad">Railroad</a> gains (from the <a class="keyword" href="#Bank">Bank</a>) <a class="keyword" href="#Money">Money</a> equal to the value of the run</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If the <a class="keyword" href="#Bank">Bank</a> doesn't have enough <a class="keyword" href="#Money">Money</a> to pay:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#TriggerEndGame">TriggerEndGame</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RunTrain">RunTrain</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperateTrains">OperateTrains</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a start and destination <a class="keyword" href="#City">City</a> on the <a class="keyword" href="#MapBoard">MapBoard</a>, with the following restrictions:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The two <a class="keyword" href="#City">Cities</a> must be connected by a contiguous route</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The maximum number of <a class="keyword" href="#City">Cities</a> for the route is equal to the <a class="keyword" href="#Train">Train</a>'s <a class="keyword" href="#Type">Type</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may not skip over <a class="keyword" href="#City">Cities</a> on your route</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The route may not use the same segment of track more than once</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The route may not visit the same <a class="keyword" href="#City">City</a> more than once</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>At least one of the <a class="keyword" href="#City">Cities</a> on the route must contain one of your <a class="keyword" href="#Station">Stations</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The train may not reverse direction at a junction</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you're running multiple trains as part of the same operation:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may not use track already used by one of your previous runs this turn</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">But you may use the same City in multiple runs</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not skip over <a class="keyword" href="#City">Cities</a> on your route</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalcRunValue">CalcRunValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperateTrains">OperateTrains</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The value of the run is the sum of the <a class="keyword" href="#Value">Value</a> of each <a class="keyword" href="#City">City</a> visited</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the run includes an <a class="keyword" href="#OffmapCity">OffmapCity</a> (in a <a class="keyword" href="#Red">Red</a> <a class="keyword" href="#MapHex">MapHex</a>) with a <a class="keyword" href="#SplitValue">SplitValue</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Choose the value based on the current <a class="keyword" href="#Phase">Phase</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#Phase">Phase</a> 1-3: use the lower value</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#Phase">Phase</a> 4: use the higher value</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Including the start and destination City</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PurchaseTrains">PurchaseTrains</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RailroadTurn">RailroadTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PurchaseTrainFromBank">PurchaseTrainFromBank</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PurchaseTrainFromMarket">PurchaseTrainFromMarket</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you do not have any <a class="keyword" href="#Train">Trains</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You must buy a <a class="keyword" href="#Train">Train</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If you can't buy a <a class="keyword" href="#Train">Train</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#TriggerEndGame">TriggerEndGame</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PurchaseTrainFromBank">PurchaseTrainFromBank</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseTrains">PurchaseTrains</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may purchase the lowest numbered <a class="keyword" href="#Train">Train</a> available in the <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If you do:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PayBankForTrain">PayBankForTrain</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If this is the first 3, 4 or 5 <a class="keyword" href="#Train">Train</a> purchased (by any <abbr title="Imported from common/Game">Player</abbr>):</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#NextPhase">NextPhase</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PurchaseTrainFromMarket">PurchaseTrainFromMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseTrains">PurchaseTrains</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may purchase any <a class="keyword" href="#Train">Train</a> from the <a class="keyword" href="#OpenMarket">OpenMarket</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If you do:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PayBankForTrain">PayBankForTrain</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PayBankForTrain">PayBankForTrain</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseTrainFromBank">PurchaseTrainFromBank</a><a href="#PurchaseTrainFromMarket">PurchaseTrainFromMarket</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Pay the <a class="keyword" href="#Cost">Cost</a> of the <a class="keyword" href="#Train">Train</a> to the <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Put the <a class="keyword" href="#Train">Train</a> on your <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#Charter">Charter</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NextPhase">NextPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseTrainFromBank">PurchaseTrainFromBank</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add 1 to <a class="keyword" href="#Phase">Phase</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#Phase">Phase</a> is 3:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#MaxTrains">MaxTrains</a> to 3</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#Railroad">Railroad</a> with a <a class="keyword" href="#Train">Train</a> of <a class="keyword" href="#Type">Type</a> 2:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#RemoveTrain">RemoveTrain</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#Phase">Phase</a> is 4:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#MaxTrains">MaxTrains</a> to 2</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Railroad">Railroad</a> with more than <a class="keyword" href="#MaxTrains">MaxTrains</a> <a class="keyword" href="#Train">Trains</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AddTrainToMarket">AddTrainToMarket</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemoveTrain">RemoveTrain</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextPhase">NextPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove <a class="keyword" href="#Train">Train</a> from game</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AddTrainToMarket">AddTrainToMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextPhase">NextPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add the <a class="keyword" href="#Train">Train</a> to the <a class="keyword" href="#OpenMarket">OpenMarket</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Constraints</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#BrownTile">BrownTiles</a> may only be chosen if <a class="keyword" href="#Phase">Phase</a> >= 4</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#GreenTile">GreenTiles</a> may only be used if <a class="keyword" href="#Phase">Phase</a> >= 2</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MustMatchCities">MustMatchCities</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#MapHex">MapHex</a> or existing <a class="keyword" href="#TrackTile">TrackTile</a> on the <a class="keyword" href="#MapHex">MapHex</a> has <a class="keyword" href="#LargeCity">LargeCities</a> or <a class="keyword" href="#SmallCity">SmallCities</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Match the number of <a class="keyword" href="#LargeCity">LargeCities</a> and <a class="keyword" href="#SmallCity">SmallCities</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Maintain the connections (or lack thereof) between the <a class="keyword" href="#City">Cities</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MustMatchCityLabel">MustMatchCityLabel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#MapHex">MapHex</a> or existingTrackTile has a <a class="keyword" href="#Label">Label</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must also have the same <a class="keyword" href="#Label">Label</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MustMatchExistingTrack">MustMatchExistingTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The orientation of the new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must match all the existing <a class="keyword" href="#TrackEdge">TrackEdges</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MustTracePathToYourStation">MustTracePathToYourStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You must be able to track a continuous path from this <a class="keyword" href="#TrackTile">TrackTile</a> to one of the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#Station">Stations</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#MapHex">MapHex</a> has an <a class="keyword" href="#Edge">Edge</a> that matches any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Is along the outside of the <a class="keyword" href="#MapBoard">MapBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Is a <a class="keyword" href="#RedEdge">RedEdge</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Abuts a non-TrackEdge <a class="keyword" href="#Edge">Edge</a> of a <a class="keyword" href="#Red">Red</a> or <a class="keyword" href="#Gray">Gray</a> <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Then:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must must be oriented so that this <a class="keyword" href="#Edge">Edge</a> is not a <a class="keyword" href="#TrackEdge">TrackEdge</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#Money">Money</a></td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

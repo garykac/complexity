@@ -1,3 +1,6 @@
+1830;1830;;;350
+1830-noprivates;1830;w/o Privates;;285
+1830-starter;1830;Starter Game;;134
 checkers;Checkers;;;26
 crazy-eights-28;Crazy Eights;28-card;;26
 crazy-eights-52;Crazy Eights;52-card;;38
