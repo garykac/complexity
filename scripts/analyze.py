@@ -20,6 +20,7 @@ FREE_ACTIONS = [
 	"Else:",
 	"Otherwise:",
 	"If you do:",
+	"If you don't:",
 	"If any of:",
 	"If all of:",
 	"For each Player:",
@@ -46,6 +47,7 @@ def errorLine(line, msg):
 class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
+		self.debug = False
 		self.reset()
 
 		self.games = None
@@ -56,8 +58,6 @@ class GambitParser:
 	
 	def reset(self):
 		self.vocab = {}
-		self.initVocab()
-
 		self.vocabPlural = {}
 		self.lines = []
 		self.maxIndent = 0
@@ -67,19 +67,16 @@ class GambitParser:
 	
 		# Dict of defs that reference this def.
 		self.referencedBy = {}
+
+		self.initVocab()
 	
 	def initFreeActions(self):
 		for a in FREE_ACTIONS:
 			self.freeActions[a] = True
 	
 	def initVocab(self):
-		self.vocab["Noun"] = ["BASE"]
-		self.vocab["Verb"] = ["BASE"]
-		self.vocab["Attribute"] = ["BASE"]
-		self.vocab["Part"] = ["BASE"]
-		self.vocab["Condition"] = ["BASE"]
-		self.vocab["Constraint"] = ["BASE"]
-		self.vocab["Exit"] = ["BASE"]
+		for key in ["Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit"]:
+			self.addVocab(key, None, ["BASE"])
 
 	def calcIndent(self, str):
 		m = re.match("(\t*)", str)
@@ -89,9 +86,36 @@ class GambitParser:
 		if m:
 			return len(m.group(1)) / TAB_SIZE
 		return 0
+
+	# ==========
+	# Vocabulary and Cross-reference
+	# ==========
+	
+	def addVocab(self, key, keyPlural, info):
+		self.vocab[key] = info
+		self.referencedBy[key] = set()
+
+		# Default plural is to just add an 's' at the end.
+		if keyPlural == None:
+			if key[-1] == 's':
+				keyPlural = key
+			else:
+				keyPlural = key + "s"
+		# Mapping from plural to canonical form.
+		self.vocabPlural[keyPlural] = key
+		if self.debug:
+			print("addVocab", key, keyPlural, info)
+		
+	def isVocab(self, word):
+		# Normalize plural forms.
+		canonicalForm = word
+		if word in self.vocabPlural:
+			canonicalForm = self.vocabPlural[word]
+
+		return canonicalForm in self.vocab
 	
 	# ==========
-	# Helper routines for adding new lines.
+	# Helper routines for adding new lines to the array.
 	# ==========
 	
 	def addBlankLine(self):
@@ -99,6 +123,9 @@ class GambitParser:
 
 	def addSectionLine(self, title):
 		self.lines.append(["SECTION", title])
+
+	def addSubsectionLine(self, title):
+		self.lines.append(["SUBSECTION", title])
 
 	def addTitleLine(self, title):
 		self.lines.append(["TITLE", title])
@@ -111,7 +138,7 @@ class GambitParser:
 	def addDefinitionLine(self, cost, keyword, types, parent, comment):
 		self.lines.append(["DEF", cost, keyword, types, parent, comment])
 		
-	def addConstraintLine(self, cost, indent, line, comment):
+	def addConstraintDescriptionLine(self, cost, indent, line, comment):
 		if indent > self.maxIndent:
 			self.maxIndent = indent
 		self.lines.append(["CONSTRAINT", cost, indent, line, comment])
@@ -121,6 +148,10 @@ class GambitParser:
 			self.maxIndent = indent
 		self.lines.append(["DESC", cost, indent, line, comment])
 
+	# ==========
+	# Helper routines for adding special line types.
+	# ==========
+	
 	def addComment(self, line, comment):
 		indent = self.calcIndent(line)
 		type = "COMMENT"
@@ -130,6 +161,9 @@ class GambitParser:
 		elif indent == 0:
 			if comment.startswith("SECTION:"):
 				self.addSectionLine(comment[8:].strip())
+				return
+			elif comment.startswith("SUBSECTION:"):
+				self.addSubsectionLine(comment[11:].strip())
 				return
 			elif comment.startswith("NAME:"):
 				self.gameTitle = comment[5:].strip()
@@ -142,12 +176,11 @@ class GambitParser:
 
 	def addDefinition(self, keywords, type, comment):
 		keyword = keywords[0]
+		keywordPlural = None
 		if len(keywords) == 2:
 			keywordPlural = keywords[1]
-		elif keyword[-1] == 's':
-			keywordPlural = keyword
-		else:
-			keywordPlural = keyword + "s"
+		elif len(keywords) > 2:
+			error("Unexpected keyword group {0:s}".format('|'.join(keywords)))
 
 		parent = None
 		info = None
@@ -168,19 +201,16 @@ class GambitParser:
 		
 		if not info:
 			info = ["LOCAL", types]
-		self.vocab[keyword] = info
-		
-		# Mapping from plural to canonical form.
-		self.vocabPlural[keywordPlural] = keyword
+		self.addVocab(keyword, keywordPlural, info)
 		
 		self.addDefinitionLine(1, keyword, types, parent, comment)
 
-	def addConstraint(self, line, comment):
+	def addConstraintDescription(self, line, comment):
 		indent = self.calcIndent(line)
 		line = line.strip()
 		line = line[1:]  # Remove the leading '!'
 		line = line.strip()
-		self.addConstraintLine(1, indent, line, comment)
+		self.addConstraintDescriptionLine(1, indent, line, comment)
 
 	def addDescription(self, line, comment):
 		indent = self.calcIndent(line)
@@ -191,6 +221,83 @@ class GambitParser:
 			cost = 0
 		self.addDescriptionLine(cost, indent, line, comment)
 
+	# ==========
+	# Calculating costs.
+	# ==========
+	
+	# Update the costs of the individual lines.
+	def updateCosts(self):
+		maxLines = len(self.lines)
+		for i in range(0, maxLines):
+			r = self.lines[i]
+			type = r[0]
+			if type == "DEF":
+				# If a DEF has DESC indented under it, then the cost is
+				# determined by the associated DESCs and the DEF itself is 0.
+				# Otherwise (with no DESCs) the cost of the DEF is 1.
+				if self.defHasDesc(i):
+					# Set to None instead of 0 so that the cost column is left blank.
+					r[1] = None
+			elif type in ["DESC", "CONSTRAINT"]:
+				(type, cost, indent, line, comment) = r
+				# Lines that consist entirely of a single defined term are free.
+				# The cost comes from the definition.
+				if self.isVocab(line):
+					r[1] = 0
+				# Free actions are free.
+				if line in self.freeActions:
+					r[1] = 0
+
+				# Handle special cases with Vocab
+				words = line.split()
+				# Handle "Discard xxx"
+				if len(words) == 2 and self.isVocab(words[0]):
+					# Handle: "Discard it"
+					if words[1] in FREE_SUFFIX_WORDS:
+						r[1] = 0
+					# Handle: "Discard x2"
+					if re.match('x\d+$', words[1]):
+						r[1] = 0
+				# Handle "Success:" and "Success: DrawCard"
+				if words[0][-1] == ':' and self.isVocab(words[0][0:-1]):
+					if len(words) == 1 or  self.isVocab(words[1]):
+						r[1] = 0
+			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+				error("Unhandled type in updateCosts: {0:s}".format(type))
+
+	# Return true if the DEF at the given index has at least one DESC
+	# associated with it.
+	# If the DEF has at least one DESC, then the cost comes from the DESC lines.
+	# Otherwise, the DEF is assigned a cost of 1.
+	def defHasDesc(self, iDef):
+		maxLines = len(self.lines)
+		i = iDef + 1
+		# Look ahead to search for DESC lines that follow the DEF.
+		while i < maxLines:
+			r = self.lines[i]
+			type = r[0]
+			if type in ['DEF', 'BLANK']:
+				return False
+			if type == 'DESC' and r[2] == 1:
+				return True
+			if not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'CONSTRAINT']:
+				error("Unhandled type in defHasDesc: {0:s}".format(type))
+			i += 1
+		return False
+	
+	# Calculate the total cost for the game.
+	def calcTotalCost(self):
+		self.costTotal = 0
+		for r in self.lines:
+			type = r[0]
+			if type == "DEF":
+				if r[1]:
+					self.costTotal += r[1]
+			elif type in ["DESC", "CONSTRAINT"]:
+				self.costTotal += r[1]
+			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+				error("Unhandled type in calcTotalCost: {0:s}".format(type))
+	
 	# ==========
 	# Process a Gambit file to calculate cost and generate HTML.
 	# ==========
@@ -204,7 +311,7 @@ class GambitParser:
 				self.processLine(line)
 		
 		self.updateCosts()
-		self.calcCost()
+		self.calcTotalCost()
 		self.updateIndexList(id, self.costTotal)
 		
 		self.extractAllReferences()
@@ -213,6 +320,7 @@ class GambitParser:
 		self.originalLine = line.rstrip()
 		comment = ""
 		
+		# Import base definitions from another file.
 		if line.startswith("#import"):
 			self.importFile(line[8:].strip())
 			self.addComment("", line.strip())
@@ -242,7 +350,7 @@ class GambitParser:
 			return
 
 		if line.strip().startswith("!"):
-			self.addConstraint(line, comment)
+			self.addConstraintDescription(line, comment)
 			return
 			
 		self.addDescription(line, comment)
@@ -253,11 +361,18 @@ class GambitParser:
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
 		with open(os.path.join(self.currentDir, dirname, basename), 'r') as file:
 			for line in file:
-				m = re.match("(" + KEYWORD + "):\s*(.*)", line)
+				m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
 				if m:
-					keyword = m.group(1)
-					self.vocab[keyword] = ["IMPORT", name]
-					self.vocabPlural[keyword+"s"] = keyword
+					keywords = m.group(1).split('|')
+					if len(keywords) == 1:
+						keyword = keywords[0]
+						plural = None
+					elif len(keywords) == 2:
+						keyword = keywords[0]
+						plural = keywords[1]
+					else:
+						error("Unexpected keyword group: {0:s}".format(keywords))
+					self.addVocab(keyword, plural, ["IMPORT", name])
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]
@@ -275,80 +390,7 @@ class GambitParser:
 		newName += name[iName:]
 		return newName
 		
-	def updateCosts(self):
-		maxLines = len(self.lines)
-		for i in range(0, maxLines):
-			r = self.lines[i]
-			type = r[0]
-			if type == "DEF":
-				# If a DEF has DESC indented under it, then the cost is
-				# determined by the DESCs and the DEF is 0.
-				# Otherwise the cost of the DEF is 1.
-				if self.defHasDesc(i):
-					r[1] = None
-			elif type in ["DESC", "CONSTRAINT"]:
-				(type, cost, indent, line, comment) = r
-				if self.isVocab(line):
-					r[1] = 0
-				if line in self.freeActions:
-					r[1] = 0
-
-				# Handle special cases with Vocab
-				words = line.split()
-				# Handle "Discard xxx"
-				if len(words) == 2 and self.isVocab(words[0]):
-					# Handle: "Discard it"
-					if words[1] in FREE_SUFFIX_WORDS:
-						r[1] = 0
-					# Handle: "Discard x2"
-					if re.match('x\d+$', words[1]):
-						r[1] = 0
-				# Handle "Success:" and "Success: DrawCard"
-				if words[0][-1] == ':' and self.isVocab(words[0][0:-1]):
-					if len(words) == 1 or  self.isVocab(words[1]):
-						r[1] = 0
-			elif not type in ['COMMENT', 'SECTION', 'TITLE', 'BLANK']:
-				error("Unhandled type in updateCosts: {0:s}".format(type))
-
-	def isVocab(self, word):
-		# Normalize plural forms.
-		canonicalForm = word
-		if word in self.vocabPlural:
-			canonicalForm = self.vocabPlural[word]
-
-		return canonicalForm in self.vocab
-	
-	# Return true if the DEF at the given index has at least one DESC
-	# associated with it.
-	def defHasDesc(self, iDef):
-		maxLines = len(self.lines)
-		i = iDef + 1
-		while i < maxLines:
-			r = self.lines[i]
-			type = r[0]
-			if type in ['DEF', 'BLANK']:
-				return False
-			if type == 'DESC' and r[2] == 1:
-				return True
-			if not type in ['COMMENT', 'SECTION', 'TITLE', 'CONSTRAINT']:
-				error("Unhandled type in defHasDesc: {0:s}".format(type))
-			i += 1
-		return False
-	
-	def calcCost(self):
-		self.costTotal = 0
-		for r in self.lines:
-			type = r[0]
-			if type == "DEF":
-				if r[1]:
-					self.costTotal += r[1]
-			elif type in ["DESC", "CONSTRAINT"]:
-				self.costTotal += r[1]
-			elif not type in ['COMMENT', 'SECTION', 'TITLE', 'BLANK']:
-				error("Unhandled type in calcCost: {0:s}".format(type))
-	
 	def extractAllReferences(self):
-		self.referencedBy = {}
 		currDef = None
 		for r in self.lines:
 			type = r[0]
@@ -368,15 +410,17 @@ class GambitParser:
 				(type, cost, indent, line, comment) = r
 				self.extractReference(line, currDef)
 				self.extractReference(comment, currDef)
-			elif not type in ['COMMENT', 'SECTION', 'TITLE', 'BLANK']:
+			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in extractAllReferences: {0:s}".format(type))
-		
-	def addRef(self, ref, referencedBy):
-		if ref == referencedBy:
+	
+	# Record that |refTerm| is referenced by |refBy|.
+	# |refBy| makes a reference to |refTerm|.
+	def addRef(self, refTerm, refBy):
+		if refTerm == refBy:
 			return
-		if not ref in self.referencedBy:
-			self.referencedBy[ref] = set()
-		self.referencedBy[ref].add(referencedBy)
+		#if not refTerm in self.referencedBy:
+		#	self.referencedBy[refTerm] = set()
+		self.referencedBy[refTerm].add(refBy)
 
 	# This method is similar to calcKeywordLinks. When updating, consider if
 	# changes are needed both places.
@@ -399,108 +443,6 @@ class GambitParser:
 			
 			if canonicalForm in self.vocab:
 				self.addRef(canonicalForm, currDef)
-
-	# ==========
-	# Writing the table rows with the Gambit description.
-	# ==========
-	
-	def writeTableRows(self, out):
-		for r in self.lines:
-			type = r[0]
-			
-			if type == "DESC":
-				(type, cost, indent, line, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
-				row += self.calcTableRowDescColumn(indent, line, comment)
-				row += '</tr>\n'
-			elif type == "DEF":
-				(type, cost, keyword, types, parent, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
-				defn = self.calcDefinition(keyword)
-				if parent != None:
-					fulltype = '{0:s} of {1:s}'.format(types[0], parent)
-				else:
-					fulltype = ', '.join(types)
-				row += self.calcTableRowDescColumn(0, fulltype, comment, "{0:s}: ".format(defn))
-				row += '</tr>\n'
-			elif type == "CONSTRAINT":
-				(type, cost, indent, line, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
-				# &bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
-				row += self.calcTableRowDescColumn(indent, line, comment, "&roplus; ")
-				row += '</tr>\n'
-			elif type == "BLANK":
-				(type) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += self.calcTableRowDescColumn(0, "&nbsp;", "")
-				row += '</tr>\n'
-			elif type == "COMMENT":
-				(type, indent, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += self.calcTableRowDescColumn(indent, "", comment)
-				row += '</tr>\n'
-			elif type == "SECTION":
-				(type, title) = r
-				row = '<tr class="section">'
-				row += self.calcTableRowCostColumn(None)
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
-				row += '</tr>\n'
-			elif type == "TITLE":
-				(type, title) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
-				row += '</tr>\n'
-			else:
-				error("Unrecognized type in writeTableRows: {0:s}".format(type))
-			out.write(row)
-
-	def calcTableRowCostColumn(self, cost):
-		if cost != None:
-			return '<td class="cost">{0:d}</td>'.format(cost)
-		return '<td class="cost"></td>'
-	
-	def calcTableRowDescColumn(self, indent, line, comment, descPrefix = ""):
-		row = '<td></td>' * indent
-
-		colspan = self.maxIndent + 1 - indent
-		if colspan == 1:
-			row += '<td class="desc">'
-		else:
-			row += '<td class="desc" colspan={0:d}>'.format(colspan)
-			
-		if line != "":
-			row += descPrefix
-			row += self.calcKeywordLinks(line, required=True)
-			if comment != "":
-				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
-		if comment != "":
-			row += '<span class="comment">{0:s}</span>'.format(comment)
-		row += '</td>'
-		return row
-	
-	def calcDefinition(self, keyword):
-		refs = []
-		if keyword in self.referencedBy:
-			refs = sorted(self.referencedBy[keyword])
-		defn = '<div class="def-container">'
-		defn += '<a class="def" id="{0:s}">{0:s}</a>'.format(keyword)
-
-		defn += '<div class="def-menu">'
-		if len(refs) != 0:
-			defn += '<div class="def-menu-title">Referenced&nbsp;by:</div>'
-			for ref in refs:
-				defn += '<a href="#{0:s}">{0:s}</a>'.format(ref)
-		else:
-			defn += '<div class="def-menu-title">No&nbsp;references</div>'
-		defn += '</div>'
-		defn += '</div>'
-		return defn
 
 	# This method is similar to extractReferences. When updating, consider if
 	# changes are needed both places.
@@ -568,7 +510,121 @@ class GambitParser:
 			postfix = m.group(3)
 		if word in self.vocabPlural:
 			return self.vocabPlural[word]
-		
+	
+	def checkReferences(self):
+		ENTRY_POINTS = ["Setup", "PlayGame", "CalculateScore", "DetermineWinner"]
+		for k,v in self.referencedBy.items():
+			if not k in ENTRY_POINTS and self.vocab[k][0] == "LOCAL" and len(v) == 0:
+				error("Term is defined but never referenced: {0:s}".format(k))
+	
+	# ==========
+	# Writing the HTML file
+	# ==========
+	
+	def writeTableRows(self, out):
+		for r in self.lines:
+			type = r[0]
+			
+			if type == "DESC":
+				(type, cost, indent, line, comment) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(cost)
+				row += self.calcTableRowDescColumn(indent, line, comment)
+				row += '</tr>\n'
+			elif type == "DEF":
+				(type, cost, keyword, types, parent, comment) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(cost)
+				defn = self.calcDefinition(keyword)
+				if parent != None:
+					fulltype = '{0:s} of {1:s}'.format(types[0], parent)
+				else:
+					fulltype = ', '.join(types)
+				row += self.calcTableRowDescColumn(0, fulltype, comment, "{0:s}: ".format(defn))
+				row += '</tr>\n'
+			elif type == "CONSTRAINT":
+				(type, cost, indent, line, comment) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(cost)
+				# &bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
+				row += self.calcTableRowDescColumn(indent, line, comment, "&roplus; ")
+				row += '</tr>\n'
+			elif type == "BLANK":
+				(type) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(None)
+				row += self.calcTableRowDescColumn(0, "&nbsp;", "")
+				row += '</tr>\n'
+			elif type == "COMMENT":
+				(type, indent, comment) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(None)
+				row += self.calcTableRowDescColumn(indent, "", comment)
+				row += '</tr>\n'
+			elif type == "SECTION":
+				(type, title) = r
+				row = '<tr class="section">'
+				row += self.calcTableRowCostColumn(None)
+				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
+				row += '</tr>\n'
+			elif type == "SUBSECTION":
+				(type, title) = r
+				row = '<tr class="subsection">'
+				row += self.calcTableRowCostColumn(None)
+				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
+				row += '</tr>\n'
+			elif type == "TITLE":
+				(type, title) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(None)
+				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
+				row += '</tr>\n'
+			else:
+				error("Unrecognized type in writeTableRows: {0:s}".format(type))
+			out.write(row)
+
+	def calcTableRowCostColumn(self, cost):
+		if cost != None:
+			return '<td class="cost">{0:d}</td>'.format(cost)
+		return '<td class="cost"></td>'
+	
+	def calcTableRowDescColumn(self, indent, line, comment, descPrefix = ""):
+		row = '<td></td>' * indent
+
+		colspan = self.maxIndent + 1 - indent
+		if colspan == 1:
+			row += '<td class="desc">'
+		else:
+			row += '<td class="desc" colspan={0:d}>'.format(colspan)
+			
+		if line != "":
+			row += descPrefix
+			row += self.calcKeywordLinks(line, required=True)
+			if comment != "":
+				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
+		if comment != "":
+			row += '<span class="comment">{0:s}</span>'.format(comment)
+		row += '</td>'
+		return row
+	
+	def calcDefinition(self, keyword):
+		refs = []
+		if keyword in self.referencedBy:
+			refs = sorted(self.referencedBy[keyword])
+		defn = '<div class="def-container">'
+		defn += '<a class="def" id="{0:s}">{0:s}</a>'.format(keyword)
+
+		defn += '<div class="def-menu">'
+		if len(refs) != 0:
+			defn += '<div class="def-menu-title">Referenced&nbsp;by:</div>'
+			for ref in refs:
+				defn += '<a href="#{0:s}">{0:s}</a>'.format(ref)
+		else:
+			defn += '<div class="def-menu-title">No&nbsp;references</div>'
+		defn += '</div>'
+		defn += '</div>'
+		return defn
+
 	def writeTableHeader(self, out):
 		out.write('<table>\n')
 
@@ -626,6 +682,10 @@ class GambitParser:
 		out.write('</body>\n')
 		out.write('</html>\n')
 
+	# ==========
+	# Game list
+	# ==========
+	
 	def loadGameList(self):
 		if self.games:
 			return
@@ -657,6 +717,10 @@ class GambitParser:
 					out.write(';'.join([key, title, subtitle, str(parentId), str(score)]))
 					out.write('\n')
 			
+	# ==========
+	# Process .GM files
+	# ==========
+	
 	def processAll(self):
 		self.loadGameList()
 		for id in self.games:
@@ -669,6 +733,8 @@ class GambitParser:
 			warning('Unable to find "{0:s}" in game list'.format(id))
 		self.reset()
 		self.process(id)
+		self.checkReferences()
+		print("   = {0:d}".format(self.costTotal))
 		self.writeHtml(id)
 
 def usage():
