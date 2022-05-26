@@ -51,8 +51,16 @@ table td {
 	color: #5c5f58;
 }
 .section td {
-	padding: 0.4rem 0;
+	padding: 0.6rem 0;
 	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
 }
 .cost {
 	width: 10%;
