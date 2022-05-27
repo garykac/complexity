@@ -55,15 +55,23 @@ table {
 	border-collapse: collapse;
 }
 table td {
-	padding: 0 0;
+	padding: 0.2rem 0;
 }
 .section {
 	background-color: #cccfd8;
 	color: #5c5f58;
 }
 .section td {
-	padding: 0.4rem 0;
+	padding: 0.6rem 0;
 	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
 }
 .cost {
 	width: 10%;
@@ -133,7 +141,7 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">Deep Sea Adventure</div>
-<div class="summary">Learning Complexity: 65</div>
+<div class="summary">Learning Complexity: 64</div>
 <table>
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
@@ -168,23 +176,23 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovementDice">MovementDice</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcMovement">CalcMovement</a></div></div>: <abbr title="Imported from common/Dice">D3</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">2 d6 with 1-3 twice</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Chip">Chip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CircleChip">CircleChip</a><a href="#LoseTreasure">LoseTreasure</a><a href="#RuinsChip">RuinsChip</a><a href="#SetupRuins">SetupRuins</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Chip">Chip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CircleChip">CircleChip</a><a href="#LoseTreasure">LoseTreasure</a><a href="#RuinsChip">RuinsChip</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CircleChip">CircleChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DropTreasure">DropTreasure</a><a href="#PickUpTreasure">PickUpTreasure</a><a href="#ShrinkRuins">ShrinkRuins</a></div></div>: <a class="keyword" href="#Chip">Chip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">16 chips</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RuinsChip">RuinsChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#CalcMovement">CalcMovement</a><a href="#CalcScore">CalcScore</a><a href="#Dots">Dots</a><a href="#DropTreasure">DropTreasure</a><a href="#HexagonChip">HexagonChip</a><a href="#LoseTreasure">LoseTreasure</a><a href="#PentagonChip">PentagonChip</a><a href="#PickUpTreasure">PickUpTreasure</a><a href="#SetupRuins">SetupRuins</a><a href="#SquareChip">SquareChip</a><a href="#StackedRuinsChips">StackedRuinsChips</a><a href="#TreasurePoints">TreasurePoints</a><a href="#TriangleChip">TriangleChip</a></div></div>: <a class="keyword" href="#Chip">Chip</a></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Dots">Dots</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRuins">SetupRuins</a></div></div>: Attribute of <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RuinsChip">RuinsChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#CalcMovement">CalcMovement</a><a href="#CalculateScore">CalculateScore</a><a href="#Dot">Dot</a><a href="#DropTreasure">DropTreasure</a><a href="#HexagonChip">HexagonChip</a><a href="#LoseTreasure">LoseTreasure</a><a href="#PentagonChip">PentagonChip</a><a href="#PickUpTreasure">PickUpTreasure</a><a href="#SetupRuins">SetupRuins</a><a href="#SquareChip">SquareChip</a><a href="#StackedRuinsChips">StackedRuinsChips</a><a href="#TreasurePoints">TreasurePoints</a><a href="#TriangleChip">TriangleChip</a></div></div>: <a class="keyword" href="#Chip">Chip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Dot">Dot</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRuins">SetupRuins</a></div></div>: Attribute of <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Used to determine how far the piece starts away from the Submarine</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasurePoints">TreasurePoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcScore">CalcScore</a></div></div>: Attribute of <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasurePoints">TreasurePoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Attribute of <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Treasure value for this piece</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TriangleChip">TriangleChip</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TriangleChip">TriangleChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRuins">SetupRuins</a></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">8 chips, each with 1 dot; Values: 0-3</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SquareChip">SquareChip</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SquareChip">SquareChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRuins">SetupRuins</a></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">8 chips, each with 2 dots; Values: 4-7</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PentagonChip">PentagonChip</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PentagonChip">PentagonChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRuins">SetupRuins</a></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">8 chips, each with 3 dots; Values: 8-11</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HexagonChip">HexagonChip</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HexagonChip">HexagonChip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupRuins">SetupRuins</a></div></div>: <a class="keyword" href="#RuinsChip">RuinsChip</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">8 chips, each with 4 dots; Values: 12-15</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ChipStack">ChipStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LoseTreasure">LoseTreasure</a><a href="#StackedRuinsChips">StackedRuinsChips</a></div></div>: Noun</td></tr>
@@ -198,7 +206,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Inventory">Inventory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#CalcMovement">CalcMovement</a><a href="#DropTreasure">DropTreasure</a><a href="#LoseTreasure">LoseTreasure</a><a href="#PickUpTreasure">PickUpTreasure</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Collection of Ruins Chips that you are holding</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasurePile">TreasurePile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#CalcScore">CalcScore</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasurePile">TreasurePile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#CalculateScore">CalculateScore</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Accumulated treasure</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
@@ -214,11 +222,11 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#RemainingAir">RemainingAir</a> token on <a class="keyword" href="#AirGaugeSpace">AirGaugeSpace</a> 25</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupRuins">SetupRuins</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Flip over all <a class="keyword" href="#RuinsChip">RuinsChips</a> so that only the <a class="keyword" href="#Dots">Dots</a> are showing</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Sort the <a class="keyword" href="#RuinsChip">RuinsChips</a> by type (number of <a class="keyword" href="#Dots">Dots</a>)</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Starting with the <a class="keyword" href="#Chip">Chips</a> with 1 dot:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Flip over all <a class="keyword" href="#RuinsChip">RuinsChips</a> so that only the <a class="keyword" href="#Dot">Dots</a> are showing</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Sort the <a class="keyword" href="#RuinsChip">RuinsChips</a> by type (number of <a class="keyword" href="#Dot">Dots</a>)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Starting with the <a class="keyword" href="#TriangleChip">TriangleChips</a> (with 1 <a class="keyword" href="#Dot">Dot</a>):</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Build a line of <a class="keyword" href="#RuinsChip">RuinsChips</a> leading out from the <a class="keyword" href="#Submarine">Submarine</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Continue with <a class="keyword" href="#RuinsChip">RuinsChips</a> with 2, 3, and 4 <a class="keyword" href="#Dots">Dots</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Continue with <a class="keyword" href="#SquareChip">SquareChips</a> (2 <a class="keyword" href="#Dot">Dots</a>), <a class="keyword" href="#PentagonChip">PentagonChips</a> (3 <a class="keyword" href="#Dot">Dots</a>) and then <a class="keyword" href="#HexagonChip">HexagonChips</a> (4 <a class="keyword" href="#Dot">Dots</a>)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -299,7 +307,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SearchForTreasure">SearchForTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Pass</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Pass</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PickUpTreasure">PickUpTreasure</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DropTreasure">DropTreasure</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -314,10 +322,10 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>EndGame</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalcScore">CalcScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add all the <a class="keyword" href="#TreasurePoints">TreasurePoints</a> from the <a class="keyword" href="#RuinsChip">RuinsChips</a> in your <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>

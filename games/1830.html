@@ -55,7 +55,7 @@ table {
 	border-collapse: collapse;
 }
 table td {
-	padding: 0 0;
+	padding: 0.2rem 0;
 }
 .section {
 	background-color: #cccfd8;
@@ -141,7 +141,7 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">1830</div>
-<div class="summary">Learning Complexity: 350</div>
+<div class="summary">Learning Complexity: 349</div>
 <table>
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=6>Description</th></tr></thead>
@@ -438,14 +438,14 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Repeat until all <a class="keyword" href="#Private">Privates</a> have been purchased, starting with the <a class="keyword" href="#PriorityPlayer">PriorityPlayer</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If the <a class="keyword" href="#Private">Private</a> with the lowest <a class="keyword" href="#Cost">Cost</a> has no bids on it:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Choose:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Pass</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Pass</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BuyLowestPrivate">BuyLowestPrivate</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BidForPrivate">BidForPrivate</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>Otherwise:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResolveAuction">ResolveAuction</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ContinueWithPriorityDealer">ContinueWithPriorityDealer</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/CardGame">Pass</abbr> consecutively and there are still unsold <a class="keyword" href="#Private">Privates</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/Game">Pass</abbr> consecutively and there are still unsold <a class="keyword" href="#Private">Privates</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If <a class="keyword" href="#SV">SV</a> <a class="keyword" href="#Private">Private</a> is unsold:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Reduce <a class="keyword" href="#Cost">Cost</a> of <a class="keyword" href="#SV">SV</a> by $5</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#Cost">Cost</a> reaches $0:</td></tr>
@@ -481,12 +481,12 @@ a.keyword:hover {
 <tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">Note: The PriorityDealCard does not change Players after the auction</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PrivateBidAuction">PrivateBidAuction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ResolveAuction">ResolveAuction</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Repeat until all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/CardGame">Pass</abbr> consecutively, starting with the <abbr title="Imported from common/Game">Player</abbr> with the lowest bid:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Repeat until all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/Game">Pass</abbr> consecutively, starting with the <abbr title="Imported from common/Game">Player</abbr> with the lowest bid:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>Choose one:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Pass</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Pass</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Increase bid to at least $5 more than current highest bid</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Note: <abbr title="Imported from common/Game">Players</abbr> may re-enter the bid after a <abbr title="Imported from common/CardGame">Pass</abbr> when their turn comes around again</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Note: <abbr title="Imported from common/Game">Players</abbr> may re-enter the bid after a <abbr title="Imported from common/Game">Pass</abbr> when their turn comes around again</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Winner of the auction <a class="keyword" href="#PayBidForPrivate">PayBidForPrivate</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5><abbr title="Imported from common/Game">Players</abbr> that didn't win take back the <a class="keyword" href="#Money">Money</a> they set aside for their bid</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
@@ -542,10 +542,10 @@ a.keyword:hover {
 <tr class="subsection"><td class="cost"></td><td colspan=6>Stock Round</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="StockRound">StockRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MHSpecialEffect">MHSpecialEffect</a><a href="#NumOperatingRounds">NumOperatingRounds</a><a href="#PlayGame">PlayGame</a><a href="#PriorityDealCard">PriorityDealCard</a><a href="#SellShares">SellShares</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Repeat until all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/CardGame">Pass</abbr> consecutively, starting with the <a class="keyword" href="#PriorityPlayer">PriorityPlayer</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Repeat until all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/Game">Pass</abbr> consecutively, starting with the <a class="keyword" href="#PriorityPlayer">PriorityPlayer</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>Choose one:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#StockRoundTurn">StockRoundTurn</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Pass</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Pass</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#CheckForFloat">CheckForFloat</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#AdjustSharePriceAfterStockRound">AdjustSharePriceAfterStockRound</a></td></tr>
@@ -983,7 +983,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The <a class="keyword" href="#Cost">Cost</a> of any <a class="keyword" href="#Private">Private</a> still owned by the <abbr title="Imported from common/Game">Player</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The <abbr title="Imported from common/Game">Player</abbr> with the highest wealth</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

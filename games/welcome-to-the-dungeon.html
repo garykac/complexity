@@ -55,15 +55,23 @@ table {
 	border-collapse: collapse;
 }
 table td {
-	padding: 0 0;
+	padding: 0.2rem 0;
 }
 .section {
 	background-color: #cccfd8;
 	color: #5c5f58;
 }
 .section td {
-	padding: 0.4rem 0;
+	padding: 0.6rem 0;
 	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
 }
 .cost {
 	width: 10%;
@@ -133,7 +141,7 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">Welcome to the Dungeon</div>
-<div class="summary">Learning Complexity: 45</div>
+<div class="summary">Learning Complexity: 43</div>
 <table>
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
@@ -156,20 +164,18 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Weakness">Weakness</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EnterDungeon">EnterDungeon</a></div></div>: Attribute of <a class="keyword" href="#MonsterCard">MonsterCard</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Icon showing EquipmentTiles that can defeat this MonsterCard</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdventurerTile">AdventurerTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BaseHP">BaseHP</a><a href="#CalculateHitPoints">CalculateHitPoints</a><a href="#Name">Name</a><a href="#SetupAdventurer">SetupAdventurer</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdventurerTile">AdventurerTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BaseHP">BaseHP</a><a href="#CalculateHitPoints">CalculateHitPoints</a><a href="#SetupAdventurer">SetupAdventurer</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">4 in game, but only using the Warrior</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Name">Name</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Attribute of <a class="keyword" href="#AdventurerTile">AdventurerTile</a></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BaseHP">BaseHP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateHitPoints">CalculateHitPoints</a></div></div>: Attribute of <a class="keyword" href="#AdventurerTile">AdventurerTile</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Base hit points</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">AdventurerTiles:</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Warrior: HP = 3</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EquipmentTile">EquipmentTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BonusHP">BonusHP</a><a href="#CalculateHitPoints">CalculateHitPoints</a><a href="#Effect">Effect</a><a href="#EnterDungeon">EnterDungeon</a><a href="#RemoveMonster">RemoveMonster</a><a href="#SetupAdventurer">SetupAdventurer</a><a href="#Title">Title</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EquipmentTile">EquipmentTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BonusHP">BonusHP</a><a href="#CalculateHitPoints">CalculateHitPoints</a><a href="#EnterDungeon">EnterDungeon</a><a href="#RemoveMonster">RemoveMonster</a><a href="#SetupAdventurer">SetupAdventurer</a><a href="#Title">Title</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">24 total. 6 per AdventurerTile.</span></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Title">Title</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Attribute of <a class="keyword" href="#EquipmentTile">EquipmentTile</a></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BonusHP">BonusHP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateHitPoints">CalculateHitPoints</a></div></div>: Attribute of <a class="keyword" href="#EquipmentTile">EquipmentTile</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Optional</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Effect">Effect</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Attribute of <a class="keyword" href="#EquipmentTile">EquipmentTile</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">EquipmentTiles:</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Torch: Defeat Monsters with 3 or less Strength</span></td></tr>
@@ -229,15 +235,15 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DungeonPhase">DungeonPhase</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BiddingPhase">BiddingPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until all but one <abbr title="Imported from common/Game">Player</abbr> has chosen <abbr title="Imported from common/CardGame">Pass</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until all but one <abbr title="Imported from common/Game">Player</abbr> has chosen <abbr title="Imported from common/Game">Pass</abbr>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Choose one:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Pass</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">Pass</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Once you <abbr title="Imported from common/CardGame">Pass</abbr>, you are done until after the <a class="keyword" href="#DungeonPhase">DungeonPhase</a>.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Once you <abbr title="Imported from common/Game">Pass</abbr>, you are done until after the <a class="keyword" href="#DungeonPhase">DungeonPhase</a>.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DungeonPhase">DungeonPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BiddingPhase">BiddingPhase</a><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The player who did not <abbr title="Imported from common/CardGame">Pass</abbr> does the following:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The player who did not <abbr title="Imported from common/Game">Pass</abbr> does the following:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CalculateHitPoints">CalculateHitPoints</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#EnterDungeon">EnterDungeon</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If <a class="keyword" href="#HitPoints">HitPoints</a> >= 0:</td></tr>
@@ -279,8 +285,8 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Winner">Winner</a> is the first <abbr title="Imported from common/Game">Player</abbr> with 2 <a class="keyword" href="#SuccessCard">SuccessCards</a> or the last remaining <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The winner is the first <abbr title="Imported from common/Game">Player</abbr> with 2 <a class="keyword" href="#SuccessCard">SuccessCards</a> or the last remaining <abbr title="Imported from common/Game">Player</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

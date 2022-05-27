@@ -1,15 +1,15 @@
-1830;1830;;;350
+1830;1830;;;349
 1830-noprivates;1830;w/o Privates;;285
 1830-starter;1830;Starter Game;;134
 checkers;Checkers;;;26
 crazy-eights-28;Crazy Eights;28-card;;26
 crazy-eights-52;Crazy Eights;52-card;;38
-deep-sea-adventure;Deep Sea Adventure;;;65
-dominion-first;Dominion;10 starter cards;;81
-dominion-base;Dominion;Rest of base set;dominion-first;43
-leaving-earth;Leaving Earth;;;325
+deep-sea-adventure;Deep Sea Adventure;;;64
+dominion-first;Dominion;10 starter cards;;76
+dominion-base;Dominion;Rest of base set;dominion-first;44
+leaving-earth;Leaving Earth;;;318
 regicide;Regicide;;;80
-risk;Risk;;;67
+risk;Risk;;;66
 splendor;Splendor;;;62
 tic-tac-toe;Tic Tac Toe;;;10
-welcome-to-the-dungeon;Welcome to the Dungeon;;;45
+welcome-to-the-dungeon;Welcome to the Dungeon;;;43

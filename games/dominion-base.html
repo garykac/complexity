@@ -55,15 +55,23 @@ table {
 	border-collapse: collapse;
 }
 table td {
-	padding: 0 0;
+	padding: 0.2rem 0;
 }
 .section {
 	background-color: #cccfd8;
 	color: #5c5f58;
 }
 .section td {
-	padding: 0.4rem 0;
+	padding: 0.6rem 0;
 	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
 }
 .cost {
 	width: 10%;
@@ -133,7 +141,7 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">Dominion</div>
-<div class="summary">Learning Complexity: 43</div>
+<div class="summary">Learning Complexity: 44</div>
 <table>
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
@@ -153,14 +161,15 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CurseCard">CurseCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdditionalSetup">AdditionalSetup</a><a href="#Curse">Curse</a></div></div>: <abbr title="Imported from DominionFirst">BaseCard</abbr></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Type = Curse</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Curse">Curse</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdditionalSetup">AdditionalSetup</a><a href="#Witch">Witch</a></div></div>: <a class="keyword" href="#CurseCard">CurseCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Value = -1 VPs</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CurseCard">CurseCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Curse">Curse</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from DominionFirst">BaseCard</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Card</abbr> with <abbr title="Imported from DominionFirst">Type</abbr> = <a class="keyword" href="#Curse">Curse</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Curse">Curse</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CurseCard">CurseCard</a><a href="#Setup">Setup</a><a href="#Witch">Witch</a></div></div>: <a class="keyword" href="#CurseCard">CurseCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CurseCard">CurseCard</a> with <abbr title="Imported from DominionFirst">Value</abbr> = -1 <abbr title="Imported from DominionFirst">VPs</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdditionalSetup">AdditionalSetup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Same Setup as for the standard game</span></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Adjust card counts for <a class="keyword" href="#CurseCard">CurseCards</a> (<a class="keyword" href="#Curse">Curse</a>):</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2p: 10x</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3p: 20x</td></tr>
@@ -185,53 +194,73 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">Discard</abbr> it</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TakeAction">TakeAction</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Same TakeAction as for the standard game, with additional Cards</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Apply effect based on the <abbr title="Imported from common/CardGame">Card</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Artisan">Artisan</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Bandit">Bandit</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Bureaucrat">Bureaucrat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Chapel">Chapel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CouncilRoom">CouncilRoom</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Festival">Festival</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Gardens">Gardens</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Harbinger">Harbinger</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Laboratory">Laboratory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Library">Library</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Moneylender">Moneylender</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Poacher">Poacher</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Sentry">Sentry</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ThroneRoom">ThroneRoom</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Vassal">Vassal</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Witch">Witch</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Cards</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Artisan">Artisan</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Artisan">Artisan</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainCard</abbr> costing up to 5</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Put a <abbr title="Imported from common/CardGame">Card</abbr> from your <abbr title="Imported from common/CardGame">Hand</abbr> onto your <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bandit">Bandit</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr>, <abbr title="Imported from DominionFirst">AttackCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bandit">Bandit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr>, <abbr title="Imported from DominionFirst">AttackCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainCard</abbr> <abbr title="Imported from DominionFirst">Gold</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each other player:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TrashTreasure">TrashTreasure</a> 2x</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bureaucrat">Bureaucrat</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr>, <abbr title="Imported from DominionFirst">AttackCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bureaucrat">Bureaucrat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr>, <abbr title="Imported from DominionFirst">AttackCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#GainCardToDeck">GainCardToDeck</a> <abbr title="Imported from DominionFirst">Silver</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each other player:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Choose:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#RevealAndAddToDeck">RevealAndAddToDeck</a> a <abbr title="Imported from DominionFirst">VictoryCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from DominionFirst">Reveal</abbr> entire <abbr title="Imported from common/CardGame">Hand</abbr> with no <abbr title="Imported from DominionFirst">VictoryCards</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Chapel">Chapel</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Chapel">Chapel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">TrashFromHand</abbr> up to 4 cards</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CouncilRoom">CouncilRoom</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CouncilRoom">CouncilRoom</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">DrawCard</abbr> x4</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainBuy</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each other player:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">DrawCard</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Festival">Festival</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Festival">Festival</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainAction</abbr> x2</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainBuy</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainCoin</abbr> x2</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gardens">Gardens</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">VictoryCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gardens">Gardens</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">VictoryCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For every 10 cards you have (round down):</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">GainVP</abbr> (at end of game)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Harbinger">Harbinger</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Harbinger">Harbinger</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">DrawCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainAction</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Look through your <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may put a card from it onto your <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Laboratory">Laboratory</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Laboratory">Laboratory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">DrawCard</abbr> x2</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainAction</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Library">Library</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Library">Library</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you have 7 <abbr title="Imported from common/CardGame">Cards</abbr> in <abbr title="Imported from common/CardGame">Hand</abbr>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">DrawCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If <abbr title="Imported from common/CardGame">Card</abbr> is <abbr title="Imported from DominionFirst">ActionCard</abbr>:</td></tr>
@@ -240,19 +269,19 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you need to <abbr title="Imported from common/CardGame">Shuffle</abbr> your <abbr title="Imported from DominionFirst">PlayerDeck</abbr> during this action:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Do not include the <abbr title="Imported from common/CardGame">Cards</abbr> that were set aside</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Moneylender">Moneylender</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Moneylender">Moneylender</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may <abbr title="Imported from DominionFirst">TrashFromHand</abbr> a <abbr title="Imported from DominionFirst">Copper</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If you do:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">GainCoin</abbr> x3</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Poacher">Poacher</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Poacher">Poacher</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">DrawCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainAction</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainCoin</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each empty <abbr title="Imported from DominionFirst">Supply</abbr> pile:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">Discard</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Sentry">Sentry</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Sentry">Sentry</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">DrawCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainAction</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Look at the top 2 cards of your <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
@@ -262,16 +291,16 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Keep it aside</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place cards kept aside back on <abbr title="Imported from common/CardGame">Deck</abbr> in any order</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ThroneRoom">ThroneRoom</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ThroneRoom">ThroneRoom</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may play an <abbr title="Imported from DominionFirst">ActionCard</abbr> from your <abbr title="Imported from common/CardGame">Hand</abbr> twice</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Vassal">Vassal</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Vassal">Vassal</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">GainCoin</abbr> x2</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from DominionFirst">Discard</abbr> top card of your <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If it's an <abbr title="Imported from DominionFirst">ActionCard</abbr>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may choose to play it</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Witch">Witch</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr>, <abbr title="Imported from DominionFirst">AttackCard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Witch">Witch</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <abbr title="Imported from DominionFirst">ActionCard</abbr>, <abbr title="Imported from DominionFirst">AttackCard</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each other player:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from DominionFirst">GainCard</abbr> <a class="keyword" href="#Curse">Curse</a></td></tr>
 </table>

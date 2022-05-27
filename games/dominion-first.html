@@ -55,15 +55,23 @@ table {
 	border-collapse: collapse;
 }
 table td {
-	padding: 0 0;
+	padding: 0.2rem 0;
 }
 .section {
 	background-color: #cccfd8;
 	color: #5c5f58;
 }
 .section td {
-	padding: 0.4rem 0;
+	padding: 0.6rem 0;
 	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
 }
 .cost {
 	width: 10%;
@@ -133,7 +141,7 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">Dominion</div>
-<div class="summary">Learning Complexity: 81</div>
+<div class="summary">Learning Complexity: 76</div>
 <table>
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
@@ -155,51 +163,50 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TrashMat">TrashMat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a><a href="#Trash">Trash</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Shared play area that contains trashed cards</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Type">Type</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Attribute of <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Type">Type</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TreasureCard">TreasureCard</a><a href="#VictoryCard">VictoryCard</a></div></div>: Attribute of <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Cost">Cost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyCard">BuyCard</a></div></div>: Attribute of <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BaseCard">BaseCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TreasureCard">TreasureCard</a><a href="#Value">Value</a><a href="#VictoryCard">VictoryCard</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Common cards used in all games: Treasure, Victory</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayTreasure">PlayTreasure</a></div></div>: Attribute of <a class="keyword" href="#BaseCard">BaseCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BaseCard">BaseCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TreasureCard">TreasureCard</a><a href="#Value">Value</a><a href="#VictoryCard">VictoryCard</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Common cards used in all games: <a class="keyword" href="#TreasureCard">TreasureCard</a>, <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Copper">Copper</a><a href="#Gold">Gold</a><a href="#PlayTreasureCards">PlayTreasureCards</a><a href="#Silver">Silver</a></div></div>: Attribute of <a class="keyword" href="#BaseCard">BaseCard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TreasureCard">TreasureCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#Copper">Copper</a><a href="#Gold">Gold</a><a href="#Mine">Mine</a><a href="#PlayTreasure">PlayTreasure</a><a href="#Silver">Silver</a></div></div>: <a class="keyword" href="#BaseCard">BaseCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Type = Treasure</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Copper">Copper</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Value = 1 Coin</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Silver">Silver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Merchant">Merchant</a></div></div>: <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Value = 2 Coins</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Gold">Gold</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Value = 3 Coins</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TreasureCard">TreasureCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BaseCard">BaseCard</a><a href="#Coin">Coin</a><a href="#Copper">Copper</a><a href="#Gold">Gold</a><a href="#Mine">Mine</a><a href="#PlayTreasureCards">PlayTreasureCards</a><a href="#SetupSupply">SetupSupply</a><a href="#Silver">Silver</a></div></div>: <a class="keyword" href="#BaseCard">BaseCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Card</abbr> with <a class="keyword" href="#Type">Type</a> = "Treasure"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Copper">Copper</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a><a href="#SetupSupply">SetupSupply</a></div></div>: <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#TreasureCard">TreasureCard</a> with <a class="keyword" href="#Value">Value</a> = 1 <a class="keyword" href="#Coin">Coin</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Silver">Silver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Merchant">Merchant</a><a href="#SetupSupply">SetupSupply</a></div></div>: <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#TreasureCard">TreasureCard</a> with <a class="keyword" href="#Value">Value</a> = 2 <a class="keyword" href="#Coin">Coins</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Gold">Gold</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupSupply">SetupSupply</a></div></div>: <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#TreasureCard">TreasureCard</a> with <a class="keyword" href="#Value">Value</a> = 3 <a class="keyword" href="#Coin">Coins</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="VictoryCard">VictoryCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#Duchy">Duchy</a><a href="#Estate">Estate</a><a href="#Province">Province</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#BaseCard">BaseCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Type = Victory</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Estate">Estate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Value = 1 VP</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Duchy">Duchy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Value = 3 VPs</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Province">Province</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameEnd">GameEnd</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Value = 6 VPs</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="VictoryCard">VictoryCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BaseCard">BaseCard</a><a href="#CalculateScore">CalculateScore</a><a href="#Duchy">Duchy</a><a href="#Estate">Estate</a><a href="#Province">Province</a><a href="#SetupSupply">SetupSupply</a><a href="#VP">VP</a></div></div>: <a class="keyword" href="#BaseCard">BaseCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Card</abbr> with <a class="keyword" href="#Type">Type</a> = "Victory"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Estate">Estate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a><a href="#SetupSupply">SetupSupply</a></div></div>: <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainVP">GainVP</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Duchy">Duchy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupSupply">SetupSupply</a></div></div>: <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainVP">GainVP</a> x3</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Province">Province</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameEnd">GameEnd</a><a href="#SetupSupply">SetupSupply</a></div></div>: <a class="keyword" href="#VictoryCard">VictoryCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainVP">GainVP</a> x6</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="KingdomCard">KingdomCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionCard">ActionCard</a><a href="#AttackCard">AttackCard</a><a href="#Description">Description</a><a href="#ReactionCard">ReactionCard</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Description">Description</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Attribute of <a class="keyword" href="#KingdomCard">KingdomCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="KingdomCard">KingdomCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionCard">ActionCard</a><a href="#AttackCard">AttackCard</a><a href="#Coin">Coin</a><a href="#ReactionCard">ReactionCard</a><a href="#SetupSupply">SetupSupply</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActionCard">ActionCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Cellar">Cellar</a><a href="#Market">Market</a><a href="#Merchant">Merchant</a><a href="#Militia">Militia</a><a href="#Mine">Mine</a><a href="#Moat">Moat</a><a href="#Remodel">Remodel</a><a href="#Smithy">Smithy</a><a href="#TakeAction">TakeAction</a><a href="#Village">Village</a><a href="#Workshop">Workshop</a></div></div>: <a class="keyword" href="#KingdomCard">KingdomCard</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">KingdomCard that can be played as an Action</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AttackCard">AttackCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Militia">Militia</a><a href="#Moat">Moat</a><a href="#Reaction">Reaction</a></div></div>: <a class="keyword" href="#KingdomCard">KingdomCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AttackCard">AttackCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Militia">Militia</a><a href="#Reaction">Reaction</a></div></div>: <a class="keyword" href="#KingdomCard">KingdomCard</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">KingdomCard that negative affects other players</span></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ReactionCard">ReactionCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Moat">Moat</a><a href="#Reaction">Reaction</a></div></div>: <a class="keyword" href="#KingdomCard">KingdomCard</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">KingdomCard that can be played in response to another player's AttackCard</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Pile">Pile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameEnd">GameEnd</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Pile">Pile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameEnd">GameEnd</a><a href="#SetupSupply">SetupSupply</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A stack of <abbr title="Imported from common/CardGame">Cards</abbr> in the <a class="keyword" href="#Supply">Supply</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Coin">Coin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyCard">BuyCard</a><a href="#CleanupPhase">CleanupPhase</a><a href="#GainCoin">GainCoin</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Found on TreasureCards and on some KingdomCards</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="VP">VP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#GainVP">GainVP</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Found on VictoryCards</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActionPoint">ActionPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#CleanupPhase">CleanupPhase</a><a href="#GainAction">GainAction</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Each ActionPoint allows you to perform TakeAction</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BuyPoint">BuyPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#CleanupPhase">CleanupPhase</a><a href="#GainBuy">GainBuy</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Each BuyPoint allows you to perform BuyCard</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Coin">Coin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyCard">BuyCard</a><a href="#CleanupPhase">CleanupPhase</a><a href="#Copper">Copper</a><a href="#GainCoin">GainCoin</a><a href="#Gold">Gold</a><a href="#Silver">Silver</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Found on <a class="keyword" href="#TreasureCard">TreasureCards</a> and on some <a class="keyword" href="#KingdomCard">KingdomCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="VP">VP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#GainVP">GainVP</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Found on <a class="keyword" href="#VictoryCard">VictoryCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActionPoint">ActionPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#CleanupPhase">CleanupPhase</a><a href="#GainAction">GainAction</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Each <a class="keyword" href="#ActionPoint">ActionPoint</a> allows you to perform <a class="keyword" href="#TakeAction">TakeAction</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BuyPoint">BuyPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#CleanupPhase">CleanupPhase</a><a href="#GainBuy">GainBuy</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Each <a class="keyword" href="#BuyPoint">BuyPoint</a> allows you to perform <a class="keyword" href="#BuyCard">BuyCard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayerDeck">PlayerDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCard">DrawCard</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Your set of <abbr title="Imported from common/CardGame">Cards</abbr></td></tr>
@@ -207,12 +214,7 @@ a.keyword:hover {
 <tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Adjust card counts for <a class="keyword" href="#VictoryCard">VictoryCards</a> (<a class="keyword" href="#Estate">Estate</a>, <a class="keyword" href="#Duchy">Duchy</a>, <a class="keyword" href="#Province">Province</a>):</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 2p: 8x</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 3-4p: 10x</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#ChooseKingdomCards">ChooseKingdomCards</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each chosen <a class="keyword" href="#KingdomCard">KingdomCard</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Create a <a class="keyword" href="#Pile">Pile</a> of 10 cards</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#SetupSupply">SetupSupply</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#TrashMat">TrashMat</a> on table</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Create <a class="keyword" href="#PlayerDeck">PlayerDeck</a> by adding 3 <a class="keyword" href="#Estate">Estates</a> and 7 <a class="keyword" href="#Copper">Coppers</a></td></tr>
@@ -220,7 +222,16 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Draw</abbr> 5 cards from your <a class="keyword" href="#PlayerDeck">PlayerDeck</a> into your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Leave space for your personal <abbr title="Imported from common/CardGame">DiscardPile</abbr> next to your <a class="keyword" href="#PlayerDeck">PlayerDeck</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ChooseKingdomCards">ChooseKingdomCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SetupSupply">SetupSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Create stacks for the <a class="keyword" href="#TreasureCard">TreasureCards</a> (<a class="keyword" href="#Copper">Copper</a>, <a class="keyword" href="#Silver">Silver</a>, <a class="keyword" href="#Gold">Gold</a>)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Adjust card counts for <a class="keyword" href="#VictoryCard">VictoryCards</a> (<a class="keyword" href="#Estate">Estate</a>, <a class="keyword" href="#Duchy">Duchy</a>, <a class="keyword" href="#Province">Province</a>):</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 2p: 8x</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 3-4p: 10x</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#ChooseKingdomCards">ChooseKingdomCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each chosen <a class="keyword" href="#KingdomCard">KingdomCard</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Create a <a class="keyword" href="#Pile">Pile</a> of 10 cards</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ChooseKingdomCards">ChooseKingdomCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupSupply">SetupSupply</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Use standard set of 10 for starter game</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
@@ -243,12 +254,12 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#TakeAction">TakeAction</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BuyPhase">BuyPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play as many <a class="keyword" href="#TreasureCard">TreasureCards</a> as you want</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayTreasureCards">PlayTreasureCards</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gain 1 <a class="keyword" href="#BuyPoint">BuyPoint</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#BuyPoint">BuyPoint</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#BuyCard">BuyCard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BuyCard">BuyCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="BuyCard">BuyCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#BuyPoint">BuyPoint</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Choose a <abbr title="Imported from common/CardGame">Card</abbr> from the <a class="keyword" href="#Supply">Supply</a> with <a class="keyword" href="#Cost">Cost</a> <= $<a class="keyword" href="#Coin">Coin</a>$</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gain <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Subtract <abbr title="Imported from common/CardGame">Card</abbr>'s <a class="keyword" href="#Cost">Cost</a> from your <a class="keyword" href="#Coin">Coins</a></td></tr>
@@ -277,26 +288,37 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GainBuy">GainBuy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Market">Market</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gain <a class="keyword" href="#BuyPoint">BuyPoint</a> that you can spend during this turn</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GainCoin">GainCoin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Market">Market</a><a href="#Merchant">Merchant</a><a href="#Militia">Militia</a><a href="#PlayTreasure">PlayTreasure</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GainCoin">GainCoin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Market">Market</a><a href="#Merchant">Merchant</a><a href="#Militia">Militia</a><a href="#PlayTreasureCards">PlayTreasureCards</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gain <a class="keyword" href="#Coin">Coins</a> that you can spend during this turn</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GainVP">GainVP</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GainVP">GainVP</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Duchy">Duchy</a><a href="#Estate">Estate</a><a href="#Province">Province</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gain <a class="keyword" href="#VP">VPs</a> (only used for scoring at end of game)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GainCard">GainCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Mine">Mine</a><a href="#Remodel">Remodel</a><a href="#Smithy">Smithy</a><a href="#Workshop">Workshop</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Move <abbr title="Imported from common/CardGame">Card</abbr> from the <a class="keyword" href="#Supply">Supply</a> into your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayTreasure">PlayTreasure</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayTreasureCards">PlayTreasureCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play any number of <a class="keyword" href="#TreasureCard">TreasureCards</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each <abbr title="Imported from common/CardGame">Card</abbr> played:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#GainCoin">GainCoin</a> equal to the <abbr title="Imported from common/CardGame">Card</abbr>'s <a class="keyword" href="#Value">Value</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Reveal">Reveal</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Moat">Moat</a><a href="#Reaction">Reaction</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Reveal">Reveal</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Reaction">Reaction</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Show the card to all <abbr title="Imported from common/Game">Players</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Return card whence it came</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TakeAction">TakeAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play an <a class="keyword" href="#ActionCard">ActionCard</a> in front of you for its effect</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TakeAction">TakeAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#ActionPoint">ActionPoint</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play an <a class="keyword" href="#ActionCard">ActionCard</a> in front of you</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Apply effect based on the <abbr title="Imported from common/CardGame">Card</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Cellar">Cellar</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Market">Market</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Merchant">Merchant</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Militia">Militia</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Mine">Mine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Moat">Moat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Remodel">Remodel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Smithy">Smithy</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Village">Village</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Workshop">Workshop</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Trash">Trash</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Mine">Mine</a><a href="#TrashFromHand">TrashFromHand</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Move <abbr title="Imported from common/CardGame">Card</abbr> onto the <a class="keyword" href="#TrashMat">TrashMat</a></td></tr>
@@ -304,58 +326,58 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TrashFromHand">TrashFromHand</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Remodel">Remodel</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Trash">Trash</a> a <abbr title="Imported from common/CardGame">Card</abbr> from your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=3>Cards</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=3>Cards</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Cellar">Cellar</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Cellar">Cellar</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainAction">GainAction</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Discard">Discard</a> any number of cards, then</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCard">DrawCard</a> the same number that you discarded</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Market">Market</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Market">Market</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainAction">GainAction</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainBuy">GainBuy</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainCoin">GainCoin</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Merchant">Merchant</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Merchant">Merchant</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainAction">GainAction</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The first time you play a <a class="keyword" href="#Silver">Silver</a> this turn:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#GainCoin">GainCoin</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Militia">Militia</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a>, <a class="keyword" href="#AttackCard">AttackCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Militia">Militia</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a>, <a class="keyword" href="#AttackCard">AttackCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainCoin">GainCoin</a> x2</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Each other <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#Discard">Discard</a> down to 3 <abbr title="Imported from common/CardGame">Cards</abbr> in <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">&roplus; <a class="keyword" href="#Reaction">Reaction</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Mine">Mine</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Mine">Mine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Optional: <a class="keyword" href="#Trash">Trash</a> a <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2>If you do:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#GainCard">GainCard</a> a <a class="keyword" href="#TreasureCard">TreasureCard</a> costing up to 1 more than it</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Moat">Moat</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a>, <a class="keyword" href="#ReactionCard">ReactionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Moat">Moat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a>, <a class="keyword" href="#ReactionCard">ReactionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCard">DrawCard</a> x2</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>When another player plays an <a class="keyword" href="#AttackCard">AttackCard</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">You may first <a class="keyword" href="#Reveal">Reveal</a> this from your <abbr title="Imported from common/CardGame">Hand</abbr> to be unaffected by the <a class="keyword" href="#AttackCard">AttackCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#Reaction">Reaction</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Remodel">Remodel</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Remodel">Remodel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Optional: <a class="keyword" href="#TrashFromHand">TrashFromHand</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2>If you do:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#GainCard">GainCard</a> costing up to 2 more than it</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Smithy">Smithy</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Smithy">Smithy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainCard">GainCard</a> x3</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Village">Village</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Village">Village</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainAction">GainAction</a> x2</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Workshop">Workshop</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Workshop">Workshop</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainCard">GainCard</a> costing up to 4</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Constraints</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Reaction">Reaction</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Constraint</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Reaction">Reaction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Militia">Militia</a><a href="#Moat">Moat</a></div></div>: Constraint</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>When another player plays an <a class="keyword" href="#AttackCard">AttackCard</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">You may <a class="keyword" href="#Reveal">Reveal</a> a <a class="keyword" href="#ReactionCard">ReactionCard</a> to ignore the attack</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
@@ -364,7 +386,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gain <a class="keyword" href="#VP">VP</a> from each <a class="keyword" href="#VictoryCard">VictoryCard</a> in your <abbr title="Imported from common/CardGame">Deck</abbr>, <abbr title="Imported from common/CardGame">Hand</abbr> and <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Winner">Winner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
