@@ -837,4 +837,4 @@ CalculateScore: Verb
 		The Cost of any Private still owned by the Player
 
 DetermineWinner: Verb
-	The Player with the highest wealth
+	PlayerWithHighestScore

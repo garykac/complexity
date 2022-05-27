@@ -54,7 +54,7 @@ Setup: Verb
 	Roll to determine first Player (highest roll)
 	InitialArmyPlacement
 
-GetherArmies: Verb
+GatherArmies: Verb
 	ChoosePlayerComponents
 	Each Player takes the following Armies, based on Player count:
 		* 3p: 35 Armies
@@ -166,4 +166,5 @@ TerritoriesMustAlwaysBeOccupied: Constraint
 
 // SECTION: Endgame
 
-Winner: Noun
+DetermineWinner: Verb
+	The Player that remains after defeating all other Player's Armies is the winner

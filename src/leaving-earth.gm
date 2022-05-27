@@ -29,12 +29,7 @@ AgencyCard: Card
 
 Advancement: Card
 NumOutcomes: Attribute of Advancement
-	// Number of OutcomeCards added
-OutcomeCondition: Attribute of Advancement
-	// Condition when to test the outcome
-SuccessResult: Attribute of Advancement
-MinorFailureResult: Attribute of Advancement
-MajorFailureResult: Attribute of Advancement
+	Number of Outcome cards added
 
 RocketAdvancement: Advancement
 
@@ -66,11 +61,11 @@ Calendar: Board
 Year: Part of Calendar
 	// Start; Years 1956 - 1965; Flip; Years 1966 - 1976; End
 CalendarMarker: Token
-							
+
 SpacecraftToken: Token
 SpacecraftCard: Card
 Storage: Attribute of SpacecraftCard
-	// Place Component Cards and Time Tokens here
+	Place Component cards and TimeTokens here
 
 // SpacecraftCards
 // CNES Spacecraft
@@ -79,8 +74,7 @@ Storage: Attribute of SpacecraftCard
 // OKB-1 Spacecraft
 // SAC Spacecraft
 
-Component: Card			
-Name: Attribute of Component		
+Component: Card
 Mass: Attribute of Component		// Optional. If missing, Mass = 0
 Cost: Attribute of Component		// Optional. If missing, cannot be purchased
 Requirement: Attribute of Component	// Optional
@@ -110,15 +104,13 @@ Incapacitated: Status
 
 Probe: DamageableComponent
 
-Capsule: DamageableComponent			
+Capsule: DamageableComponent
 Capacity: Attribute of Capsule
 	// Max number of Astronauts
 RadiationEffect: Attribute of Capsule
 	// Protection from SolarRadiation (default 0)
 AtmosphericEntryEffect: Attribute of Capsule
-	// Burn Up; Draw from Reentry
-BurnUp: AtmosphericEntryEffect
-DrawFromReentry: AtmosphericEntryEffect
+	// "Burn Up"; "Draw from Reentry"
 
 // Capsules:
 // Vostok Capsule - Mass: 2; Cost: $2; Capacity: 1; Atmospheric Entry: Draw from Reentry; Req: Reentry
@@ -127,7 +119,7 @@ DrawFromReentry: AtmosphericEntryEffect
 // Aldrin Capsule - Mass: 3; Cost: $4; Capacity: 8; Radiation: -1; Atmospheric Entry: Burn Up; Req: Life Support
 
 Astronaut: DamageableComponent
-Skills: Attribute of Astronaut		
+Skills: Attribute of Astronaut
 PilotAstronaut: Astronaut
 	// Skills: "Landing +1; Rendezvous +1"
 MechanicAstronaut: Astronaut
@@ -137,7 +129,7 @@ DoctorAstronaut: Astronaut
 
 ThrustGenerator: DamageableComponent
 Thrust: Attribute of ThrustGenerator
-							
+
 Rocket: ThrustGenerator
 
 // Rockets:
@@ -150,7 +142,6 @@ IonThruster: ThrustGenerator
 // Ion - Mass: 1; Cost $10; Thrust: 5; Req: Ion Thrusters
 
 Location: Card
-Name: Attribute of Location
 Maneuver: Attribute of Location
 	// Set of connection between LocationCards
 TargetLocation: Attribute of Maneuver
@@ -176,7 +167,7 @@ ExplorationHazardIcon: HazardIcon
 // SuborbitalFlightIcon
 
 OptionalHazard: Attribute of HazardIcon
-	// Parentheses around the icon
+	A HazardIcon with parentheses around the icon
 
 Space: Location
 	Any Location other than Earth
@@ -261,7 +252,7 @@ SampleReturnMission: Mission
 // Mars Sample Return - Hard, 16VP, "Mars Sample on Earth"
 // Venus Sample Return - Hard, 24VP, "Venus Sample on Earth"
 
-ExtrateerrestrialLifeMission: Mission
+ExtraterrestrialLifeMission: Mission
 	// "Sample of Extraterrestrial Life Brought to Earth"
 // Extraterrestrial Life - Hard, 40VP, "Sample of Extraterrestrial Life Brought to Earth"
 
@@ -358,7 +349,7 @@ SetupCalendar: Verb
 
 // SECTION: Gameplay
 
-Gameplay: Verb
+PlayGame: Verb
 	Repeat until GameEnd:
 		Funding
 		StartOfYear
@@ -378,11 +369,30 @@ Funding: Verb
 
 StartOfYear: Verb
 	For each StartOfYearMission in the ActiveMissions, ordered by Mission VP from lowest to highest:
-		If Mission completed by a single Agency:
-			AwardMissionComplete to that Agency
-		Otherwise:
-			AwardMissionComplete to the Agency with least VP
-			If tie for least VP, then award randomly between those Agencies
+		If MissionCompleted:
+			If Mission completed by a single Agency:
+				AwardMissionComplete to that Agency
+			Otherwise:
+				AwardMissionComplete to the Agency with least VP
+				If tie for least VP, then award randomly between those Agencies
+	RemoveImpossibleMissions
+
+RemoveImpossibleMissions: Verb
+	For each of the ActiveMissions:
+		If all of:
+			The Location matching the MissionLocation has been revealed
+			It is no longer possible to complete the Mission
+		Then:
+			Remove the Mission from the game
+
+MissionCompleted: Verb
+	ProbeMission
+	SurveyMission
+	SampleReturnMission
+	ExtraterrestrialLifeMission
+	MannedSpaceFlightMission
+	SpaceStationMission
+	// Todo
 
 AwardMissionComplete: Verb
 	Remove Mission from ActiveMissions and give it to the Agency that completed it
@@ -448,9 +458,10 @@ RemoveTimeTokens: Verb
 AutomaticManeuvers: Verb
 	For each SpacecraftToken in Space that doesn't have TimeTokens:
 		If in a Location with a Maneuver that has a Difficulty of "!":
-			AutomaticManeuver
+			PerformAutoManeuver
+	! MultiYearTravel
 
-AutomaticManeuver: Verb
+PerformAutoManeuver: Verb
 	If Maneuver's TargetLocation is Lost:
 		DestroySpacecraft
 	Move SpacecraftToken to the Maneuver's TargetLocation
@@ -492,10 +503,12 @@ BuyComponent: Verb
 		If you have the required Advancement:
 			Pay Cost
 			Place Component in your Warehouse (in undamaged state)
+			! NotComponentLimited
 
 AssembleSpacecraft: Verb
 	Select SpacecraftCard
 	Place corresponding SpacecraftToken on Earth
+		! NotComponentLimited
 	Add any number of Components from your Warehouse (at least one)
 	If you add Astronauts:
 		The number of Astronauts must not exceed the Capsule's Capacity
@@ -508,7 +521,7 @@ DisassembleSpacecraft: Verb
 PerformManeuver: Verb
 	Select Maneuver from Location where the SpacecraftToken is located
 	If Difficulty of Maneuver = "!":
-		AutomaticManeuver
+		PerformAutoManeuver
 		Exit
 	total_mass = sum of Mass of each Component on the SpacecraftCard
 	thrust_required = (total_mass) x (Maneuver's Difficulty)
@@ -516,18 +529,21 @@ PerformManeuver: Verb
 	Repeat while thrust_generated < thrust_required:
 		Choose ThrustGenerator from SpacecraftCard
 		If GenerateThrustForManeuver is successful:
-			Add thrust to thrust_generated
+			Add the ThrustGenerator's Thrust to thrust_generated
 	If you can't generate enough thrust:
 		The Maneuver fails and the SpacecraftToken stays in the same location
 	DealWithHazards
 	Move SpacecraftToken to Maneuver's TargetLocation
+	! MultiYearTravel
+	! FasterManeuvers
 
 GenerateThrustForManeuver: Verb
 	If Rocket:
-		Select based on DrawOutcome for the Advancement corresponding to the Rocket:
+		Select based on DrawOutcome for the RocketAdvancement corresponding to the Rocket:
 			Success
 			MinorFailure: DamageRocket
 			MajorFailure: DestroySpacecraft
+		
 		Discard Rocket
 	If IonThruster:
 		If Maneuver's Hazards does not have HourglassIcon:
@@ -542,8 +558,8 @@ DealWithHazards: Verb
 		IrradiateAstronauts
 	If Maneuver's Hazards contains one or more HourglassIcons:
 		MultiYearManeuver
-	If SpacecraftToken does not have any TimeTokens on it:
-		DealWithEntryHazards
+	DealWithEntryHazards
+	! MultiYearTravel
 
 IrradiateAstronauts: Verb
 	ExploreLocation SolarRadiation
@@ -557,7 +573,7 @@ IrradiateAstronauts: Verb
 
 MultiYearManeuver: Verb
 	min_time_tokens = number of HourglassIcons in Maneuver's Hazards
-	Don't count HourglassIcons that are within parentheses
+	Don't count HourglassIcons that are OptionalHazards
 	Repeat until number of TimeTokens on the SpacecraftToken >= min_time_tokens:
 		Place TimeToken on the SpacecraftToken
 
@@ -576,7 +592,7 @@ AtmosphericEntry: Verb
 			DestroyCapsule
 		If Capsule is Damaged:
 			DestroyCapsule
-		If Capsule's AtmosphericEntryEffect is BurnUp:
+		If Capsule's AtmosphericEntryEffect is "Burn up":
 			DestroyCapsule
 		Select based on DrawOutcome for ReEntryAdvancement:
 			Success
@@ -585,7 +601,7 @@ AtmosphericEntry: Verb
 		KeepOrRemoveOutcomeCard
 
 PerformLanding: Verb
-	If LanderIcon is in parentheses:
+	If LanderIcon is an OptionalHazard:
 		Landing is not required, but you may attempt a landing if you wish
 	If Agency doesn't have LandingAdvancement:
 		DestroySpacecraft
@@ -630,6 +646,7 @@ DockSpacecraft: Verb
 		MajorFailure: DamageSelectedComponent
 	AdjustOutcomeForPilot
 	KeepOrRemoveOutcomeCard
+	! MultiYearTravel
 
 VerifyRendezvousRequirements: Verb
 	Must have RendezvousAdvancement
@@ -674,6 +691,7 @@ SurveyConditions: Verb
 	Then:
 		SurveyLocation on the Maneuver's TargetLocation
 	! You may not survey SuborbitalSpace
+	! MultiYearTravel
 
 SurveyLocation: Verb
 	DrawOutcome for SurveyingAdvancement
@@ -691,6 +709,7 @@ CollectSample: Verb
 			Astronaut
 		Then:
 			TakeSample
+	! MultiYearTravel
 
 TakeSample: Verb
 	If Location has a DiscoveryIcon:
@@ -700,6 +719,7 @@ TakeSample: Verb
 			PlentifulSupplies: take Supplies for free
 			ValuableMinerals: minerals can be traded for Money at start of year
 	Move a Sample card corresponding to your Location onto your SpacecraftCard
+	! NotComponentLimited
 
 AlienAdvancement: Verb
 	Choose one:
@@ -707,8 +727,9 @@ AlienAdvancement: Verb
 		Remove all Outcomes from one of your Advancement cards
 
 RepairComponent: Verb
-	If a SpacecraftCard has a MechanicAstronaut
-		AND SpacecraftToken is not in SuborbitalSpace:
+	If all of:
+		The SpacecraftCard has a MechanicAstronaut
+		The corresponding SpacecraftToken is not in SuborbitalSpace:
 	Then:
 		Repair all non-Astronaut DamageableComponents
 
@@ -785,26 +806,12 @@ CostToDiscardOutcomeCard: Verb
 NotComponentLimited: Constraint
 	If any component runs out, you may use substitute components
 
-ImpossibleMissions: Constraint
-	If all of:
-		The Location associated with a Mission has been revealed
-		It is no longer possible to complete the Mission
-	Then:
-		Remove the Mission from the game
-
 MultiYearTravel: Constraint
 	A SpacecraftToken with a TimeToken on it cannot perform any actions (unless otherwise specified)
 
 FasterManeuvers: Constraint
 	To reduce by half (rounded up) the time required for a Maneuver:
 		Double the Maneuver's Difficulty
-
-//ReshuffleOutcomes:
-//	If you run out of Outcome Cards:						Basic knowledge
-//		Reshuffle OutcomeDiscardPile into OutcomeDeck					
-
-//NoMoney:					BuyComponent		
-//	You need to have enough Money to buy items						Basic knowledge
 
 // SECTION: EndGame
 
@@ -813,5 +820,5 @@ CalculateScore: Verb
 	For each dead Astronaut (tucked underneath Agency card):
 		Subtract 2 VP
 
-Winner: Noun
+DetermineWinner: Verb
 	PlayerWithHighestScore

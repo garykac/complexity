@@ -31,6 +31,3 @@ Reveal: Verb
 
 Discard: Verb
 	Place a Card face up in the DiscardPile.
-
-Pass: Verb
-	Voluntarily skip your turn or choose not to perform an action

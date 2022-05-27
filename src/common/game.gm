@@ -9,6 +9,21 @@ FirstPlayer: Noun
 
 Score: Noun
 
+Setup: Verb
+	Steps to setup game before play
+	
+PlayGame: Verb
+	Playing the game
+	
+CalculateScore: Verb
+	How each Player calculates their score
+	
+DetermineWinner: Verb
+	Determining the overall winner of the game
+	
+Pass: Verb
+	Voluntarily skip your turn or choose not to perform an action
+
 ChooseFirstPlayer: Verb
 	Choose which Player goes first (however you like)
 

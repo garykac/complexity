@@ -101,5 +101,5 @@ NextPlayer: Verb
 
 // SECTION: Endgame
 
-Winner: Noun
+DetermineWinner: Verb
 	The Player who ran out of Cards in their Hand

@@ -21,29 +21,28 @@ Type: Attribute	of Card
 Cost: Attribute of Card
 
 BaseCard: Card
-	// Common cards used in all games: Treasure, Victory
+	Common cards used in all games: TreasureCard, VictoryCard
 Value: Attribute of BaseCard		
 
 TreasureCard: BaseCard
-	// Type = Treasure
+	Card with Type = "Treasure"
 Copper: TreasureCard
-	// Value = 1 Coin
+	TreasureCard with Value = 1 Coin
 Silver: TreasureCard
-	// Value = 2 Coins
+	TreasureCard with Value = 2 Coins
 Gold: TreasureCard
-	// Value = 3 Coins
+	TreasureCard with Value = 3 Coins
 
 VictoryCard: BaseCard
-	// Type = Victory
+	Card with Type = "Victory"
 Estate: VictoryCard	
-	// Value = 1 VP
+	GainVP
 Duchy: VictoryCard
-	// Value = 3 VPs
+	GainVP x3
 Province: VictoryCard
-	// Value = 6 VPs
+	GainVP x6
 
 KingdomCard: Card			
-Description: Attribute of KingdomCard		
 ActionCard: KingdomCard
 	// KingdomCard that can be played as an Action
 AttackCard: KingdomCard
@@ -55,32 +54,36 @@ Pile: Noun
 	A stack of Cards in the Supply
 
 Coin: Noun
-	// Found on TreasureCards and on some KingdomCards
+	Found on TreasureCards and on some KingdomCards
 VP: Noun
-	// Found on VictoryCards
+	Found on VictoryCards
 ActionPoint: Noun
-	// Each ActionPoint allows you to perform TakeAction
+	Each ActionPoint allows you to perform TakeAction
 BuyPoint: Noun
-	// Each BuyPoint allows you to perform BuyCard
+	Each BuyPoint allows you to perform BuyCard
 
 PlayerDeck: Noun
 	Your set of Cards
 
 // SECTION: Setup
 
-Setup: Verb			
-	Adjust card counts for VictoryCards (Estate, Duchy, Province):
-		* 2p: 8x
-		* 3-4p: 10x
-	ChooseKingdomCards
-	For each chosen KingdomCard:
-		Create a Pile of 10 cards
+Setup: Verb
+	SetupSupply
 	Place TrashMat on table
 	For each Player:
 		Create PlayerDeck by adding 3 Estates and 7 Coppers
 		Shuffle
 		Draw 5 cards from your PlayerDeck into your Hand
 		Leave space for your personal DiscardPile next to your PlayerDeck
+
+SetupSupply: Verb
+	Create stacks for the TreasureCards (Copper, Silver, Gold) 
+	Adjust card counts for VictoryCards (Estate, Duchy, Province):
+		* 2p: 8x
+		* 3-4p: 10x
+	ChooseKingdomCards
+	For each chosen KingdomCard:
+		Create a Pile of 10 cards
 
 ChooseKingdomCards: Verb
 	Use standard set of 10 for starter game
@@ -105,7 +108,7 @@ ActionPhase: Verb
 		TakeAction
 
 BuyPhase: Verb
-	Play as many TreasureCards as you want
+	PlayTreasureCards
 	Gain 1 BuyPoint
 	For each BuyPoint:
 		BuyCard
@@ -148,7 +151,7 @@ GainVP: Verb
 GainCard: Verb
 	Move Card from the Supply into your Hand
 
-PlayTreasure: Verb
+PlayTreasureCards: Verb
 	Play any number of TreasureCards
 	For each Card played:
 		GainCoin equal to the Card's Value
@@ -158,7 +161,18 @@ Reveal: Verb
 	Return card whence it came
 
 TakeAction: Verb
-	Play an ActionCard in front of you for its effect
+	Play an ActionCard in front of you
+	Apply effect based on the Card:
+		Cellar
+		Market
+		Merchant
+		Militia
+		Mine
+		Moat
+		Remodel
+		Smithy
+		Village
+		Workshop
 
 Trash: Verb
 	Move Card onto the TrashMat
@@ -166,7 +180,7 @@ Trash: Verb
 TrashFromHand: Verb
 	Trash a Card from your Hand
 
-// SECTION: Cards
+// SUBSECTION: Cards
 
 Cellar: ActionCard
 	GainAction
@@ -189,6 +203,7 @@ Militia: ActionCard, AttackCard
 	GainCoin x2
 	Each other Player:
 		Discard down to 3 Cards in Hand
+		! Reaction
 
 Mine: ActionCard
 	Optional: Trash a TreasureCard
@@ -197,8 +212,7 @@ Mine: ActionCard
 
 Moat: ActionCard, ReactionCard
 	DrawCard x2
-	When another player plays an AttackCard:
-		You may first Reveal this from your Hand to be unaffected by the AttackCard
+	! Reaction
 
 Remodel: ActionCard
 	Optional: TrashFromHand
@@ -226,5 +240,5 @@ Reaction: Constraint
 CalculateScore: Verb
 	Gain VP from each VictoryCard in your Deck, Hand and DiscardPile
 
-Winner: Noun
+DetermineWinner: Verb
 	PlayerWithHighestScore

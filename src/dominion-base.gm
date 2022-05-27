@@ -15,13 +15,14 @@
 // SECTION: Vocabulary
 
 CurseCard: BaseCard
-	// Type = Curse
+	Card with Type = Curse
 Curse: CurseCard
-	// Value = -1 VPs
+	CurseCard with Value = -1 VPs
 
 // SECTION: Setup
 
-AdditionalSetup: Verb			
+Setup: Verb
+	// Same Setup as for the standard game
 	Adjust card counts for CurseCards (Curse):
 		* 2p: 10x
 		* 3p: 20x
@@ -45,6 +46,26 @@ TrashTreasure: Verb
 		Trash it
 	Otherwise:
 		Discard it
+
+TakeAction: Verb
+	// Same TakeAction as for the standard game, with additional Cards
+	Apply effect based on the Card:
+		Artisan
+		Bandit
+		Bureaucrat
+		Chapel
+		CouncilRoom
+		Festival
+		Gardens
+		Harbinger
+		Laboratory
+		Library
+		Moneylender
+		Poacher
+		Sentry
+		ThroneRoom
+		Vassal
+		Witch
 
 // SECTION: Cards
 

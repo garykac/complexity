@@ -80,5 +80,5 @@ CheckForPromotion: Verb
 
 // SECTION: Endgame
 
-Winner: Noun
+DetermineWinner: Verb
 	The Player who cannot make a move loses to the other Player.

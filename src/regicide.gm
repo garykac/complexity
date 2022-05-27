@@ -205,5 +205,5 @@ EnemyCancelsMatchingSuitPower: Constraint
 
 // SECTION: Endgame
 
-Winner: Noun
+DetermineWinner: Verb
 	Player win or lose as a group.

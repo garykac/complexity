@@ -15,15 +15,15 @@
 // SECTION: Setup
 
 Setup: Verb
-	Pass
 	
 // SECTION: Gameplay
 
 PlayGame: Verb
-	Pass
 
 // SECTION: Constraints
 
 // SECTION: Endgame
 
-Winner: Noun
+CalculateScore: Verb
+
+DetermineWinner: Verb

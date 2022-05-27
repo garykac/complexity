@@ -35,7 +35,7 @@ CircleChip: Chip
 	// 16 chips
 
 RuinsChip: Chip
-Dots: Attribute of RuinsChip
+Dot: Attribute of RuinsChip
 	// Used to determine how far the piece starts away from the Submarine
 TreasurePoints: Attribute of RuinsChip
 	// Treasure value for this piece
@@ -78,9 +78,9 @@ ResetAirGauge: Verb
 SetupRuins: Verb
 	Flip over all RuinsChips so that only the Dots are showing
 	Sort the RuinsChips by type (number of Dots)
-	Starting with the Chips with 1 dot:
+	Starting with the TriangleChips (with 1 Dot):
 		Build a line of RuinsChips leading out from the Submarine
-		Continue with RuinsChips with 2, 3, and 4 Dots
+		Continue with SquareChips (2 Dots), PentagonChips (3 Dots) and then HexagonChips (4 Dots)
 
 // SECTION: Gameplay					
 
@@ -176,8 +176,8 @@ StackedRuinsChips: Constraint
 
 // SECTION: EndGame
 
-CalcScore: Verb
+CalculateScore: Verb
 	Add all the TreasurePoints from the RuinsChips in your TreasurePile
 
-Winner: Noun
+DetermineWinner: Verb
 	PlayerWithHighestScore

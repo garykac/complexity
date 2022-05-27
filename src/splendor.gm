@@ -133,6 +133,7 @@ ReserveCard: Verb
 	! You may not have more than 3 Cards in your InactiveArea
 	! If there aren't any GoldTokens remaining:
 		You may still reserve a Card, but you don't get a GoldToken
+	! VisibleDevelopmentCards
 	! If you Draw directly from a DevelopmentDeck:
 		You may keep the reserved DevelopmentCard hidden from other Players
 
@@ -151,18 +152,18 @@ CheckForNobleVisit: Verb
 
 // SECTION: Constraints
 
-VisibleCards: Constraint
+VisibleDevelopmentCards: Constraint
 	Your DevelopmentCards should be arranged so that all Players can see the BonusGems they grant
 
 // SECTION: Endgame
 
-Scoring: Verb
+CalculateScore: Verb
 	For each of your DevelopmentCards:
 		Add DevelopmentPP to your PrestigePoints
 	For each of your NobleTiles:
 		Add NoblePP to your PrestigePoints
 	
-Winner: Noun
+DetermineWinner: Verb
 	Winner is the Player with the most PrestigePoints
 	! In case of a tie:
 		Player with fewest DevelopmentCards wins

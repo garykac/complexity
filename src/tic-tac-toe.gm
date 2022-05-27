@@ -44,5 +44,5 @@ CheckWin: Verb
 
 // SECTION: Endgame
 
-Winner: Noun
+DetermineWinner: Verb
 	The Player who makes 3 in a row instantly wins.
