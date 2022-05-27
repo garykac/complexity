@@ -59,6 +59,10 @@ class GambitParser:
 	def reset(self):
 		self.vocab = {}
 		self.vocabPlural = {}
+		
+		# Definitions that were imported (and possibly overwritten).
+		self.imports = {}
+		
 		self.lines = []
 		self.maxIndent = 0
 		self.costTotal = 0
@@ -113,6 +117,9 @@ class GambitParser:
 			canonicalForm = self.vocabPlural[word]
 
 		return canonicalForm in self.vocab
+	
+	def addImport(self, key):
+		self.imports[key] = True
 	
 	# ==========
 	# Helper routines for adding new lines to the array.
@@ -373,6 +380,7 @@ class GambitParser:
 					else:
 						error("Unexpected keyword group: {0:s}".format(keywords))
 					self.addVocab(keyword, plural, ["IMPORT", name])
+					self.addImport(keyword)
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]
@@ -512,10 +520,12 @@ class GambitParser:
 			return self.vocabPlural[word]
 	
 	def checkReferences(self):
-		ENTRY_POINTS = ["Setup", "PlayGame", "CalculateScore", "DetermineWinner"]
 		for k,v in self.referencedBy.items():
-			if not k in ENTRY_POINTS and self.vocab[k][0] == "LOCAL" and len(v) == 0:
-				error("Term is defined but never referenced: {0:s}".format(k))
+			# If defined locally but no references.
+			if self.vocab[k][0] == "LOCAL" and len(v) == 0:
+				# Allow local definitions to overwrite imported defs.
+				if not k in self.imports:
+					error("Term is defined but never referenced: {0:s}".format(k))
 	
 	# ==========
 	# Writing the HTML file
