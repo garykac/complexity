@@ -34,13 +34,13 @@ Number: Attribute of WordCard
 Word: Attribute of WordCard
 	Candidates to be the MysteryWord
 
-WordDeck: Noun
+WordDeck: Deck
 	The set of WordCards chosen for this game
 
 MysteryWord: Noun
 	The Word on the WordCard that the Players are trying to guess
 
-SuccessDeck: Noun
+SuccessDeck: Deck
 	The stack of cards next to the WordDeck that the Players have guessed correctly
 
 // SECTION: Setup
