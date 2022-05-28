@@ -1,0 +1,127 @@
+// NAME: Just One
+// Cooperatively guess a mystery word.
+
+// Year: 2018
+// Designer: Ludovic Roudy, Bruno Sautter
+// Players: 3-7
+// Time: 20m
+// BGG Weight: 1.05 = 317 / 12 / 0 / 0 / 1
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+ActivePlayer: Player
+	The Player attempting to guess the MysteryWord from the clues
+
+NonActivePlayers: Noun
+	All Players except for the ActivePlayer
+	
+Easel: Noun
+	A small stand on which guesses are written
+
+Marker: Noun
+	An erasable marker for writing guesses
+
+WordCard: Noun
+	A card with a set of possible MysteryWords
+
+Number: Attribute of WordCard
+	A number to help randomize the Word chosen from the card
+	
+Word: Attribute of WordCard
+	Candidates to be the MysteryWord
+
+WordDeck: Noun
+	The set of WordCards chosen for this game
+
+MysteryWord: Noun
+	The Word on the WordCard that the Players are trying to guess
+
+SuccessDeck: Noun
+	The stack of cards next to the WordDeck that the Players have guessed correctly
+
+// SECTION: Setup
+
+Setup: Verb
+	CreateWordDeck
+	Give Easel and Marker to each Player
+	Choose the ActivePlayer
+
+CreateWordDeck: Verb
+	Shuffle all the WordCards together
+	Randomly draw 13 to create the WordDeck
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until WordDeck is empty:
+		TakeTurn
+		New ActivePlayer is the NextPlayerClockwise
+
+TakeTurn: Verb
+	ChooseMysteryWord
+	SelectClues
+	CompareClues
+	GuessMysteryWord
+
+ChooseMysteryWord: Verb
+	The ActivePlayer should:
+		Draw the top card (the WordCard) of the WordDeck without looking
+		Place the WordCard on their Easel so that the other Players can see it
+		Choose a number between 1 and 5
+	The MysteryWord is the Word next to the chosen Number on the WordCard
+	! Players can ask for a different number if they are not familiar with the selected MysteryWord
+
+SelectClues: Verb
+	The NonActivePlayers simultaneously:
+		Write a single clue word on their Easel
+	! No communication between Players is allowed.
+		// This includes verbal and non-verbal (like showing their word) communication.
+	! Digits, numbers, acronyms, onomatopoeia and special characters are all considered words
+	! Invalid words include:
+		The MysteryWord, but written differently or written in a foreign language
+		A word from the same general family as the MysteryWord ("prince" and "princess")
+		An invented word
+		A word phonetically identical to the MysteryWord ("whether" and "weather")
+
+CompareClues: Verb
+	The ActivePlayer closes their eyes
+	The NonActivePlayers reveal their Easels to the other NonActivePlayers
+	All identical or invalid clues are cancelled
+	If there are no remaining valid clues:
+		SkipGuess
+	! Identical words include:
+		Variants of the same word, like plurals, gender differentiations, spelling mistakes
+		Variants from the same word family (like "prince" and "princess")
+
+GuessMysteryWord: Verb
+	The ActivePlayer opens their eyes to look at the remaining clues
+	The ActivePlayer chooses one of:
+		GuessWord
+		SkipGuess
+
+GuessWord: Verb
+	The ActivePlayer makes a single guess
+	If the guess is correct:
+		SuccessfulGuess
+	Otherwise:
+		FailedGuess
+		
+SuccessfulGuess: Verb
+	Add the WordCard to the SuccessDeck
+
+FailedGuess: Verb
+	Discard the WordCard to the Box
+	Discard the top card of the WordDeck to the Box
+	! On the final turn, discard a card from the SuccessDeck to the Box (since the WordDeck is empty)
+
+SkipGuess: Verb
+	Place the WordCard in the Box
+
+// SECTION: Endgame
+
+CalculateScore: Verb
+	The number of cards in the SuccessDeck
