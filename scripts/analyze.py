@@ -8,6 +8,7 @@ import sys
 
 KEYWORD = "[A-Z][A-Za-z0-9_]*"
 MULTI_KEYWORDS = "[A-Z][A-Za-z0-9\|_]*"
+TEMPLATE_KEYWORD = "(" + KEYWORD + ")\<(" + KEYWORD + ")\>"
 TAB_SIZE = 4
 
 GM_CSS_PATH = "gm.css"
@@ -25,6 +26,7 @@ FREE_ACTIONS = [
 	"If all of:",
 	"For each Player:",
 	"Choose one:",
+	"Any of:",
 ]
 
 # Handle suffix words like "Discard it" or "Shuffle them"
@@ -48,6 +50,9 @@ class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
 		self.debug = False
+		self.showCost = False
+		self.useWarnings = True
+
 		self.reset()
 
 		self.games = None
@@ -74,6 +79,9 @@ class GambitParser:
 
 		self.initVocab()
 	
+	def showCostAtEnd(self):
+		self.showCost = True
+	
 	def initFreeActions(self):
 		for a in FREE_ACTIONS:
 			self.freeActions[a] = True
@@ -99,10 +107,13 @@ class GambitParser:
 		self.vocab[key] = info
 		self.referencedBy[key] = set()
 
-		# Default plural is to just add an 's' at the end.
+		# Simple default plurals.
 		if keyPlural == None:
 			if key[-1] == 's':
 				keyPlural = key
+			# Factory, Quarry, but not Donkey
+			elif key[-2] == 'ry':
+				keyPlural = key[0:-2] + "ries"
 			else:
 				keyPlural = key + "s"
 		# Mapping from plural to canonical form.
@@ -118,6 +129,19 @@ class GambitParser:
 
 		return canonicalForm in self.vocab
 	
+	def isDefinedTerm(self, term):
+		if self.isVocab(term):
+			return True
+
+		# Check for templates.
+		m = re.match(TEMPLATE_KEYWORD, term)
+		if m:
+			keyword = m.group(1)
+			param = m.group(2)
+			return self.isVocab(keyword) and self.isVocab(param)
+
+		return False
+
 	def addImport(self, key):
 		self.imports[key] = True
 	
@@ -142,6 +166,9 @@ class GambitParser:
 			self.maxIndent = indent
 		self.lines.append(["COMMENT", indent, comment])
 
+	def addTemplateDefinitionLine(self, cost, keyword, param, comment):
+		self.lines.append(["TEMPLATE", cost, keyword, param, comment])
+		
 	def addDefinitionLine(self, cost, keyword, types, parent, comment):
 		self.lines.append(["DEF", cost, keyword, types, parent, comment])
 		
@@ -180,6 +207,12 @@ class GambitParser:
 				# Ignore
 				return
 		self.addCommentLine(indent, comment)
+
+	def addTemplateDefinition(self, keyword, param, comment):
+		info = ["LOCAL", "Verb", param]
+		self.addVocab(keyword, None, info)
+
+		self.addTemplateDefinitionLine(1, keyword, param, comment)
 
 	def addDefinition(self, keywords, type, comment):
 		keyword = keywords[0]
@@ -238,7 +271,7 @@ class GambitParser:
 		for i in range(0, maxLines):
 			r = self.lines[i]
 			type = r[0]
-			if type == "DEF":
+			if type == "DEF" or type == "TEMPLATE":
 				# If a DEF has DESC indented under it, then the cost is
 				# determined by the associated DESCs and the DEF itself is 0.
 				# Otherwise (with no DESCs) the cost of the DEF is 1.
@@ -249,7 +282,7 @@ class GambitParser:
 				(type, cost, indent, line, comment) = r
 				# Lines that consist entirely of a single defined term are free.
 				# The cost comes from the definition.
-				if self.isVocab(line):
+				if self.isDefinedTerm(line):
 					r[1] = 0
 				# Free actions are free.
 				if line in self.freeActions:
@@ -258,7 +291,7 @@ class GambitParser:
 				# Handle special cases with Vocab
 				words = line.split()
 				# Handle "Discard xxx"
-				if len(words) == 2 and self.isVocab(words[0]):
+				if len(words) == 2 and self.isDefinedTerm(words[0]):
 					# Handle: "Discard it"
 					if words[1] in FREE_SUFFIX_WORDS:
 						r[1] = 0
@@ -266,8 +299,8 @@ class GambitParser:
 					if re.match('x\d+$', words[1]):
 						r[1] = 0
 				# Handle "Success:" and "Success: DrawCard"
-				if words[0][-1] == ':' and self.isVocab(words[0][0:-1]):
-					if len(words) == 1 or  self.isVocab(words[1]):
+				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
+					if len(words) == 1 or  self.isDefinedTerm(words[1]):
 						r[1] = 0
 			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in updateCosts: {0:s}".format(type))
@@ -297,7 +330,7 @@ class GambitParser:
 		self.costTotal = 0
 		for r in self.lines:
 			type = r[0]
-			if type == "DEF":
+			if type == "DEF" or type == "TEMPLATE":
 				if r[1]:
 					self.costTotal += r[1]
 			elif type in ["DESC", "CONSTRAINT"]:
@@ -344,6 +377,14 @@ class GambitParser:
 			return
 		line = line.rstrip()
 
+		# TEMPLATE_TYPE: Verb
+		m = re.match(TEMPLATE_KEYWORD + ":\s*Verb", line)
+		if m:
+			keyword = m.group(1)
+			param = m.group(2)
+			self.addTemplateDefinition(keyword, param, comment)
+			return
+		
 		# NEW_TYPE: TYPE
 		# NEW_TYPE|PLURAL: TYPE
 		# NEW_ATTRIBUTE: Attribute of TYPE
@@ -410,6 +451,11 @@ class GambitParser:
 				if parent:
 					self.addRef(parent, currDef)
 				self.extractReference(comment, currDef)
+			elif type == "TEMPLATE":
+				(type, cost, keyword, param, comment) = r
+				currDef = keyword
+				self.addRef("Verb", currDef)
+				self.extractReference(comment, currDef)
 			elif type == "DESC":
 				(type, cost, indent, line, comment) = r
 				self.extractReference(line, currDef)
@@ -437,6 +483,14 @@ class GambitParser:
 			# Ignore strings (or first/last word in a string).
 			# Note: This will not skip middle words in string: "skip not not not skip"
 			if word[0] == '"' or word[-1] == '"':
+				continue
+			# Look for template references.
+			m = re.match(TEMPLATE_KEYWORD, word)
+			if m:
+				keyword = m.group(1)
+				param = m.group(2)
+				self.addRef(keyword, currDef)
+				self.addRef(param, currDef)
 				continue
 			# Strip non-alphanumeric from beginning/end of token.
 			# Also remove contraction endings like "'s".
@@ -468,6 +522,15 @@ class GambitParser:
 			# Note: This will not skip middle words in string: "skip not not not skip"
 			if word[0] == '"' or word[-1] == '"':
 				words.append(word)
+				continue
+
+			# Look for template references.
+			m = re.match(TEMPLATE_KEYWORD, word)
+			if m:
+				keyword = m.group(1)
+				param = m.group(2)
+				words.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
+						.format(keyword, param))
 				continue
 
 			prefix = ""
@@ -525,7 +588,8 @@ class GambitParser:
 			if self.vocab[k][0] == "LOCAL" and len(v) == 0:
 				# Allow local definitions to overwrite imported defs.
 				if not k in self.imports:
-					error("Term is defined but never referenced: {0:s}".format(k))
+					msg = "Term is defined but never referenced: {0:s}".format(k)
+					warning(msg) if self.useWarnings else error(msg)
 	
 	# ==========
 	# Writing the HTML file
@@ -545,12 +609,19 @@ class GambitParser:
 				(type, cost, keyword, types, parent, comment) = r
 				row = '<tr>'
 				row += self.calcTableRowCostColumn(cost)
-				defn = self.calcDefinition(keyword)
+				defn = self.calcDefinitionHtml(keyword)
 				if parent != None:
 					fulltype = '{0:s} of {1:s}'.format(types[0], parent)
 				else:
 					fulltype = ', '.join(types)
 				row += self.calcTableRowDescColumn(0, fulltype, comment, "{0:s}: ".format(defn))
+				row += '</tr>\n'
+			elif type == "TEMPLATE":
+				(type, cost, keyword, param,comment) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(cost)
+				defn = self.calcTemplateHtml(keyword, param)
+				row += self.calcTableRowDescColumn(0, "Verb", comment, "{0:s}: ".format(defn))
 				row += '</tr>\n'
 			elif type == "CONSTRAINT":
 				(type, cost, indent, line, comment) = r
@@ -617,7 +688,25 @@ class GambitParser:
 		row += '</td>'
 		return row
 	
-	def calcDefinition(self, keyword):
+	def calcTemplateHtml(self, keyword, param):
+		refs = []
+		if keyword in self.referencedBy:
+			refs = sorted(self.referencedBy[keyword])
+		defn = '<div class="def-container">'
+		defn += '<a class="def" id="{0:s}">{0:s}&lt;{1:s}&gt;</a>'.format(keyword, param)
+
+		defn += '<div class="def-menu">'
+		if len(refs) != 0:
+			defn += '<div class="def-menu-title">Referenced&nbsp;by:</div>'
+			for ref in refs:
+				defn += '<a href="#{0:s}">{0:s}</a>'.format(ref)
+		else:
+			defn += '<div class="def-menu-title">No&nbsp;references</div>'
+		defn += '</div>'
+		defn += '</div>'
+		return defn
+
+	def calcDefinitionHtml(self, keyword):
 		refs = []
 		if keyword in self.referencedBy:
 			refs = sorted(self.referencedBy[keyword])
@@ -744,7 +833,8 @@ class GambitParser:
 		self.reset()
 		self.process(id)
 		self.checkReferences()
-		print("   = {0:d}".format(self.costTotal))
+		if self.showCost:
+			print("   = {0:d}".format(self.costTotal))
 		self.writeHtml(id)
 
 def usage():
@@ -772,6 +862,7 @@ def main():
 
 	parser = GambitParser()
 	if gameId:
+		parser.showCostAtEnd()
 		parser.processOne(gameId)
 	else:
 		parser.processAll()
