@@ -16,6 +16,7 @@ Money: Noun
 
 D8: Noun
 TimeToken: Token
+	Used to track multi-year space travel
 
 Agency|Agencies: Noun
 AgencyCard: Card
@@ -28,6 +29,7 @@ AgencyCard: Card
 // SAC Agency
 
 Advancement: Card
+	A card representing a technological advancement
 NumOutcomes: Attribute of Advancement
 	Number of Outcome cards added
 
@@ -63,7 +65,10 @@ Year: Part of Calendar
 CalendarMarker: Token
 
 SpacecraftToken: Token
+	Indicates the current Location of your spacecraft
 SpacecraftCard: Card
+	Tracks the contents of your spacecraft
+	
 Storage: Attribute of SpacecraftCard
 	Place Component cards and TimeTokens here
 
@@ -101,14 +106,15 @@ Status: Attribute of DamageableComponent
 	// Normal, Damaged/Incapacitated
 Damaged: Status
 Incapacitated: Status
+	Same as Damaged, but for Astronauts
 
 Probe: DamageableComponent
 
 Capsule: DamageableComponent
 Capacity: Attribute of Capsule
-	// Max number of Astronauts
+	The maximum number of Astronauts that fit in the Capsule
 RadiationEffect: Attribute of Capsule
-	// Protection from SolarRadiation (default 0)
+	How much protection this Capsule provides from SolarRadiation (default 0)
 AtmosphericEntryEffect: Attribute of Capsule
 	// "Burn Up"; "Draw from Reentry"
 
@@ -142,14 +148,15 @@ IonThruster: ThrustGenerator
 // Ion - Mass: 1; Cost $10; Thrust: 5; Req: Ion Thrusters
 
 Location: Card
+	A card that represents a location in space.
 Maneuver: Attribute of Location
-	// Set of connection between LocationCards
+	A set of connection between Locations
 TargetLocation: Attribute of Maneuver
-	// Destination if the Maneuver is successful
+	Destination if the Maneuver is successful
 Difficulty: Attribute of Maneuver
 	// Difficulty = "!" for Automatic Maneuvers
 Hazards: Attribute of Maneuver
-	// Ordered list of Hazard Icons
+	An ordered list of HazardIcons
 HazardIcon: Noun
 HourglassIcon: HazardIcon	// Indicates a multi-year maneuver
 RadiationIcon: HazardIcon
@@ -174,7 +181,7 @@ Space: Location
 Lost: Location
 
 DiscoveryIcon: Noun
-	// Revealed when Location is explored
+	Hidden discoveries that are revealed when the Location is explored
 Intensity: Attribute of DiscoveryIcon
 AlienLife: DiscoveryIcon
 AlienTechnology: DiscoveryIcon
@@ -185,7 +192,7 @@ Sickness: DiscoveryIcon
 	// SuborbitalSpace; Intensity 1 or 3
 SpacecraftDestroyed: DiscoveryIcon
 ValuableMinerals: DiscoveryIcon
-	// Sell on Earth to get Money at start of Year
+	Items that you can sell on Earth to get Money at start of Year
 
 UnderstoodLocation: Location
 	// A place with a single Location card - Nothing to explore
