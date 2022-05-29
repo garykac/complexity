@@ -8,7 +8,7 @@ deep-sea-adventure;Deep Sea Adventure;;;64
 dominion-first;Dominion;10 starter cards;;76
 dominion-base;Dominion;Rest of base set;dominion-first;44
 just-one;Just One;;;48
-leaving-earth;Leaving Earth;;;318
+leaving-earth;Leaving Earth;;;325
 regicide;Regicide;;;80
 risk;Risk;;;66
 splendor;Splendor;;;62

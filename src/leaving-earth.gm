@@ -386,13 +386,31 @@ RemoveImpossibleMissions: Verb
 			Remove the Mission from the game
 
 MissionCompleted: Verb
-	ProbeMission
-	SurveyMission
-	SampleReturnMission
-	ExtraterrestrialLifeMission
-	MannedSpaceFlightMission
-	SpaceStationMission
-	// Todo
+	Based on the Mission type:
+		ProbeMission: ProbeMissionComplete
+		SurveyMission: SurveyMissionComplete
+		SampleReturnMission: SampleReturnMissionComplete
+		ExtraterrestrialLifeMission: ExtraterrestrialLifeMissionComplete
+		MannedSpaceFlightMission: MannedSpaceFlightMissionComplete
+		SpaceStationMission: SpaceStationMissionComplete
+
+ProbeMissionComplete: Verb
+	Mission is complete if you have a functional Probe or Capsule in Space
+
+SurveyMissionComplete: Verb
+	Mission is complete if the target Location has been revealed
+
+SampleReturnMissionComplete: Verb
+	Mission is complete if a Sample from that Location is on Earth
+		
+ExtraterrestrialLifeMissionComplete: Verb
+	Mission is complete if AlienLife is on Earth
+
+MannedSpaceFlightMissionComplete: Verb
+	Mission is complete if an Astronaut has visited the Location and been returned safely to Earth
+
+SpaceStationMissionComplete: Verb
+	Mission is complete if an Astronaut has in the Location
 
 AwardMissionComplete: Verb
 	Remove Mission from ActiveMissions and give it to the Agency that completed it

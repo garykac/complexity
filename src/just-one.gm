@@ -27,10 +27,8 @@ Marker: Noun
 
 WordCard: Noun
 	A card with a set of possible MysteryWords
-
 Number: Attribute of WordCard
 	A number to help randomize the Word chosen from the card
-	
 Word: Attribute of WordCard
 	Candidates to be the MysteryWord
 
