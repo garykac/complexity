@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Automobiles</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Automobiles</div>
+<div class="summary">Learning Complexity: 109</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=4>Automobiles</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2016</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: David Short</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2-5</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 45m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/BoardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gameboard">Gameboard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CarPhase">CarPhase</a><a href="#EndPhase">EndPhase</a><a href="#FinishLine">FinishLine</a><a href="#Setup">Setup</a><a href="#Space">Space</a></div></div>: <abbr title="Imported from common/BoardGame">Board</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Space">Space</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjacentSpace">AdjacentSpace</a><a href="#BlackSpace">BlackSpace</a><a href="#DarkGraySpace">DarkGraySpace</a><a href="#DeclinePhase">DeclinePhase</a><a href="#EngineAction">EngineAction</a><a href="#GearAction">GearAction</a><a href="#HandlingAction">HandlingAction</a><a href="#LightGraySpace">LightGraySpace</a><a href="#MoveRaceCar">MoveRaceCar</a><a href="#Segment">Segment</a><a href="#WhiteSpace">WhiteSpace</a></div></div>: Part of <a class="keyword" href="#Gameboard">Gameboard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Segment">Segment</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeclinePhase">DeclinePhase</a><a href="#MoveRaceCar">MoveRaceCar</a></div></div>: Part of <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Optional subdivision of a <a class="keyword" href="#Space">Space</a> that allows multiple <a class="keyword" href="#RaceCar">RaceCars</a> to occupy the same <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WhiteSpace">WhiteSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#DeclinePhase">DeclinePhase</a><a href="#StartPosition">StartPosition</a></div></div>: <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LightGraySpace">LightGraySpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#DeclinePhase">DeclinePhase</a><a href="#PerformanceAction">PerformanceAction</a></div></div>: <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DarkGraySpace">DarkGraySpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#DeclinePhase">DeclinePhase</a></div></div>: <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BlackSpace">BlackSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#DeclinePhase">DeclinePhase</a></div></div>: <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdjacentSpace">AdjacentSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveRaceCar">MoveRaceCar</a></div></div>: <a class="keyword" href="#Space">Space</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Any <a class="keyword" href="#Space">Space</a> that is touching the current <a class="keyword" href="#Space">Space</a>, even if only a single point (so diagonal <a class="keyword" href="#Space">Spaces</a> are adjacent).</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartPosition">StartPosition</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyStartCubes">BuyStartCubes</a><a href="#Position">Position</a><a href="#Setup">Setup</a><a href="#StartingMoney">StartingMoney</a></div></div>: <a class="keyword" href="#WhiteSpace">WhiteSpace</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Position">Position</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CurrentPosition">CurrentPosition</a><a href="#Setup">Setup</a></div></div>: Attribute of <a class="keyword" href="#StartPosition">StartPosition</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Starting position value: P1, P2, ... P5</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartingMoney">StartingMoney</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyStartCubes">BuyStartCubes</a></div></div>: Attribute of <a class="keyword" href="#StartPosition">StartPosition</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Amount of money at start of game for the Player starting in this position.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="FinishLine">FinishLine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CarPhase">CarPhase</a><a href="#DetermineWinner">DetermineWinner</a></div></div>: Part of <a class="keyword" href="#Gameboard">Gameboard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LapBoard">LapBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CarPhase">CarPhase</a><a href="#LapsRemaining">LapsRemaining</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/BoardGame">Board</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LapsRemaining">LapsRemaining</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Attribute of <a class="keyword" href="#LapBoard">LapBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerBoard">PlayerBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivePile">ActivePile</a><a href="#DiscardPile">DiscardPile</a><a href="#EngineAction">EngineAction</a><a href="#UsedPile">UsedPile</a></div></div>: <abbr title="Imported from common/BoardGame">Board</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ActivePile">ActivePile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#AlternativeTurn">AlternativeTurn</a><a href="#BuyPhase">BuyPhase</a><a href="#DrawCube">DrawCube</a><a href="#EndPhase">EndPhase</a><a href="#GarageAction">GarageAction</a></div></div>: Attribute of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UsedPile">UsedPile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#EndPhase">EndPhase</a><a href="#GainWear">GainWear</a><a href="#MoveRaceCar">MoveRaceCar</a><a href="#WearAction">WearAction</a></div></div>: Attribute of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DiscardPile">DiscardPile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCube">DrawCube</a><a href="#EndPhase">EndPhase</a><a href="#EngineAction">EngineAction</a><a href="#GarageAction">GarageAction</a><a href="#HandlingAction">HandlingAction</a><a href="#PitAction">PitAction</a><a href="#WearAction">WearAction</a></div></div>: Attribute of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Cube">Cube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#BuyPhase">BuyPhase</a><a href="#BuyStartCubes">BuyStartCubes</a><a href="#CarPhase">CarPhase</a><a href="#Cost">Cost</a><a href="#DrawCube">DrawCube</a><a href="#EndPhase">EndPhase</a><a href="#EngineCube">EngineCube</a><a href="#GarageAction">GarageAction</a><a href="#GarageCube">GarageCube</a><a href="#Gear6Cube">Gear6Cube</a><a href="#GearCube">GearCube</a><a href="#HandlingCube">HandlingCube</a><a href="#MoveRaceCar">MoveRaceCar</a><a href="#PerformanceCube">PerformanceCube</a><a href="#PitCube">PitCube</a><a href="#RemoveCube">RemoveCube</a><a href="#Setup">Setup</a><a href="#Stock">Stock</a><a href="#Value">Value</a><a href="#WearCube">WearCube</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Stock">Stock</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainWear">GainWear</a><a href="#RemoveCube">RemoveCube</a><a href="#Setup">Setup</a><a href="#SetupAutomobileCards">SetupAutomobileCards</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set of all available <a class="keyword" href="#Cube">Cubes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawBag">DrawBag</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCube">DrawCube</a><a href="#GarageAction">GarageAction</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AutomobileCard">AutomobileCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#Cost">Cost</a><a href="#MustPerformAllCardEffects">MustPerformAllCardEffects</a><a href="#SetupAutomobileCards">SetupAutomobileCards</a><a href="#Value">Value</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Type: "Engine", "Garage", "Handling", "Performance", "Pit"</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Color: Matches corresponding Cube</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Cost">Cost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyStartCubes">BuyStartCubes</a></div></div>: Attribute of <a class="keyword" href="#AutomobileCard">AutomobileCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Cost">Cost</a> to purchase the <a class="keyword" href="#Cube">Cube</a> associated with this card.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a></div></div>: Attribute of <a class="keyword" href="#AutomobileCard">AutomobileCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Amount of money the matching <a class="keyword" href="#Cube">Cube</a> is worth during the <a class="keyword" href="#BuyPhase">BuyPhase</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WearCard">WearCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WearCube">WearCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#AlternativeTurn">AlternativeTurn</a><a href="#DeclinePhase">DeclinePhase</a><a href="#GainWear">GainWear</a><a href="#PitAction">PitAction</a><a href="#WearAction">WearAction</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Brown</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GearCard">GearCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Cost">Cost</a><a href="#Setup">Setup</a><a href="#Value">Value</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Cost">Cost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyStartCubes">BuyStartCubes</a></div></div>: Attribute of <a class="keyword" href="#GearCard">GearCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a></div></div>: Attribute of <a class="keyword" href="#GearCard">GearCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GearCube">GearCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Gear3Cube">Gear3Cube</a><a href="#Gear4Cube">Gear4Cube</a><a href="#Gear5Cube">Gear5Cube</a><a href="#HandlingAction">HandlingAction</a></div></div>: <a class="keyword" href="#Cube">Cube</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gear3Cube">Gear3Cube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#GearCube">GearCube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">White</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gear4Cube">Gear4Cube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#GearCube">GearCube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Light Gray</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gear5Cube">Gear5Cube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#GearCube">GearCube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Dark Gray</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gear6Cube">Gear6Cube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Black</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EngineCube">EngineCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#EngineAction">EngineAction</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Blue</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Engine Cards</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Diesel Engine - $5 - $$$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 2 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to as many dark gray spaces as you have dark gray cubes in your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Hybrid Engine - $5 - $$$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">If you have more blue cubes on your player board than in any other player's discard pile, move up to 2 spaces on any 1 color.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Rotary Engine - $4 - $$$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to as many white spaces as you have unique colors in your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Super-Charged - $6 - $$$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place up to 2 cubes from your discard pile into your active pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GarageCube">GarageCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Yellow</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Garage</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Car Chief - $2 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove 1 gear cube from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 gear cube of 1 gear higher.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Engineer - $2 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place up to 3 cubes from your active pile into your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then remove the same number of cubes from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Mechanic - $2 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place 1 cube from your active pile into your used pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then remove up to 2 cubes from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Manager - $2 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">May remove 1 cube from your active pile. AND/OR</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Put 1 cube from your active pile of discard pile back into your bag.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandlingCube">HandlingCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Red</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Handling Cards</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Aero-Dynammics - $1 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">During your Decline Phase this turn, you are considered drafting and will not gain any wear during that phase.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Suspension - $3 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move 1 space matching 1 gear in your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Tires - $2 - $$$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Select 1 gear cube in your active pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move 1 space on any color lower than the selected gear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Steering - $3 - $$$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Discard 1 gear cube from your active pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to 3 spaces of the color 1 lower than the discarded gear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformanceCube">PerformanceCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Green</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Performance Cards</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gearbox - $3 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 Wear</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to as many light gray spaces as your current position in the race.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">If in last position, you may move 1 additional light gray space.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Boost - $4 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Draw up to 3 cubes.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear for each cube drawn.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">All other players may draw 1 cube.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Turbo - $4 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 2 wear.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to 2 light gray spaces.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then move up to 1 additional light gray space for each green cube that every player collectively has in their discard piles.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Nitro - $4 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Draw 2 cubes.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place 1 in your active pile and the other in your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PitCube">PitCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Purple</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Cards</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Crew - $2 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Either remove all wear from your discard pile, OR</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove any 2 cubes from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Team - $1 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove up to 3 cubes from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then gain 1 new cube costing less than, or equal to, the total cost of the removed cubes.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Crew Chief - $4 - $</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Draw cubes until you draw 1 non-wear cube.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then remove all wear from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Captain - $2 - $$</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove up to 6 cubes from your discard pile.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartPlayerCard">StartPlayerCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a><a href="#StartPlayer">StartPlayer</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartPlayer">StartPlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported from common/Game">Player</abbr> with the <a class="keyword" href="#StartPlayerCard">StartPlayerCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LapMarker">LapMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CarPhase">CarPhase</a><a href="#PlayGame">PlayGame</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RaceCar">RaceCar</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CarPhase">CarPhase</a><a href="#CurrentPosition">CurrentPosition</a><a href="#DeclinePhase">DeclinePhase</a><a href="#DetermineWinner">DetermineWinner</a><a href="#MoveRaceCar">MoveRaceCar</a><a href="#Segment">Segment</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CurrentPosition">CurrentPosition</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformanceAction">PerformanceAction</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Position">Position</a> of your <a class="keyword" href="#RaceCar">RaceCar</a> at the beginning of your <a class="keyword" href="#ActionPhase">ActionPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Select which side of the <a class="keyword" href="#Gameboard">Gameboard</a> you wish to use</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Stock">Stock</a> (with all the <a class="keyword" href="#Cube">Cubes</a>) next to <a class="keyword" href="#Gameboard">Gameboard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#GearCard">GearCards</a> and <a class="keyword" href="#WearCard">WearCard</a> next to matching section by the <a class="keyword" href="#Stock">Stock</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupAutomobileCards">SetupAutomobileCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Give <a class="keyword" href="#StartPlayerCard">StartPlayerCard</a> to a random <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">RaceCar, player sheet and LapMarker of the same color</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, starting with the <a class="keyword" href="#StartPlayer">StartPlayer</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#RaceCar">RaceCar</a> on the empty <a class="keyword" href="#StartPosition">StartPosition</a> with the lowest <a class="keyword" href="#Position">Position</a> value</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#LapMarker">LapMarker</a> on the <a class="keyword" href="#LapBoard">LapBoard</a> where <a class="keyword" href="#LapsRemaining">LapsRemaining</a> is 3</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Take a <a class="keyword" href="#DrawBag">DrawBag</a> and 12 starting <a class="keyword" href="#Cube">Cubes</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 2 <a class="keyword" href="#Gear4Cube">Gear4Cubes</a> (light gray)</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 5 <a class="keyword" href="#Gear3Cube">Gear3Cubes</a> (white)</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 5 <a class="keyword" href="#GarageCube">GarageCubes</a> (yellow)</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BuyStartCubes">BuyStartCubes</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Put all <a class="keyword" href="#Cube">Cubes</a> in the <a class="keyword" href="#DrawBag">DrawBag</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCube">DrawCube</a> x7</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupAutomobileCards">SetupAutomobileCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Normally, draw 1 card at random for each type.</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">These are the cards recommended for the first game.</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Select the <a class="keyword" href="#AutomobileCard">AutomobileCards</a> named: "Manager", "Crew-Chief", "Suspension", "Gearbox", "Hybrid-Engine"</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place them face up next to their matching color by the <a class="keyword" href="#Stock">Stock</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Return remaining <a class="keyword" href="#AutomobileCard">AutomobileCards</a> to the <abbr title="Imported from common/BoardGame">Box</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuyStartCubes">BuyStartCubes</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Using your <a class="keyword" href="#StartingMoney">StartingMoney</a> (based on <a class="keyword" href="#StartPosition">StartPosition</a>):</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Buy as many <a class="keyword" href="#Cube">Cubes</a> as you wish by paying the <a class="keyword" href="#Cost">Costs</a> on the corresponding <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#UnspentMoneyIsLost">UnspentMoneyIsLost</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until a <a class="keyword" href="#LapMarker">LapMarker</a> is on "Finish":</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#GameRound">GameRound</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GameRound">GameRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, starting with the <a class="keyword" href="#StartPlayer">StartPlayer</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#StandardTurn">StandardTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#AlternativeTurn">AlternativeTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">So that each Player has the same number of turns</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StandardTurn">StandardTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ActionPhase">ActionPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#BuyPhase">BuyPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CarPhase">CarPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DeclinePhase">DeclinePhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EndPhase">EndPhase</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ActionPhase">ActionPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CurrentPosition">CurrentPosition</a><a href="#StandardTurn">StandardTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat as many times as you wish:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Select a <a class="keyword" href="#Cube">Cube</a> from your <a class="keyword" href="#ActivePile">ActivePile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>MoveToUsedPile</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Apply effect based on the <a class="keyword" href="#Cube">Cube</a> type:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#WearCube">WearCube</a>: <a class="keyword" href="#WearAction">WearAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Gear3Cube">Gear3Cube</a>: <a class="keyword" href="#GearAction">GearAction</a>&lt;<a class="keyword" href="#WhiteSpace">WhiteSpace</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Gear4Cube">Gear4Cube</a>: <a class="keyword" href="#GearAction">GearAction</a>&lt;<a class="keyword" href="#LightGraySpace">LightGraySpace</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Gear5Cube">Gear5Cube</a>: <a class="keyword" href="#GearAction">GearAction</a>&lt;<a class="keyword" href="#DarkGraySpace">DarkGraySpace</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Gear6Cube">Gear6Cube</a>: <a class="keyword" href="#GearAction">GearAction</a>&lt;<a class="keyword" href="#BlackSpace">BlackSpace</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#EngineCube">EngineCube</a>: <a class="keyword" href="#EngineAction">EngineAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#GarageCube">GarageCube</a>: <a class="keyword" href="#GarageAction">GarageAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#HandlingCube">HandlingCube</a>: <a class="keyword" href="#HandlingAction">HandlingAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PerformanceCube">PerformanceCube</a>: <a class="keyword" href="#PerformanceAction">PerformanceAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PitCube">PitCube</a>: <a class="keyword" href="#PitAction">PitAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#MustPerformAllCardEffects">MustPerformAllCardEffects</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveRaceCar">MoveRaceCar</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EngineAction">EngineAction</a><a href="#GearAction">GearAction</a><a href="#HandlingAction">HandlingAction</a><a href="#PerformanceAction">PerformanceAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Starting from your <a class="keyword" href="#RaceCar">RaceCar</a> or one of the <a class="keyword" href="#Cube">Cubes</a> you placed on a <a class="keyword" href="#Space">Space</a> this turn:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#Cube">Cube</a> that you used to make the move onto an <a class="keyword" href="#AdjacentSpace">AdjacentSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not move into a <a class="keyword" href="#Space">Space</a> that has an opponent's <a class="keyword" href="#RaceCar">RaceCar</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Unless the <a class="keyword" href="#Space">Space</a> has multiple <a class="keyword" href="#Segment">Segments</a> and there is an empty <a class="keyword" href="#Segment">Segment</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When moving into a <a class="keyword" href="#Space">Space</a> with multiple <a class="keyword" href="#Segment">Segments</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Move your <a class="keyword" href="#RaceCar">RaceCar</a> forward to the frontmost empty <a class="keyword" href="#Segment">Segment</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Any <a class="keyword" href="#Cube">Cube</a> you place on a <a class="keyword" href="#Space">Space</a> is still considered to be in your <a class="keyword" href="#UsedPile">UsedPile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Placing a Cube instead of moving your RaceCar directly helps you track your actions.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WearAction">WearAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move the <a class="keyword" href="#WearCube">WearCube</a> from your <a class="keyword" href="#UsedPile">UsedPile</a> into your <a class="keyword" href="#DiscardPile">DiscardPile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GearAction">GearAction&lt;Space&gt;</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MoveRaceCar">MoveRaceCar</a> 1 <a class="keyword" href="#Space">Space</a> that matches the color</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EngineAction">EngineAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">From the "Hybrid Engine" card</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#GainWear">GainWear</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have more <a class="keyword" href="#EngineCube">EngineCube</a> (blue) on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a> than any other <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#DiscardPile">DiscardPile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may <a class="keyword" href="#MoveRaceCar">MoveRaceCar</a> up to 2 <a class="keyword" href="#Space">Spaces</a> of the same type (color)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GarageAction">GarageAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">From the "Manager" card</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may <a class="keyword" href="#RemoveCube">RemoveCube</a> 1 <a class="keyword" href="#Cube">Cube</a> from your <a class="keyword" href="#ActivePile">ActivePile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may move 1 <a class="keyword" href="#Cube">Cube</a> from your <a class="keyword" href="#ActivePile">ActivePile</a> or <a class="keyword" href="#DiscardPile">DiscardPile</a> into your <a class="keyword" href="#DrawBag">DrawBag</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandlingAction">HandlingAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">From the "Suspension" card</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#GainWear">GainWear</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MoveRaceCar">MoveRaceCar</a> 1 <a class="keyword" href="#Space">Space</a> matching a <a class="keyword" href="#GearCube">GearCube</a> in your <a class="keyword" href="#DiscardPile">DiscardPile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformanceAction">PerformanceAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">From the "Gearbox" card</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#GainWear">GainWear</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MoveRaceCar">MoveRaceCar</a> up to as many <a class="keyword" href="#LightGraySpace">LightGraySpaces</a> as your <a class="keyword" href="#CurrentPosition">CurrentPosition</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you are in last position:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may move 1 additional <a class="keyword" href="#LightGraySpace">LightGraySpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PitAction">PitAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">From the "Crew Chief" card</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you draw a non-WearCube:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCube">DrawCube</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#RemoveCube">RemoveCube</a> all <a class="keyword" href="#WearCube">WearCubes</a> from your <a class="keyword" href="#DiscardPile">DiscardPile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuyPhase">BuyPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StandardTurn">StandardTurn</a><a href="#Value">Value</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Cube">Cube</a> in your <a class="keyword" href="#ActivePile">ActivePile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add the <a class="keyword" href="#Value">Value</a> from the matching <a class="keyword" href="#AutomobileCard">AutomobileCard</a> to your money</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Buy as many <a class="keyword" href="#Cube">Cubes</a> are you wish with your money</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place purchased <a class="keyword" href="#Cube">Cubes</a> into your <a class="keyword" href="#UsedPile">UsedPile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#UnspentMoneyIsLost">UnspentMoneyIsLost</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CarPhase">CarPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StandardTurn">StandardTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move your <a class="keyword" href="#RaceCar">RaceCar</a> up to the furthest <a class="keyword" href="#Cube">Cube</a> that you placed on the <a class="keyword" href="#Gameboard">Gameboard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you pass the <a class="keyword" href="#FinishLine">FinishLine</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Move your <a class="keyword" href="#LapMarker">LapMarker</a> down one space on the <a class="keyword" href="#LapBoard">LapBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DeclinePhase">DeclinePhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StandardTurn">StandardTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If your <a class="keyword" href="#RaceCar">RaceCar</a> is in a <a class="keyword" href="#Space">Space</a> or <a class="keyword" href="#Segment">Segment</a> immediately behind an opponent's <a class="keyword" href="#RaceCar">RaceCar</a>:</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">You are Drafting and take no wear.</span></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Exit</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on darkest color <a class="keyword" href="#Space">Space</a> that you moved into this turn:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#WhiteSpace">WhiteSpace</a>: <a class="keyword" href="#GainWear">GainWear</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#LightGraySpace">LightGraySpace</a>: <a class="keyword" href="#GainWear">GainWear</a> x2</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DarkGraySpace">DarkGraySpace</a>: <a class="keyword" href="#GainWear">GainWear</a> x3</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BlackSpace">BlackSpace</a>: <a class="keyword" href="#GainWear">GainWear</a> x4</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; For <a class="keyword" href="#Space">Spaces</a> with multiple colors, treat it as if it was the darker color</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Don't gain any <a class="keyword" href="#WearCube">WearCubes</a> if you didn't move this turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EndPhase">EndPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AlternativeTurn">AlternativeTurn</a><a href="#StandardTurn">StandardTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move all of your <a class="keyword" href="#Cube">Cube</a> from the <a class="keyword" href="#Gameboard">Gameboard</a>, <a class="keyword" href="#ActivePile">ActivePile</a> and <a class="keyword" href="#UsedPile">UsedPile</a> into your <a class="keyword" href="#DiscardPile">DiscardPile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawCube">DrawCube</a> x7</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AlternativeTurn">AlternativeTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#RemoveCube">RemoveCube</a> all <a class="keyword" href="#WearCube">WearCubes</a> from your <a class="keyword" href="#ActivePile">ActivePile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EndPhase">EndPhase</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawCube">DrawCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndPhase">EndPhase</a><a href="#PitAction">PitAction</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> a <a class="keyword" href="#Cube">Cube</a> from your <a class="keyword" href="#DrawBag">DrawBag</a> and place it in your <a class="keyword" href="#ActivePile">ActivePile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If your <a class="keyword" href="#DrawBag">DrawBag</a> is empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place all <a class="keyword" href="#Cube">Cubes</a> from your <a class="keyword" href="#DiscardPile">DiscardPile</a> into your <a class="keyword" href="#DrawBag">DrawBag</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemoveCube">RemoveCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AlternativeTurn">AlternativeTurn</a><a href="#GarageAction">GarageAction</a><a href="#PitAction">PitAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move the <a class="keyword" href="#Cube">Cube</a> into the <a class="keyword" href="#Stock">Stock</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GainWear">GainWear</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeclinePhase">DeclinePhase</a><a href="#EngineAction">EngineAction</a><a href="#HandlingAction">HandlingAction</a><a href="#PerformanceAction">PerformanceAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#WearCube">WearCube</a> available in the <a class="keyword" href="#Stock">Stock</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Take a <a class="keyword" href="#WearCube">WearCube</a> from the <a class="keyword" href="#Stock">Stock</a> and put it in your <a class="keyword" href="#UsedPile">UsedPile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Constraints</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UnspentMoneyIsLost">UnspentMoneyIsLost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyPhase">BuyPhase</a><a href="#BuyStartCubes">BuyStartCubes</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Any unspent money is lost</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MustPerformAllCardEffects">MustPerformAllCardEffects</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>When applying an <a class="keyword" href="#AutomobileCard">AutomobileCard</a>'s effect:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If some of the effects cannot be applied:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">You may not apply any of the effects</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note that you can still apply the other effects, even if the Stock is out of WearCubes</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CurrentPosition">CurrentPosition</a><a href="#DetermineWinner">DetermineWinner</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Inner lanes lead outer lanes in case of a tie</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The winner is the <a class="keyword" href="#RaceCar">RaceCar</a> that went the furthest past the <a class="keyword" href="#FinishLine">FinishLine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a></td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

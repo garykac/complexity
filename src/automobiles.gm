@@ -1,0 +1,348 @@
+// NAME: Automobiles
+
+// Year: 2016
+// Designer: David Short
+// Players: 2-5
+// Time: 45m
+// BGG Weight: 2.20 = 3 / 51 / 17 / 0 / 0
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+Gameboard: Board
+
+Space: Part of Gameboard
+Segment: Part of Space
+	Optional subdivision of a Space that allows multiple RaceCars to occupy the same Space
+
+WhiteSpace: Space
+LightGraySpace: Space
+DarkGraySpace: Space
+BlackSpace: Space
+
+AdjacentSpace: Space
+	Any Space that is touching the current Space, even if only a single point (so diagonal Spaces are adjacent).
+
+StartPosition: WhiteSpace
+Position: Attribute of StartPosition
+	// Starting position value: P1, P2, ... P5
+StartingMoney: Attribute of StartPosition
+	// Amount of money at start of game for the Player starting in this position.
+
+FinishLine: Part of Gameboard
+
+LapBoard: Board
+LapsRemaining: Attribute of LapBoard
+
+PlayerBoard: Board
+ActivePile: Attribute of PlayerBoard
+UsedPile: Attribute of PlayerBoard
+DiscardPile: Attribute of PlayerBoard
+
+Cube: Noun
+
+Stock: Noun
+	Set of all available Cubes
+	
+DrawBag: Noun
+
+AutomobileCard: Card
+//Type: "Engine", "Garage", "Handling", "Performance", "Pit"
+//Color: Matches corresponding Cube
+Cost: Attribute of AutomobileCard
+	Cost to purchase the Cube associated with this card.
+Value: Attribute of AutomobileCard
+	Amount of money the matching Cube is worth during the BuyPhase
+
+WearCard: Noun
+WearCube: Cube	// Brown
+
+GearCard: Card
+Cost: Attribute of GearCard
+Value: Attribute of GearCard
+
+GearCube: Cube
+
+Gear3Cube: GearCube	// White
+Gear4Cube: GearCube	// Light Gray
+Gear5Cube: GearCube	// Dark Gray
+Gear6Cube: Cube	// Black
+
+EngineCube: Cube	// Blue
+
+// Engine Cards
+// Diesel Engine - $5 - $$$
+//	Gain 2 wear.
+//	Move up to as many dark gray spaces as you have dark gray cubes in your discard pile.
+// Hybrid Engine - $5 - $$$
+//	Gain 1 wear.
+//	If you have more blue cubes on your player board than in any other player's discard pile, move up to 2 spaces on any 1 color.
+// Rotary Engine - $4 - $$$
+//	Gain 1 wear.
+//	Move up to as many white spaces as you have unique colors in your discard pile.
+// Super-Charged - $6 - $$$
+//	Gain 1 wear.
+//	Place up to 2 cubes from your discard pile into your active pile.
+
+GarageCube: Cube	// Yellow
+
+// Garage
+// Car Chief - $2 - $$
+//	Remove 1 gear cube from your discard pile.
+//	Gain 1 gear cube of 1 gear higher.
+// Engineer - $2 - $$
+//	Place up to 3 cubes from your active pile into your discard pile.
+//	Then remove the same number of cubes from your discard pile.
+// Mechanic - $2 - $$
+//	Place 1 cube from your active pile into your used pile.
+//	Then remove up to 2 cubes from your discard pile.
+// Manager - $2 - $$
+//	May remove 1 cube from your active pile. AND/OR
+//	Put 1 cube from your active pile of discard pile back into your bag.
+
+HandlingCube: Cube	// Red
+
+// Handling Cards
+// Aero-Dynammics - $1 - $$
+//	During your Decline Phase this turn, you are considered drafting and will not gain any wear during that phase.
+// Suspension - $3 - $$
+//	Gain 1 wear.
+//	Move 1 space matching 1 gear in your discard pile.
+// Tires - $2 - $$$
+//	Select 1 gear cube in your active pile.
+//	Move 1 space on any color lower than the selected gear.
+// Steering - $3 - $$$
+//	Gain 1 wear.
+//	Discard 1 gear cube from your active pile.
+//	Move up to 3 spaces of the color 1 lower than the discarded gear.
+
+PerformanceCube: Cube	// Green
+
+// Performance Cards
+// Gearbox - $3 - $$
+//	Gain 1 Wear
+//	Move up to as many light gray spaces as your current position in the race.
+//	If in last position, you may move 1 additional light gray space.
+// Boost - $4 - $$
+//	Draw up to 3 cubes.
+//	Gain 1 wear for each cube drawn.
+//	All other players may draw 1 cube.
+// Turbo - $4 - $$
+//	Gain 2 wear.
+//	Move up to 2 light gray spaces.
+//	Then move up to 1 additional light gray space for each green cube that every player collectively has in their discard piles.
+// Nitro - $4 - $$
+//	Draw 2 cubes.
+//	Place 1 in your active pile and the other in your discard pile.
+
+PitCube: Cube	// Purple
+
+// Pit Cards
+// Pit Crew - $2 - $$
+//	Either remove all wear from your discard pile, OR
+//	Remove any 2 cubes from your discard pile.
+// Pit Team - $1 - $$
+//	Remove up to 3 cubes from your discard pile.
+//	Then gain 1 new cube costing less than, or equal to, the total cost of the removed cubes.
+// Crew Chief - $4 - $
+//	Draw cubes until you draw 1 non-wear cube.
+//	Then remove all wear from your discard pile.
+// Pit Captain - $2 - $$
+//	Remove up to 6 cubes from your discard pile.
+
+StartPlayerCard: Card
+StartPlayer: Player
+	The Player with the StartPlayerCard
+
+LapMarker: Token
+RaceCar: Token
+
+CurrentPosition: Noun
+	Position of your RaceCar at the beginning of your ActionPhase
+	! InnerLanesLeadOuterLanes
+
+// SECTION: Setup
+
+Setup: Verb
+	Select which side of the Gameboard you wish to use
+	Place Stock (with all the Cubes) next to Gameboard
+	Place GearCards and WearCard next to matching section by the Stock
+	SetupAutomobileCards
+	Give StartPlayerCard to a random Player
+	ChoosePlayerComponents
+		// RaceCar, player sheet and LapMarker of the same color
+	For each Player, starting with the StartPlayer:
+		Place RaceCar on the empty StartPosition with the lowest Position value
+		Place LapMarker on the LapBoard where LapsRemaining is 3
+		Take a DrawBag and 12 starting Cubes:
+			* 2 Gear4Cubes (light gray)
+			* 5 Gear3Cubes (white)
+			* 5 GarageCubes (yellow)
+		BuyStartCubes
+		Put all Cubes in the DrawBag
+		DrawCube x7
+
+SetupAutomobileCards: Verb
+	// Normally, draw 1 card at random for each type.
+	// These are the cards recommended for the first game.
+	Select the AutomobileCards named: "Manager", "Crew-Chief", "Suspension", "Gearbox", "Hybrid-Engine"
+	Place them face up next to their matching color by the Stock
+	Return remaining AutomobileCards to the Box
+
+BuyStartCubes: Verb
+	Using your StartingMoney (based on StartPosition):
+		Buy as many Cubes as you wish by paying the Costs on the corresponding Card
+	! UnspentMoneyIsLost
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a LapMarker is on "Finish":
+		GameRound
+
+GameRound: Verb
+	For each Player, starting with the StartPlayer
+		Choose one:
+			StandardTurn
+			AlternativeTurn
+		NextPlayerClockwise
+	// So that each Player has the same number of turns
+
+StandardTurn: Verb
+	ActionPhase
+	BuyPhase
+	CarPhase
+	DeclinePhase
+	EndPhase
+
+ActionPhase: Verb
+	Repeat as many times as you wish:
+		Select a Cube from your ActivePile
+		MoveToUsedPile
+		Apply effect based on the Cube type:
+			WearCube: WearAction
+			Gear3Cube: GearAction<WhiteSpace>
+			Gear4Cube: GearAction<LightGraySpace>
+			Gear5Cube: GearAction<DarkGraySpace>
+			Gear6Cube: GearAction<BlackSpace>
+			EngineCube: EngineAction
+			GarageCube: GarageAction
+			HandlingCube: HandlingAction
+			PerformanceCube: PerformanceAction
+			PitCube: PitAction
+		! MustPerformAllCardEffects
+
+MoveRaceCar: Verb
+	Starting from your RaceCar or one of the Cubes you placed on a Space this turn:
+		Place the Cube that you used to make the move onto an AdjacentSpace
+	! You may not move into a Space that has an opponent's RaceCar
+		Unless the Space has multiple Segments and there is an empty Segment
+	! When moving into a Space with multiple Segments:
+		Move your RaceCar forward to the frontmost empty Segment
+	! Any Cube you place on a Space is still considered to be in your UsedPile
+
+	// Placing a Cube instead of moving your RaceCar directly helps you track your actions.
+
+WearAction: Verb
+	Move the WearCube from your UsedPile into your DiscardPile
+
+GearAction<Space>: Verb
+	MoveRaceCar 1 Space that matches the color
+
+EngineAction: Verb
+	// From the "Hybrid Engine" card
+	GainWear
+	If you have more EngineCube (blue) on your PlayerBoard than any other Player's DiscardPile:
+		You may MoveRaceCar up to 2 Spaces of the same type (color)
+
+GarageAction: Verb
+	// From the "Manager" card
+	You may RemoveCube 1 Cube from your ActivePile
+	You may move 1 Cube from your ActivePile or DiscardPile into your DrawBag
+
+HandlingAction: Verb
+	// From the "Suspension" card
+	GainWear
+	MoveRaceCar 1 Space matching a GearCube in your DiscardPile
+
+PerformanceAction: Verb
+	// From the "Gearbox" card
+	GainWear
+	MoveRaceCar up to as many LightGraySpaces as your CurrentPosition
+	If you are in last position:
+		You may move 1 additional LightGraySpace
+
+PitAction: Verb
+	// From the "Crew Chief" card
+	Repeat until you draw a non-WearCube:
+		DrawCube
+	RemoveCube all WearCubes from your DiscardPile
+
+BuyPhase: Verb
+	For each Cube in your ActivePile:
+		Add the Value from the matching AutomobileCard to your money
+	Buy as many Cubes are you wish with your money
+	Place purchased Cubes into your UsedPile
+	! UnspentMoneyIsLost
+
+CarPhase: Verb
+	Move your RaceCar up to the furthest Cube that you placed on the Gameboard
+	If you pass the FinishLine:
+		Move your LapMarker down one space on the LapBoard
+
+DeclinePhase: Verb
+	If your RaceCar is in a Space or Segment immediately behind an opponent's RaceCar:
+		// You are Drafting and take no wear.
+		Exit
+	Based on darkest color Space that you moved into this turn:
+		WhiteSpace: GainWear
+		LightGraySpace: GainWear x2
+		DarkGraySpace: GainWear x3
+		BlackSpace: GainWear x4
+	! For Spaces with multiple colors, treat it as if it was the darker color
+	! Don't gain any WearCubes if you didn't move this turn
+
+EndPhase: Verb
+	Move all of your Cube from the Gameboard, ActivePile and UsedPile into your DiscardPile
+	DrawCube x7
+
+AlternativeTurn: Verb
+	RemoveCube all WearCubes from your ActivePile
+	EndPhase
+
+DrawCube: Verb
+	Draw a Cube from your DrawBag and place it in your ActivePile
+	! If your DrawBag is empty:
+		Place all Cubes from your DiscardPile into your DrawBag
+
+RemoveCube: Verb
+	Move the Cube into the Stock
+	
+GainWear: Verb
+	If there is a WearCube available in the Stock:
+		Take a WearCube from the Stock and put it in your UsedPile
+
+// SECTION: Constraints
+
+UnspentMoneyIsLost: Constraint
+	Any unspent money is lost
+
+MustPerformAllCardEffects: Constraint
+	When applying an AutomobileCard's effect:
+		If some of the effects cannot be applied:
+			You may not apply any of the effects
+	// Note that you can still apply the other effects, even if the Stock is out of WearCubes
+
+InnerLanesLeadOuterLanes: Constraint
+	Inner lanes lead outer lanes in case of a tie
+
+// SECTION: Endgame
+
+CalculateScore: Verb
+
+DetermineWinner: Verb
+	The winner is the RaceCar that went the furthest past the FinishLine
+	! InnerLanesLeadOuterLanes
