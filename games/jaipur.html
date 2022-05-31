@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Jaipur</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.summary {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0.4rem 0;
+	font-weight: 400;
+	font-size: 1rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Jaipur</div>
+<div class="summary">Learning Complexity: 47</div>
+<table>
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td colspan=4>Jaipur</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2009</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Sébastien Pauchon</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 30m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/BoardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GoodsCard">GoodsCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CamelCard">CamelCard</a><a href="#ExchangeGoods">ExchangeGoods</a><a href="#Market">Market</a><a href="#SellCards">SellCards</a><a href="#TakeSingleGood">TakeSingleGood</a><a href="#Type">Type</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Type">Type</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CamelCard">CamelCard</a><a href="#CamelToken">CamelToken</a><a href="#GoodsStack">GoodsStack</a><a href="#SellCards">SellCards</a></div></div>: Attribute of <a class="keyword" href="#GoodsCard">GoodsCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Any of "Diamond", "Gold", "Silver", "Cloth", "Spice", "Leather", "Camel"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CamelCard">CamelCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#ExchangeGoods">ExchangeGoods</a><a href="#Herd">Herd</a><a href="#Setup">Setup</a><a href="#TakeAllCamels">TakeAllCamels</a></div></div>: <a class="keyword" href="#GoodsCard">GoodsCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Alias for a <a class="keyword" href="#GoodsCard">GoodsCard</a> of <a class="keyword" href="#Type">Type</a> "Camel"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GoodsToken">GoodsToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#CamelToken">CamelToken</a><a href="#GoodsStack">GoodsStack</a><a href="#PlayRound">PlayRound</a><a href="#SellCards">SellCards</a><a href="#Type">Type</a><a href="#Value">Value</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Type">Type</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CamelCard">CamelCard</a><a href="#CamelToken">CamelToken</a><a href="#GoodsStack">GoodsStack</a><a href="#SellCards">SellCards</a></div></div>: Attribute of <a class="keyword" href="#GoodsToken">GoodsToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Any of "Diamond", "Gold", "Silver", "Cloth", "Spice", "Leather", "Camel"</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Attribute of <a class="keyword" href="#GoodsToken">GoodsToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CamelToken">CamelToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: <a class="keyword" href="#GoodsToken">GoodsToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Alias for a <a class="keyword" href="#GoodsToken">GoodsToken</a> of <a class="keyword" href="#Type">Type</a> "Camel"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GoodsStack">GoodsStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RoundOver">RoundOver</a><a href="#SellCards">SellCards</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A stack of <a class="keyword" href="#GoodsToken">GoodsTokens</a> of the same <a class="keyword" href="#Type">Type</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Market">Market</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExchangeGoods">ExchangeGoods</a><a href="#ReplenishMarket">ReplenishMarket</a><a href="#RoundOver">RoundOver</a><a href="#Setup">Setup</a><a href="#TakeAllCamels">TakeAllCamels</a><a href="#TakeSingleGood">TakeSingleGood</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A set of <a class="keyword" href="#GoodsCard">GoodsCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Herd">Herd</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#ExchangeGoods">ExchangeGoods</a><a href="#Setup">Setup</a><a href="#TakeAllCamels">TakeAllCamels</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Your collection of <a class="keyword" href="#CamelCard">CamelCards</a> that are face-up in a stack in front of you</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BonusToken">BonusToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Bonus3Token">Bonus3Token</a><a href="#Bonus4Token">Bonus4Token</a><a href="#Bonus5Token">Bonus5Token</a><a href="#PlayRound">PlayRound</a><a href="#SellCards">SellCards</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bonus3Token">Bonus3Token</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellCards">SellCards</a></div></div>: <a class="keyword" href="#BonusToken">BonusToken</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bonus4Token">Bonus4Token</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellCards">SellCards</a></div></div>: <a class="keyword" href="#BonusToken">BonusToken</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bonus5Token">Bonus5Token</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellCards">SellCards</a></div></div>: <a class="keyword" href="#BonusToken">BonusToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SealOfExcellence">SealOfExcellence</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DetermineWinner">DetermineWinner</a><a href="#PlayGame">PlayGame</a><a href="#PlayRound">PlayRound</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place 3 <a class="keyword" href="#CamelCard">CamelCards</a> faceup in a line between the 2 <abbr title="Imported from common/Game">Players</abbr> to create the <a class="keyword" href="#Market">Market</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> all remaining <abbr title="Imported from common/CardGame">Cards</abbr> into a <abbr title="Imported from common/CardGame">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">DealCardToEachPlayer</abbr> x5</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> 2 <abbr title="Imported from common/CardGame">Cards</abbr> from the <abbr title="Imported from common/CardGame">DrawDeck</abbr> and add them to the <a class="keyword" href="#Market">Market</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Take any <a class="keyword" href="#CamelCard">CamelCards</a> from your <abbr title="Imported from common/CardGame">Hand</abbr> and add them to your <a class="keyword" href="#Herd">Herd</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until a <abbr title="Imported from common/Game">Player</abbr> has 2 <a class="keyword" href="#SealOfExcellence">SealsOfExcellence</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayRound">PlayRound</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayRound">PlayRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#RoundOver">RoundOver</a>, starting with <abbr title="Imported from common/Game">Player</abbr> who lost previous round (or random for first round):</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CalculateScore">CalculateScore</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Player</abbr> with highest score claims a <a class="keyword" href="#SealOfExcellence">SealOfExcellence</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; In case of a tie:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#BonusToken">BonusTokens</a> claims the <a class="keyword" href="#SealOfExcellence">SealOfExcellence</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If still a tie,</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">Player</abbr> with most <a class="keyword" href="#GoodsToken">GoodsTokens</a> claims the <a class="keyword" href="#SealOfExcellence">SealOfExcellence</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RoundOver">RoundOver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayRound">PlayRound</a></div></div>: Condition</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Any 3 <a class="keyword" href="#GoodsStack">GoodsStacks</a> are empty</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#Market">Market</a> cannot be replenished because the <abbr title="Imported from common/CardGame">DrawDeck</abbr> is empty</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayRound">PlayRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TakeCards">TakeCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#SellCards">SellCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TakeCards">TakeCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ExchangeGoods">ExchangeGoods</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TakeSingleGood">TakeSingleGood</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TakeAllCamels">TakeAllCamels</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExchangeGoods">ExchangeGoods</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeCards">TakeCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take any number of <a class="keyword" href="#GoodsCard">GoodsCards</a> from the <a class="keyword" href="#Market">Market</a> into your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Refill the <a class="keyword" href="#Market">Market</a> with the same number of <abbr title="Imported from common/CardGame">Cards</abbr> from your <abbr title="Imported from common/CardGame">Hand</abbr> or your <a class="keyword" href="#Herd">Herd</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NeverMoreThanSevenCardsInHand">NeverMoreThanSevenCardsInHand</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not take <a class="keyword" href="#CamelCard">CamelCards</a>, although you may use <a class="keyword" href="#CamelCard">CamelCards</a> when refilling the <a class="keyword" href="#Market">Market</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TakeSingleGood">TakeSingleGood</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeCards">TakeCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take a single <a class="keyword" href="#GoodsCard">GoodsCard</a> from the <a class="keyword" href="#Market">Market</a> into your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ReplenishMarket">ReplenishMarket</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NeverMoreThanSevenCardsInHand">NeverMoreThanSevenCardsInHand</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TakeAllCamels">TakeAllCamels</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeCards">TakeCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take all the <a class="keyword" href="#CamelCard">CamelCards</a> from the <a class="keyword" href="#Market">Market</a> and place them in your <a class="keyword" href="#Herd">Herd</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ReplenishMarket">ReplenishMarket</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ReplenishMarket">ReplenishMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAllCamels">TakeAllCamels</a><a href="#TakeSingleGood">TakeSingleGood</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Fill the empty slots in the <a class="keyword" href="#Market">Market</a> by drawing from the <abbr title="Imported from common/CardGame">DrawDeck</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The Market should always have 5 cards</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SellCards">SellCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Select any number of <a class="keyword" href="#GoodsCard">GoodsCards</a> of a single <a class="keyword" href="#Type">Type</a> from your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place them face up in the <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take <a class="keyword" href="#GoodsToken">GoodsTokens</a> equal to the number of <abbr title="Imported from common/CardGame">Cards</abbr> you discarded from the <a class="keyword" href="#GoodsStack">GoodsStack</a> that matches the <a class="keyword" href="#Type">Type</a> of the <a class="keyword" href="#GoodsCard">GoodsCards</a> discarded</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you sold 3 or more <abbr title="Imported from common/CardGame">Cards</abbr>, take a <a class="keyword" href="#BonusToken">BonusToken</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3 <abbr title="Imported from common/CardGame">Cards</abbr>: <a class="keyword" href="#Bonus3Token">Bonus3Token</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4 <abbr title="Imported from common/CardGame">Cards</abbr>: <a class="keyword" href="#Bonus4Token">Bonus4Token</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 5 or more <abbr title="Imported from common/CardGame">Cards</abbr>: <a class="keyword" href="#Bonus5Token">Bonus5Token</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#GoodsToken">GoodsTokens</a> are always taken from the top of the <a class="keyword" href="#GoodsStack">GoodsStack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When selling <a class="keyword" href="#GoodsCard">GoodsCards</a> of <a class="keyword" href="#Type">Type</a> "Silver", "Gold" or "Diamonds":</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You must sell a minimum of 2 <abbr title="Imported from common/CardGame">Cards</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note: You claim the BonusToken based on number of Cards sold, even if there weren't enough GoodsTokens to match the number of Cards sold.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayRound">PlayRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#CamelCard">CamelCards</a> in their <a class="keyword" href="#Herd">Herd</a> claims the <a class="keyword" href="#CamelToken">CamelToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Score</abbr> is the sum of the <a class="keyword" href="#Value">Values</a> of each <a class="keyword" href="#GoodsToken">GoodsToken</a> owned by the <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If <abbr title="Imported from common/Game">Players</abbr> have the same number of <a class="keyword" href="#CamelCard">CamelCards</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Neither <abbr title="Imported from common/Game">Player</abbr> claims the <a class="keyword" href="#CamelToken">CamelToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Constraints</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NeverMoreThanSevenCardsInHand">NeverMoreThanSevenCardsInHand</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExchangeGoods">ExchangeGoods</a><a href="#TakeSingleGood">TakeSingleGood</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may never have more than 7 <abbr title="Imported from common/CardGame">Cards</abbr> in your <abbr title="Imported from common/CardGame">Hand</abbr> at the end of your turn</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">CamelCards are in your Herd and don't count toward the Hand limit</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Player</abbr> with 2 <a class="keyword" href="#SealOfExcellence">SealsOfExcellence</a> is the winner</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

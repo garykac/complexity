@@ -1,0 +1,137 @@
+// NAME: Jaipur
+
+// Year: 2009
+// Designer: Sébastien Pauchon
+// Players: 2
+// Time: 30m
+// BGG Weight: 1.48 = 854 / 666 / 28 / 4 / 1
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+GoodsCard: Card
+Type: Attribute of GoodsCard
+	Any of "Diamond", "Gold", "Silver", "Cloth", "Spice", "Leather", "Camel"
+
+CamelCard: GoodsCard
+	Alias for a GoodsCard of Type "Camel"
+
+GoodsToken: Token
+Type: Attribute of GoodsToken
+	Any of "Diamond", "Gold", "Silver", "Cloth", "Spice", "Leather", "Camel"
+Value: Attribute of GoodsToken
+
+CamelToken: GoodsToken
+	Alias for a GoodsToken of Type "Camel"
+
+GoodsStack: Noun
+	A stack of GoodsTokens of the same Type
+
+Market: Noun
+	A set of GoodsCards
+
+Herd: Noun
+	Your collection of CamelCards that are face-up in a stack in front of you
+
+BonusToken: Token
+Bonus3Token: BonusToken
+Bonus4Token: BonusToken
+Bonus5Token: BonusToken
+
+SealOfExcellence|SealsOfExcellence: Token
+
+// SECTION: Setup
+
+Setup: Verb
+	Place 3 CamelCards faceup in a line between the 2 Players to create the Market
+	Shuffle all remaining Cards into a DrawDeck
+	DealCardToEachPlayer x5
+	Draw 2 Cards from the DrawDeck and add them to the Market
+	For each Player:
+		Take any CamelCards from your Hand and add them to your Herd
+		
+		
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a Player has 2 SealsOfExcellence:
+		PlayRound
+
+PlayRound: Verb
+	Repeat until RoundOver, starting with Player who lost previous round (or random for first round):
+		PlayerTurn
+		NextPlayerClockwise
+	CalculateScore
+	Player with highest score claims a SealOfExcellence
+	! In case of a tie:
+		Player with the most BonusTokens claims the SealOfExcellence
+		If still a tie,
+			Player with most GoodsTokens claims the SealOfExcellence
+
+RoundOver: Condition
+	If any of:
+		Any 3 GoodsStacks are empty
+		The Market cannot be replenished because the DrawDeck is empty
+
+PlayerTurn: Verb
+	Choose one:
+		TakeCards
+		SellCards
+
+TakeCards: Verb
+	Choose one:
+		ExchangeGoods
+		TakeSingleGood
+		TakeAllCamels
+
+ExchangeGoods: Verb
+	Take any number of GoodsCards from the Market into your Hand
+	Refill the Market with the same number of Cards from your Hand or your Herd
+	! NeverMoreThanSevenCardsInHand
+	! You may not take CamelCards, although you may use CamelCards when refilling the Market
+
+TakeSingleGood: Verb
+	Take a single GoodsCard from the Market into your Hand
+	ReplenishMarket
+	! NeverMoreThanSevenCardsInHand
+	
+TakeAllCamels: Verb
+	Take all the CamelCards from the Market and place them in your Herd
+	ReplenishMarket
+
+ReplenishMarket: Verb
+	Fill the empty slots in the Market by drawing from the DrawDeck
+	// The Market should always have 5 cards
+
+SellCards: Verb
+	Select any number of GoodsCards of a single Type from your Hand
+	Place them face up in the DiscardPile
+	Take GoodsTokens equal to the number of Cards you discarded from the GoodsStack that matches the Type of the GoodsCards discarded
+	If you sold 3 or more Cards, take a BonusToken:
+		* 3 Cards: Bonus3Token
+		* 4 Cards: Bonus4Token
+		* 5 or more Cards: Bonus5Token
+	! GoodsTokens are always taken from the top of the GoodsStack
+	! When selling GoodsCards of Type "Silver", "Gold" or "Diamonds":
+		You must sell a minimum of 2 Cards
+	// Note: You claim the BonusToken based on number of Cards sold, even if there weren't enough GoodsTokens to match the number of Cards sold.
+
+CalculateScore: Verb
+	The Player with the most CamelCards in their Herd claims the CamelToken
+	Score is the sum of the Values of each GoodsToken owned by the Player
+	! If Players have the same number of CamelCards:
+		Neither Player claims the CamelToken
+
+// SECTION: Constraints
+
+NeverMoreThanSevenCardsInHand: Constraint
+	You may never have more than 7 Cards in your Hand at the end of your turn
+	// CamelCards are in your Herd and don't count toward the Hand limit
+	
+// SECTION: Endgame
+
+DetermineWinner: Verb
+	Player with 2 SealsOfExcellence is the winner

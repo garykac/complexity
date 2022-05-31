@@ -8,6 +8,7 @@ crazy-eights-52;Crazy Eights;52-card;;38
 deep-sea-adventure;Deep Sea Adventure;;;64
 dominion-first;Dominion;10 starter cards;;76
 dominion-base;Dominion;Rest of base set;dominion-first;44
+jaipur;Jaipur;;;47
 just-one;Just One;;;48
 leaving-earth;Leaving Earth;;;325
 regicide;Regicide;;;80

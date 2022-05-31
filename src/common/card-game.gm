@@ -5,21 +5,23 @@ Card: Noun
 Title: Attribute of Card
 
 Deck: Noun
-	// Set of cards that are the same size.
+	A set of Cards that are the same size and arranged in a stack.
 
 Hand: Noun
-	// Set of cards that a Player keeps hidden from the other Players.
+	A set of cards that a Player keeps hidden from the other Players.
 
 Deal: Verb
+	Draw the top Card from the Deck and give it to a Player to add to their Hand.
 
 Dealer: Noun
-	// The player who deals the cards to all the players.
+	The Player who Deals the Cards to all the Players.
 
 DrawDeck: Deck
+	A Deck of Cards that Players will Draw Cards from.
 
 Draw: Verb
 	Draw a Card from a Deck
-	
+
 DiscardPile: Noun
 	A face-up pile of Cards that are no longer in play.
 
@@ -31,3 +33,7 @@ Reveal: Verb
 
 Discard: Verb
 	Place a Card face up in the DiscardPile.
+
+DealCardToEachPlayer: Verb
+	Deal a Card to each Player
+	
