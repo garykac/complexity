@@ -330,7 +330,7 @@ ResolveAuction: Verb
 	If only one Player has bid on the Private:
 		PayBidForPrivate
 	Otherwise:
-		Only the Player that have bid on the Private participate in this auction
+		Only the Players that have bid on the Private participate in this auction
 		PrivateBidAuction
 	// Note: The PriorityDealCard does not change Players after the auction
 
@@ -366,14 +366,14 @@ ClosePrivate: Verb
 // Note: SV Private has no special effect
 
 CSSpecialEffect: Verb
-	During the Railroad's OperatingRound, you may ConstructTrack in location "B-20"
+	During the Railroad's OperatingRound, you may ConstructTrack in location "B 20"
 	! This does not count as your turn's normal track placement (so you can place 2 track that turn)
 
 DHSpecialEffect: Verb
-	If you LayTrack on location "F-16":
+	If you LayTrack on location "F 16":
 		You may immediately add a Station to that location without paying
-	// You still need to pay the DevelopmentCost for "F-16"
-	// No may not do this if a TrackTile already exists on "F-16"
+	// You still need to pay the DevelopmentCost for "F 16"
+	// No may not do this if a TrackTile already exists on "F 16"
 	// You must add the station on the same turn that you lay the TrackTile for it to be free
 
 MHSpecialEffect: Constraint
@@ -561,7 +561,7 @@ LayYellowTrack: Verb
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 	! NotOnPrivateHomes
-	! The "NYC" Railroad may LayYellowTrack on the Hex containing its HomeCity "E-19", ignoring route restrictions
+	! The "NYC" Railroad may LayYellowTrack on the Hex containing its HomeCity "E 19", ignoring route restrictions
 
 LayGreenTrack: Verb
 	Place a GreenTile in the MapHex
@@ -572,7 +572,7 @@ LayGreenTrack: Verb
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 	! MustMatchCityLabel
-	! The "ERIC" Railroad may LayGreenTrack on the Hex containing its HomeCity "E-11", ignoring route restrictions
+	! The "ERIC" Railroad may LayGreenTrack on the Hex containing its HomeCity "E 11", ignoring route restrictions
 
 UpgradeTrack: Verb
 	Choose a MapHex with a YellowTile or GreenTile
@@ -604,7 +604,7 @@ PlaceStation: Verb
 	! A Railroad may not build multiple Stations in the same LargeCity
 	! If your new Station would block a Railroad from placing a Station in their HomeCity:
 		You may not place a Station there
-	! You may not place a Station in "E-11" until the "ERIE" Railroad has placed a Station in their HomeCity
+	! You may not place a Station in "E 11" until the "ERIE" Railroad has placed a Station in their HomeCity
 
 OperateTrains: Verb
 	total_revenue = 0

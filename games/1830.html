@@ -163,7 +163,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="Hex">Hex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#City">City</a><a href="#Edge">Edge</a><a href="#Label">Label</a><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#MapHex">MapHex</a><a href="#TrackEdge">TrackEdge</a><a href="#TrackTile">TrackTile</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>A part of the map, either part of the <a class="keyword" href="#MapBoard">MapBoard</a> or a <a class="keyword" href="#TrackTile">TrackTile</a> laid on the board</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="Label">Label</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustMatchCityLabel">MustMatchCityLabel</a></div></div>: Attribute of <a class="keyword" href="#Hex">Hex</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Some locations have a special label: "OO", "B", or "NY"</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Some locations have a special label: "OO" , "B" , or "NY"</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="Edge">Edge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><a href="#RedEdge">RedEdge</a><a href="#TrackEdge">TrackEdge</a></div></div>: Attribute of <a class="keyword" href="#Hex">Hex</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>One of the 6 edges around the <a class="keyword" href="#Hex">Hex</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="TrackEdge">TrackEdge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustMatchExistingTrack">MustMatchExistingTrack</a><a href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></div></div>: <a class="keyword" href="#Edge">Edge</a></td></tr>
@@ -476,7 +476,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If only one <abbr title="Imported from common/Game">Player</abbr> has bid on the <a class="keyword" href="#Private">Private</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayBidForPrivate">PayBidForPrivate</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Otherwise:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Only the <abbr title="Imported from common/Game">Player</abbr> that have bid on the <a class="keyword" href="#Private">Private</a> participate in this auction</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Only the <abbr title="Imported from common/Game">Players</abbr> that have bid on the <a class="keyword" href="#Private">Private</a> participate in this auction</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#PrivateBidAuction">PrivateBidAuction</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">Note: The PriorityDealCard does not change Players after the auction</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
@@ -512,14 +512,14 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">Note: SV Private has no special effect</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="CSSpecialEffect">CSSpecialEffect</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>During the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#OperatingRound">OperatingRound</a>, you may <a class="keyword" href="#ConstructTrack">ConstructTrack</a> in location "B-20"</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>During the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#OperatingRound">OperatingRound</a>, you may <a class="keyword" href="#ConstructTrack">ConstructTrack</a> in location "B 20"</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; This does not count as your turn's normal track placement (so you can place 2 track that turn)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="DHSpecialEffect">DHSpecialEffect</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you <a class="keyword" href="#LayTrack">LayTrack</a> on location "F-16":</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you <a class="keyword" href="#LayTrack">LayTrack</a> on location "F 16" :</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may immediately add a <a class="keyword" href="#Station">Station</a> to that location without paying</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">You still need to pay the DevelopmentCost for "F-16"</span></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">No may not do this if a TrackTile already exists on "F-16"</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">You still need to pay the DevelopmentCost for "F 16"</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">No may not do this if a TrackTile already exists on "F 16"</span></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">You must add the station on the same turn that you lay the TrackTile for it to be free</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MHSpecialEffect">MHSpecialEffect</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StockRound">StockRound</a></div></div>: Constraint</td></tr>
@@ -707,7 +707,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NotOnPrivateHomes">NotOnPrivateHomes</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "NYC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayYellowTrack">LayYellowTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E-19", ignoring route restrictions</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "NYC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayYellowTrack">LayYellowTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E 19" , ignoring route restrictions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="LayGreenTrack">LayGreenTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place a <a class="keyword" href="#GreenTile">GreenTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
@@ -718,7 +718,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "ERIC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayGreenTrack">LayGreenTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E-11", ignoring route restrictions</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "ERIC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayGreenTrack">LayGreenTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E 11" , ignoring route restrictions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="UpgradeTrack">UpgradeTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Choose a <a class="keyword" href="#MapHex">MapHex</a> with a <a class="keyword" href="#YellowTile">YellowTile</a> or <a class="keyword" href="#GreenTile">GreenTile</a></td></tr>
@@ -750,7 +750,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; A <a class="keyword" href="#Railroad">Railroad</a> may not build multiple <a class="keyword" href="#Station">Stations</a> in the same <a class="keyword" href="#LargeCity">LargeCity</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If your new <a class="keyword" href="#Station">Station</a> would block a <a class="keyword" href="#Railroad">Railroad</a> from placing a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may not place a <a class="keyword" href="#Station">Station</a> there</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You may not place a <a class="keyword" href="#Station">Station</a> in "E-11" until the "ERIE" <a class="keyword" href="#Railroad">Railroad</a> has placed a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You may not place a <a class="keyword" href="#Station">Station</a> in "E 11" until the "ERIE" <a class="keyword" href="#Railroad">Railroad</a> has placed a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="OperateTrains">OperateTrains</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperatingRound">OperatingRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>total_revenue = 0</td></tr>

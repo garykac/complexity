@@ -116,7 +116,7 @@ Capacity: Attribute of Capsule
 RadiationEffect: Attribute of Capsule
 	How much protection this Capsule provides from SolarRadiation (default 0)
 AtmosphericEntryEffect: Attribute of Capsule
-	// "Burn Up"; "Draw from Reentry"
+	"Burn Up" or  "Draw from Reentry"
 
 // Capsules:
 // Vostok Capsule - Mass: 2; Cost: $2; Capacity: 1; Atmospheric Entry: Draw from Reentry; Req: Reentry
