@@ -289,7 +289,7 @@ class GambitParser:
 					r[1] = 0
 
 				# Handle special cases with Vocab
-				words = line.split()
+				words = self.tokenize(line)
 				# Handle "Discard xxx"
 				if len(words) == 2 and self.isDefinedTerm(words[0]):
 					# Handle: "Discard it"
@@ -359,7 +359,7 @@ class GambitParser:
 	def processLine(self, line):
 		self.originalLine = line.rstrip()
 		comment = ""
-		
+
 		# Import base definitions from another file.
 		if line.startswith("#import"):
 			self.importFile(line[8:].strip())
@@ -479,7 +479,7 @@ class GambitParser:
 	# This method is similar to calcKeywordLinks. When updating, consider if
 	# changes are needed both places.
 	def extractReference(self, str, currDef):
-		for word in str.split():
+		for word in self.tokenize(str):
 			# Ignore strings (or first/last word in a string).
 			# Note: This will not skip middle words in string: "skip not not not skip"
 			if word[0] == '"' or word[-1] == '"':
@@ -511,7 +511,7 @@ class GambitParser:
 	def calcKeywordLinks(self, line, required=False):
 		words = []
 		firstWord = True
-		for word in line.split():
+		for word in self.tokenize(line):
 			# Skip over special initial characters.
 			if firstWord and word == '*':
 				words.append('*')
@@ -520,7 +520,7 @@ class GambitParser:
 				
 			# Ignore strings (or first/last word in a string).
 			# Note: This will not skip middle words in string: "skip not not not skip"
-			if word[0] == '"' or word[-1] == '"':
+			if word[0] == '"' and word[-1] == '"':
 				words.append(word)
 				continue
 
@@ -568,7 +568,7 @@ class GambitParser:
 			
 			firstWord = False
 			
-		return ' '.join(words)
+		return self.untokenize(words)
 		
 	def lookupCanonicalForm(self, word):
 		prefix = ""
@@ -780,6 +780,19 @@ class GambitParser:
 		out.write('</div>\n')
 		out.write('</body>\n')
 		out.write('</html>\n')
+
+	def tokenize(self, str):
+		out = []
+		substrings = str.split('"')
+		for i in range(0, len(substrings)):
+			if i % 2:
+				out.append('"{0:s}"'.format(substrings[i]))
+			else:
+				out.extend(substrings[i].split())
+		return out
+
+	def untokenize(self, tokens):
+		return ' '.join(tokens)
 
 	# ==========
 	# Game list
