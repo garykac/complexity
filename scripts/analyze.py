@@ -11,35 +11,8 @@ SRC_DIR = "../src"
 OUTPUT_DIR = "../games"
 LIST_FILE = "_list.txt"
 
-FREE_ACTIONS = [
-	"Then:",
-	"Else:",
-	"Otherwise:",
-	"If you do:",
-	"If you don't:",
-	"If any of:",
-	"If all of:",
-	"For each Player:",
-	"Choose one:",
-	"Any of:",
-]
-
-# Handle suffix words like "Discard it" or "Shuffle them"
-FREE_SUFFIX_WORDS = [
-	"it",
-	"them",
-]
-
 def warning(msg):
 	print("WARNING: {0:s}".format(msg))
-
-def error(msg):
-	print("ERROR: {0:s}".format(msg))
-	raise Exception(msg)
-
-def errorLine(line, msg):
-	print(line)
-	error(msg)
 
 class Analyzer:
 	"""Analyze Gambit (.gm) files."""
@@ -48,18 +21,8 @@ class Analyzer:
 		self.showCost = False
 		self.useWarnings = True
 
-		self.reset()
-
 		self.games = None
 	
-	def reset(self):
-		self.costTotal = 0
-		self.gameTitle = "Unknown"
-		self.currentDir = None
-		
-	def showCostAtEnd(self):
-		self.showCost = True
-
 	# ==========
 	# Game list
 	# ==========
@@ -111,26 +74,26 @@ class Analyzer:
 			warning('Unable to find "{0:s}" in game list'.format(id))
 
 		parser = GambitParser()
-		parser.reset()
 
 		filename = "{0:s}.gm".format(id)
 		filepath = os.path.join(SRC_DIR, filename)
 		parser.process(SRC_DIR, filepath)
-		cost = parser.costTotal
 
+		cost = parser.costTotal
 		self.updateIndexList(id, cost)
+		if self.showCost:
+			print("   = {0:d}".format(cost))
+
 		parser.checkReferences()
 
 		outfile = "{0:s}.html".format(id)
 		outpath = os.path.join(OUTPUT_DIR, outfile)
 		parser.writeHtml(outpath)
 
-		if self.showCost:
-			print("   = {0:d}".format(cost))
-
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
 	print("where <options> are:")
+	print("  --game <id>")  # process a single game
 	print("  --verbose")  # verbose debug output
 
 def main():
@@ -153,7 +116,7 @@ def main():
 
 	analyzer = Analyzer()
 	if gameId:
-		analyzer.showCostAtEnd()
+		analyzer.showCost = True
 		analyzer.processOne(gameId)
 	else:
 		analyzer.processAll()

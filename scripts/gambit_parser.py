@@ -43,16 +43,8 @@ class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
 		self.debug = False
-		self.showCost = False
 		self.useWarnings = True
 
-		self.reset()
-
-		# Special actions with 0 cost.
-		self.freeActions = {}
-		self.initFreeActions()
-	
-	def reset(self):
 		self.vocab = {}
 		self.vocabPlural = {}
 		
@@ -70,9 +62,10 @@ class GambitParser:
 		self.referencedBy = {}
 
 		self.initVocab()
-	
-	def showCostAtEnd(self):
-		self.showCost = True
+
+		# Special actions with 0 cost.
+		self.freeActions = {}
+		self.initFreeActions()
 	
 	def initFreeActions(self):
 		for a in FREE_ACTIONS:
