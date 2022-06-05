@@ -277,13 +277,14 @@ class GambitParser:
 					errorLine("IMPORT {0:s}: {1:s}".format(name, line.rstrip()), str(ex))
 					traceback.print_exc()
 
-				type = lineinfo['type']
-				if type == "DEF":
-					keyword = lineinfo['keyword']
-					plural = lineinfo['alt-keyword']
-					info = ["IMPORT", name]
-					self.addVocab(keyword, plural, info)
-					self.addImportTerm(keyword)
+				if lineinfo:
+					type = lineinfo['type']
+					if type == "DEF":
+						keyword = lineinfo['keyword']
+						plural = lineinfo['alt-keyword']
+						info = ["IMPORT", name]
+						self.addVocab(keyword, plural, info)
+						self.addImportTerm(keyword)
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]
