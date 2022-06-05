@@ -1,6 +1,6 @@
 import pytest
 
-from analyze import GambitParser
+from gambit_parser import GambitParser
 from gambit_line_processor import GambitLineProcessor
 from unittest import mock
 

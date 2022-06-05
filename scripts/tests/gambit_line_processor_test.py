@@ -1,8 +1,6 @@
 import pytest
 
-from analyze import GambitParser
 from gambit_line_processor import GambitLineProcessor
-from unittest import mock
 
 def test_processLine_empty():
     checkLineType("", "BLANK", None, 0, "", "")
