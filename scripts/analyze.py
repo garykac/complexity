@@ -186,8 +186,6 @@ class GambitParser:
 				# Ignore
 				return None
 
-		if indent > self.maxIndent:
-			self.maxIndent = indent
 		return info
 
 	def addTemplateDefinition(self, keyword, param, comment):
@@ -250,8 +248,6 @@ class GambitParser:
 		line = line[1:]  # Remove the leading '!'
 		line = line.strip()
 
-		if indent > self.maxIndent:
-			self.maxIndent = indent
 		return {
 			'type': "CONSTRAINT",
 			'cost': 1,
@@ -268,8 +264,6 @@ class GambitParser:
 		if line[0] == '*':
 			cost = 0
 
-		if indent > self.maxIndent:
-			self.maxIndent = indent
 		return {
 			'type': "DESC",
 			'cost': cost,
@@ -369,6 +363,8 @@ class GambitParser:
 					self.lines.append(lineinfo)
 					if lineinfo['type'] == "IMPORT":
 						self.importFile(lineinfo['comment'])
+					if lineinfo['indent'] > self.maxIndent:
+						self.maxIndent = lineinfo['indent']
 		
 		self.updateCosts()
 		self.calcTotalCost()
