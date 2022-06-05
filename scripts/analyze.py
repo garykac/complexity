@@ -189,9 +189,6 @@ class GambitParser:
 		return info
 
 	def addTemplateDefinition(self, keyword, param, comment):
-		info = ["LOCAL", "Verb", param]
-		self.addVocab(keyword, None, info)
-
 		return {
 			'type': "TEMPLATE",
 			'cost': 1,
@@ -211,7 +208,6 @@ class GambitParser:
 			error("Unexpected keyword group {0:s}".format('|'.join(keywords)))
 
 		parent = None
-		info = None
 		types = [type]
 		if type.find(',') != -1:
 			types = [x.strip() for x in type.split(',')]
@@ -220,16 +216,11 @@ class GambitParser:
 			if m:
 				types = [ m.group(1) ]
 				parent = m.group(2)
-				info = ["LOCAL", types, parent]
 				if not parent in self.vocab:
 					errorLine(self.originalLine, "Unknown parent: {0:s}".format(parent))
 		for t in types:
 			if not t in self.vocab:
 				errorLine(self.originalLine, "Unknown term: {0:s}".format(t))
-		
-		if not info:
-			info = ["LOCAL", types]
-		self.addVocab(keyword, keywordPlural, info)
 		
 		return {
 			'type': "DEF",
@@ -238,6 +229,7 @@ class GambitParser:
 			'line': "",
 			'comment': comment,
 			'keyword': keyword,
+			'alt-keyword': keywordPlural,
 			'types': types,
 			'parent': parent,
 		}
@@ -361,8 +353,18 @@ class GambitParser:
 				lineinfo = self.processLine(line)
 				if lineinfo:
 					self.lines.append(lineinfo)
-					if lineinfo['type'] == "IMPORT":
+					type = lineinfo['type']
+					if type == "IMPORT":
 						self.importFile(lineinfo['comment'])
+					elif type == "DEF":
+						info = ["LOCAL", lineinfo['types']]
+						if lineinfo['parent']:
+							info.append(lineinfo['parent'])
+						self.addVocab(lineinfo['keyword'], lineinfo['alt-keyword'], info)
+					elif type == "TEMPLATE":
+						info = ["LOCAL", "Verb", lineinfo['param']]
+						self.addVocab(lineinfo['keyword'], None, info)
+
 					if lineinfo['indent'] > self.maxIndent:
 						self.maxIndent = lineinfo['indent']
 		

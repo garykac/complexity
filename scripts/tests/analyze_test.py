@@ -31,7 +31,7 @@ def test_processLine_empty():
     parser = GambitParser()
     checkLineType(parser, "", "BLANK", None, 0, "", "")
     checkLineType(parser, "  ", "BLANK", None, 0, "", "")
-    checkLineType(parser, "\t", "BLANK", None, 1, "", "")
+    checkLineType(parser, "\t", "BLANK", None, 0, "", "")
     checkLineType(parser, " \t ", "BLANK", None, 0, "", "")
 
 def test_processLine_import():
@@ -85,15 +85,17 @@ def test_processLine_def():
 
     out = checkLineType(parser, "NewVerb|Alt: Noun", "DEF", 1, 0, "", "")
     assert out['keyword'] == "NewVerb"
+    assert out['alt-keyword'] == "Alt"
     assert out['types'] == ["Noun"]
     assert out['parent'] == None
     out = checkLineType(parser, "NewVerb|Alt: Noun  // comment", "DEF", 1, 0, "", "comment")
     assert out['keyword'] == "NewVerb"
+    assert out['alt-keyword'] == "Alt"
     assert out['types'] == ["Noun"]
     assert out['parent'] == None
 
-    parser.processLine("Noun1: Noun")
-    parser.processLine("Noun2: Noun")
+    parser.addVocab("Noun1", None, ["LOCAL", ["Noun"]])
+    parser.addVocab("Noun2", None, ["LOCAL", ["Noun"]])
     out = checkLineType(parser, "Noun3: Noun1,Noun2", "DEF", 1, 0, "", "")
     assert out['keyword'] == "Noun3"
     assert out['types'] == ["Noun1", "Noun2"]
