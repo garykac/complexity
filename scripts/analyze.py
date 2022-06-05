@@ -9,11 +9,6 @@ import traceback
 
 from gambit_line_processor import GambitLineProcessor
 
-KEYWORD = r"[A-Z][A-Za-z0-9_]*"
-MULTI_KEYWORDS = r"[A-Z][A-Za-z0-9\|_]*"
-TEMPLATE_KEYWORD = r"(" + KEYWORD + r")\<(" + KEYWORD + r")\>"
-TAB_SIZE = 4
-
 GM_CSS_PATH = "gm.css"
 SRC_DIR = "../src"
 OUTPUT_DIR = "../games"
@@ -129,10 +124,9 @@ class GambitParser:
 			return True
 
 		# Check for templates.
-		m = re.match(TEMPLATE_KEYWORD, term)
-		if m:
-			keyword = m.group(1)
-			param = m.group(2)
+		template = GambitLineProcessor.isTemplate(term)
+		if template:
+			(keyword, param) = template
 			return self.isVocab(keyword) and self.isVocab(param)
 
 		return False
@@ -277,18 +271,18 @@ class GambitParser:
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
 		with open(os.path.join(self.currentDir, dirname, basename), 'r') as file:
 			for line in file:
-				m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
-				if m:
-					keywords = m.group(1).split('|')
-					if len(keywords) == 1:
-						keyword = keywords[0]
-						plural = None
-					elif len(keywords) == 2:
-						keyword = keywords[0]
-						plural = keywords[1]
-					else:
-						error("Unexpected keyword group: {0:s}".format(keywords))
-					self.addVocab(keyword, plural, ["IMPORT", name])
+				try:
+					lineinfo = GambitLineProcessor.processLine(line)
+				except Exception as ex:
+					errorLine("IMPORT {0:s}: {1:s}".format(name, line.rstrip()), str(ex))
+					traceback.print_exc()
+
+				type = lineinfo['type']
+				if type == "DEF":
+					keyword = lineinfo['keyword']
+					plural = lineinfo['alt-keyword']
+					info = ["IMPORT", name]
+					self.addVocab(keyword, plural, info)
 					self.addImportTerm(keyword)
 	
 	def convertInitialCapsToHyphenated(self, name):
@@ -349,19 +343,18 @@ class GambitParser:
 			# Note: This will not skip middle words in string: "skip not not not skip"
 			if word[0] == '"' or word[-1] == '"':
 				continue
+
 			# Look for template references.
-			m = re.match(TEMPLATE_KEYWORD, word)
-			if m:
-				keyword = m.group(1)
-				param = m.group(2)
+			template = GambitLineProcessor.isTemplate(word)
+			if template:
+				(keyword, param) = template
 				self.addRef(keyword, currDef)
 				self.addRef(param, currDef)
 				continue
+
 			# Strip non-alphanumeric from beginning/end of token.
 			# Also remove contraction endings like "'s".
-			m = re.match("([^A-Za-z0-9_]*)(" + KEYWORD + ")([^A-Za-z0-9_]*.*)", word)
-			if m:
-				word = m.group(2)
+			(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
 
 			# Normalize plural forms.
 			canonicalForm = word
@@ -392,23 +385,16 @@ class GambitParser:
 				continue
 
 			# Look for template references.
-			m = re.match(TEMPLATE_KEYWORD, word)
-			if m:
-				keyword = m.group(1)
-				param = m.group(2)
+			template = GambitLineProcessor.isTemplate(word)
+			if template:
+				(keyword, param) = template
 				words.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
 						.format(keyword, param))
 				continue
 
-			prefix = ""
-			postfix = ""
 			# Strip non-alphanumeric from beginning/end of keyword token.
 			# Also remove contraction endings like "'s".
-			m = re.match("([^A-Za-z0-9_]*)(" + KEYWORD + ")([^A-Za-z0-9_]*.*)", word)
-			if m:
-				prefix = m.group(1)
-				word = m.group(2)
-				postfix = m.group(3)
+			(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
 
 			# Normalize plural forms.
 			canonicalForm = word
@@ -438,14 +424,8 @@ class GambitParser:
 		return self.untokenize(words)
 		
 	def lookupCanonicalForm(self, word):
-		prefix = ""
-		postfix = ""
 		# Strip non-alphanumeric from beginning/end of token.
-		m = re.match("([^A-Za-z0-9_]*)(" + KEYWORD + ")([^A-Za-z0-9_]*)", word)
-		if m:
-			prefix = m.group(1)
-			word = m.group(2)
-			postfix = m.group(3)
+		(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
 		if word in self.vocabPlural:
 			return self.vocabPlural[word]
 	
