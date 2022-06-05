@@ -145,7 +145,6 @@ a.keyword:hover {
 <table>
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
-<tr><td class="cost"></td><td colspan=3>Just One</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Cooperatively guess a mystery word.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Year: 2018</span></td></tr>
@@ -173,10 +172,8 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="WordCard">WordCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#CreateWordDeck">CreateWordDeck</a><a href="#FailedGuess">FailedGuess</a><a href="#MysteryWord">MysteryWord</a><a href="#Number">Number</a><a href="#SkipGuess">SkipGuess</a><a href="#SuccessfulGuess">SuccessfulGuess</a><a href="#Word">Word</a><a href="#WordDeck">WordDeck</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A card with a set of possible <a class="keyword" href="#MysteryWord">MysteryWords</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Number">Number</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a></div></div>: Attribute of <a class="keyword" href="#WordCard">WordCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A number to help randomize the <a class="keyword" href="#Word">Word</a> chosen from the card</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Word">Word</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#MysteryWord">MysteryWord</a><a href="#Number">Number</a></div></div>: Attribute of <a class="keyword" href="#WordCard">WordCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Candidates to be the <a class="keyword" href="#MysteryWord">MysteryWord</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
@@ -229,9 +226,9 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; Digits, numbers, acronyms, onomatopoeia and special characters are all considered words</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; Invalid words include:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">The <a class="keyword" href="#MysteryWord">MysteryWord</a>, but written differently or written in a foreign language</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">A word from the same general family as the <a class="keyword" href="#MysteryWord">MysteryWord</a> ("prince" and "princess")</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">A word from the same general family as the <a class="keyword" href="#MysteryWord">MysteryWord</a> ( "prince" and "princess" )</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">An invented word</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">A word phonetically identical to the <a class="keyword" href="#MysteryWord">MysteryWord</a> ("whether" and "weather")</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">A word phonetically identical to the <a class="keyword" href="#MysteryWord">MysteryWord</a> ( "whether" and "weather" )</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CompareClues">CompareClues</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#ActivePlayer">ActivePlayer</a> closes their eyes</td></tr>
@@ -241,7 +238,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#SkipGuess">SkipGuess</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; Identical words include:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Variants of the same word, like plurals, gender differentiations, spelling mistakes</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Variants from the same word family (like "prince" and "princess")</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Variants from the same word family (like "prince" and "princess" )</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GuessMysteryWord">GuessMysteryWord</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#ActivePlayer">ActivePlayer</a> opens their eyes to look at the remaining clues</td></tr>

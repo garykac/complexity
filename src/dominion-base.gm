@@ -31,7 +31,7 @@ Setup: Verb
 ChooseKingdomCards: Verb
 	Choose a random set of 10 KingdomCards
 
-// SECTION: Gameplay					
+// SECTION: Gameplay
 
 GainCardToDeck: Verb
 	Move card from Supply to top of your PlayerDeck

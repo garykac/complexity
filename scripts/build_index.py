@@ -22,9 +22,6 @@ class IndexBuilder:
 		self.children = {}
 		self.buckets = [30, 75, 120]
 		
-	def writeTableFooter(self, out):
-		out.write('</table>\n')
-
 	def loadGames(self):
 		listfile = os.path.join(SRC_DIR, LIST_FILE)
 		self.games = {}
@@ -35,6 +32,10 @@ class IndexBuilder:
 				if parentId:
 					self.children[parentId] = [ id ]
 
+	def htmlify(self, str):
+		str = str.replace("&", "&amp;")
+		return str
+	
 	def writeBucket(self, out, bucketMin, bucketMax):
 		print("bucket", bucketMin, bucketMax)
 		if bucketMax:
@@ -100,10 +101,10 @@ class IndexBuilder:
 	def writeListEntry(self, out, id, title, subtitle, score, parentScore=None):
 		out.write('<div class="entry">')
 		out.write('<a href="games/{0:s}.html">'.format(id))
-		out.write('<span class="title">{0:s}</span>'.format(title))
+		out.write('<span class="title">{0:s}</span>'.format(self.htmlify(title)))
 		if subtitle:
 			out.write('<br/>')
-			out.write('<span class="subtitle">{0:s}</span>'.format(subtitle))
+			out.write('<span class="subtitle">{0:s}</span>'.format(self.htmlify(subtitle)))
 		out.write('<br/>')
 		if parentScore:
 			out.write('<span class="score">({0:d})+{1:d}</span>'.format(parentScore, score))

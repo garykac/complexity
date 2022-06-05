@@ -188,7 +188,7 @@ Setup: Verb
 SetupAutomobileCards: Verb
 	// Normally, draw 1 card at random for each type.
 	// These are the cards recommended for the first game.
-	Select the AutomobileCards named: "Manager", "Crew-Chief", "Suspension", "Gearbox", "Hybrid-Engine"
+	Select the AutomobileCards named: "Manager", "Crew Chief", "Suspension", "Gearbox", "Hybrid Engine"
 	Place them face up next to their matching color by the Stock
 	Return remaining AutomobileCards to the Box
 

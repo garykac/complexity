@@ -150,34 +150,59 @@ class GambitParser:
 	# ==========
 	
 	def addImport(self, comment):
-		return ["IMPORT", comment]
+		return {
+			'type': "IMPORT",
+			'cost': None,
+			'indent': 0,
+			'line': "",
+			'comment': comment,
+		}
 
 	def addComment(self, line, comment):
 		indent = self.calcIndent(line)
+		info = {
+			'type': "COMMENT",
+			'cost': None,
+			'indent': indent,
+			'line': "",
+			'comment': comment
+		}
 		type = "COMMENT"
 		if comment == "":
-			return ["BLANK"]
+			info['type'] = "BLANK"
+			indent = 0
+			info['indent'] = indent
 		elif indent == 0:
 			if comment.startswith("SECTION:"):
-				return ["SECTION", comment[8:].strip()]
+				info['type'] = "SECTION"
+				info['comment'] = comment[8:].strip()
 			elif comment.startswith("SUBSECTION:"):
-				return ["SUBSECTION", comment[11:].strip()]
+				info['type'] = "SUBSECTION"
+				info['comment'] = comment[11:].strip()
 			elif comment.startswith("NAME:"):
 				self.gameTitle = comment[5:].strip()
-				return ["TITLE", self.gameTitle]
+				return None
 			elif comment.startswith("BGG Weight:"):
 				# Ignore
 				return None
 
 		if indent > self.maxIndent:
 			self.maxIndent = indent
-		return ["COMMENT", indent, comment]
+		return info
 
 	def addTemplateDefinition(self, keyword, param, comment):
 		info = ["LOCAL", "Verb", param]
 		self.addVocab(keyword, None, info)
 
-		return ["TEMPLATE", 1, keyword, param, comment]
+		return {
+			'type': "TEMPLATE",
+			'cost': 1,
+			'indent': 0,
+			'line': "",
+			'comment': comment,
+			'keyword': keyword,
+			'param': param,
+		}
 
 	def addDefinition(self, keywords, type, comment):
 		keyword = keywords[0]
@@ -208,7 +233,16 @@ class GambitParser:
 			info = ["LOCAL", types]
 		self.addVocab(keyword, keywordPlural, info)
 		
-		return ["DEF", 1, keyword, types, parent, comment]
+		return {
+			'type': "DEF",
+			'cost': 1,
+			'indent': 0,
+			'line': "",
+			'comment': comment,
+			'keyword': keyword,
+			'types': types,
+			'parent': parent,
+		}
 
 	def addConstraintDescription(self, line, comment):
 		indent = self.calcIndent(line)
@@ -218,7 +252,13 @@ class GambitParser:
 
 		if indent > self.maxIndent:
 			self.maxIndent = indent
-		return ["CONSTRAINT", 1, indent, line, comment]
+		return {
+			'type': "CONSTRAINT",
+			'cost': 1,
+			'indent': indent,
+			'line': line,
+			'comment': comment,
+		}
 
 	def addDescription(self, line, comment):
 		indent = self.calcIndent(line)
@@ -230,7 +270,13 @@ class GambitParser:
 
 		if indent > self.maxIndent:
 			self.maxIndent = indent
-		return ["DESC", cost, indent, line, comment]
+		return {
+			'type': "DESC",
+			'cost': cost,
+			'indent': indent,
+			'line': line,
+			'comment': comment,
+		}
 
 	# ==========
 	# Calculating costs.
@@ -241,39 +287,38 @@ class GambitParser:
 		maxLines = len(self.lines)
 		for i in range(0, maxLines):
 			r = self.lines[i]
-			type = r[0]
+			type = r['type']
 			if type == "DEF" or type == "TEMPLATE":
 				# If a DEF has DESC indented under it, then the cost is
 				# determined by the associated DESCs and the DEF itself is 0.
 				# Otherwise (with no DESCs) the cost of the DEF is 1.
 				if self.defHasDesc(i):
 					# Set to None instead of 0 so that the cost column is left blank.
-					r[1] = None
+					r['cost'] = None
 			elif type in ["DESC", "CONSTRAINT"]:
-				(type, cost, indent, line, comment) = r
 				# Lines that consist entirely of a single defined term are free.
 				# The cost comes from the definition.
-				if self.isDefinedTerm(line):
-					r[1] = 0
+				if self.isDefinedTerm(r['line']):
+					r['cost'] = 0
 				# Free actions are free.
-				if line in self.freeActions:
-					r[1] = 0
+				if r['line'] in self.freeActions:
+					r['cost'] = 0
 
 				# Handle special cases with Vocab
-				words = self.tokenize(line)
+				words = self.tokenize(r['line'])
 				# Handle "Discard xxx"
 				if len(words) == 2 and self.isDefinedTerm(words[0]):
 					# Handle: "Discard it"
 					if words[1] in FREE_SUFFIX_WORDS:
-						r[1] = 0
+						r['cost'] = 0
 					# Handle: "Discard x2"
 					if re.match('x\d+$', words[1]):
-						r[1] = 0
+						r['cost'] = 0
 				# Handle "Success:" and "Success: DrawCard"
 				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
 					if len(words) == 1 or  self.isDefinedTerm(words[1]):
-						r[1] = 0
-			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+						r['cost'] = 0
+			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
@@ -286,12 +331,12 @@ class GambitParser:
 		# Look ahead to search for DESC lines that follow the DEF.
 		while i < maxLines:
 			r = self.lines[i]
-			type = r[0]
+			type = r['type']
 			if type in ['DEF', 'BLANK']:
 				return False
-			if type == 'DESC' and r[2] == 1:
+			if type == 'DESC' and r['indent'] == 1:
 				return True
-			if not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'CONSTRAINT']:
+			if not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'CONSTRAINT']:
 				error("Unhandled type in defHasDesc: {0:s}".format(type))
 			i += 1
 		return False
@@ -300,13 +345,13 @@ class GambitParser:
 	def calcTotalCost(self):
 		self.costTotal = 0
 		for r in self.lines:
-			type = r[0]
+			type = r['type']
 			if type == "DEF" or type == "TEMPLATE":
-				if r[1]:
-					self.costTotal += r[1]
+				if r['cost']:
+					self.costTotal += r['cost']
 			elif type in ["DESC", "CONSTRAINT"]:
-				self.costTotal += r[1]
-			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+				self.costTotal += r['cost']
+			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in calcTotalCost: {0:s}".format(type))
 	
 	# ==========
@@ -322,8 +367,8 @@ class GambitParser:
 				lineinfo = self.processLine(line)
 				if lineinfo:
 					self.lines.append(lineinfo)
-					if lineinfo[0] == "IMPORT":
-						self.importFile(lineinfo[1])
+					if lineinfo['type'] == "IMPORT":
+						self.importFile(lineinfo['comment'])
 		
 		self.updateCosts()
 		self.calcTotalCost()
@@ -411,29 +456,26 @@ class GambitParser:
 	def extractAllReferences(self):
 		currDef = None
 		for r in self.lines:
-			type = r[0]
+			type = r['type']
 			if type == "DEF":
-				(type, cost, keyword, types, parent, comment) = r
-				currDef = keyword
-				for t in types:
+				currDef = r['keyword']
+				for t in r['types']:
 					self.addRef(t, currDef)
-				if parent:
-					self.addRef(parent, currDef)
-				self.extractReference(comment, currDef)
+				if r['parent']:
+					self.addRef(r['parent'], currDef)
+				self.extractReference(r['comment'], currDef)
 			elif type == "TEMPLATE":
-				(type, cost, keyword, param, comment) = r
-				currDef = keyword
+				currDef = r['keyword']
 				self.addRef("Verb", currDef)
-				self.extractReference(comment, currDef)
+				self.extractReference(r['comment'], currDef)
 			elif type == "DESC":
-				(type, cost, indent, line, comment) = r
-				self.extractReference(line, currDef)
-				self.extractReference(comment, currDef)
+				self.extractReference(r['line'], currDef)
+				self.extractReference(r['comment'], currDef)
 			elif type == "CONSTRAINT":
 				(type, cost, indent, line, comment) = r
-				self.extractReference(line, currDef)
-				self.extractReference(comment, currDef)
-			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+				self.extractReference(r['line'], currDef)
+				self.extractReference(r['comment'], currDef)
+			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	# Record that |refTerm| is referenced by |refBy|.
@@ -572,77 +614,51 @@ class GambitParser:
 	
 	def writeTableRows(self, out):
 		for r in self.lines:
-			type = r[0]
-			
-			if type == "DESC":
-				(type, cost, indent, line, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
-				row += self.calcTableRowDescColumn(indent, line, comment)
-				row += '</tr>\n'
-			elif type == "DEF":
-				(type, cost, keyword, types, parent, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
-				defn = self.calcDefinitionHtml(keyword)
-				if parent != None:
-					fulltype = '{0:s} of {1:s}'.format(types[0], parent)
+			type = r['type']
+			prefix = ""
+			line = r['line']
+			comment = r['comment']
+			rowclass = None
+
+			if type == "DEF":
+				defn = self.calcDefinitionHtml(r['keyword'])
+				prefix = "{0:s}: ".format(defn)
+				if r['parent'] != None:
+					line = '{0:s} of {1:s}'.format(r['types'][0], r['parent'])
 				else:
-					fulltype = ', '.join(types)
-				row += self.calcTableRowDescColumn(0, fulltype, comment, "{0:s}: ".format(defn))
-				row += '</tr>\n'
+					line = ', '.join(r['types'])
 			elif type == "TEMPLATE":
-				(type, cost, keyword, param,comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
-				defn = self.calcTemplateHtml(keyword, param)
-				row += self.calcTableRowDescColumn(0, "Verb", comment, "{0:s}: ".format(defn))
-				row += '</tr>\n'
+				defn = self.calcTemplateHtml(r['keyword'], r['param'])
+				prefix = "{0:s}: ".format(defn)
+				line = "Verb"
 			elif type == "CONSTRAINT":
-				(type, cost, indent, line, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(cost)
 				# &bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
-				row += self.calcTableRowDescColumn(indent, line, comment, "&roplus; ")
-				row += '</tr>\n'
+				prefix = "&roplus; "
 			elif type == "BLANK":
-				(type) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += self.calcTableRowDescColumn(0, "", "", "&nbsp;")
-				row += '</tr>\n'
-			elif type == "COMMENT":
-				(type, indent, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += self.calcTableRowDescColumn(indent, "", comment)
-				row += '</tr>\n'
+				prefix = "&nbsp;"
 			elif type == "IMPORT":
-				(type, comment) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += self.calcTableRowDescColumn(0, "", comment)
-				row += '</tr>\n'
+				comment = "#import {0:s}".format(comment)
 			elif type == "SECTION":
-				(type, title) = r
-				row = '<tr class="section">'
-				row += self.calcTableRowCostColumn(None)
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
-				row += '</tr>\n'
+				rowclass = "section"
 			elif type == "SUBSECTION":
-				(type, title) = r
-				row = '<tr class="subsection">'
-				row += self.calcTableRowCostColumn(None)
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
-				row += '</tr>\n'
-			elif type == "TITLE":
-				(type, title) = r
-				row = '<tr>'
-				row += self.calcTableRowCostColumn(None)
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, title)
-				row += '</tr>\n'
-			else:
+				rowclass = "subsection"
+			elif not type in ["COMMENT", "CONSTRAINT", "DESC"]:
 				error("Unrecognized type in writeTableRows: {0:s}".format(type))
+
+			if rowclass:
+				row = '<tr class="{0:s}">'.format(rowclass)
+			else:
+				row = '<tr>'
+
+			row += self.calcTableRowCostColumn(r['cost'])
+
+			if rowclass:
+				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, comment)
+			else:
+				row += self.calcTableRowDescColumn(r['indent'], line, comment, prefix)
+
+			row += '</tr>\n'
+
 			out.write(row)
 
 	def calcTableRowCostColumn(self, cost):
