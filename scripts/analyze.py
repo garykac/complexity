@@ -142,77 +142,42 @@ class GambitParser:
 
 		return False
 
-	def addImport(self, key):
+	def addImportTerm(self, key):
 		self.imports[key] = True
 	
 	# ==========
 	# Helper routines for adding new lines to the array.
 	# ==========
 	
-	def addBlankLine(self):
-		self.lines.append(["BLANK"])
+	def addImport(self, comment):
+		return ["IMPORT", comment]
 
-	def addSectionLine(self, title):
-		self.lines.append(["SECTION", title])
-
-	def addSubsectionLine(self, title):
-		self.lines.append(["SUBSECTION", title])
-
-	def addTitleLine(self, title):
-		self.lines.append(["TITLE", title])
-
-	def addCommentLine(self, indent, comment):
-		if indent > self.maxIndent:
-			self.maxIndent = indent
-		self.lines.append(["COMMENT", indent, comment])
-
-	def addTemplateDefinitionLine(self, cost, keyword, param, comment):
-		self.lines.append(["TEMPLATE", cost, keyword, param, comment])
-		
-	def addDefinitionLine(self, cost, keyword, types, parent, comment):
-		self.lines.append(["DEF", cost, keyword, types, parent, comment])
-		
-	def addConstraintDescriptionLine(self, cost, indent, line, comment):
-		if indent > self.maxIndent:
-			self.maxIndent = indent
-		self.lines.append(["CONSTRAINT", cost, indent, line, comment])
-
-	def addDescriptionLine(self, cost, indent, line, comment):
-		if indent > self.maxIndent:
-			self.maxIndent = indent
-		self.lines.append(["DESC", cost, indent, line, comment])
-
-	# ==========
-	# Helper routines for adding special line types.
-	# ==========
-	
 	def addComment(self, line, comment):
 		indent = self.calcIndent(line)
 		type = "COMMENT"
 		if comment == "":
-			self.addBlankLine()
-			return
+			return ["BLANK"]
 		elif indent == 0:
 			if comment.startswith("SECTION:"):
-				self.addSectionLine(comment[8:].strip())
-				return
+				return ["SECTION", comment[8:].strip()]
 			elif comment.startswith("SUBSECTION:"):
-				self.addSubsectionLine(comment[11:].strip())
-				return
+				return ["SUBSECTION", comment[11:].strip()]
 			elif comment.startswith("NAME:"):
 				self.gameTitle = comment[5:].strip()
-				self.addTitleLine(self.gameTitle)
-				return
+				return ["TITLE", self.gameTitle]
 			elif comment.startswith("BGG Weight:"):
 				# Ignore
-				return
-		self.addCommentLine(indent, comment)
+				return None
+
+		if indent > self.maxIndent:
+			self.maxIndent = indent
+		return ["COMMENT", indent, comment]
 
 	def addTemplateDefinition(self, keyword, param, comment):
 		info = ["LOCAL", "Verb", param]
 		self.addVocab(keyword, None, info)
 
-		self.addTemplateDefinitionLine(1, keyword, param, comment)
+		return ["TEMPLATE", 1, keyword, param, comment]
 
 	def addDefinition(self, keywords, type, comment):
 		keyword = keywords[0]
@@ -243,14 +208,17 @@ class GambitParser:
 			info = ["LOCAL", types]
 		self.addVocab(keyword, keywordPlural, info)
 		
-		self.addDefinitionLine(1, keyword, types, parent, comment)
+		return ["DEF", 1, keyword, types, parent, comment]
 
 	def addConstraintDescription(self, line, comment):
 		indent = self.calcIndent(line)
 		line = line.strip()
 		line = line[1:]  # Remove the leading '!'
 		line = line.strip()
-		self.addConstraintDescriptionLine(1, indent, line, comment)
+
+		if indent > self.maxIndent:
+			self.maxIndent = indent
+		return ["CONSTRAINT", 1, indent, line, comment]
 
 	def addDescription(self, line, comment):
 		indent = self.calcIndent(line)
@@ -259,7 +227,10 @@ class GambitParser:
 		# Entries in a lookup table.
 		if line[0] == '*':
 			cost = 0
-		self.addDescriptionLine(cost, indent, line, comment)
+
+		if indent > self.maxIndent:
+			self.maxIndent = indent
+		return ["DESC", cost, indent, line, comment]
 
 	# ==========
 	# Calculating costs.
@@ -302,7 +273,7 @@ class GambitParser:
 				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
 					if len(words) == 1 or  self.isDefinedTerm(words[1]):
 						r[1] = 0
-			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
@@ -335,7 +306,7 @@ class GambitParser:
 					self.costTotal += r[1]
 			elif type in ["DESC", "CONSTRAINT"]:
 				self.costTotal += r[1]
-			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in calcTotalCost: {0:s}".format(type))
 	
 	# ==========
@@ -348,7 +319,11 @@ class GambitParser:
 		self.currentDir = SRC_DIR
 		with open(filepath, 'r') as file:
 			for line in file:
-				self.processLine(line)
+				lineinfo = self.processLine(line)
+				if lineinfo:
+					self.lines.append(lineinfo)
+					if lineinfo[0] == "IMPORT":
+						self.importFile(lineinfo[1])
 		
 		self.updateCosts()
 		self.calcTotalCost()
@@ -362,19 +337,16 @@ class GambitParser:
 
 		# Import base definitions from another file.
 		if line.startswith("#import"):
-			self.importFile(line[8:].strip())
-			self.addComment("", line.strip())
-			return
+			return self.addImport(line[8:].strip())
 
-		# Handle comments and empty lines.
+		# Separate out comments and handle empty lines.
 		m = re.match("(.*?)//(.*)", line)
 		if m:
 			line = m.group(1)
 			comment = m.group(2)
 		comment = comment.strip()
 		if line.strip() == "":
-			self.addComment(line, comment)
-			return
+			return self.addComment(line, comment)
 		line = line.rstrip()
 
 		# TEMPLATE_TYPE: Verb
@@ -382,8 +354,7 @@ class GambitParser:
 		if m:
 			keyword = m.group(1)
 			param = m.group(2)
-			self.addTemplateDefinition(keyword, param, comment)
-			return
+			return self.addTemplateDefinition(keyword, param, comment)
 		
 		# NEW_TYPE: TYPE
 		# NEW_TYPE|PLURAL: TYPE
@@ -394,14 +365,12 @@ class GambitParser:
 			keyword = m.group(1)
 			type = m.group(2)
 			keywords = keyword.split('|')
-			self.addDefinition(keywords, type, comment)
-			return
+			return self.addDefinition(keywords, type, comment)
 
 		if line.strip().startswith("!"):
-			self.addConstraintDescription(line, comment)
-			return
+			return self.addConstraintDescription(line, comment)
 			
-		self.addDescription(line, comment)
+		return self.addDescription(line, comment)
 
 	def importFile(self, name):
 		basename = os.path.basename(name)
@@ -421,7 +390,7 @@ class GambitParser:
 					else:
 						error("Unexpected keyword group: {0:s}".format(keywords))
 					self.addVocab(keyword, plural, ["IMPORT", name])
-					self.addImport(keyword)
+					self.addImportTerm(keyword)
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]
@@ -464,7 +433,7 @@ class GambitParser:
 				(type, cost, indent, line, comment) = r
 				self.extractReference(line, currDef)
 				self.extractReference(comment, currDef)
-			elif not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'TITLE', 'BLANK']:
 				error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	# Record that |refTerm| is referenced by |refBy|.
@@ -508,6 +477,9 @@ class GambitParser:
 
 	# This method is similar to extractReferences. When updating, consider if
 	# changes are needed both places.
+	#
+	# |line| - string to process
+	# |required| - True if it should verify that the keyword is defined
 	def calcKeywordLinks(self, line, required=False):
 		words = []
 		firstWord = True
@@ -518,8 +490,7 @@ class GambitParser:
 				# Don't update firstWord since the next word might be capitalized.
 				continue
 				
-			# Ignore strings (or first/last word in a string).
-			# Note: This will not skip middle words in string: "skip not not not skip"
+			# Ignore strings.
 			if word[0] == '"' and word[-1] == '"':
 				words.append(word)
 				continue
@@ -535,7 +506,7 @@ class GambitParser:
 
 			prefix = ""
 			postfix = ""
-			# Strip non-alphanumeric from beginning/end of token.
+			# Strip non-alphanumeric from beginning/end of keyword token.
 			# Also remove contraction endings like "'s".
 			m = re.match("([^A-Za-z0-9_]*)(" + KEYWORD + ")([^A-Za-z0-9_]*.*)", word)
 			if m:
@@ -564,7 +535,7 @@ class GambitParser:
 				errorLine("...{0:s}".format(line),
 						'Unable to find definition for "{0:s}"'.format(word))
 			else:
-				words.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
+				words.append('{0:s}{1:s}{2:s}'.format(prefix, self.htmlify(word), postfix))
 			
 			firstWord = False
 			
@@ -594,6 +565,10 @@ class GambitParser:
 	# ==========
 	# Writing the HTML file
 	# ==========
+	
+	def htmlify(self, str):
+		str = str.replace("&", "&amp;")
+		return str
 	
 	def writeTableRows(self, out):
 		for r in self.lines:
@@ -634,13 +609,19 @@ class GambitParser:
 				(type) = r
 				row = '<tr>'
 				row += self.calcTableRowCostColumn(None)
-				row += self.calcTableRowDescColumn(0, "&nbsp;", "")
+				row += self.calcTableRowDescColumn(0, "", "", "&nbsp;")
 				row += '</tr>\n'
 			elif type == "COMMENT":
 				(type, indent, comment) = r
 				row = '<tr>'
 				row += self.calcTableRowCostColumn(None)
 				row += self.calcTableRowDescColumn(indent, "", comment)
+				row += '</tr>\n'
+			elif type == "IMPORT":
+				(type, comment) = r
+				row = '<tr>'
+				row += self.calcTableRowCostColumn(None)
+				row += self.calcTableRowDescColumn(0, "", comment)
 				row += '</tr>\n'
 			elif type == "SECTION":
 				(type, title) = r
@@ -678,13 +659,13 @@ class GambitParser:
 		else:
 			row += '<td class="desc" colspan={0:d}>'.format(colspan)
 			
-		if line != "":
+		if line != "" or descPrefix != "":
 			row += descPrefix
 			row += self.calcKeywordLinks(line, required=True)
 			if comment != "":
 				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
 		if comment != "":
-			row += '<span class="comment">{0:s}</span>'.format(comment)
+			row += '<span class="comment">{0:s}</span>'.format(self.htmlify(comment))
 		row += '</td>'
 		return row
 	
@@ -758,7 +739,7 @@ class GambitParser:
 		out.write('	<meta charset="utf-8" />\n')
 		out.write('	<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n')
 		out.write('	<meta name="viewport" content="width=device-width, initial-scale=1" />\n')
-		out.write('	<title>{0:s}</title>\n'.format(title))
+		out.write('	<title>{0:s}</title>\n'.format(self.htmlify(title)))
 		out.write('	<link rel="preconnect" href="https://fonts.googleapis.com">\n')
 		out.write('	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n')
 		out.write('	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">\n')
@@ -781,6 +762,10 @@ class GambitParser:
 		out.write('</body>\n')
 		out.write('</html>\n')
 
+	# ==========
+	# Parsing and Tokenizing
+	# ==========
+	
 	def tokenize(self, str):
 		out = []
 		substrings = str.split('"')
