@@ -5,10 +5,13 @@ import getopt
 import os
 import re
 import sys
+import traceback
 
-KEYWORD = "[A-Z][A-Za-z0-9_]*"
-MULTI_KEYWORDS = "[A-Z][A-Za-z0-9\|_]*"
-TEMPLATE_KEYWORD = "(" + KEYWORD + ")\<(" + KEYWORD + ")\>"
+from gambit_line_processor import GambitLineProcessor
+
+KEYWORD = r"[A-Z][A-Za-z0-9_]*"
+MULTI_KEYWORDS = r"[A-Z][A-Za-z0-9\|_]*"
+TEMPLATE_KEYWORD = r"(" + KEYWORD + r")\<(" + KEYWORD + r")\>"
 TAB_SIZE = 4
 
 GM_CSS_PATH = "gm.css"
@@ -40,7 +43,7 @@ def warning(msg):
 
 def error(msg):
 	print("ERROR: {0:s}".format(msg))
-	exit()
+	raise Exception(msg)
 
 def errorLine(line, msg):
 	print(line)
@@ -69,6 +72,7 @@ class GambitParser:
 		self.imports = {}
 		
 		self.lines = []
+		self.lineNum = 0
 		self.maxIndent = 0
 		self.costTotal = 0
 		self.gameTitle = "Unknown"
@@ -89,19 +93,6 @@ class GambitParser:
 	def initVocab(self):
 		for key in ["Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit"]:
 			self.addVocab(key, None, ["BASE"])
-
-	def calcIndent(self, str):
-		m = re.match("(\t+)", str)
-		if m:
-			return len(m.group(1))
-		m = re.match("( +)", str)
-		if m:
-			numSpaces = len(m.group(1))
-			if numSpaces % 4 == 0:
-				return int(numSpaces / TAB_SIZE)
-			else:
-				warning("Invalid leading whitespace. Use tabs or {0:d} spaces.".format(TAB_SIZE))
-		return 0
 
 	# ==========
 	# Vocabulary and Cross-reference
@@ -150,125 +141,6 @@ class GambitParser:
 		self.imports[key] = True
 	
 	# ==========
-	# Helper routines for adding new lines to the array.
-	# ==========
-	
-	def addImport(self, comment):
-		return {
-			'type': "IMPORT",
-			'cost': None,
-			'indent': 0,
-			'line': "",
-			'comment': comment,
-		}
-
-	def addComment(self, line, comment):
-		indent = self.calcIndent(line)
-		info = {
-			'type': "COMMENT",
-			'cost': None,
-			'indent': indent,
-			'line': "",
-			'comment': comment
-		}
-		type = "COMMENT"
-		if comment == "":
-			info['type'] = "BLANK"
-			indent = 0
-			info['indent'] = indent
-		elif indent == 0:
-			if comment.startswith("SECTION:"):
-				info['type'] = "SECTION"
-				info['comment'] = comment[8:].strip()
-			elif comment.startswith("SUBSECTION:"):
-				info['type'] = "SUBSECTION"
-				info['comment'] = comment[11:].strip()
-			elif comment.startswith("NAME:"):
-				self.gameTitle = comment[5:].strip()
-				return None
-			elif comment.startswith("BGG Weight:"):
-				# Ignore
-				return None
-
-		return info
-
-	def addTemplateDefinition(self, keyword, param, comment):
-		return {
-			'type': "TEMPLATE",
-			'cost': 1,
-			'indent': 0,
-			'line': "",
-			'comment': comment,
-			'keyword': keyword,
-			'param': param,
-		}
-
-	def addDefinition(self, keywords, type, comment):
-		keyword = keywords[0]
-		keywordPlural = None
-		if len(keywords) == 2:
-			keywordPlural = keywords[1]
-		elif len(keywords) > 2:
-			error("Unexpected keyword group {0:s}".format('|'.join(keywords)))
-
-		parent = None
-		types = [type]
-		if type.find(',') != -1:
-			types = [x.strip() for x in type.split(',')]
-		else:
-			m = re.match("(" + KEYWORD + ")\s+of\s+(" + KEYWORD + ")", type)
-			if m:
-				types = [ m.group(1) ]
-				parent = m.group(2)
-				if not parent in self.vocab:
-					errorLine(self.originalLine, "Unknown parent: {0:s}".format(parent))
-		for t in types:
-			if not t in self.vocab:
-				errorLine(self.originalLine, "Unknown term: {0:s}".format(t))
-		
-		return {
-			'type': "DEF",
-			'cost': 1,
-			'indent': 0,
-			'line': "",
-			'comment': comment,
-			'keyword': keyword,
-			'alt-keyword': keywordPlural,
-			'types': types,
-			'parent': parent,
-		}
-
-	def addConstraintDescription(self, line, comment):
-		indent = self.calcIndent(line)
-		line = line.strip()
-		line = line[1:]  # Remove the leading '!'
-		line = line.strip()
-
-		return {
-			'type': "CONSTRAINT",
-			'cost': 1,
-			'indent': indent,
-			'line': line,
-			'comment': comment,
-		}
-
-	def addDescription(self, line, comment):
-		indent = self.calcIndent(line)
-		line = line.strip()
-		cost = 1
-		# Entries in a lookup table.
-		if line[0] == '*':
-			cost = 0
-
-		return {
-			'type': "DESC",
-			'cost': cost,
-			'indent': indent,
-			'line': line,
-			'comment': comment,
-		}
-
-	# ==========
 	# Calculating costs.
 	# ==========
 	
@@ -308,7 +180,7 @@ class GambitParser:
 				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
 					if len(words) == 1 or  self.isDefinedTerm(words[1]):
 						r['cost'] = 0
-			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
@@ -341,7 +213,7 @@ class GambitParser:
 					self.costTotal += r['cost']
 			elif type in ["DESC", "CONSTRAINT"]:
 				self.costTotal += r['cost']
-			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in calcTotalCost: {0:s}".format(type))
 	
 	# ==========
@@ -353,24 +225,9 @@ class GambitParser:
 		filepath = os.path.join(SRC_DIR, filename)
 		self.currentDir = SRC_DIR
 		with open(filepath, 'r') as file:
+			self.lineNum = 0
 			for line in file:
-				lineinfo = self.processLine(line)
-				if lineinfo:
-					self.lines.append(lineinfo)
-					type = lineinfo['type']
-					if type == "IMPORT":
-						self.importFile(lineinfo['comment'])
-					elif type == "DEF":
-						info = ["LOCAL", lineinfo['types']]
-						if lineinfo['parent']:
-							info.append(lineinfo['parent'])
-						self.addVocab(lineinfo['keyword'], lineinfo['alt-keyword'], info)
-					elif type == "TEMPLATE":
-						info = ["LOCAL", "Verb", lineinfo['param']]
-						self.addVocab(lineinfo['keyword'], None, info)
-
-					if lineinfo['indent'] > self.maxIndent:
-						self.maxIndent = lineinfo['indent']
+				self.processLine(line)
 		
 		self.updateCosts()
 		self.calcTotalCost()
@@ -379,45 +236,40 @@ class GambitParser:
 		self.extractAllReferences()
 
 	def processLine(self, line):
-		self.originalLine = line.rstrip()
-		comment = ""
-
-		# Import base definitions from another file.
-		if line.startswith("#import"):
-			return self.addImport(line[8:].strip())
-
-		# Separate out comments and handle empty lines.
-		m = re.match("(.*?)//(.*)", line)
-		if m:
-			line = m.group(1)
-			comment = m.group(2)
-		comment = comment.strip()
-		if line.strip() == "":
-			return self.addComment(line, comment)
-		line = line.rstrip()
-
-		# TEMPLATE_TYPE: Verb
-		m = re.match(TEMPLATE_KEYWORD + ":\s*Verb", line)
-		if m:
-			keyword = m.group(1)
-			param = m.group(2)
-			return self.addTemplateDefinition(keyword, param, comment)
+		self.lineNum += 1
+		try:
+			lineinfo = GambitLineProcessor.processLine(line)
+		except Exception as ex:
+			errorLine("LINE {0:d}: {1:s}".format(self.lineNum, line.rstrip()), str(ex))
+			traceback.print_exc()
 		
-		# NEW_TYPE: TYPE
-		# NEW_TYPE|PLURAL: TYPE
-		# NEW_ATTRIBUTE: Attribute of TYPE
-		# NEW_TYPE: TYPE1, TYPE2
-		m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
-		if m:
-			keyword = m.group(1)
-			type = m.group(2)
-			keywords = keyword.split('|')
-			return self.addDefinition(keywords, type, comment)
+		if lineinfo:
+			self.lines.append(lineinfo)
+			type = lineinfo['type']
+			if type == "IMPORT":
+				self.importFile(lineinfo['comment'])
+			elif type == "DEF":
+				parent = lineinfo['parent']
+				if parent and not parent in self.vocab:
+					error("Unknown parent: {0:s}".format(parent))
+				for t in lineinfo['types']:
+					if not t in self.vocab:
+						error("Unknown term: {0:s}".format(t))
 
-		if line.strip().startswith("!"):
-			return self.addConstraintDescription(line, comment)
-			
-		return self.addDescription(line, comment)
+				info = ["LOCAL", lineinfo['types']]
+				if parent:
+					info.append(parent)
+				self.addVocab(lineinfo['keyword'], lineinfo['alt-keyword'], info)
+			elif type == "TEMPLATE":
+				info = ["LOCAL", "Verb", lineinfo['param']]
+				self.addVocab(lineinfo['keyword'], None, info)
+			elif type == "NAME":
+				self.gameTitle = lineinfo['comment']
+
+			if lineinfo['indent'] > self.maxIndent:
+				self.maxIndent = lineinfo['indent']
+
+		return lineinfo
 
 	def importFile(self, name):
 		basename = os.path.basename(name)
@@ -477,7 +329,7 @@ class GambitParser:
 				(type, cost, indent, line, comment) = r
 				self.extractReference(r['line'], currDef)
 				self.extractReference(r['comment'], currDef)
-			elif not type in ['COMMENT', 'IMPORT', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	# Record that |refTerm| is referenced by |refBy|.
@@ -644,7 +496,7 @@ class GambitParser:
 				rowclass = "section"
 			elif type == "SUBSECTION":
 				rowclass = "subsection"
-			elif not type in ["COMMENT", "CONSTRAINT", "DESC"]:
+			elif not type in ["COMMENT", "CONSTRAINT", "DESC", "NAME"]:
 				error("Unrecognized type in writeTableRows: {0:s}".format(type))
 
 			if rowclass:
