@@ -91,12 +91,16 @@ class GambitParser:
 			self.addVocab(key, None, ["BASE"])
 
 	def calcIndent(self, str):
-		m = re.match("(\t*)", str)
+		m = re.match("(\t+)", str)
 		if m:
 			return len(m.group(1))
-		m = re.match("( *)", str)
+		m = re.match("( +)", str)
 		if m:
-			return len(m.group(1)) / TAB_SIZE
+			numSpaces = len(m.group(1))
+			if numSpaces % 4 == 0:
+				return int(numSpaces / TAB_SIZE)
+			else:
+				warning("Invalid leading whitespace. Use tabs or {0:d} spaces.".format(TAB_SIZE))
 		return 0
 
 	# ==========

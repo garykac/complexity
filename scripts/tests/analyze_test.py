@@ -43,9 +43,11 @@ def test_processLine_comment():
     checkLineType(parser, "// comment", "COMMENT", None, 0, "", "comment")
     checkLineType(parser, "\t// comment", "COMMENT", None, 1, "", "comment")
     checkLineType(parser, "\t\t// comment", "COMMENT", None, 2, "", "comment")
-    # Spaces don't count for indent.
+    # Check for indenting using spaces.
+    checkLineType(parser, "    // comment", "COMMENT", None, 1, "", "comment")
+    checkLineType(parser, "        // comment", "COMMENT", None, 2, "", "comment")
+    # Invalid number of spaces - ignore.
     checkLineType(parser, "  // comment", "COMMENT", None, 0, "", "comment")
-    checkLineType(parser, "    // comment", "COMMENT", None, 0, "", "comment")
     # Trailing spaces.
     checkLineType(parser, "\t// comment   ", "COMMENT", None, 1, "", "comment")
 
