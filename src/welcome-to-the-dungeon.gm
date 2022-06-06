@@ -117,7 +117,7 @@ AddMonster: Verb
 RemoveMonster: Verb
 	Place the MonsterCard in front of you, face-down
 	Remove an EquipmentTile from the Inventory and place it on the MonsterCard
-	! You may not remove a MonsterCard your Inventory is empty
+	! You may not remove a MonsterCard if your Inventory is empty
 
 CalculateHitPoints: Verb
 	HP = BaseHP from the AdventurerTile
