@@ -11,9 +11,9 @@ dominion-base;Dominion;Rest of base set;dominion-first;44
 jaipur;Jaipur;;;47
 just-one;Just One;;;48
 leaving-earth;Leaving Earth;;;325
-regicide;Regicide;;;80
+regicide;Regicide;;;75
 risk;Risk;;;66
 splendor;Splendor;;;62
 tic-tac-toe;Tic Tac Toe;;;10
-ticket-to-ride-first-journey;Ticket to Ride;First Journey;;42
+ticket-to-ride-first-journey;Ticket to Ride;First Journey;;41
 welcome-to-the-dungeon;Welcome to the Dungeon;;;43

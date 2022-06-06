@@ -34,27 +34,39 @@ body {
 	font-weight: 700;
 	font-size: 2rem;
 }
-.summary {
-	display: block;
-	margin: auto;
-	text-align: center;
-	margin: 0.4rem 0;
-	font-weight: 400;
-	font-size: 1rem;
-}
 .footer {
 	display: block;
 	margin: auto;
 	margin: 0.4rem 0;
 }
-table {
+table.summary {
+	width: 25%;
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-first-column {
+	width: 50%;
+	text-align: right;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
 	table-layout: fixed;
 	width: 100%;
 	margin: 1rem auto;
 	text-align: left;
 	border-collapse: collapse;
 }
-table td {
+table.main td {
 	padding: 0.2rem 0;
 }
 .section {
@@ -141,218 +153,243 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">Regicide</div>
-<div class="summary">Learning Complexity: 80</div>
-<table>
-<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
-<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Regicide</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2020</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Paul Abrahams, Luke Badger, Andy Richdale</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 1-4</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 15-30m</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/DeckFrenchSuit</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AnimalCompanion">AnimalCompanion</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Alternate name for Ace (value = 1)</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Attack">Attack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcAttack">CalcAttack</a><a href="#DealDamage">DealDamage</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Current attack value</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CardValue">CardValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcAttack">CalcAttack</a><a href="#HandleDamage">HandleDamage</a><a href="#InitEnemyAttack">InitEnemyAttack</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Value is <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of <abbr title="Imported from common/CardGame">Card</abbr> with the following exceptions:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Jester">Jester</a>: 0</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">Ace</abbr>: 1</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">Jack</abbr>: 10</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">Queen</abbr>: 15</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">King</abbr>: 20</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CastleDeck">CastleDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateDecks">CreateDecks</a><a href="#PlayGame">PlayGame</a><a href="#RevealEnemy">RevealEnemy</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Set of cards: K, Q, J</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Combo">Combo</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A set of 2, 3, or 4 of the same <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> as long as the total <= 10</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DeckOfCards">DeckOfCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateDecks">CreateDecks</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Standard 52 card deck with 2 Jokers</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Enemy">Enemy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcDefense">CalcDefense</a><a href="#DealDamage">DealDamage</a><a href="#DefeatEnemy">DefeatEnemy</a><a href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><a href="#RevealEnemy">RevealEnemy</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The Card representing the enemy</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EnemyAttack">EnemyAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitEnemyAttack">InitEnemyAttack</a><a href="#SufferDamage">SufferDamage</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The current Enemy's attack value</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EnemyHealth">EnemyHealth</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a><a href="#DefeatEnemy">DefeatEnemy</a><a href="#InitEnemyHealth">InitEnemyHealth</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The current Enemy's hit points</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="IncomingDamage">IncomingDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#HandleDamage">HandleDamage</a><a href="#SufferDamage">SufferDamage</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Damage the the Enemy is dealing to you</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Jester">Jester</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustJesters">AdjustJesters</a><a href="#CardValue">CardValue</a><a href="#CreateDecks">CreateDecks</a><a href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><a href="#PlayOrYield">PlayOrYield</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Alternate name for Joker (value = 0)</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MaxHandSize">MaxHandSize</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustHandSize">AdjustHandSize</a><a href="#DealInitialHand">DealInitialHand</a><a href="#DealNCards">DealNCards</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; A player's <abbr title="Imported from common/CardGame">Hand</abbr> may never have more <abbr title="Imported from common/CardGame">Cards</abbr> than this value</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TavernDeck">TavernDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustJesters">AdjustJesters</a><a href="#CreateDecks">CreateDecks</a><a href="#DealInitialHand">DealInitialHand</a><a href="#DealNCards">DealNCards</a><a href="#DefeatEnemy">DefeatEnemy</a><a href="#HealFromDiscard">HealFromDiscard</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Set of cards: 2-10 + A and Jokers</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateDecks">CreateDecks</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AdjustJesters">AdjustJesters</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AdjustHandSize">AdjustHandSize</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#RevealEnemy">RevealEnemy</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DealInitialHand">DealInitialHand</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CreateDecks">CreateDecks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Extract the <abbr title="Imported from common/DeckFrenchSuit">Kings</abbr>, <abbr title="Imported from common/DeckFrenchSuit">Queens</abbr> and <abbr title="Imported from common/DeckFrenchSuit">Jacks</abbr> from <a class="keyword" href="#DeckOfCards">DeckOfCards</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> <abbr title="Imported from common/DeckFrenchSuit">Kings</abbr> beneath <abbr title="Imported from common/DeckFrenchSuit">Queens</abbr> beneath <abbr title="Imported from common/DeckFrenchSuit">Jacks</abbr> to create the <a class="keyword" href="#CastleDeck">CastleDeck</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The remaining <abbr title="Imported from common/CardGame">Cards</abbr> (2-10, <abbr title="Imported from common/DeckFrenchSuit">Ace</abbr> and <a class="keyword" href="#Jester">Jester</a>) form the <a class="keyword" href="#TavernDeck">TavernDeck</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdjustJesters">AdjustJesters</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add the following <a class="keyword" href="#Jester">Jesters</a> to the <a class="keyword" href="#TavernDeck">TavernDeck</a> based on player count:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 1-2p: 0</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3p: 1</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4p: 2</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdjustHandSize">AdjustHandSize</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#MaxHandSize">MaxHandSize</a> based on player count:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 1p: 8</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2p: 7</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3p: 6</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4p: 5</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DealInitialHand">DealInitialHand</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Deal</abbr> from <a class="keyword" href="#TavernDeck">TavernDeck</a> up to <a class="keyword" href="#MaxHandSize">MaxHandSize</a> for each <abbr title="Imported from common/Game">Player</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#CastleDeck">CastleDeck</a> is empty:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TakeTurn">TakeTurn</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <abbr title="Imported from common/Game">Players</abbr> may not communicate about the contents of their hand during play</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TakeTurn">TakeTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlayOrYield">PlayOrYield</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Activate">Activate</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DealDamage">DealDamage</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SufferDamage">SufferDamage</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note: Cards you play are left visible until the Enemy is defeated.</span></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When you <a class="keyword" href="#Yield">Yield</a>, you skip ahead to the <a class="keyword" href="#SufferDamage">SufferDamage</a> step</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Activate">Activate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CombineSuitPower">CombineSuitPower</a><a href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Activate">Activate</a> the played card's <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> power:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If <abbr title="Imported from common/DeckFrenchSuit">Hearts</abbr>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#HealFromDiscard">HealFromDiscard</a> using <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of played card</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If <abbr title="Imported from common/DeckFrenchSuit">Diamonds</abbr>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#DealNCards">DealNCards</a> starting with current player until number of <abbr title="Imported from common/CardGame">Cards</abbr> = <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of played <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If <abbr title="Imported from common/DeckFrenchSuit">Clubs</abbr>:</td></tr>
-<tr><td class="cost"></td><td></td><td></td><td></td><td class="desc"><span class="comment">See CalcAttack</span></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If <abbr title="Imported from common/DeckFrenchSuit">Spades</abbr>:</td></tr>
-<tr><td class="cost"></td><td></td><td></td><td></td><td class="desc"><span class="comment">See CalcDefense</span></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalcAttack">CalcAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Attack">Attack</a> = <a class="keyword" href="#CardValue">CardValue</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If tht attack <abbr title="Imported from common/CardGame">Card</abbr>'s <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> is <abbr title="Imported from common/DeckFrenchSuit">Clubs</abbr>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Double the <a class="keyword" href="#Attack">Attack</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalcDefense">CalcDefense</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SufferDamage">SufferDamage</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/DeckFrenchSuit">Spade</abbr> that has been played against this <a class="keyword" href="#Enemy">Enemy</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of the <abbr title="Imported from common/DeckFrenchSuit">Spade</abbr> to defense</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CombineSuitPower">CombineSuitPower</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>When multiple cards are played with different <abbr title="Imported from common/DeckFrenchSuit">Suits</abbr>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Activate">Activate</a> all the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> powers</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When combining cards of the same <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr>, the power is only applied once</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When combining <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> powers, apply <abbr title="Imported from common/DeckFrenchSuit">Hearts</abbr> before <abbr title="Imported from common/DeckFrenchSuit">Diamonds</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DealDamage">DealDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CalcAttack">CalcAttack</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Subtract <a class="keyword" href="#Attack">Attack</a> from <a class="keyword" href="#EnemyHealth">EnemyHealth</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#EnemyHealth">EnemyHealth</a> <= 0:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DefeatEnemy">DefeatEnemy</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When an <a class="keyword" href="#Enemy">Enemy</a> is defeated, skip the <a class="keyword" href="#SufferDamage">SufferDamage</a> step for that turn</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DealNCards">DealNCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until specified number of <abbr title="Imported from common/CardGame">Cards</abbr> have been dealt:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> from <a class="keyword" href="#TavernDeck">TavernDeck</a> into <abbr title="Imported from common/Game">Player</abbr>'s <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If a draw would increase a <abbr title="Imported from common/Game">Player</abbr>'s <abbr title="Imported from common/CardGame">Hand</abbr> beyond the <a class="keyword" href="#MaxHandSize">MaxHandSize</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Skip over that <abbr title="Imported from common/Game">Player</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you need to draw but the <a class="keyword" href="#TavernDeck">TavernDeck</a> is empty:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Stop dealing cards</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DefeatEnemy">DefeatEnemy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#EnemyHealth">EnemyHealth</a> = 0:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add <a class="keyword" href="#Enemy">Enemy</a> card to top of <a class="keyword" href="#TavernDeck">TavernDeck</a> (facedown)</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add <a class="keyword" href="#Enemy">Enemy</a> card to <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move all played cards to <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#RevealEnemy">RevealEnemy</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleDamage">HandleDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SufferDamage">SufferDamage</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#IncomingDamage">IncomingDamage</a> <= 0:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Discard</abbr> from <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Reduce <a class="keyword" href="#IncomingDamage">IncomingDamage</a> by <a class="keyword" href="#CardValue">CardValue</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you cannot reduce <a class="keyword" href="#IncomingDamage">IncomingDamage</a> to 0:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You die and everyone loses</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleJester">HandleJester</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Skip to the end of the turn</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose the next player to take a turn</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not.</span></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <abbr title="Imported from common/Game">Players</abbr> may hint whether or not they'd like to take the next turn</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HealFromDiscard">HealFromDiscard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Count out specified number of cards</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add these cards to bottom of <a class="keyword" href="#TavernDeck">TavernDeck</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place remaining cards back in <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InitEnemyAttack">InitEnemyAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RevealEnemy">RevealEnemy</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#EnemyAttack">EnemyAttack</a> to <a class="keyword" href="#CardValue">CardValue</a> (only <abbr title="Imported from common/DeckFrenchSuit">JQK</abbr> are relevant)</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InitEnemyHealth">InitEnemyHealth</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RevealEnemy">RevealEnemy</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#EnemyHealth">EnemyHealth</a> as follows:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">Jack</abbr>: 20</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">Queen</abbr>: 30</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <abbr title="Imported from common/DeckFrenchSuit">King</abbr>: 40</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayOrYield">PlayOrYield</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Play a single card from your <abbr title="Imported from common/CardGame">Hand</abbr> (not the <a class="keyword" href="#Jester">Jester</a>)</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Play a <a class="keyword" href="#Combo">Combo</a> which will <a class="keyword" href="#CombineSuitPower">CombineSuitPower</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Play the <a class="keyword" href="#Jester">Jester</a> and then <a class="keyword" href="#HandleJester">HandleJester</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Yield">Yield</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you play a single (non-Jester) card:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may add an <a class="keyword" href="#AnimalCompanion">AnimalCompanion</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>If you do:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Add 1 to the <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> and <a class="keyword" href="#CombineSuitPower">CombineSuitPower</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not <a class="keyword" href="#Yield">Yield</a> if every other <abbr title="Imported from common/Game">Player</abbr> has chosen <a class="keyword" href="#Yield">Yield</a> on their last turn</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you cannot play or <a class="keyword" href="#Yield">Yield</a>, then you die and everyone loses</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RevealEnemy">RevealEnemy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DefeatEnemy">DefeatEnemy</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Reveal</abbr> the top card of the <a class="keyword" href="#CastleDeck">CastleDeck</a> as the <a class="keyword" href="#Enemy">Enemy</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#InitEnemyAttack">InitEnemyAttack</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#InitEnemyHealth">InitEnemyHealth</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SufferDamage">SufferDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#IncomingDamage">IncomingDamage</a> = <a class="keyword" href="#EnemyAttack">EnemyAttack</a> - <a class="keyword" href="#CalcDefense">CalcDefense</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#HandleDamage">HandleDamage</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Yield">Yield</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Pass</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Constraints</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a><a href="#CalcAttack">CalcAttack</a><a href="#CalcDefense">CalcDefense</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> of a <abbr title="Imported from common/CardGame">Card</abbr> matches the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> of the <a class="keyword" href="#Enemy">Enemy</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Do not <a class="keyword" href="#Activate">Activate</a> the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr>'s power</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Unless a <a class="keyword" href="#Jester">Jester</a> has been played against this <a class="keyword" href="#Enemy">Enemy</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">Player</abbr> win or lose as a group.</td></tr>
+
+<table class="summary">
+<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">13</td><td class="summary-column">17.3%</td></tr>
+<tr><td class="summary-first-column">Setup</td><td class="summary-column">6</td><td class="summary-column">8.0%</td></tr>
+<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">52</td><td class="summary-column">69.3%</td></tr>
+<tr><td class="summary-first-column">Constraints</td><td class="summary-column">3</td><td class="summary-column">4.0%</td></tr>
+<tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">1.3%</td></tr>
+<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>75</b></td><td class="summary-column"></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Regicide</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Year: 2020</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Designer: Paul Abrahams, Luke Badger, Andy Richdale</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Players: 1-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Time: 15-30m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">#import common/DeckFrenchSuit</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AnimalCompanion">AnimalCompanion</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaySingleCard">PlaySingleCard</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Alternate name for Ace (value = 1)</span></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Attack">Attack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcAttack">CalcAttack</a><a href="#DealDamage">DealDamage</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Current attack value</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CardValue">CardValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcAttack">CalcAttack</a><a href="#HandleDamage">HandleDamage</a><a href="#InitEnemyAttack">InitEnemyAttack</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Value is <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of <abbr title="Imported from common/CardGame">Card</abbr> with the following exceptions:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <a class="keyword" href="#Jester">Jester</a>: 0</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">Ace</abbr>: 1</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">Jack</abbr>: 10</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">Queen</abbr>: 15</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">King</abbr>: 20</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CastleDeck">CastleDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateDecks">CreateDecks</a><a href="#PlayGame">PlayGame</a><a href="#RevealEnemy">RevealEnemy</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A <abbr title="Imported from common/CardGame">Deck</abbr> of cards with just the <abbr title="Imported from common/DeckFrenchSuit">Jacks</abbr>, <abbr title="Imported from common/DeckFrenchSuit">Queens</abbr> and <abbr title="Imported from common/DeckFrenchSuit">Kings</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Combo">Combo</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCombo">PlayCombo</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A set of 2, 3, or 4 of the same <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> as long as the total <= 10</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DeckOfCards">DeckOfCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateDecks">CreateDecks</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A standard 52 <abbr title="Imported from common/CardGame">Card</abbr> <abbr title="Imported from common/CardGame">Deck</abbr> with 2 <abbr title="Imported from common/DeckFrenchSuit">Jokers</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Enemy">Enemy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcDefense">CalcDefense</a><a href="#DealDamage">DealDamage</a><a href="#DefeatEnemy">DefeatEnemy</a><a href="#EnemyAttack">EnemyAttack</a><a href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><a href="#EnemyHealth">EnemyHealth</a><a href="#IncomingDamage">IncomingDamage</a><a href="#RevealEnemy">RevealEnemy</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <abbr title="Imported from common/CardGame">Card</abbr> representing the <a class="keyword" href="#Enemy">Enemy</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="EnemyAttack">EnemyAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitEnemyAttack">InitEnemyAttack</a><a href="#SufferDamage">SufferDamage</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The current <a class="keyword" href="#Enemy">Enemy</a>'s attack value</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="EnemyHealth">EnemyHealth</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a><a href="#DefeatEnemy">DefeatEnemy</a><a href="#InitEnemyHealth">InitEnemyHealth</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The current <a class="keyword" href="#Enemy">Enemy</a>'s hit points</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="IncomingDamage">IncomingDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#HandleDamage">HandleDamage</a><a href="#SufferDamage">SufferDamage</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Damage that the <a class="keyword" href="#Enemy">Enemy</a> is dealing to you</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Jester">Jester</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustJesters">AdjustJesters</a><a href="#CardValue">CardValue</a><a href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><a href="#PlayJester">PlayJester</a><a href="#PlaySingleCard">PlaySingleCard</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>An alternate name for <abbr title="Imported from common/DeckFrenchSuit">Joker</abbr> (value = 0)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="MaxHandSize">MaxHandSize</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustHandSize">AdjustHandSize</a><a href="#DealInitialHand">DealInitialHand</a><a href="#DealNCards">DealNCards</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A player's <abbr title="Imported from common/CardGame">Hand</abbr> may never have more <abbr title="Imported from common/CardGame">Cards</abbr> than this value</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TavernDeck">TavernDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustJesters">AdjustJesters</a><a href="#CreateDecks">CreateDecks</a><a href="#DealInitialHand">DealInitialHand</a><a href="#DealNCards">DealNCards</a><a href="#DefeatEnemy">DefeatEnemy</a><a href="#HealFromDiscard">HealFromDiscard</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A <abbr title="Imported from common/CardGame">Deck</abbr> of <abbr title="Imported from common/CardGame">Cards</abbr> with the 2-10 + <abbr title="Imported from common/DeckFrenchSuit">Aces</abbr> and <abbr title="Imported from common/DeckFrenchSuit">Jokers</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#CreateDecks">CreateDecks</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#AdjustJesters">AdjustJesters</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#AdjustHandSize">AdjustHandSize</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RevealEnemy">RevealEnemy</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DealInitialHand">DealInitialHand</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CreateDecks">CreateDecks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Extract the <abbr title="Imported from common/DeckFrenchSuit">Kings</abbr>, <abbr title="Imported from common/DeckFrenchSuit">Queens</abbr> and <abbr title="Imported from common/DeckFrenchSuit">Jacks</abbr> from <a class="keyword" href="#DeckOfCards">DeckOfCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Shuffle</abbr> <abbr title="Imported from common/DeckFrenchSuit">Kings</abbr> beneath <abbr title="Imported from common/DeckFrenchSuit">Queens</abbr> beneath <abbr title="Imported from common/DeckFrenchSuit">Jacks</abbr> to create the <a class="keyword" href="#CastleDeck">CastleDeck</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Gather the 2-10 <abbr title="Imported from common/CardGame">Cards</abbr> and <abbr title="Imported from common/DeckFrenchSuit">Aces</abbr> to form the <a class="keyword" href="#TavernDeck">TavernDeck</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AdjustJesters">AdjustJesters</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add the following <a class="keyword" href="#Jester">Jesters</a> to the <a class="keyword" href="#TavernDeck">TavernDeck</a> based on player count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 1-2p: 0</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 3p: 1</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 4p: 2</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AdjustHandSize">AdjustHandSize</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#MaxHandSize">MaxHandSize</a> based on player count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 1p: 8</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 2p: 7</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 3p: 6</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* 4p: 5</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DealInitialHand">DealInitialHand</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Deal</abbr> from <a class="keyword" href="#TavernDeck">TavernDeck</a> up to <a class="keyword" href="#MaxHandSize">MaxHandSize</a> for each <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <a class="keyword" href="#CastleDeck">CastleDeck</a> is empty:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#TakeTurn">TakeTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; <abbr title="Imported from common/Game">Players</abbr> may not communicate about the contents of their <abbr title="Imported from common/CardGame">Hand</abbr> during play</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TakeTurn">TakeTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayOrYield">PlayOrYield</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Activate">Activate</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DealDamage">DealDamage</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#SufferDamage">SufferDamage</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Note: Cards you play are left visible until the Enemy is defeated.</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; When you <a class="keyword" href="#Yield">Yield</a>, you skip ahead to the <a class="keyword" href="#SufferDamage">SufferDamage</a> step</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Activate">Activate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CombineSuitPower">CombineSuitPower</a><a href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Activate">Activate</a> the played card's <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> power:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Hearts</abbr>: <a class="keyword" href="#ActivateHearts">ActivateHearts</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Diamonds</abbr>: <a class="keyword" href="#ActivateDiamonds">ActivateDiamonds</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Clubs</abbr>: &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">See CalcAttack</span></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Spades</abbr>: &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">See CalcDefense</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActivateHearts">ActivateHearts</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#HealFromDiscard">HealFromDiscard</a> using <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of played <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActivateDiamonds">ActivateDiamonds</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DealNCards">DealNCards</a> starting with current player until number of <abbr title="Imported from common/CardGame">Cards</abbr> dealt equals the <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of the played <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CalcAttack">CalcAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a><a href="#DealDamage">DealDamage</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#Attack">Attack</a> = <a class="keyword" href="#CardValue">CardValue</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If tht attack <abbr title="Imported from common/CardGame">Card</abbr>'s <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> is <abbr title="Imported from common/DeckFrenchSuit">Clubs</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Double the <a class="keyword" href="#Attack">Attack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CalcDefense">CalcDefense</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a><a href="#SufferDamage">SufferDamage</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each <abbr title="Imported from common/DeckFrenchSuit">Spade</abbr> that has been played against this <a class="keyword" href="#Enemy">Enemy</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of the <abbr title="Imported from common/DeckFrenchSuit">Spade</abbr> to defense</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CombineSuitPower">CombineSuitPower</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCombo">PlayCombo</a><a href="#PlaySingleCard">PlaySingleCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>When multiple cards are played with different <abbr title="Imported from common/DeckFrenchSuit">Suits</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#Activate">Activate</a> all the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> powers</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; When combining cards of the same <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr>, the power is only applied once</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; When combining <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> powers, apply <abbr title="Imported from common/DeckFrenchSuit">Hearts</abbr> before <abbr title="Imported from common/DeckFrenchSuit">Diamonds</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DealDamage">DealDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#CalcAttack">CalcAttack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Subtract <a class="keyword" href="#Attack">Attack</a> from <a class="keyword" href="#EnemyHealth">EnemyHealth</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If <a class="keyword" href="#EnemyHealth">EnemyHealth</a> <= 0:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#DefeatEnemy">DefeatEnemy</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; When an <a class="keyword" href="#Enemy">Enemy</a> is defeated, skip the <a class="keyword" href="#SufferDamage">SufferDamage</a> step for that turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DealNCards">DealNCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateDiamonds">ActivateDiamonds</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until specified number of <abbr title="Imported from common/CardGame">Cards</abbr> have been dealt:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Draw</abbr> from <a class="keyword" href="#TavernDeck">TavernDeck</a> into <abbr title="Imported from common/Game">Player</abbr>'s <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If a draw would increase a <abbr title="Imported from common/Game">Player</abbr>'s <abbr title="Imported from common/CardGame">Hand</abbr> beyond the <a class="keyword" href="#MaxHandSize">MaxHandSize</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Skip over that <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you need to draw but the <a class="keyword" href="#TavernDeck">TavernDeck</a> is empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Stop dealing cards</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DefeatEnemy">DefeatEnemy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If <a class="keyword" href="#EnemyHealth">EnemyHealth</a> = 0:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add <a class="keyword" href="#Enemy">Enemy</a> card to top of <a class="keyword" href="#TavernDeck">TavernDeck</a> (facedown)</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add <a class="keyword" href="#Enemy">Enemy</a> card to <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Move all played cards to <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RevealEnemy">RevealEnemy</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="HandleDamage">HandleDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SufferDamage">SufferDamage</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <a class="keyword" href="#IncomingDamage">IncomingDamage</a> <= 0:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Discard</abbr> from <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Reduce <a class="keyword" href="#IncomingDamage">IncomingDamage</a> by <a class="keyword" href="#CardValue">CardValue</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you cannot reduce <a class="keyword" href="#IncomingDamage">IncomingDamage</a> to 0:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">You die and everyone loses</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="HandleJester">HandleJester</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayJester">PlayJester</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Skip to the end of the turn</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Choose the next player to take a turn</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not.</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; <abbr title="Imported from common/Game">Players</abbr> may hint whether or not they'd like to take the next turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="HealFromDiscard">HealFromDiscard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateHearts">ActivateHearts</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Shuffle</abbr> <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Count out specified number of cards</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add these cards to bottom of <a class="keyword" href="#TavernDeck">TavernDeck</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place remaining cards back in <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="InitEnemyAttack">InitEnemyAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RevealEnemy">RevealEnemy</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#EnemyAttack">EnemyAttack</a> to <a class="keyword" href="#CardValue">CardValue</a> (only <abbr title="Imported from common/DeckFrenchSuit">JQK</abbr> are relevant)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="InitEnemyHealth">InitEnemyHealth</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RevealEnemy">RevealEnemy</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#EnemyHealth">EnemyHealth</a> as follows:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">Jack</abbr>: 20</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">Queen</abbr>: 30</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* <abbr title="Imported from common/DeckFrenchSuit">King</abbr>: 40</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayOrYield">PlayOrYield</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlaySingleCard">PlaySingleCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlayCombo">PlayCombo</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlayJester">PlayJester</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#Yield">Yield</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; You may not <a class="keyword" href="#Yield">Yield</a> if every other <abbr title="Imported from common/Game">Player</abbr> has chosen <a class="keyword" href="#Yield">Yield</a> on their last turn</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you cannot play or <a class="keyword" href="#Yield">Yield</a>, then you die and everyone loses</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlaySingleCard">PlaySingleCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play a single card from your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">&roplus; But not the <a class="keyword" href="#Jester">Jester</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>You may add an <a class="keyword" href="#AnimalCompanion">AnimalCompanion</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>If you do:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add 1 to the <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#CombineSuitPower">CombineSuitPower</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayCombo">PlayCombo</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play a <a class="keyword" href="#Combo">Combo</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#CombineSuitPower">CombineSuitPower</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayJester">PlayJester</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Play a <a class="keyword" href="#Jester">Jester</a> <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#HandleJester">HandleJester</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="RevealEnemy">RevealEnemy</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DefeatEnemy">DefeatEnemy</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Reveal</abbr> the top card of the <a class="keyword" href="#CastleDeck">CastleDeck</a> as the <a class="keyword" href="#Enemy">Enemy</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#InitEnemyAttack">InitEnemyAttack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#InitEnemyHealth">InitEnemyHealth</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SufferDamage">SufferDamage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealDamage">DealDamage</a><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><a class="keyword" href="#IncomingDamage">IncomingDamage</a> = <a class="keyword" href="#EnemyAttack">EnemyAttack</a> - <a class="keyword" href="#CalcDefense">CalcDefense</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#HandleDamage">HandleDamage</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Yield">Yield</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayOrYield">PlayOrYield</a><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Pass</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Constraints</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="EnemyCancelsMatchingSuitPower">EnemyCancelsMatchingSuitPower</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Activate">Activate</a><a href="#CalcAttack">CalcAttack</a><a href="#CalcDefense">CalcDefense</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> of a <abbr title="Imported from common/CardGame">Card</abbr> matches the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr> of the <a class="keyword" href="#Enemy">Enemy</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Do not <a class="keyword" href="#Activate">Activate</a> the <abbr title="Imported from common/DeckFrenchSuit">Suit</abbr>'s power</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Unless a <a class="keyword" href="#Jester">Jester</a> has been played against this <a class="keyword" href="#Enemy">Enemy</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Endgame</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Player</abbr> win or lose as a group.</td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

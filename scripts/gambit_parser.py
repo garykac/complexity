@@ -53,8 +53,12 @@ class GambitParser:
 		self.lines = []
 		self.lineNum = 0
 		self.maxIndent = 0
+
 		self.costTotal = 0
+		self.sectionCosts = []
+
 		self.gameTitle = "Unknown"
+
 		self.currentDir = None
 	
 		# Dict of defs that reference this def.
@@ -81,6 +85,7 @@ class GambitParser:
 	def addVocab(self, key, keyPlural, info):
 		self.vocab[key] = info
 		self.referencedBy[key] = set()
+
 		# Simple default plurals.
 		if keyPlural == None:
 			if key[-1] == 's':
@@ -90,6 +95,7 @@ class GambitParser:
 				keyPlural = key[0:-1] + "ies"
 			else:
 				keyPlural = key + "s"
+
 		# Mapping from plural to canonical form.
 		self.vocabPlural[keyPlural] = key
 		if self.debug:
@@ -184,15 +190,29 @@ class GambitParser:
 	# Calculate the total cost for the game.
 	def calcTotalCost(self):
 		self.costTotal = 0
+		self.sectionCosts = []
+		currentSection = None
+		sectionCost = 0
 		for r in self.lines:
 			type = r['type']
-			if type == "DEF" or type == "TEMPLATE":
+			if type in ["DEF", "TEMPLATE"]:
 				if r['cost']:
 					self.costTotal += r['cost']
+					sectionCost += r['cost']
 			elif type in ["DESC", "CONSTRAINT"]:
 				self.costTotal += r['cost']
+				sectionCost += r['cost']
+			elif type == "SECTION":
+				if currentSection:
+					self.sectionCosts.append([currentSection, sectionCost])
+				currentSection = r['comment']
+				sectionCost = 0
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				error("Unhandled type in calcTotalCost: {0:s}".format(type))
+		
+		# Record cost for last section.
+		if currentSection:
+			self.sectionCosts.append([currentSection, sectionCost])
 	
 	# ==========
 	# Process a Gambit file to calculate cost and generate HTML.

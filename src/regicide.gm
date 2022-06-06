@@ -24,25 +24,25 @@ CardValue:	Noun
 		* Queen: 15
 		* King: 20
 CastleDeck: Deck
-	// Set of cards: K, Q, J
+	A Deck of cards with just the Jacks, Queens and Kings
 Combo: Noun
 	A set of 2, 3, or 4 of the same Rank as long as the total <= 10
 DeckOfCards: Deck
-	// Standard 52 card deck with 2 Jokers
+	A standard 52 Card Deck with 2 Jokers
 Enemy: Noun
-	// The Card representing the enemy
+	The Card representing the Enemy
 EnemyAttack: Noun
-	// The current Enemy's attack value
+	The current Enemy's attack value
 EnemyHealth: Noun
-	// The current Enemy's hit points
+	The current Enemy's hit points
 IncomingDamage: Noun
-	// Damage the the Enemy is dealing to you
+	Damage that the Enemy is dealing to you
 Jester: Noun
-	// Alternate name for Joker (value = 0)
+	An alternate name for Joker (value = 0)
 MaxHandSize: Noun
-	! A player's Hand may never have more Cards than this value
+	A player's Hand may never have more Cards than this value
 TavernDeck: Deck
-	// Set of cards: 2-10 + A and Jokers	
+	A Deck of Cards with the 2-10 + Aces and Jokers	
 
 // SECTION: Setup
 
@@ -52,11 +52,11 @@ Setup: Verb
 	AdjustHandSize
 	RevealEnemy
 	DealInitialHand
-	
+
 CreateDecks: Verb
 	Extract the Kings, Queens and Jacks from DeckOfCards
 	Shuffle Kings beneath Queens beneath Jacks to create the CastleDeck
-	The remaining Cards (2-10, Ace and Jester) form the TavernDeck
+	Gather the 2-10 Cards and Aces to form the TavernDeck
 
 AdjustJesters: Verb
 	Add the following Jesters to the TavernDeck based on player count:
@@ -80,7 +80,7 @@ PlayGame: Verb
 	Repeat until CastleDeck is empty:
 		TakeTurn
 		NextPlayerClockwise
-	! Players may not communicate about the contents of their hand during play	
+	! Players may not communicate about the contents of their Hand during play	
 
 TakeTurn: Verb
 	PlayOrYield
@@ -92,15 +92,17 @@ TakeTurn: Verb
 
 Activate: Verb
 	Activate the played card's Suit power:
-		If Hearts:
-			HealFromDiscard using Rank of played card
-		If Diamonds:
-			DealNCards starting with current player until number of Cards = Rank of played Card
-		If Clubs:
-			// See CalcAttack
-		If Spades:
-			// See CalcDefense
+		Hearts: ActivateHearts
+		Diamonds: ActivateDiamonds
+		Clubs: // See CalcAttack
+		Spades: // See CalcDefense
 	! EnemyCancelsMatchingSuitPower
+
+ActivateHearts: Verb
+	HealFromDiscard using Rank of played Card
+
+ActivateDiamonds: Verb
+	DealNCards starting with current player until number of Cards dealt equals the Rank of the played Card
 
 CalcAttack: Verb
 	Attack = CardValue
@@ -173,16 +175,28 @@ InitEnemyHealth: Verb
 	
 PlayOrYield: Verb
 	Choose one:	
-		Play a single card from your Hand (not the Jester)
-		Play a Combo which will CombineSuitPower	
-		Play the Jester and then HandleJester
+		PlaySingleCard
+		PlayCombo
+		PlayJester
 		Yield
-	If you play a single (non-Jester) card:
-		You may add an AnimalCompanion
-		If you do:
-			Add 1 to the Rank and CombineSuitPower	
 	! You may not Yield if every other Player has chosen Yield on their last turn
 	! If you cannot play or Yield, then you die and everyone loses	
+
+PlaySingleCard: Verb
+	Play a single card from your Hand
+		! But not the Jester
+	You may add an AnimalCompanion
+	If you do:
+		Add 1 to the Rank
+		CombineSuitPower	
+
+PlayCombo: Verb
+	Play a Combo
+	CombineSuitPower
+
+PlayJester: Verb
+	Play a Jester Card
+	HandleJester
 
 RevealEnemy: Verb
 	Reveal the top card of the CastleDeck as the Enemy

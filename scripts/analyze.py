@@ -84,6 +84,8 @@ class Analyzer:
 		self.updateIndexList(id, cost)
 		if self.showCost:
 			print("   = {0:d}".format(cost))
+			for s in parser.sectionCosts:
+				print(s)
 
 		parser.checkReferences()
 

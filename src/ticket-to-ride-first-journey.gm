@@ -69,6 +69,13 @@ Setup: Verb
 		DrawTrainCard x4
 		DrawTicket x2
 
+DrawTrainCard: Verb
+	Draw a TrainCard from the TrainDeck
+	! Reshuffle the TrainDiscardDeck to recreate the TrainDeck if it runs out
+
+DrawTicket: Verb
+	Draw a CityConnectionTicket from the TicketDeck
+	
 // SECTION: Gameplay
 
 PlayGame: Verb
@@ -83,13 +90,9 @@ GameOver: Condition
 
 PlayerTurn: Verb
 	Choose one:
-		DrawTrainCards
+		DrawTrainCard x2
 		ClaimRoute
 		DiscardTickets
-
-DrawTrainCards: Verb
-	DrawTrainCard x2
-	! Reshuffle the TrainDiscardDeck to recreate the TrainDeck if it runs out
 
 ClaimRoute: Verb
 	Choose an available Route
@@ -105,15 +108,13 @@ DiscardTickets: Verb
 	Discard all of the CityConnectionTickets in your Hand
 	DrawTicket x2
 
-DrawTicket: Verb
-	Draw a CityConnectionTicket from the TicketDeck
-	
 CheckForCompletedTicket: Verb
 	If you have claimed a sequence of Routes that connect the 2 DestinationCities on one of your CityConnectionTickets:
-		Place the completed CityConnectionTickets in front of you
+		Place the completed CityConnectionTicket in front of you
 		DrawTicket
 	If you have claimed a new sequence of Routes connecting an EastCoastCity to a WestCoastCity:
 		Claim a BonusTicket and place it in front of you
+	// Game ends if you obtain your 6th Ticket
 	
 // SECTION: Endgame
 

@@ -23,27 +23,39 @@ body {
 	font-weight: 700;
 	font-size: 2rem;
 }
-.summary {
-	display: block;
-	margin: auto;
-	text-align: center;
-	margin: 0.4rem 0;
-	font-weight: 400;
-	font-size: 1rem;
-}
 .footer {
 	display: block;
 	margin: auto;
 	margin: 0.4rem 0;
 }
-table {
+table.summary {
+	width: 25%;
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-first-column {
+	width: 50%;
+	text-align: right;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
 	table-layout: fixed;
 	width: 100%;
 	margin: 1rem auto;
 	text-align: left;
 	border-collapse: collapse;
 }
-table td {
+table.main td {
 	padding: 0.2rem 0;
 }
 .section {

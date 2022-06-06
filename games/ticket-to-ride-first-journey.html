@@ -34,27 +34,39 @@ body {
 	font-weight: 700;
 	font-size: 2rem;
 }
-.summary {
-	display: block;
-	margin: auto;
-	text-align: center;
-	margin: 0.4rem 0;
-	font-weight: 400;
-	font-size: 1rem;
-}
 .footer {
 	display: block;
 	margin: auto;
 	margin: 0.4rem 0;
 }
-table {
+table.summary {
+	width: 25%;
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-first-column {
+	width: 50%;
+	text-align: right;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
 	table-layout: fixed;
 	width: 100%;
 	margin: 1rem auto;
 	text-align: left;
 	border-collapse: collapse;
 }
-table td {
+table.main td {
 	padding: 0.2rem 0;
 }
 .section {
@@ -141,8 +153,18 @@ a.keyword:hover {
 <body>
 <div class="container">
 <div class="title">Ticket to Ride - First Journey</div>
-<div class="summary">Learning Complexity: 42</div>
-<table>
+
+<table class="summary">
+<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">18</td><td class="summary-column">43.9%</td></tr>
+<tr><td class="summary-first-column">Setup</td><td class="summary-column">3</td><td class="summary-column">7.3%</td></tr>
+<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">14</td><td class="summary-column">34.1%</td></tr>
+<tr><td class="summary-first-column">Endgame</td><td class="summary-column">6</td><td class="summary-column">14.6%</td></tr>
+<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>41</b></td><td class="summary-column"></td></tr>
+</table>
+
+<table class="main">
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Ticket to Ride - First Journey</span></td></tr>
@@ -178,13 +200,13 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Color">Color</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimRoute">ClaimRoute</a><a href="#RouteSpace">RouteSpace</a></div></div>: Attribute of <a class="keyword" href="#RouteSpace">RouteSpace</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Valid colors: "Black" , "Blue" , "Green" , "Red" , "White" , "Yellow"</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrainCard">TrainCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimRoute">ClaimRoute</a><a href="#Color">Color</a><a href="#TrainDeck">TrainDeck</a><a href="#TrainDiscardDeck">TrainDiscardDeck</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrainCard">TrainCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimRoute">ClaimRoute</a><a href="#Color">Color</a><a href="#DrawTrainCard">DrawTrainCard</a><a href="#TrainDeck">TrainDeck</a><a href="#TrainDiscardDeck">TrainDiscardDeck</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Color">Color</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimRoute">ClaimRoute</a><a href="#RouteSpace">RouteSpace</a></div></div>: Attribute of <a class="keyword" href="#TrainCard">TrainCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Valid colors: "Black" , "Blue" , "Green" , "Red" , "White" , "Yellow" , "Wild"</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrainDeck">TrainDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawTrainCards">DrawTrainCards</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrainDeck">TrainDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawTrainCard">DrawTrainCard</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Deck</abbr> of <a class="keyword" href="#TrainCard">TrainCards</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrainDiscardDeck">TrainDiscardDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawTrainCards">DrawTrainCards</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrainDiscardDeck">TrainDiscardDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawTrainCard">DrawTrainCard</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Face up pile where <a class="keyword" href="#TrainCard">TrainCards</a> are discarded.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Train">Train</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimRoute">ClaimRoute</a><a href="#GameOver">GameOver</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
@@ -212,8 +234,15 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Claim 20 Train tokens of your color</span></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>DrawTrainCard x4</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawTrainCard">DrawTrainCard</a> x4</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawTicket">DrawTicket</a> x2</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawTrainCard">DrawTrainCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> a <a class="keyword" href="#TrainCard">TrainCard</a> from the <a class="keyword" href="#TrainDeck">TrainDeck</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Reshuffle the <a class="keyword" href="#TrainDiscardDeck">TrainDiscardDeck</a> to recreate the <a class="keyword" href="#TrainDeck">TrainDeck</a> if it runs out</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawTicket">DrawTicket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForCompletedTicket">CheckForCompletedTicket</a><a href="#DiscardTickets">DiscardTickets</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> a <a class="keyword" href="#CityConnectionTicket">CityConnectionTicket</a> from the <a class="keyword" href="#TicketDeck">TicketDeck</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -229,13 +258,9 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawTrainCards">DrawTrainCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawTrainCard">DrawTrainCard</a> x2</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ClaimRoute">ClaimRoute</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DiscardTickets">DiscardTickets</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawTrainCards">DrawTrainCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>DrawTrainCard x2</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Reshuffle the <a class="keyword" href="#TrainDiscardDeck">TrainDiscardDeck</a> to recreate the <a class="keyword" href="#TrainDeck">TrainDeck</a> if it runs out</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClaimRoute">ClaimRoute</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose an available <a class="keyword" href="#Route">Route</a></td></tr>
@@ -251,15 +276,13 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Discard</abbr> all of the <a class="keyword" href="#CityConnectionTicket">CityConnectionTickets</a> in your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawTicket">DrawTicket</a> x2</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawTicket">DrawTicket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForCompletedTicket">CheckForCompletedTicket</a><a href="#DiscardTickets">DiscardTickets</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> a <a class="keyword" href="#CityConnectionTicket">CityConnectionTicket</a> from the <a class="keyword" href="#TicketDeck">TicketDeck</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CheckForCompletedTicket">CheckForCompletedTicket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimRoute">ClaimRoute</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have claimed a sequence of <a class="keyword" href="#Route">Routes</a> that connect the 2 <a class="keyword" href="#DestinationCity">DestinationCities</a> on one of your <a class="keyword" href="#CityConnectionTicket">CityConnectionTickets</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the completed <a class="keyword" href="#CityConnectionTicket">CityConnectionTickets</a> in front of you</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the completed <a class="keyword" href="#CityConnectionTicket">CityConnectionTicket</a> in front of you</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawTicket">DrawTicket</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have claimed a new sequence of <a class="keyword" href="#Route">Routes</a> connecting an <a class="keyword" href="#EastCoastCity">EastCoastCity</a> to a <a class="keyword" href="#WestCoastCity">WestCoastCity</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Claim a <a class="keyword" href="#BonusTicket">BonusTicket</a> and place it in front of you</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Game ends if you obtain your 6th Ticket</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>

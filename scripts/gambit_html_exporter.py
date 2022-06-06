@@ -25,6 +25,7 @@ class GambitHtmlExporter:
 	def writeHtml(self, outpath):
 		with open(outpath, 'w') as out:
 			self.writeHtmlHeader(out, self.gameTitle, self.costTotal)
+			self.writeHtmlCostSummary(out, self.parser.sectionCosts, self.costTotal)
 			self.writeTableHeader(out)
 			self.writeTableRows(out)
 			self.writeTableFooter(out)
@@ -51,9 +52,26 @@ class GambitHtmlExporter:
 		out.write('</head>\n')
 		out.write('<body>\n')
 		out.write('<div class="container">\n')
-		out.write('<div class="title">{0:s}</div>\n'.format(title))
-		out.write('<div class="summary">Learning Complexity: {0:d}</div>\n'.format(costTotal))
-	
+		out.write('<div class="title">{0:s}</div>\n\n'.format(title))
+
+	def writeHtmlCostSummary(self, out, sectionCosts, costTotal):
+		out.write('<table class="summary">\n')
+		out.write('<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>\n')
+		out.write('<tr><td colspan="3"><b>Rule Complexity</b></td></tr>\n')
+		for s in sectionCosts:
+			(name, cost) = s
+			out.write('<tr><td class="summary-first-column">')
+			out.write(name)
+			out.write('</td><td class="summary-column">')
+			out.write(str(cost))
+			out.write('</td><td class="summary-column">')
+			out.write("{0:.1f}%".format(100 * cost / costTotal))
+			out.write('</td></tr>\n')
+		out.write('<tr><td class="summary-first-column"><b>Total</b></td>')
+		out.write('<td class="summary-column"><b>{0:d}</b></td>'.format(costTotal))
+		out.write('<td class="summary-column"></td></tr>\n')
+		out.write('</table>\n\n')
+
 	def writeHtmlFooter(self, out):
 		out.write('<div class="footer">&nbsp;</div>\n')
 		out.write('</div>\n')
@@ -61,7 +79,7 @@ class GambitHtmlExporter:
 		out.write('</html>\n')
 
 	def writeTableHeader(self, out):
-		out.write('<table>\n')
+		out.write('<table class="main">\n')
 
 		colgroup = '<colgroup><col class="cost">'
 		for x in range(self.maxIndent):
@@ -188,6 +206,7 @@ class GambitHtmlExporter:
 
 	# This method is similar to extractReferences. When updating, consider if
 	# changes are needed both places.
+	# TODO: Precalculate these links and store them in the |self.parser.lines|.
 	#
 	# |line| - string to process
 	# |required| - True if it should verify that the keyword is defined
