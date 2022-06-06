@@ -4,31 +4,6 @@ from gambit_parser import GambitParser
 from gambit_line_processor import GambitLineProcessor
 from unittest import mock
 
-def test_tokenizer_simple():
-    parser = GambitParser()
-    out = parser.tokenize("Sample string")
-    assert len(out) == 2
-    out = parser.tokenize("A sample string with more words")
-    assert len(out) == 6
-
-def test_tokenizer_string():
-    parser = GambitParser()
-    out = parser.tokenize('Sample line with "a" string')
-    assert len(out) == 5
-    assert out[3] == '"a"'
-
-    out = parser.tokenize('Sample line with "a multi word" string')
-    assert len(out) == 5
-    assert out[3] == '"a multi word"'
-
-    out = parser.tokenize('"A string" at the beginning')
-    assert len(out) == 4
-    assert out[0] == '"A string"'
-
-    out = parser.tokenize('At the end, "a string"')
-    assert len(out) == 4
-    assert out[3] == '"a string"'
-
 def mock_importFile(self, name):
     assert name == "file"
 

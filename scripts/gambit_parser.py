@@ -6,6 +6,7 @@ import re
 import traceback
 
 from gambit_line_processor import GambitLineProcessor
+from tokenizer import Tokenizer
 
 GM_CSS_PATH = "gm.css"
 
@@ -146,7 +147,7 @@ class GambitParser:
 					r['cost'] = 0
 
 				# Handle special cases with Vocab
-				words = self.tokenize(r['line'])
+				words = Tokenizer.tokenize(r['line'])
 				# Handle "Discard xxx"
 				if len(words) == 2 and self.isDefinedTerm(words[0]):
 					# Handle: "Discard it"
@@ -318,10 +319,25 @@ class GambitParser:
 		#	self.referencedBy[refTerm] = set()
 		self.referencedBy[refTerm].add(refBy)
 
+	def lookupCanonicalForm(self, word):
+		# Strip non-alphanumeric from beginning/end of token.
+		(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
+		if word in self.vocabPlural:
+			return self.vocabPlural[word]
+	
+	def checkReferences(self):
+		for k,v in self.referencedBy.items():
+			# If defined locally but no references.
+			if self.vocab[k][0] == "LOCAL" and len(v) == 0:
+				# Allow local definitions to overwrite imported defs.
+				if not k in self.imports:
+					msg = "Term is defined but never referenced: {0:s}".format(k)
+					warning(msg) if self.useWarnings else error(msg)
+	
 	# This method is similar to calcKeywordLinks. When updating, consider if
 	# changes are needed both places.
 	def extractReference(self, str, currDef):
-		for word in self.tokenize(str):
+		for word in Tokenizer.tokenize(str):
 			# Ignore strings (or first/last word in a string).
 			# Note: This will not skip middle words in string: "skip not not not skip"
 			if word[0] == '"' or word[-1] == '"':
@@ -355,7 +371,7 @@ class GambitParser:
 	def calcKeywordLinks(self, line, required=False):
 		words = []
 		firstWord = True
-		for word in self.tokenize(line):
+		for word in Tokenizer.tokenize(line):
 			# Skip over special initial characters.
 			if firstWord and word == '*':
 				words.append('*')
@@ -404,23 +420,8 @@ class GambitParser:
 			
 			firstWord = False
 			
-		return self.untokenize(words)
+		return Tokenizer.untokenize(words)
 		
-	def lookupCanonicalForm(self, word):
-		# Strip non-alphanumeric from beginning/end of token.
-		(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
-		if word in self.vocabPlural:
-			return self.vocabPlural[word]
-	
-	def checkReferences(self):
-		for k,v in self.referencedBy.items():
-			# If defined locally but no references.
-			if self.vocab[k][0] == "LOCAL" and len(v) == 0:
-				# Allow local definitions to overwrite imported defs.
-				if not k in self.imports:
-					msg = "Term is defined but never referenced: {0:s}".format(k)
-					warning(msg) if self.useWarnings else error(msg)
-	
 	# ==========
 	# Writing the HTML file
 	# ==========
@@ -592,20 +593,3 @@ class GambitParser:
 		out.write('</div>\n')
 		out.write('</body>\n')
 		out.write('</html>\n')
-
-	# ==========
-	# Parsing and Tokenizing
-	# ==========
-	
-	def tokenize(self, str):
-		out = []
-		substrings = str.split('"')
-		for i in range(0, len(substrings)):
-			if i % 2:
-				out.append('"{0:s}"'.format(substrings[i]))
-			else:
-				out.extend(substrings[i].split())
-		return out
-
-	def untokenize(self, tokens):
-		return ' '.join(tokens)
