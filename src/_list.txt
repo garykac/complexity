@@ -15,4 +15,5 @@ regicide;Regicide;;;80
 risk;Risk;;;66
 splendor;Splendor;;;62
 tic-tac-toe;Tic Tac Toe;;;10
+ticket-to-ride-first-journey;Ticket to Ride;First Journey;;42
 welcome-to-the-dungeon;Welcome to the Dungeon;;;43

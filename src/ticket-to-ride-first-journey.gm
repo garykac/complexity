@@ -1,0 +1,126 @@
+// NAME: Ticket to Ride - First Journey
+
+// Year: 2004
+// Designer: Alan R. Moon
+// Players: 2-5
+// Time: 30-60m
+// BGG Weight: 1.84 = 1509 / 2624 / 486 / 88 / 33
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+Gameboard: Board
+
+City: Part of Gameboard
+
+EastCoastCity: City
+	Any of "New York", "Washington" or "South Miami"
+	// "Moscow", "Rostov" or "Ankara" for European version
+WestCoastCity: City
+	Any of "Seattle", "San Francisco" or "Los Angeles"
+	// "Dublin", "Brest", or "Madrid" for European version
+
+Route: Part of Gameboard
+	A connection between 2 Cities on the Gameboard
+	// Note: Cities may have multiple Routes (of different colors) connecting them.
+
+RouteSpace: Part of Route
+	Each Route is comprised of one or more RouteSpaces (that share a common Color)
+Color: Attribute of RouteSpace
+	Valid colors: "Black", "Blue", "Green", "Red", "White", "Yellow"
+	
+TrainCard: Card
+Color: Attribute of TrainCard
+	Valid colors: "Black", "Blue", "Green", "Red", "White", "Yellow", "Wild"
+
+TrainDeck: Deck
+	Deck of TrainCards
+TrainDiscardDeck: Deck
+	Face up pile where TrainCards are discarded.
+
+Train: Token
+	Valid colors: "Blue", "Green", "Red", "Yellow"
+
+Ticket: Card
+
+CityConnectionTicket: Ticket
+	A Ticket that describes a connection between 2 Cities
+DestinationCity: Attribute of CityConnectionTicket
+	The 2 Cities that this Ticket connects
+
+TicketDeck: Deck
+	Deck of CityConnectionTickets
+
+BonusTicket: Ticket	// 4 copies
+	A Ticket you earn when you complete a Route from an EastCoastCity to a WestCoastCity (or vice-versa).
+
+GoldenTicket: Ticket	// 1 copy
+	The Ticket you claim when you win the game
+
+// SECTION: Setup
+
+Setup: Verb
+	ChoosePlayerComponents
+		// Claim 20 Train tokens of your color
+	For each Player:
+		DrawTrainCard x4
+		DrawTicket x2
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until GameOver, starting with youngest Player:
+		PlayerTurn
+		NextPlayerClockwise
+
+GameOver: Condition
+	Any of:
+		A Player has 6 Tickets
+		A Player places their last Train token on the Gameboard
+
+PlayerTurn: Verb
+	Choose one:
+		DrawTrainCards
+		ClaimRoute
+		DiscardTickets
+
+DrawTrainCards: Verb
+	DrawTrainCard x2
+	! Reshuffle the TrainDiscardDeck to recreate the TrainDeck if it runs out
+
+ClaimRoute: Verb
+	Choose an available Route
+	For each RouteSpace in the Route:
+		Discard a TrainCard from your Hand that matches the RouteSpace Color
+			! A "Wild" TrainCard can match any color
+		Place one of your Trains on the RouteSpace
+			// Note: Game ends if you place your last Train
+	CheckForCompletedTicket
+	! You may not claim both Routes between a pair of Cities
+
+DiscardTickets: Verb
+	Discard all of the CityConnectionTickets in your Hand
+	DrawTicket x2
+
+DrawTicket: Verb
+	Draw a CityConnectionTicket from the TicketDeck
+	
+CheckForCompletedTicket: Verb
+	If you have claimed a sequence of Routes that connect the 2 DestinationCities on one of your CityConnectionTickets:
+		Place the completed CityConnectionTickets in front of you
+		DrawTicket
+	If you have claimed a new sequence of Routes connecting an EastCoastCity to a WestCoastCity:
+		Claim a BonusTicket and place it in front of you
+	
+// SECTION: Endgame
+
+DetermineWinner: Verb
+	Player with 6 Tickets wins
+	If no Player has 6 Tickets:
+		Player with most completed Tickets wins
+		If a tie:
+			Everybody wins!
+	Winning Player claims the GoldenTicket	// Not possible if everyone wins

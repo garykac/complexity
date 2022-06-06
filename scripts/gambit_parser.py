@@ -82,14 +82,13 @@ class GambitParser:
 	def addVocab(self, key, keyPlural, info):
 		self.vocab[key] = info
 		self.referencedBy[key] = set()
-
 		# Simple default plurals.
 		if keyPlural == None:
 			if key[-1] == 's':
 				keyPlural = key
-			# Factory, Quarry, but not Donkey
-			elif key[-2] == 'ry':
-				keyPlural = key[0:-2] + "ries"
+			# Factory, Quarry, City, but not Donkey
+			elif key[-2:] == 'ry' or key[-2:] == 'ty':
+				keyPlural = key[0:-1] + "ies"
 			else:
 				keyPlural = key + "s"
 		# Mapping from plural to canonical form.
