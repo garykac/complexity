@@ -5,6 +5,7 @@ import getopt
 import os
 import sys
 
+from gambit_html_exporter import GambitHtmlExporter
 from gambit_parser import GambitParser
 
 SRC_DIR = "../src"
@@ -86,9 +87,10 @@ class Analyzer:
 
 		parser.checkReferences()
 
+		htmlExporter = GambitHtmlExporter(parser)
 		outfile = "{0:s}.html".format(id)
 		outpath = os.path.join(OUTPUT_DIR, outfile)
-		parser.writeHtml(outpath)
+		htmlExporter.writeHtml(outpath)
 
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
