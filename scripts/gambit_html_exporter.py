@@ -260,5 +260,7 @@ class GambitHtmlExporter:
 				words.append('{0:s}{1:s}{2:s}'.format(prefix, self.htmlify(word), postfix))
 			
 			firstWord = False
+			if (word != "" and word[-1] == '.') or (postfix != "" and postfix[-1] == '.'):
+				firstWord = True
 			
 		return Tokenizer.untokenize(words)
