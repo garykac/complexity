@@ -27,17 +27,6 @@ FREE_SUFFIX_WORDS = [
 	"them",
 ]
 
-def warning(msg):
-	print("WARNING: {0:s}".format(msg))
-
-def error(msg):
-	print("ERROR: {0:s}".format(msg))
-	raise Exception(msg)
-
-def errorLine(line, msg):
-	print(line)
-	error(msg)
-
 class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
@@ -77,6 +66,19 @@ class GambitParser:
 	def initVocab(self):
 		for key in ["Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit"]:
 			self.addVocab(key, None, ["BASE"])
+
+	def errorLine(self, msg):
+		print("LINE {0:d}: {1:s}".format(self.lineNum, self.currentLine))
+		self.error(msg)
+
+	def error(self, msg):
+		print("ERROR: {0:s}".format(msg))
+		#traceback.print_exc()
+		#raise Exception(msg)
+		exit(0)
+
+	def warning(self, msg):
+		print("WARNING: {0:s}".format(msg))
 
 	# ==========
 	# Vocabulary and Cross-reference
@@ -165,7 +167,7 @@ class GambitParser:
 					if len(words) == 1 or  self.isDefinedTerm(words[1]):
 						r['cost'] = 0
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
-				error("Unhandled type in updateCosts: {0:s}".format(type))
+				self.error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
@@ -183,7 +185,7 @@ class GambitParser:
 			if type == 'DESC' and r['indent'] == 1:
 				return True
 			if not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'CONSTRAINT']:
-				error("Unhandled type in defHasDesc: {0:s}".format(type))
+				self.error("Unhandled type in defHasDesc: {0:s}".format(type))
 			i += 1
 		return False
 	
@@ -208,7 +210,7 @@ class GambitParser:
 				currentSection = r['comment']
 				sectionCost = 0
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
-				error("Unhandled type in calcTotalCost: {0:s}".format(type))
+				self.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		
 		# Record cost for last section.
 		if currentSection:
@@ -231,12 +233,12 @@ class GambitParser:
 		self.extractAllReferences()
 
 	def processLine(self, line):
+		self.currentLine = line
 		self.lineNum += 1
 		try:
 			lineinfo = GambitLineProcessor.processLine(line)
 		except Exception as ex:
-			errorLine("LINE {0:d}: {1:s}".format(self.lineNum, line.rstrip()), str(ex))
-			traceback.print_exc()
+			self.errorLine(str(ex))
 		
 		if lineinfo:
 			self.lines.append(lineinfo)
@@ -246,10 +248,10 @@ class GambitParser:
 			elif type == "DEF":
 				parent = lineinfo['parent']
 				if parent and not parent in self.vocab:
-					error("Unknown parent: {0:s}".format(parent))
+					self.errorLine("Unknown parent: {0:s}".format(parent))
 				for t in lineinfo['types']:
 					if not t in self.vocab:
-						error("Unknown term: {0:s}".format(t))
+						self.errorLine("Unknown term: {0:s}".format(t))
 
 				info = ["LOCAL", lineinfo['types']]
 				if parent:
@@ -275,8 +277,7 @@ class GambitParser:
 				try:
 					lineinfo = GambitLineProcessor.processLine(line)
 				except Exception as ex:
-					errorLine("IMPORT {0:s}: {1:s}".format(name, line.rstrip()), str(ex))
-					traceback.print_exc()
+					self.errorLine(str(ex))
 
 				if lineinfo:
 					type = lineinfo['type']
@@ -326,7 +327,7 @@ class GambitParser:
 				self.extractReference(r['line'], currDef)
 				self.extractReference(r['comment'], currDef)
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
-				error("Unhandled type in extractAllReferences: {0:s}".format(type))
+				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	# Record that |refTerm| is referenced by |refBy|.
 	# |refBy| makes a reference to |refTerm|.
@@ -350,7 +351,7 @@ class GambitParser:
 				# Allow local definitions to overwrite imported defs.
 				if not k in self.imports:
 					msg = "Term is defined but never referenced: {0:s}".format(k)
-					warning(msg) if self.useWarnings else error(msg)
+					self.warning(msg) if self.useWarnings else self.error(msg)
 	
 	# This method is similar to calcKeywordLinks. When updating, consider if
 	# changes are needed both places.
