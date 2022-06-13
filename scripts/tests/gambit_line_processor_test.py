@@ -100,3 +100,14 @@ def checkLineType(line, xType, xCost, xIndent, xLine, xComment):
         assert out['line'] == xLine
         assert out['comment'] == xComment
     return out
+
+def test_extractKeyword():
+    checkExtractedKeywords("word", "", "word", "")
+    checkExtractedKeywords("word.", "", "word.", "")
+    checkExtractedKeywords("Word.", "", "Word", ".")
+    
+def checkExtractedKeywords(word, xPre, xWord, xPost):
+    out = GambitLineProcessor.extractKeyword(word)
+    assert out[0] == xPre
+    assert out[1] == xWord
+    assert out[2] == xPost
