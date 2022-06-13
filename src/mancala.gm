@@ -1,0 +1,70 @@
+// NAME: Mancala (Kalah)
+// Kalah is a member of the mancala family of games that is popular in Europe and North America.
+// Variants of mancala games have been around since 700.
+
+// Year: 1940
+// Designer: William Julius Champion Jr.
+// Players: 2
+// Time: 10m
+// BGG Weight: 1.62 = 231 / 157 / 41 / 9 / 1
+
+#import common/Game
+#import common/BoardGame
+
+// SECTION: Vocabulary
+
+Gameboard: Board
+
+Pocket: Part of Gameboard
+Owner: Player
+	The Player that owns the Pocket
+
+Pit: Pocket	// Also known as "holes"
+	One of the small Pockets. 
+	
+Store: Pocket	// Also known as the "mancala" or "capture pit"
+	A large Pocket where the Player keeps the Seeds that they have scored.
+
+Seed: Noun	// Also known as "stones"
+	A small token that moves from one Pocket to another.
+
+// SECTION: Setup
+
+Setup: Verb
+	Choose a side to determine which Pits and Store are owned by each Player
+	Place 4 Seeds in each of the 12 Pits
+	
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until all the Pits of one Player are empty:
+		MoveSeeds
+
+MoveSeeds: Verb
+	Choose one of your Pits (Owner = you) that contains at least one Seed
+	Take all of the Seeds into your hand
+	Repeat until you have no more Seeds in your hand:
+		Move to the next Pocket counter-clockwise
+			! Skip over your opponent's Store
+			// Do not skip over your Store
+		Drop a Seed into that Pocket
+	If the last Seed you drop is in your Store:
+		MoveSeeds
+	If the last Seed you drop is in an empty Pit that you own:
+		CaptureSeeds
+
+CaptureSeeds: Verb
+	Take the last Seed that you placed in your Pit
+	Take all of the Seeds in your opponent's Pit directly opposite the Pit where you placed your last Seed
+	Place all these Seeds into your Store
+	// Variant: If the opposite Pit is empty, then nothing no Seeds are captured.
+
+// SECTION: Endgame
+
+CalculateScore: Verb
+	Move all the Seeds in your Pits into your Store
+		// One Player will have 0 Seeds in their Pits, so only the other Player will need to do this.
+	Your score is the number of Seeds in your Store
+
+DetermineWinner: Verb
+	PlayerWithHighestScore

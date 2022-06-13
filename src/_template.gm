@@ -20,10 +20,6 @@ Setup: Verb
 
 PlayGame: Verb
 
-// SECTION: Constraints
-
-// SECTION: Endgame
-
 CalculateScore: Verb
 
 DetermineWinner: Verb

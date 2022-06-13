@@ -11,6 +11,7 @@ dominion-base;Dominion;Rest of base set;dominion-first;44
 jaipur;Jaipur;;;47
 just-one;Just One;;;48
 leaving-earth;Leaving Earth;;;325
+mancala;Mancala;Kalah;;22
 regicide;Regicide;;;75
 risk;Risk;;;66
 splendor;Splendor;;;62
