@@ -357,9 +357,8 @@ class GambitParser:
 	# changes are needed both places.
 	def extractReference(self, str, currDef):
 		for word in Tokenizer.tokenize(str):
-			# Ignore strings (or first/last word in a string).
-			# Note: This will not skip middle words in string: "skip not not not skip"
-			if word[0] == '"' or word[-1] == '"':
+			# Ignore strings.
+			if word[0] == '"' and word[-1] == '"':
 				continue
 
 			# Look for template references.
