@@ -12,9 +12,9 @@
 
 // SECTION: Vocabulary
 
-Gameboard: Board
+TrackBoard: Gameboard
 
-Space: Part of Gameboard
+Space: Part of TrackBoard
 Segment: Part of Space
 	Optional subdivision of a Space that allows multiple RaceCars to occupy the same Space
 
@@ -32,12 +32,12 @@ Position: Attribute of StartPosition
 StartingMoney: Attribute of StartPosition
 	// Amount of money at start of game for the Player starting in this position.
 
-FinishLine: Part of Gameboard
+FinishLine: Part of TrackBoard
 
-LapBoard: Board
+LapBoard: Gameboard
 LapsRemaining: Attribute of LapBoard
 
-PlayerBoard: Board
+PlayerBoard: Gameboard
 ActivePile: Attribute of PlayerBoard
 UsedPile: Attribute of PlayerBoard
 DiscardPile: Attribute of PlayerBoard
@@ -167,8 +167,8 @@ CurrentPosition: Noun
 // SECTION: Setup
 
 Setup: Verb
-	Select which side of the Gameboard you wish to use
-	Place Stock (with all the Cubes) next to Gameboard
+	Select which side of the TrackBoard you wish to use
+	Place Stock (with all the Cubes) next to TrackBoard
 	Place GearCards and WearCard next to matching section by the Stock
 	SetupAutomobileCards
 	Give StartPlayerCard to a random Player
@@ -289,7 +289,7 @@ BuyPhase: Verb
 	! UnspentMoneyIsLost
 
 CarPhase: Verb
-	Move your RaceCar up to the furthest Cube that you placed on the Gameboard
+	Move your RaceCar up to the furthest Cube that you placed on the TrackBoard
 	If you pass the FinishLine:
 		Move your LapMarker down one space on the LapBoard
 
@@ -306,7 +306,7 @@ DeclinePhase: Verb
 	! Don't gain any WearCubes if you didn't move this turn
 
 EndPhase: Verb
-	Move all of your Cube from the Gameboard, ActivePile and UsedPile into your DiscardPile
+	Move all of your Cube from the TrackBoard, ActivePile and UsedPile into your DiscardPile
 	DrawCube x7
 
 AlternativeTurn: Verb

@@ -12,7 +12,7 @@
 
 // SECTION: Vocabulary
 
-Submarine: Board
+Submarine: Gameboard
 
 AirGauge: Part of Submarine
 AirGaugeSpace: Part of AirGauge
@@ -52,9 +52,9 @@ HexagonChip: RuinsChip
 ChipStack: Noun
 	// A stack of (up to) 3 RuinsChips created when you lose your treasure.
 
-Ruins: Board
+Ruins: Gameboard
 	// Line of RuinsSpaces leading out from the Submarine.
-	// This is a dynamic Board created during gameplay.
+	// This is a dynamic board created during gameplay.
 RuinsSpace: Part of Ruins
 	// A location that contains a Chip
 

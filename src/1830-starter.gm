@@ -14,7 +14,7 @@
 
 // SECTION: Vocabulary
 
-MapBoard: Board
+MapBoard: Gameboard
 
 Hex: Noun
 	A part of the map, either part of the MapBoard or a TrackTile laid on the board

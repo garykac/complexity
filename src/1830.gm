@@ -12,7 +12,7 @@
 
 // SECTION: Vocabulary
 
-MapBoard: Board
+MapBoard: Gameboard
 
 Hex: Noun
 	A part of the map, either part of the MapBoard or a TrackTile laid on the board
@@ -156,7 +156,7 @@ MaxTrains: Noun
 OpenMarket: Noun
 	Place where used Trains are sold
 
-StockMarketGrid: Board
+StockMarketGrid: Gameboard
 	Used to track the current Share price for each Railroad
 Square: Part of StockMarketGrid
 Value: Attribute of Square
@@ -166,7 +166,7 @@ Yellow: GridColor
 Orange: GridColor
 Brown: GridColor
 
-ParTable: Board
+ParTable: Gameboard
 	Table of 6 possible par values when starting a Railroad
 Value: Attribute of ParTable
 	// Values: $67, $71, $76, $82, $90, $100

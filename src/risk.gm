@@ -13,7 +13,7 @@
 
 // SECTION: Vocabulary
 
-RiskBoard: Board
+RiskBoard: Gameboard
 Territory|Territories: Part of RiskBoard
 	// 42 territories on map
 
@@ -149,7 +149,7 @@ ResolveAttack: Verb
 	// Note the defender win ties.
 
 CheckForPlayerElimination: Verb
-	If defending Player has no more Armies left anywhere on the Board:
+	If defending Player has no more Armies left anywhere on the RiskBoard:
 		You take all the RiskCards from the defender
 		If you have 6 or more RiskCards in your Hand:
 			Repeat until you have 4 or fewer:

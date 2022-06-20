@@ -12,8 +12,6 @@
 
 // SECTION: Vocabulary
 
-Gameboard: Board
-
 City: Part of Gameboard
 
 EastCoastCity: City

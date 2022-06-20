@@ -2,11 +2,15 @@
 
 Box: Noun
 
-Board: Noun
+Gameboard: Noun
 
 Piece: Noun
 
 Token: Noun
+
+Tile: Noun
+
+PlayerAid: Noun
 
 PlaceBoard: Verb
 	Place board on table

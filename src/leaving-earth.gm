@@ -59,7 +59,7 @@ OutcomeDeck: Noun
 	// Deck of Outcomes
 OutcomeDiscardPile: Noun
 
-Calendar: Board
+Calendar: Gameboard
 Year: Part of Calendar
 	// Start; Years 1956 - 1965; Flip; Years 1966 - 1976; End
 CalendarMarker: Token

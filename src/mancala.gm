@@ -13,8 +13,6 @@
 
 // SECTION: Vocabulary
 
-Gameboard: Board
-
 Pocket: Part of Gameboard
 Owner: Player
 	The Player that owns the Pocket

@@ -11,12 +11,12 @@
 
 // SECTION: Vocabulary
 
-Square: Part of Board
+Square: Part of Gameboard
 	// Squares can be Dark (Black) or Light (often Red).
 DarkSquare: Square	// where Color = Dark
-	! The light Squares on the Board are not used
+	! The light Squares on the Gameboard are not used
 
-KingRow: Part of Board
+KingRow: Part of Gameboard
 	// Row of Squares on the board furthest from the player.
 
 Piece: Noun
@@ -38,7 +38,7 @@ Setup: Verb
 	PlacePawns
 
 PlaceBoard: Verb
-	Place Board oriented so that a DarkSquare is in lower left corner for each Player
+	Place Gameboard oriented so that a DarkSquare is in lower left corner for each Player
 
 PlacePawns: Verb
 	For each Player:
