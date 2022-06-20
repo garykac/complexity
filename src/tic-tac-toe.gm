@@ -26,7 +26,7 @@ Setup: Verb
 
 ChooseXO: Verb
 	ChoosePlayerComponents
-	// Choose side ('x' or 'o') and take pieces
+		* Choose side ('x' or 'o') and take pieces
 
 // SECTION: Gameplay
 

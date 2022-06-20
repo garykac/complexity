@@ -157,12 +157,12 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">16</td><td class="summary-column">24.2%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">7</td><td class="summary-column">10.6%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">41</td><td class="summary-column">62.1%</td></tr>
+<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">16</td><td class="summary-column">23.9%</td></tr>
+<tr><td class="summary-first-column">Setup</td><td class="summary-column">8</td><td class="summary-column">11.9%</td></tr>
+<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">41</td><td class="summary-column">61.2%</td></tr>
 <tr><td class="summary-first-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.5%</td></tr>
 <tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">1.5%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>66</b></td><td class="summary-column"></td></tr>
+<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>67</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -224,12 +224,15 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#InitialArmyPlacement">InitialArmyPlacement</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GatherArmies">GatherArmies</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Each <abbr title="Imported from common/Game">Player</abbr> takes the following <a class="keyword" href="#Army">Armies</a>, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 3p: 35 <a class="keyword" href="#Army">Armies</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 4p: 30 <a class="keyword" href="#Army">Armies</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 5p: 25 <a class="keyword" href="#Army">Armies</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* 6p: 20 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Takes the following <a class="keyword" href="#Army">Armies</a>, based on <abbr title="Imported from common/Game">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 3p: 35 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 4p: 30 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 5p: 25 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 6p: 20 <a class="keyword" href="#Army">Armies</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Remaining <a class="keyword" href="#Army">Armies</a> are returned to the <abbr title="Imported from common/BoardGame">Box</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="InitialArmyPlacement">InitialArmyPlacement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until all <a class="keyword" href="#Territory">Territories</a> are occupied:</td></tr>

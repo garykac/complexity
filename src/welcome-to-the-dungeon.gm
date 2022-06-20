@@ -66,8 +66,7 @@ Setup: Verb
 	ChooseFirstPlayer
 
 SetupAdventurer: Verb
-	ChoosePlayerComponents
-	// For first game, choosing the default Warrior as the Adventurer
+	// For first game, choose the "Warrior" as the Adventurer
 	Place AdventurerTile on table
 	Place the 6 matching EquipmentTiles in the Inventory (next to AdventurerTile)
 	// Matching EquipmentTiles are the same color as Adventurer
@@ -117,16 +116,16 @@ AddMonster: Verb
 RemoveMonster: Verb
 	Place the MonsterCard in front of you, face-down
 	Remove an EquipmentTile from the Inventory and place it on the MonsterCard
-	! You may not remove a MonsterCard if your Inventory is empty
+	! You may not remove a MonsterCard if the Inventory is empty
 
 CalculateHitPoints: Verb
-	HP = BaseHP from the AdventurerTile
+	HitPoints = BaseHP from the AdventurerTile
 	Add the BonusHP from all EquipmentTiles that remain in the Inventory
 
 EnterDungeon: Verb
 	Repeat until the DungeonPile is empty:
 		Reveal top card of DungeonPile
-		If an EquipmentTile in your Inventory has an icon that matches the MonsterCard's Weakness:
+		If an EquipmentTile in the Inventory has an icon that matches the MonsterCard's Weakness:
 			Discard the MonsterCard
 		Otherwise:
 			Deduct MonsterCard's Strength from your HitPoints

@@ -157,12 +157,12 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">88</td><td class="summary-column">25.2%</td></tr>
+<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">88</td><td class="summary-column">25.4%</td></tr>
 <tr><td class="summary-first-column">Setup</td><td class="summary-column">14</td><td class="summary-column">4.0%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">215</td><td class="summary-column">61.6%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">28</td><td class="summary-column">8.0%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">4</td><td class="summary-column">1.1%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>349</b></td><td class="summary-column"></td></tr>
+<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">213</td><td class="summary-column">61.4%</td></tr>
+<tr><td class="summary-first-column">Constraints</td><td class="summary-column">28</td><td class="summary-column">8.1%</td></tr>
+<tr><td class="summary-first-column">Endgame</td><td class="summary-column">4</td><td class="summary-column">1.2%</td></tr>
+<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>347</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -725,7 +725,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> has a <a class="keyword" href="#DevelopmentCost">DevelopmentCost</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Your <a class="keyword" href="#Railroad">Railroad</a> must pay this cost to lay track here</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place a <a class="keyword" href="#YellowTile">YellowTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; MustMatchTileOrientation</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
@@ -735,7 +735,6 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="LayGreenTrack">LayGreenTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place a <a class="keyword" href="#GreenTile">GreenTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; MustTracePathToYourStation</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
@@ -955,7 +954,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> or existingTrackTile has a <a class="keyword" href="#Label">Label</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must also have the same <a class="keyword" href="#Label">Label</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchExistingTrack">MustMatchExistingTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchExistingTrack">MustMatchExistingTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The orientation of the new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must match all the existing <a class="keyword" href="#TrackEdge">TrackEdges</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#PlaceStation">PlaceStation</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>

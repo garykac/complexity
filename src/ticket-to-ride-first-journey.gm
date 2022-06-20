@@ -62,7 +62,7 @@ GoldenTicket: Ticket	// 1 copy
 
 Setup: Verb
 	ChoosePlayerComponents
-		// Claim 20 Train tokens of your color
+		* Claim 20 Train tokens of your color
 	For each Player:
 		DrawTrainCard x4
 		DrawTicket x2

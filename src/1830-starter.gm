@@ -209,8 +209,9 @@ LayYellowTrack: Verb
 		Your Railroad must pay 1/2 this cost to lay track here
 		// 1/2 cost is for the starter game
 	Place a YellowTile in the MapHex
-	! MustMatchTileOrientation
+	! MustMatchExistingTrack
 	! MustMatchCities
+	! MustTracePathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 
 LayGreenTrack: Verb

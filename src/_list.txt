@@ -1,11 +1,11 @@
-1830;1830;;;349
-1830-noprivates;1830;w/o Privates;;285
-1830-starter;1830;Starter Game;;134
-automobiles;Automobiles;;;109
-checkers;Checkers;;;26
+1830;1830;;;347
+1830-noprivates;1830;w/o Privates;;282
+1830-starter;1830;Starter Game;;133
+automobiles;Automobiles;;;108
+checkers;Checkers;;;25
 crazy-eights-28;Crazy Eights;28-card;;26
 crazy-eights-52;Crazy Eights;52-card;;38
-deep-sea-adventure;Deep Sea Adventure;;;64
+deep-sea-adventure;Deep Sea Adventure;;;63
 dominion-first;Dominion;10 starter cards;;76
 dominion-base;Dominion;Rest of base set;dominion-first;44
 jaipur;Jaipur;;;47
@@ -13,7 +13,7 @@ just-one;Just One;;;48
 leaving-earth;Leaving Earth;;;325
 mancala;Mancala;Kalah;;21
 regicide;Regicide;;;75
-risk;Risk;;;66
+risk;Risk;;;67
 splendor;Splendor;;;62
 tic-tac-toe;Tic Tac Toe;;;10
 ticket-to-ride-first-journey;Ticket to Ride;First Journey;;40

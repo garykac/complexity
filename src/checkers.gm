@@ -34,15 +34,16 @@ King: Piece
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerColor
-	PlacePawns
+	For each Player:
+		ChoosePlayerComponents
+			* Pawns
+		PlacePawns
 
 PlaceBoard: Verb
 	Place Gameboard oriented so that a DarkSquare is in lower left corner for each Player
 
 PlacePawns: Verb
-	For each Player:
-		Place your 12 Pawns on the DarkSquares closest to you (closest 3 rows)
+	Place your 12 Pawns on the DarkSquares closest to you (closest 3 rows)
 
 // SECTION: Gameplay
 

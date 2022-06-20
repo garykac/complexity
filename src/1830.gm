@@ -556,7 +556,7 @@ LayYellowTrack: Verb
 	If the MapHex has a DevelopmentCost:
 		Your Railroad must pay this cost to lay track here
 	Place a YellowTile in the MapHex
-	! MustMatchTileOrientation
+	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
@@ -566,7 +566,6 @@ LayYellowTrack: Verb
 LayGreenTrack: Verb
 	Place a GreenTile in the MapHex
 	! GreenTilesOnlyInPhase2
-	! MustTracePathToYourStation
 	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation

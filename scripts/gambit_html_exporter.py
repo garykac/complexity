@@ -254,8 +254,13 @@ class GambitHtmlExporter:
 				else:
 					words.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'
 							.format(prefix, canonicalForm, word, postfix))
-			elif required and not firstWord and word[0].isupper():
-				raise Exception('Unable to find definition for "{0:s}"'.format(word))
+			elif required:
+				if firstWord and re.match(r'[A-Z].*[A-Z].*', word):
+					raise Exception('Unable to find definition for "{0:s}"'.format(word))
+				elif not firstWord and word[0].isupper():
+					raise Exception('Unable to find definition for "{0:s}"'.format(word))
+				else:
+					words.append('{0:s}{1:s}{2:s}'.format(prefix, self.htmlify(word), postfix))
 			else:
 				words.append('{0:s}{1:s}{2:s}'.format(prefix, self.htmlify(word), postfix))
 			

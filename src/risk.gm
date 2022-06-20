@@ -55,12 +55,15 @@ Setup: Verb
 	InitialArmyPlacement
 
 GatherArmies: Verb
-	ChoosePlayerComponents
-	Each Player takes the following Armies, based on Player count:
-		* 3p: 35 Armies
-		* 4p: 30 Armies
-		* 5p: 25 Armies
-		* 6p: 20 Armies
+	For each Player:
+		ChoosePlayerComponents
+			* Armies
+		Takes the following Armies, based on Player count:
+			* 3p: 35 Armies
+			* 4p: 30 Armies
+			* 5p: 25 Armies
+			* 6p: 20 Armies
+		Remaining Armies are returned to the Box
 
 InitialArmyPlacement: Verb
 	Repeat until all Territories are occupied:

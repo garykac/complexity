@@ -69,8 +69,10 @@ Setup: Verb
 	Place Submarine on table
 	ResetAirGauge
 	SetupRuins
-	ChoosePlayerColor
-	Place all PlayerTokens on Submarine
+	For each Player:
+		ChoosePlayerComponents
+			* PlayerToken
+		Place PlayerToken on Submarine
 
 ResetAirGauge: Verb
 	Place the RemainingAir token on AirGaugeSpace 25	

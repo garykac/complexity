@@ -274,13 +274,15 @@ StockRound: Verb
 	CheckForFloat
 	AdjustSharePriceAfterStockRound
 	! MayNotExceedCertificateLimits
-	! MHSpecialEffect
 
 StockRoundTurn: Verb
 	SellShares
 	BuyOneShare
 	SellShares
 	GivePriorityDealToNextPlayer
+
+GivePriorityDealToNextPlayer: Verb
+	The Player to your left takes the PriorityDealCard
 
 BuyOneShare: Verb
 	Choose a Railroad from either the Bank or the Pool
@@ -416,7 +418,7 @@ LayYellowTrack: Verb
 	If the MapHex has a DevelopmentCost:
 		Your Railroad must pay this cost to lay track here
 	Place a YellowTile in the MapHex
-	! MustMatchTileOrientation
+	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
@@ -425,7 +427,6 @@ LayYellowTrack: Verb
 LayGreenTrack: Verb
 	Place a GreenTile in the MapHex
 	! GreenTilesOnlyInPhase2
-	! MustTracePathToYourStation
 	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation

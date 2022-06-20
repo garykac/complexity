@@ -172,9 +172,11 @@ Setup: Verb
 	Place GearCards and WearCard next to matching section by the Stock
 	SetupAutomobileCards
 	Give StartPlayerCard to a random Player
-	ChoosePlayerComponents
-		// RaceCar, player sheet and LapMarker of the same color
 	For each Player, starting with the StartPlayer:
+		ChoosePlayerComponents
+			* RaceCar
+			* PlayerBoard
+			* LapMarker
 		Place RaceCar on the empty StartPosition with the lowest Position value
 		Place LapMarker on the LapBoard where LapsRemaining is 3
 		Take a DrawBag and 12 starting Cubes:
@@ -220,8 +222,7 @@ StandardTurn: Verb
 
 ActionPhase: Verb
 	Repeat as many times as you wish:
-		Select a Cube from your ActivePile
-		MoveToUsedPile
+		Move a Cube from your ActivePile to your UsedPile
 		Apply effect based on the Cube type:
 			WearCube: WearAction
 			Gear3Cube: GearAction<WhiteSpace>

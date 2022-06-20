@@ -294,18 +294,18 @@ SpaceStationMission: StartOfYearMission
 // SECTION: Setup
 
 Setup: Verb
-	ChooseAgency
+	ChooseAgencies
 	SetupMissions
 	BuildSolarSystem
 	ArrangeComponents
 	SetupOutcomes
 	SetupCalendar
 
-ChooseAgency: Verb
+ChooseAgencies: Verb
 	ChoosePlayerComponents
-	// Choose an Agency
-	// Take corresponding AgencyCard
-	// Take Agency's 4 SpacecraftCards and matching SpacecraftTokens
+		* Choose an Agency
+		* Take corresponding AgencyCard
+		* Take Agency's 4 SpacecraftCards and matching SpacecraftTokens
 
 SetupMissions: Verb
 	Separate the Missions by level (Easy Medium Hard)

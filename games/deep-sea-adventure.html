@@ -157,12 +157,12 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">23</td><td class="summary-column">35.9%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">9</td><td class="summary-column">14.1%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">30</td><td class="summary-column">46.9%</td></tr>
+<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">23</td><td class="summary-column">36.5%</td></tr>
+<tr><td class="summary-first-column">Setup</td><td class="summary-column">8</td><td class="summary-column">12.7%</td></tr>
+<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">30</td><td class="summary-column">47.6%</td></tr>
 <tr><td class="summary-first-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
 <tr><td class="summary-first-column">EndGame</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>64</b></td><td class="summary-column"></td></tr>
+<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>63</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -238,8 +238,10 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Submarine">Submarine</a> on table</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResetAirGauge">ResetAirGauge</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupRuins">SetupRuins</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>ChoosePlayerColor</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place all <a class="keyword" href="#PlayerToken">PlayerTokens</a> on <a class="keyword" href="#Submarine">Submarine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#PlayerToken">PlayerToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#PlayerToken">PlayerToken</a> on <a class="keyword" href="#Submarine">Submarine</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ResetAirGauge">ResetAirGauge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#RemainingAir">RemainingAir</a> token on <a class="keyword" href="#AirGaugeSpace">AirGaugeSpace</a> 25</td></tr>
