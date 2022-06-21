@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Roads &amp; Boats</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	width: 25%;
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-first-column {
+	width: 50%;
+	text-align: right;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Roads & Boats</div>
+
+<table class="summary">
+<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">105</td><td class="summary-column">33.4%</td></tr>
+<tr><td class="summary-first-column">Setup</td><td class="summary-column">16</td><td class="summary-column">5.1%</td></tr>
+<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">193</td><td class="summary-column">61.5%</td></tr>
+<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>314</b></td><td class="summary-column"></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Roads &amp; Boats</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 1999</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Jeroen Doumen, Joris Wiersinga</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 1-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 180-240m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/BoardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HexTile">HexTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Build">Build</a><a href="#BuildRoad">BuildRoad</a><a href="#BuildWall">BuildWall</a><a href="#BuildingPhase">BuildingPhase</a><a href="#CoverSheet">CoverSheet</a><a href="#LandTile">LandTile</a><a href="#Map">Map</a><a href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a><a href="#MovementPhase">MovementPhase</a><a href="#Produce">Produce</a><a href="#ProduceResearch">ProduceResearch</a><a href="#ProduceTransporter">ProduceTransporter</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionSecondary">ProductionSecondary</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#River">River</a><a href="#SeaTile">SeaTile</a><a href="#Setup">Setup</a><a href="#SetupMap">SetupMap</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LandTile">LandTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildClayPit">BuildClayPit</a><a href="#BuildCoalBurner">BuildCoalBurner</a><a href="#BuildMint">BuildMint</a><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildStockExchange">BuildStockExchange</a><a href="#BuildStoneFactory">BuildStoneFactory</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#BuildWall">BuildWall</a><a href="#BuildingPhase">BuildingPhase</a><a href="#Coast">Coast</a><a href="#DesertTile">DesertTile</a><a href="#HomeLocation">HomeLocation</a><a href="#MountainTile">MountainTile</a><a href="#MoveDonkey">MoveDonkey</a><a href="#MovementPhase">MovementPhase</a><a href="#PastureTile">PastureTile</a><a href="#River">River</a><a href="#RockTile">RockTile</a><a href="#Setup">Setup</a><a href="#Shore">Shore</a><a href="#WoodsTile">WoodsTile</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="River">River</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildRoad">BuildRoad</a><a href="#BuildWall">BuildWall</a><a href="#BuildingPhase">BuildingPhase</a><a href="#MoveBoat">MoveBoat</a><a href="#MovementPhase">MovementPhase</a><a href="#NeedsBridgeToCrossRiver">NeedsBridgeToCrossRiver</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ReproduceLivestock">ReproduceLivestock</a><a href="#Shore">Shore</a><a href="#TransportersCarryingTransporters">TransportersCarryingTransporters</a></div></div>: Attribute of <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#LandTile">LandTile</a> may have a river running through the tile, splitting it into 2 sides.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#River">Rivers</a> on <a class="keyword" href="#MountainTile">MountainTiles</a> are always river sources that do not split the tile.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WoodsTile">WoodsTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWoodcutter">BuildWoodcutter</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PastureTile">PastureTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EmptyPasture">EmptyPasture</a><a href="#PlaceBrick">PlaceBrick</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RockTile">RockTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStoneQuarry">BuildStoneQuarry</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MountainTile">MountainTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildMine">BuildMine</a><a href="#River">River</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DesertTile">DesertTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCoalBurner">BuildCoalBurner</a><a href="#BuildMint">BuildMint</a><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildStockExchange">BuildStockExchange</a><a href="#BuildStoneFactory">BuildStoneFactory</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#PlaceBrick">PlaceBrick</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SeaTile">SeaTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildWall">BuildWall</a><a href="#Coast">Coast</a><a href="#DemolishWall">DemolishWall</a><a href="#GeeseMayFollowTransporters">GeeseMayFollowTransporters</a><a href="#MoveBoat">MoveBoat</a><a href="#MovementPhase">MovementPhase</a><a href="#ProduceTransporter">ProduceTransporter</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Map">Map</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CoverSheet">CoverSheet</a><a href="#SetupMap">SetupMap</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A collection of <a class="keyword" href="#HexTile">HexTiles</a> for this game</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HomeLocation">HomeLocation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#HomeMarker">HomeMarker</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <abbr title="Imported from common/Game">Player</abbr>'s starting location</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Coast">Coast</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveBoat">MoveBoat</a><a href="#Shore">Shore</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A edge of a <a class="keyword" href="#LandTile">LandTile</a> that is adjacent to a <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Shore">Shore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildClayPit">BuildClayPit</a><a href="#BuildWall">BuildWall</a><a href="#CanOnlyBuildOnAShore">CanOnlyBuildOnAShore</a><a href="#ShoreCannotBeBlocked">ShoreCannotBeBlocked</a><a href="#TransportersCarryingTransporters">TransportersCarryingTransporters</a></div></div>: Noun</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A <a class="keyword" href="#LandTile">LandTile</a> that contains a <a class="keyword" href="#Coast">Coast</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A <a class="keyword" href="#LandTile">LandTile</a> with a <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EmptyPasture">EmptyPasture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ReproduceLivestock">ReproduceLivestock</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#PastureTile">PastureTile</a> with no <a class="keyword" href="#Building">Buildings</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The Roads, Bridges, Walls and the HomeMarker do not count as Buildings</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Livestock">Livestock</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Donkey">Donkey</a><a href="#Goose">Goose</a><a href="#Pool">Pool</a><a href="#ReproduceLivestock">ReproduceLivestock</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Goose">Goose</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GeeseMayFollowTransporters">GeeseMayFollowTransporters</a><a href="#ProduceResearch">ProduceResearch</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ReproduceLivestock">ReproduceLivestock</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Livestock">Livestock</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Goose">Geese</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Transporter">Transporter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Boat">Boat</a><a href="#BuildNewMineShaft">BuildNewMineShaft</a><a href="#BuildingPhase">BuildingPhase</a><a href="#CarryingCapacity">CarryingCapacity</a><a href="#GeeseMayFollowTransporters">GeeseMayFollowTransporters</a><a href="#LandTransporter">LandTransporter</a><a href="#LimitedNumberOfTransporters">LimitedNumberOfTransporters</a><a href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a><a href="#MayNotMoveThroughAnotherPlayersWall">MayNotMoveThroughAnotherPlayersWall</a><a href="#MovementCapacity">MovementCapacity</a><a href="#MovementPhase">MovementPhase</a><a href="#Pool">Pool</a><a href="#Produce">Produce</a><a href="#ProduceResearch">ProduceResearch</a><a href="#ProduceTransporter">ProduceTransporter</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#ScoreGoods">ScoreGoods</a><a href="#Setup">Setup</a><a href="#TransportersCarryingTransporters">TransportersCarryingTransporters</a><a href="#UpgradeToRowboatFactory">UpgradeToRowboatFactory</a><a href="#UpgradeToSteamshipFactory">UpgradeToSteamshipFactory</a><a href="#UpgradeToTruckFactory">UpgradeToTruckFactory</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CarryingCapacity">CarryingCapacity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Donkey">Donkey</a><a href="#MovementPhase">MovementPhase</a><a href="#Raft">Raft</a><a href="#Rowboat">Rowboat</a><a href="#Steamship">Steamship</a><a href="#Truck">Truck</a><a href="#Wagon">Wagon</a></div></div>: Attribute of <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovementCapacity">MovementCapacity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Donkey">Donkey</a><a href="#MoveBoat">MoveBoat</a><a href="#MoveLandTransporter">MoveLandTransporter</a><a href="#Raft">Raft</a><a href="#Rowboat">Rowboat</a><a href="#Steamship">Steamship</a><a href="#Truck">Truck</a><a href="#Wagon">Wagon</a></div></div>: Attribute of <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>How far the <a class="keyword" href="#Transporter">Transporter</a> can travel</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LandTransporter">LandTransporter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a><a href="#Donkey">Donkey</a><a href="#MoveLandTransporter">MoveLandTransporter</a><a href="#NeedsBridgeToCrossRiver">NeedsBridgeToCrossRiver</a><a href="#Truck">Truck</a><a href="#Wagon">Wagon</a></div></div>: <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Donkey">Donkey</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a><a href="#ProductionWagon">ProductionWagon</a><a href="#ReproduceLivestock">ReproduceLivestock</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Livestock">Livestock</a>, <a class="keyword" href="#LandTransporter">LandTransporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MovementCapacity">MovementCapacity</a> = 2. <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a> = 2</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Wagon">Wagon</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a><a href="#ProductionWagon">ProductionWagon</a><a href="#WagonFactory">WagonFactory</a></div></div>: <a class="keyword" href="#LandTransporter">LandTransporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MovementCapacity">MovementCapacity</a> = 3. <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a> = 3</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Truck">Truck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a><a href="#ProductionTruck">ProductionTruck</a><a href="#TruckFactory">TruckFactory</a></div></div>: <a class="keyword" href="#LandTransporter">LandTransporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MovementCapacity">MovementCapacity</a> = 4. <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a> = 6</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Boat">Boat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWall">BuildWall</a><a href="#BuildingPhase">BuildingPhase</a><a href="#GeeseMayFollowTransporters">GeeseMayFollowTransporters</a><a href="#MoveBoat">MoveBoat</a><a href="#MovementPhase">MovementPhase</a><a href="#ProduceTransporter">ProduceTransporter</a><a href="#ProductionPhase">ProductionPhase</a><a href="#Raft">Raft</a><a href="#Rowboat">Rowboat</a><a href="#Steamship">Steamship</a><a href="#TransportersCarryingTransporters">TransportersCarryingTransporters</a></div></div>: <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Raft">Raft</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a><a href="#ProductionRaft">ProductionRaft</a><a href="#RaftFactory">RaftFactory</a></div></div>: <a class="keyword" href="#Boat">Boat</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MovementCapacity">MovementCapacity</a> = 3. <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a> = 3</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Rowboat">Rowboat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a><a href="#ProductionRowboat">ProductionRowboat</a><a href="#RowboatFactory">RowboatFactory</a></div></div>: <a class="keyword" href="#Boat">Boat</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MovementCapacity">MovementCapacity</a> = 5. <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a> = 4</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Steamship">Steamship</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a><a href="#ProductionSteamship">ProductionSteamship</a><a href="#SteamshipFactory">SteamshipFactory</a></div></div>: <a class="keyword" href="#Boat">Boat</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MovementCapacity">MovementCapacity</a> = 8. <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a> = 6</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Good">Good</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Board">Board</a><a href="#BrickCost">BrickCost</a><a href="#Clay">Clay</a><a href="#Coin">Coin</a><a href="#Fuel">Fuel</a><a href="#Gold">Gold</a><a href="#Iron">Iron</a><a href="#MovementPhase">MovementPhase</a><a href="#Paper">Paper</a><a href="#Produce">Produce</a><a href="#ProductionPhase">ProductionPhase</a><a href="#PurchaseBricks">PurchaseBricks</a><a href="#ScoreGoods">ScoreGoods</a><a href="#Stock">Stock</a><a href="#Stone">Stone</a><a href="#Store">Store</a><a href="#TreeTrunk">TreeTrunk</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreeTrunk">TreeTrunk</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionCoalBurner">ProductionCoalBurner</a><a href="#ProductionPaperMill">ProductionPaperMill</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#ProductionRaft">ProductionRaft</a><a href="#ProductionSawmill">ProductionSawmill</a><a href="#Woodcutter">Woodcutter</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Woodcutter">Woodcutter</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Stone">Stone</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildMine">BuildMine</a><a href="#BuildMint">BuildMint</a><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildRaftFactory">BuildRaftFactory</a><a href="#BuildRoad">BuildRoad</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a><a href="#BuildStockExchange">BuildStockExchange</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#BuildWall">BuildWall</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#ProductionStoneFactory">ProductionStoneFactory</a><a href="#Setup">Setup</a><a href="#StoneFactory">StoneFactory</a><a href="#StoneQuarry">StoneQuarry</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#StoneQuarry">StoneQuarries</a> or <a class="keyword" href="#StoneFactory">StoneFactories</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Clay">Clay</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClayPit">ClayPit</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#ProductionStoneFactory">ProductionStoneFactory</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#ClayPit">ClayPit</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Fuel">Fuel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildNewMineShaft">BuildNewMineShaft</a><a href="#CoalBurner">CoalBurner</a><a href="#OilRig">OilRig</a><a href="#ProductionCoalBurner">ProductionCoalBurner</a><a href="#ProductionMint">ProductionMint</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#ProductionSteamship">ProductionSteamship</a><a href="#ProductionTruck">ProductionTruck</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#OilRig">OilRigs</a> or <a class="keyword" href="#CoalBurner">CoalBurners</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gold">Gold</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddItemsToMine">AddItemsToMine</a><a href="#Enlargement">Enlargement</a><a href="#Mine">Mine</a><a href="#MineBag">MineBag</a><a href="#ProductionMint">ProductionMint</a><a href="#ScoreGoods">ScoreGoods</a><a href="#Specialization">Specialization</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Mine">Mines</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Iron">Iron</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddItemsToMine">AddItemsToMine</a><a href="#BuildNewMineShaft">BuildNewMineShaft</a><a href="#Enlargement">Enlargement</a><a href="#Mine">Mine</a><a href="#MineBag">MineBag</a><a href="#ProductionSteamship">ProductionSteamship</a><a href="#ProductionTruck">ProductionTruck</a><a href="#Specialization">Specialization</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Mine">Mines</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Board">Board</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildClayPit">BuildClayPit</a><a href="#BuildCoalBurner">BuildCoalBurner</a><a href="#BuildMine">BuildMine</a><a href="#BuildMint">BuildMint</a><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildRaftFactory">BuildRaftFactory</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a><a href="#BuildStoneFactory">BuildStoneFactory</a><a href="#BuildStoneQuarry">BuildStoneQuarry</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#BuildWoodcutter">BuildWoodcutter</a><a href="#DemolishWall">DemolishWall</a><a href="#ProductionCoalBurner">ProductionCoalBurner</a><a href="#ProductionPaperMill">ProductionPaperMill</a><a href="#ProductionRowboat">ProductionRowboat</a><a href="#ProductionSawmill">ProductionSawmill</a><a href="#ProductionWagon">ProductionWagon</a><a href="#Sawmill">Sawmill</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Sawmill">Sawmill</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Paper">Paper</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Papermill">Papermill</a><a href="#ProduceResearch">ProduceResearch</a><a href="#ProductionPaperMill">ProductionPaperMill</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionStockExchange">ProductionStockExchange</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Papermill">Papermill</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Coin">Coin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Mint">Mint</a><a href="#ProductionMint">ProductionMint</a><a href="#ProductionStockExchange">ProductionStockExchange</a><a href="#ScoreGoods">ScoreGoods</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#Mint">Mint</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Stock">Stock</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionStockExchange">ProductionStockExchange</a><a href="#ScoreGoods">ScoreGoods</a><a href="#StockExchange">StockExchange</a></div></div>: <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced by <a class="keyword" href="#StockExchange">StockExchange</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Building">Building</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Build">Build</a><a href="#BuildingPhase">BuildingPhase</a><a href="#CanOnlyBuildOnAShore">CanOnlyBuildOnAShore</a><a href="#EmptyPasture">EmptyPasture</a><a href="#PrimaryProducer">PrimaryProducer</a><a href="#ProductionPhase">ProductionPhase</a><a href="#SecondaryProducer">SecondaryProducer</a><a href="#Store">Store</a><a href="#TransporterProducer">TransporterProducer</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PrimaryProducer">PrimaryProducer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClayPit">ClayPit</a><a href="#Mine">Mine</a><a href="#OilRig">OilRig</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#StoneQuarry">StoneQuarry</a><a href="#Woodcutter">Woodcutter</a></div></div>: <a class="keyword" href="#Building">Building</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A square tile with an encircled <a class="keyword" href="#Produce">Produce</a> symbol</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Woodcutter">Woodcutter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWoodcutter">BuildWoodcutter</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#TreeTrunk">TreeTrunk</a></div></div>: <a class="keyword" href="#PrimaryProducer">PrimaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#TreeTrunk">TreeTrunks</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StoneQuarry">StoneQuarry</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStoneQuarry">BuildStoneQuarry</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#Stone">Stone</a></div></div>: <a class="keyword" href="#PrimaryProducer">PrimaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Stone">Stone</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClayPit">ClayPit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildClayPit">BuildClayPit</a><a href="#BuildingPhase">BuildingPhase</a><a href="#Clay">Clay</a><a href="#ProductionPrimary">ProductionPrimary</a></div></div>: <a class="keyword" href="#PrimaryProducer">PrimaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Clay">Clay</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="OilRig">OilRig</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildingPhase">BuildingPhase</a><a href="#Drilling">Drilling</a><a href="#Fuel">Fuel</a><a href="#MovementPhase">MovementPhase</a><a href="#ProductionPrimary">ProductionPrimary</a></div></div>: <a class="keyword" href="#PrimaryProducer">PrimaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Fuel">Fuel</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Mine">Mine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddItemsToMine">AddItemsToMine</a><a href="#BuildMine">BuildMine</a><a href="#BuildNewMineShaft">BuildNewMineShaft</a><a href="#BuildingPhase">BuildingPhase</a><a href="#DetermineMineProduction">DetermineMineProduction</a><a href="#Gold">Gold</a><a href="#Iron">Iron</a><a href="#MineBag">MineBag</a></div></div>: <a class="keyword" href="#PrimaryProducer">PrimaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Gold">Gold</a> and <a class="keyword" href="#Iron">Iron</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MineBag">MineBag</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DetermineMineProduction">DetermineMineProduction</a><a href="#Enlargement">Enlargement</a><a href="#MineNumber">MineNumber</a><a href="#NewShafts">NewShafts</a><a href="#Specialization">Specialization</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Numbered bag that contains the <a class="keyword" href="#Gold">Gold</a> and <a class="keyword" href="#Iron">Iron</a> in this <a class="keyword" href="#Mine">Mine</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MineNumber">MineNumber</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DetermineMineProduction">DetermineMineProduction</a></div></div>: Attribute of <a class="keyword" href="#MineBag">MineBag</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SecondaryProducer">SecondaryProducer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CoalBurner">CoalBurner</a><a href="#Mint">Mint</a><a href="#Papermill">Papermill</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionSecondary">ProductionSecondary</a><a href="#Sawmill">Sawmill</a><a href="#StockExchange">StockExchange</a><a href="#StoneFactory">StoneFactory</a></div></div>: <a class="keyword" href="#Building">Building</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A square tile with a <a class="keyword" href="#Produce">Produce</a> symbol</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Sawmill">Sawmill</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Board">Board</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Board">Boards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StoneFactory">StoneFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStoneFactory">BuildStoneFactory</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionSecondary">ProductionSecondary</a><a href="#Stone">Stone</a></div></div>: <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Stone">Stone</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CoalBurner">CoalBurner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCoalBurner">BuildCoalBurner</a><a href="#BuildingPhase">BuildingPhase</a><a href="#Fuel">Fuel</a><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Fuel">Fuel</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Papermill">Papermill</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildingPhase">BuildingPhase</a><a href="#Paper">Paper</a><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Produced <a class="keyword" href="#Paper">Paper</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Mint">Mint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildMint">BuildMint</a><a href="#BuildingPhase">BuildingPhase</a><a href="#Coin">Coin</a><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Coin">Coins</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StockExchange">StockExchange</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStockExchange">BuildStockExchange</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionSecondary">ProductionSecondary</a><a href="#Stock">Stock</a></div></div>: <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Stock">Stock</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TransporterProducer">TransporterProducer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#RaftFactory">RaftFactory</a><a href="#RowboatFactory">RowboatFactory</a><a href="#SteamshipFactory">SteamshipFactory</a><a href="#TruckFactory">TruckFactory</a><a href="#WagonFactory">WagonFactory</a></div></div>: <a class="keyword" href="#Building">Building</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WagonFactory">WagonFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#UpgradeToTruckFactory">UpgradeToTruckFactory</a></div></div>: <a class="keyword" href="#TransporterProducer">TransporterProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Wagon">Wagons</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TruckFactory">TruckFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#Trucking">Trucking</a><a href="#UpgradeToTruckFactory">UpgradeToTruckFactory</a></div></div>: <a class="keyword" href="#TransporterProducer">TransporterProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Truck">Trucks</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RaftFactory">RaftFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRaftFactory">BuildRaftFactory</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#UpgradeToRowboatFactory">UpgradeToRowboatFactory</a><a href="#UpgradeToSteamshipFactory">UpgradeToSteamshipFactory</a></div></div>: <a class="keyword" href="#TransporterProducer">TransporterProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Raft">Rafts</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RowboatFactory">RowboatFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#Rowing">Rowing</a><a href="#UpgradeToRowboatFactory">UpgradeToRowboatFactory</a><a href="#UpgradeToSteamshipFactory">UpgradeToSteamshipFactory</a></div></div>: <a class="keyword" href="#TransporterProducer">TransporterProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Rowboat">Rowboats</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SteamshipFactory">SteamshipFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a><a href="#BuildingPhase">BuildingPhase</a><a href="#ProductionTransporter">ProductionTransporter</a><a href="#Shipping">Shipping</a><a href="#UpgradeToSteamshipFactory">UpgradeToSteamshipFactory</a></div></div>: <a class="keyword" href="#TransporterProducer">TransporterProducer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Produce">Produces</a> <a class="keyword" href="#Steamship">Steamships</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HomeMarker">HomeMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Identifies the <abbr title="Imported from common/Game">Player</abbr>'s starting <a class="keyword" href="#HomeLocation">HomeLocation</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ResearchTable">ResearchTable</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a><a href="#InitializeResearchTable">InitializeResearchTable</a><a href="#Research">Research</a><a href="#ResearchToken">ResearchToken</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A card that identifies the <a class="keyword" href="#Research">Research</a> that you have.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Research">Research</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddItemsToMine">AddItemsToMine</a><a href="#AllocateResearch">AllocateResearch</a><a href="#BuildNewMineShaft">BuildNewMineShaft</a><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#Drilling">Drilling</a><a href="#Enlargement">Enlargement</a><a href="#InitializeResearchTable">InitializeResearchTable</a><a href="#NewShafts">NewShafts</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ResearchTable">ResearchTable</a><a href="#ResearchToken">ResearchToken</a><a href="#Rowing">Rowing</a><a href="#Shipping">Shipping</a><a href="#Specialization">Specialization</a><a href="#Trucking">Trucking</a></div></div>: Part of <a class="keyword" href="#ResearchTable">ResearchTable</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A subject that you can research.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Rowing">Rowing</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to build <a class="keyword" href="#RowboatFactory">RowboatFactories</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Trucking">Trucking</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a><a href="#BuildTruckFactory">BuildTruckFactory</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to build <a class="keyword" href="#TruckFactory">TruckFactories</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Shipping">Shipping</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to build <a class="keyword" href="#SteamshipFactory">SteamshipFactories</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Drilling">Drilling</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildOilRig">BuildOilRig</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to build <a class="keyword" href="#OilRig">OilRigs</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Specialization">Specialization</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddItemsToMine">AddItemsToMine</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to fill a <a class="keyword" href="#MineBag">MineBag</a> with either <a class="keyword" href="#Gold">Gold</a> or <a class="keyword" href="#Iron">Iron</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Enlargement">Enlargement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddItemsToMine">AddItemsToMine</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to fill a <a class="keyword" href="#MineBag">MineBag</a> with 5 <a class="keyword" href="#Gold">Gold</a> and 5 <a class="keyword" href="#Iron">Iron</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NewShafts">NewShafts</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildNewMineShaft">BuildNewMineShaft</a></div></div>: <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Allows you to replenish a <a class="keyword" href="#MineBag">MineBag</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">LightBulb: Research - Reserved for future expansions</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ResearchToken">ResearchToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a><a href="#InitializeResearchTable">InitializeResearchTable</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Used to cover the <a class="keyword" href="#Research">Research</a> subjects on the <a class="keyword" href="#ResearchTable">ResearchTable</a> that are not available</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Road">Road</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildRoad">BuildRoad</a><a href="#BuildingPhase">BuildingPhase</a><a href="#MoveDonkey">MoveDonkey</a><a href="#MoveLandTransporter">MoveLandTransporter</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Bridge">Bridge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildingPhase">BuildingPhase</a><a href="#NeedsBridgeToCrossRiver">NeedsBridgeToCrossRiver</a><a href="#ProductionPhase">ProductionPhase</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Wall">Wall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRoad">BuildRoad</a><a href="#BuildWall">BuildWall</a><a href="#BuildingPhase">BuildingPhase</a><a href="#DemolishWall">DemolishWall</a><a href="#MaterialMustComeFromSameSideOfWall">MaterialMustComeFromSameSideOfWall</a><a href="#NeutralWall">NeutralWall</a><a href="#PlayerWall">PlayerWall</a><a href="#Setup">Setup</a><a href="#ShoreCannotBeBlocked">ShoreCannotBeBlocked</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerWall">PlayerWall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWall">BuildWall</a><a href="#DemolishWall">DemolishWall</a><a href="#MayNotMoveThroughAnotherPlayersWall">MayNotMoveThroughAnotherPlayersWall</a><a href="#MoveBoat">MoveBoat</a></div></div>: <a class="keyword" href="#Wall">Wall</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NeutralWall">NeutralWall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWall">BuildWall</a><a href="#DemolishWall">DemolishWall</a></div></div>: <a class="keyword" href="#Wall">Wall</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WonderBoard">WonderBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BrickCost">BrickCost</a><a href="#Row">Row</a><a href="#ScoreWonderBricks">ScoreWonderBricks</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Row">Row</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BrickSpace">BrickSpace</a><a href="#CostIncreaseSpace">CostIncreaseSpace</a><a href="#DistributeTenPointsToPlayers">DistributeTenPointsToPlayers</a><a href="#IrrigationSpace">IrrigationSpace</a><a href="#PlaceBrick">PlaceBrick</a><a href="#ScoreWonderBricks">ScoreWonderBricks</a></div></div>: Part of <a class="keyword" href="#WonderBoard">WonderBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Total of 15 <a class="keyword" href="#Row">Rows</a> in the <a class="keyword" href="#WonderBoard">WonderBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BrickSpace">BrickSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CostIncreaseSpace">CostIncreaseSpace</a><a href="#GameEndSpace">GameEndSpace</a><a href="#IrrigationSpace">IrrigationSpace</a><a href="#PlaceBrick">PlaceBrick</a></div></div>: Part of <a class="keyword" href="#Row">Row</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each <a class="keyword" href="#Row">Row</a> has between 4 to 7 <a class="keyword" href="#BrickSpace">BrickSpaces</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CostIncreaseSpace">CostIncreaseSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceBrick">PlaceBrick</a></div></div>: <a class="keyword" href="#BrickSpace">BrickSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>First <a class="keyword" href="#BrickSpace">BrickSpace</a> of the 5th <a class="keyword" href="#Row">Row</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="IrrigationSpace">IrrigationSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceBrick">PlaceBrick</a></div></div>: <a class="keyword" href="#BrickSpace">BrickSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>First <a class="keyword" href="#BrickSpace">BrickSpace</a> of the 10th <a class="keyword" href="#Row">Row</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GameEndSpace">GameEndSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceBrick">PlaceBrick</a><a href="#PlayGame">PlayGame</a></div></div>: <a class="keyword" href="#BrickSpace">BrickSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Identifies the game end based on the number of <abbr title="Imported from common/Game">Players</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WonderBrick">WonderBrick</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NeutralBrick">NeutralBrick</a><a href="#PlaceBrick">PlaceBrick</a><a href="#PlayGame">PlayGame</a><a href="#PlayerBrick">PlayerBrick</a></div></div>: <abbr title="Imported from common/BoardGame">Tile</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerBrick">PlayerBrick</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BrickCost">BrickCost</a><a href="#DistributeTenPointsToPlayers">DistributeTenPointsToPlayers</a><a href="#Pool">Pool</a><a href="#PurchaseBricks">PurchaseBricks</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#WonderBrick">WonderBrick</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NeutralBrick">NeutralBrick</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructWonderPhase">ConstructWonderPhase</a></div></div>: <a class="keyword" href="#WonderBrick">WonderBrick</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BrickCost">BrickCost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceBrick">PlaceBrick</a><a href="#PurchaseBricks">PurchaseBricks</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Cost (in <a class="keyword" href="#Good">Goods</a>) to add a <a class="keyword" href="#PlayerBrick">PlayerBrick</a> to the <a class="keyword" href="#WonderBoard">WonderBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PhaseChart">PhaseChart</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a><a href="#BuildingPhaseSpace">BuildingPhaseSpace</a><a href="#ConstructWonderPhase">ConstructWonderPhase</a><a href="#MovementPhase">MovementPhase</a><a href="#MovementPhaseSpace">MovementPhaseSpace</a><a href="#ProductionPhase">ProductionPhase</a><a href="#ProductionPhaseSpace">ProductionPhaseSpace</a><a href="#WonderPhaseSpace">WonderPhaseSpace</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionPhaseSpace">ProductionPhaseSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Part of <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovementPhaseSpace">MovementPhaseSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a></div></div>: Part of <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildingPhaseSpace">BuildingPhaseSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Part of <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WonderPhaseSpace">WonderPhaseSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructWonderPhase">ConstructWonderPhase</a></div></div>: Part of <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PhaseToken">PhaseToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a><a href="#ConstructWonderPhase">ConstructWonderPhase</a><a href="#MovementPhase">MovementPhase</a><a href="#ProductionPhase">ProductionPhase</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TempleBoard">TempleBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChoosePlayerSequence">ChoosePlayerSequence</a><a href="#ReorderTemple">ReorderTemple</a><a href="#Temple">Temple</a><a href="#TempleSpace">TempleSpace</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Temple">Temple</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChoosePlayerSequence">ChoosePlayerSequence</a><a href="#DetermineWinner">DetermineWinner</a><a href="#InitializeOrderOfPlay">InitializeOrderOfPlay</a><a href="#PlayerTempleToken">PlayerTempleToken</a><a href="#ReorderTemple">ReorderTemple</a></div></div>: Part of <a class="keyword" href="#TempleBoard">TempleBoard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TempleSpace">TempleSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitializeOrderOfPlay">InitializeOrderOfPlay</a></div></div>: Part of <a class="keyword" href="#TempleBoard">TempleBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTempleToken">PlayerTempleToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChoosePlayerSequence">ChoosePlayerSequence</a><a href="#InitializeOrderOfPlay">InitializeOrderOfPlay</a><a href="#ReorderTemple">ReorderTemple</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Indicates the <abbr title="Imported from common/Game">Player</abbr>'s position relative to the <a class="keyword" href="#Temple">Temple</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SequenceChart">SequenceChart</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChoosePlayerSequence">ChoosePlayerSequence</a><a href="#InitializeOrderOfPlay">InitializeOrderOfPlay</a><a href="#PlayerConflict">PlayerConflict</a><a href="#TurnOrderSpace">TurnOrderSpace</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TurnOrderSpace">TurnOrderSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChoosePlayerSequence">ChoosePlayerSequence</a></div></div>: Part of <a class="keyword" href="#SequenceChart">SequenceChart</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Numbered 1 through 6</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerSequenceToken">PlayerSequenceToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChoosePlayerSequence">ChoosePlayerSequence</a><a href="#InitializeOrderOfPlay">InitializeOrderOfPlay</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Indicates the <abbr title="Imported from common/Game">Player</abbr>'s position in the turn order sequence</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Store">Store</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Build">Build</a><a href="#ConsumeMaterial">ConsumeMaterial</a><a href="#Produce">Produce</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place where all unused <a class="keyword" href="#Good">Goods</a>, <a class="keyword" href="#Building">Buildings</a> and other components are stored</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pool">Pool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConsumeMaterial">ConsumeMaterial</a><a href="#ProduceTransporter">ProduceTransporter</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <abbr title="Imported from common/Game">Player</abbr>'s collection of <a class="keyword" href="#Livestock">Livestock</a>, <a class="keyword" href="#Transporter">Transporters</a> and <a class="keyword" href="#PlayerBrick">PlayerBricks</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CoverSheet">CoverSheet</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildRoad">BuildRoad</a><a href="#NonPermanentMarker">NonPermanentMarker</a><a href="#SetupMap">SetupMap</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Plastic cover sheet placed over the <a class="keyword" href="#Map">Map</a> <a class="keyword" href="#HexTile">HexTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NonPermanentMarker">NonPermanentMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildRoad">BuildRoad</a><a href="#SetupMap">SetupMap</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For writing on the <a class="keyword" href="#CoverSheet">CoverSheet</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupMap">SetupMap</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#BrickCost">BrickCost</a> to 1</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#Transporter">Transporters</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#Wall">Walls</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#PlayerBrick">PlayerBricks</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#HomeMarker">HomeMarker</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#ResearchTable">ResearchTable</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <abbr title="Imported from common/BoardGame">PlayerAid</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#InitializeResearchTable">InitializeResearchTable</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#InitializeOrderOfPlay">InitializeOrderOfPlay</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, ordered by <a class="keyword" href="#PlayerSequenceToken">PlayerSequenceToken</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Choose a <a class="keyword" href="#LandTile">LandTile</a> for your <a class="keyword" href="#HomeLocation">HomeLocation</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">&roplus; It must be at least 1 empty <a class="keyword" href="#HexTile">HexTile</a> away from the home location of any <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Take 3 <a class="keyword" href="#Donkey">Donkeys</a> from your <a class="keyword" href="#Pool">Pool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Take 2 <a class="keyword" href="#Goose">Geese</a>, 1 <a class="keyword" href="#Stone">Stone</a> and 5 <a class="keyword" href="#Board">Boards</a> from the <a class="keyword" href="#Store">Store</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#HomeMarker">HomeMarker</a> and all of your items on your <a class="keyword" href="#HomeLocation">HomeLocation</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupMap">SetupMap</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Arrange the <a class="keyword" href="#HexTile">HexTiles</a> basec on one of the maps in the "Scenario Book" that matches the <abbr title="Imported from common/Game">Player</abbr> count</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#CoverSheet">CoverSheet</a> flat over the <a class="keyword" href="#HexTile">HexTiles</a> of the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#NonPermanentMarker">NonPermanentMarker</a> next to the <a class="keyword" href="#Map">Map</a> where all <abbr title="Imported from common/Game">Players</abbr> can reach</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Rules for having the players create new maps are not included here</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InitializeResearchTable">InitializeResearchTable</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Cover each <a class="keyword" href="#Research">Research</a> space in the <a class="keyword" href="#ResearchTable">ResearchTable</a> with a <a class="keyword" href="#ResearchToken">ResearchToken</a> to indicate that you have not yet researched it</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InitializeOrderOfPlay">InitializeOrderOfPlay</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place all of the <a class="keyword" href="#PlayerTempleToken">PlayerTempleTokens</a> in a cup</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#PlayerTempleToken">PlayerTempleToken</a> in the cup:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> a random <a class="keyword" href="#PlayerTempleToken">PlayerTempleToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place it on the empty <a class="keyword" href="#TempleSpace">TempleSpace</a> that is closest to the <a class="keyword" href="#Temple">Temple</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Duplicate the order (left to right) of the <a class="keyword" href="#PlayerTempleToken">PlayerTempleTokens</a> to arrange the <a class="keyword" href="#PlayerSequenceToken">PlayerSequenceTokens</a> on the <a class="keyword" href="#SequenceChart">SequenceChart</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">When finished, the Player with the PlayerTempleToken closest to the Temple should have have the highest numbered TurnOrderSpace</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until a <a class="keyword" href="#WonderBrick">WonderBrick</a> is placed on the <a class="keyword" href="#GameEndSpace">GameEndSpace</a> that corresponds to the number of <abbr title="Imported from common/Game">Players</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ProductionPhase">ProductionPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#MovementPhase">MovementPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BuildingPhase">BuildingPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConstructWonderPhase">ConstructWonderPhase</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EstablishOrderOfPlay">EstablishOrderOfPlay</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a><a href="#ConstructWonderPhase">ConstructWonderPhase</a><a href="#MovementPhase">MovementPhase</a><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If any <abbr title="Imported from common/Game">Player</abbr> states that they would like to re-establish <abbr title="Imported from common/Game">Player</abbr> order:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ReorderTemple">ReorderTemple</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ChoosePlayerSequence">ChoosePlayerSequence</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ReorderTemple">ReorderTemple</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EstablishOrderOfPlay">EstablishOrderOfPlay</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>last_temple_token = the <a class="keyword" href="#PlayerTempleToken">PlayerTempleToken</a> that is currently furthest from the <a class="keyword" href="#Temple">Temple</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, based on the order of <a class="keyword" href="#PlayerTempleToken">PlayerTempleTokens</a> in the <a class="keyword" href="#TempleBoard">TempleBoard</a>, from closest to the <a class="keyword" href="#Temple">Temple</a> to the furthest:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If the <abbr title="Imported from common/Game">Player</abbr> wants to change position:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Move <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#PlayerTempleToken">PlayerTempleToken</a> away from the <a class="keyword" href="#Temple">Temple</a>, immediately behind the last_temple_token</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ChoosePlayerSequence">ChoosePlayerSequence</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EstablishOrderOfPlay">EstablishOrderOfPlay</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove all <a class="keyword" href="#PlayerSequenceToken">PlayerSequenceTokens</a> from the <a class="keyword" href="#SequenceChart">SequenceChart</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, based on the order of <a class="keyword" href="#PlayerTempleToken">PlayerTempleTokens</a> in the <a class="keyword" href="#TempleBoard">TempleBoard</a>, from furthest from the <a class="keyword" href="#Temple">Temple</a> to the closest:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Move your <a class="keyword" href="#PlayerSequenceToken">PlayerSequenceToken</a> onto any available <a class="keyword" href="#TurnOrderSpace">TurnOrderSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#TurnOrderSpace">TurnOrderSpaces</a> whose number is greater than the number of <abbr title="Imported from common/Game">Players</abbr> are not available</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SimultaneousPlay">SimultaneousPlay</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a><a href="#MovementPhase">MovementPhase</a><a href="#ProductionPhase">ProductionPhase</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>All <abbr title="Imported from common/Game">Players</abbr> take their turn simultaneously</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#PlayerConflict">PlayerConflict</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerConflict">PlayerConflict</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Produce">Produce</a><a href="#ProduceTransporter">ProduceTransporter</a><a href="#SimultaneousPlay">SimultaneousPlay</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a conflict between <abbr title="Imported from common/Game">Players</abbr> about the order in which they can perform actions:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Players</abbr> perform actions in the order determined by the <a class="keyword" href="#SequenceChart">SequenceChart</a>, from lowest to highest</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=4>Production Phase</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionPhase">ProductionPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#PhaseToken">PhaseToken</a> on the <a class="keyword" href="#ProductionPhaseSpace">ProductionPhaseSpace</a> of the <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DetermineMineProduction">DetermineMineProduction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EstablishOrderOfPlay">EstablishOrderOfPlay</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ReproduceLivestock">ReproduceLivestock</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Building">Building</a> based on type:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PrimaryProducer">PrimaryProducer</a>: <a class="keyword" href="#ProductionPrimary">ProductionPrimary</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#SecondaryProducer">SecondaryProducer</a>: <a class="keyword" href="#ProductionSecondary">ProductionSecondary</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TransporterProducer">TransporterProducer</a>: <a class="keyword" href="#ProductionTransporter">ProductionTransporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>At any time during this phase, you may <a class="keyword" href="#ProduceResearch">ProduceResearch</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If, at the end of the <a class="keyword" href="#ProductionPhase">ProductionPhase</a>, there are 2 <a class="keyword" href="#Goose">Geese</a> and 1 <a class="keyword" href="#Paper">Paper</a> on a <a class="keyword" href="#HexTile">HexTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The materials are consumed but no <a class="keyword" href="#Research">Research</a> is produced</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Transporter">Transporters</a> on the same <a class="keyword" href="#HexTile">HexTile</a> can exchange <a class="keyword" href="#Good">Goods</a> freely during the <a class="keyword" href="#ProductionPhase">ProductionPhase</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If 2 <a class="keyword" href="#Transporter">Transporters</a> want to exchange <a class="keyword" href="#Good">Goods</a> but are separated by a <a class="keyword" href="#River">River</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>There must be a <a class="keyword" href="#Bridge">Bridge</a> or a <a class="keyword" href="#Boat">Boat</a> willing to help transport the <a class="keyword" href="#Good">Goods</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#SimultaneousPlay">SimultaneousPlay</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProduceResearch">ProduceResearch</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have 2 <a class="keyword" href="#Goose">Geese</a> and 1 <a class="keyword" href="#Paper">Paper</a> on the same <a class="keyword" href="#HexTile">HexTile</a> as one of your <a class="keyword" href="#Transporter">Transporters</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterials</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AllocateResearch">AllocateResearch</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AllocateResearch">AllocateResearch</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProduceResearch">ProduceResearch</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Immediately remove a <a class="keyword" href="#ResearchToken">ResearchToken</a> from one of the <a class="keyword" href="#Research">Research</a> spaces on the <a class="keyword" href="#ResearchTable">ResearchTable</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#Research">Research</a> you just uncovered:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Rowing">Rowing</a>: <a class="keyword" href="#UpgradeToRowboatFactory">UpgradeToRowboatFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Trucking">Trucking</a>: <a class="keyword" href="#UpgradeToTruckFactory">UpgradeToTruckFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Shipping">Shipping</a>: <a class="keyword" href="#UpgradeToSteamshipFactory">UpgradeToSteamshipFactory</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeToRowboatFactory">UpgradeToRowboatFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may upgrade any <a class="keyword" href="#RaftFactory">RaftFactory</a> where you have a <a class="keyword" href="#Transporter">Transporter</a> to a <a class="keyword" href="#RowboatFactory">RowboatFactory</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeToTruckFactory">UpgradeToTruckFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may upgrade any <a class="keyword" href="#WagonFactory">WagonFactory</a> where you have a <a class="keyword" href="#Transporter">Transporter</a> to a <a class="keyword" href="#TruckFactory">TruckFactory</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeToSteamshipFactory">UpgradeToSteamshipFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllocateResearch">AllocateResearch</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may upgrade any <a class="keyword" href="#RaftFactory">RaftFactory</a> or <a class="keyword" href="#RowboatFactory">RowboatFactory</a> where you have a <a class="keyword" href="#Transporter">Transporter</a> to a <a class="keyword" href="#SteamshipFactory">SteamshipFactory</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Produce">Produce&lt;Good&gt;</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClayPit">ClayPit</a><a href="#CoalBurner">CoalBurner</a><a href="#Mine">Mine</a><a href="#Mint">Mint</a><a href="#OilRig">OilRig</a><a href="#PrimaryProducer">PrimaryProducer</a><a href="#ProductionCoalBurner">ProductionCoalBurner</a><a href="#ProductionMint">ProductionMint</a><a href="#ProductionPaperMill">ProductionPaperMill</a><a href="#ProductionPrimary">ProductionPrimary</a><a href="#ProductionSawmill">ProductionSawmill</a><a href="#ProductionStockExchange">ProductionStockExchange</a><a href="#ProductionStoneFactory">ProductionStoneFactory</a><a href="#RaftFactory">RaftFactory</a><a href="#RowboatFactory">RowboatFactory</a><a href="#Sawmill">Sawmill</a><a href="#SecondaryProducer">SecondaryProducer</a><a href="#SteamshipFactory">SteamshipFactory</a><a href="#StockExchange">StockExchange</a><a href="#StoneFactory">StoneFactory</a><a href="#StoneQuarry">StoneQuarry</a><a href="#TruckFactory">TruckFactory</a><a href="#WagonFactory">WagonFactory</a><a href="#Woodcutter">Woodcutter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the source materials came from a <a class="keyword" href="#Transporter">Transporter</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#Good">Good</a> from the <a class="keyword" href="#Store">Store</a> on that <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Exit</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Transporter">Transporter</a> on the <a class="keyword" href="#HexTile">HexTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#Good">Good</a> on a <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#Good">Good</a> on the <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If the <a class="keyword" href="#Transporter">Transporter</a> cannot hold all the produced <a class="keyword" href="#Good">Goods</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place remaining on the <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#PlayerConflict">PlayerConflict</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Examples of player conflict:</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Multiple Transporters waiting to receive Goods from a PrimaryProducer</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Multiple Transporters with Goods that can be used as source materials</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineMineProduction">DetermineMineProduction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Mine">Mine</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> a counter at random from the <a class="keyword" href="#MineBag">MineBag</a> with the matching <a class="keyword" href="#MineNumber">MineNumber</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; At any time you may look at the contents of the <a class="keyword" href="#MineBag">MineBag</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Mines are the only Producers that have random output, so they are done before turn order is established</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ReproduceLivestock">ReproduceLivestock</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If 2 of the same <a class="keyword" href="#Livestock">Livestock</a> (<a class="keyword" href="#Goose">Goose</a> or <a class="keyword" href="#Donkey">Donkey</a>) are in an <a class="keyword" href="#EmptyPasture">EmptyPasture</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Create a new <a class="keyword" href="#Livestock">Livestock</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Must be exactly 2 of the same kind</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Donkey">Donkeys</a> don't reproduce if their owning <abbr title="Imported from common/Game">Player</abbr> doesn't want them to</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; The 2 <a class="keyword" href="#Donkey">Donkeys</a> must be owned by the same <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; The 2 <a class="keyword" href="#Livestock">Livestock</a> must be on the same side of any <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionPrimary">ProductionPrimary</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#PrimaryProducer">PrimaryProducer</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Woodcutter">Woodcutter</a>: <a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#TreeTrunk">TreeTrunk</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#StoneQuarry">StoneQuarry</a>: <a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Stone">Stone</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ClayPit">ClayPit</a>: <a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Clay">Clay</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#OilRig">OilRig</a>: <a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Fuel">Fuel</a>&gt;</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: Mines are handled at the beginning of the ProductionPhase</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionSecondary">ProductionSecondary</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#SecondaryProducer">SecondaryProducer</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Sawmill">Sawmill</a>: <a class="keyword" href="#ProductionSawmill">ProductionSawmill</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#StoneFactory">StoneFactory</a>: <a class="keyword" href="#ProductionStoneFactory">ProductionStoneFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CoalBurner">CoalBurner</a>: <a class="keyword" href="#ProductionCoalBurner">ProductionCoalBurner</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Papermill">Papermill</a>: <a class="keyword" href="#ProductionPaperMill">ProductionPaperMill</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Mint">Mint</a>: <a class="keyword" href="#ProductionMint">ProductionMint</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#StockExchange">StockExchange</a>: <a class="keyword" href="#ProductionStockExchange">ProductionStockExchange</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; After all <abbr title="Imported from common/Game">Players</abbr> have produced whatever materials they want:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Leftover material on the <a class="keyword" href="#HexTile">HexTile</a> will be processed, up to the max for the producer</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ConsumeMaterial">ConsumeMaterial</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildBridge">BuildBridge</a><a href="#BuildClayPit">BuildClayPit</a><a href="#BuildCoalBurner">BuildCoalBurner</a><a href="#BuildMine">BuildMine</a><a href="#BuildMint">BuildMint</a><a href="#BuildNewMineShaft">BuildNewMineShaft</a><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildRaftFactory">BuildRaftFactory</a><a href="#BuildRoad">BuildRoad</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a><a href="#BuildStockExchange">BuildStockExchange</a><a href="#BuildStoneFactory">BuildStoneFactory</a><a href="#BuildStoneQuarry">BuildStoneQuarry</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#BuildWall">BuildWall</a><a href="#BuildWoodcutter">BuildWoodcutter</a><a href="#DemolishWall">DemolishWall</a><a href="#ProduceResearch">ProduceResearch</a><a href="#ProductionCoalBurner">ProductionCoalBurner</a><a href="#ProductionMint">ProductionMint</a><a href="#ProductionPaperMill">ProductionPaperMill</a><a href="#ProductionRaft">ProductionRaft</a><a href="#ProductionRowboat">ProductionRowboat</a><a href="#ProductionSawmill">ProductionSawmill</a><a href="#ProductionSteamship">ProductionSteamship</a><a href="#ProductionStockExchange">ProductionStockExchange</a><a href="#ProductionStoneFactory">ProductionStoneFactory</a><a href="#ProductionTruck">ProductionTruck</a><a href="#ProductionWagon">ProductionWagon</a><a href="#PurchaseBricks">PurchaseBricks</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Return the materials used in the production back to the <a class="keyword" href="#Store">Store</a> or your <a class="keyword" href="#Pool">Pool</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a><a href="#ProduceTransporter">ProduceTransporter</a><a href="#ProductionCoalBurner">ProductionCoalBurner</a><a href="#ProductionMint">ProductionMint</a><a href="#ProductionPaperMill">ProductionPaperMill</a><a href="#ProductionSawmill">ProductionSawmill</a><a href="#ProductionStockExchange">ProductionStockExchange</a><a href="#ProductionStoneFactory">ProductionStoneFactory</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The material must come from the <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#Transporter">Transporter</a> or from the <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionSawmill">ProductionSawmill</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#TreeTrunk">TreeTrunk</a> counter, up to max 3 times:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Board">Board</a>&gt; x2</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionStoneFactory">ProductionStoneFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Clay">Clay</a> counter, up to max 3 times:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Stone">Stone</a>&gt; x2</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionCoalBurner">ProductionCoalBurner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each pair of <a class="keyword" href="#TreeTrunk">TreeTrunk</a> or <a class="keyword" href="#Board">Board</a> counters, up to max 6 times:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Fuel">Fuel</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When processing extra material, <a class="keyword" href="#Board">Boards</a> will be consumed before <a class="keyword" href="#TreeTrunk">TreeTrunks</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionPaperMill">ProductionPaperMill</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a pair of <a class="keyword" href="#TreeTrunk">TreeTrunk</a> or <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Paper">Paper</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When processing extra material, <a class="keyword" href="#Board">Boards</a> will be consumed before <a class="keyword" href="#TreeTrunk">TreeTrunks</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionMint">ProductionMint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a set of (<a class="keyword" href="#Fuel">Fuel</a>, <a class="keyword" href="#Gold">Gold</a>, <a class="keyword" href="#Gold">Gold</a>) counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Coin">Coin</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionStockExchange">ProductionStockExchange</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionSecondary">ProductionSecondary</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a set of (<a class="keyword" href="#Paper">Paper</a>, <a class="keyword" href="#Coin">Coin</a>, <a class="keyword" href="#Coin">Coin</a>) counters up to max 6 times:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Produce">Produce</a>&lt;<a class="keyword" href="#Stock">Stock</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionTransporter">ProductionTransporter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionPhase">ProductionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#TransporterProducer">TransporterProducer</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#WagonFactory">WagonFactory</a>: <a class="keyword" href="#ProductionWagon">ProductionWagon</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TruckFactory">TruckFactory</a>: <a class="keyword" href="#ProductionTruck">ProductionTruck</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#RaftFactory">RaftFactory</a>: <a class="keyword" href="#ProductionRaft">ProductionRaft</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#RowboatFactory">RowboatFactory</a>: <a class="keyword" href="#ProductionRowboat">ProductionRowboat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#SteamshipFactory">SteamshipFactory</a>: <a class="keyword" href="#ProductionSteamship">ProductionSteamship</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; After all <abbr title="Imported from common/Game">Players</abbr> have produced whatever <a class="keyword" href="#Transporter">Transporters</a> they want:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Leftover material on the <a class="keyword" href="#HexTile">HexTile</a> will be consumed (up to the max for the producer) but will not create a <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#LimitedNumberOfTransporters">LimitedNumberOfTransporters</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LimitedNumberOfTransporters">LimitedNumberOfTransporters</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionTransporter">ProductionTransporter</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <abbr title="Imported from common/Game">Player</abbr> may have no more than 8 <a class="keyword" href="#Transporter">Transporters</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProduceTransporter">ProduceTransporter&lt;Transporter&gt;</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionRaft">ProductionRaft</a><a href="#ProductionRowboat">ProductionRowboat</a><a href="#ProductionSteamship">ProductionSteamship</a><a href="#ProductionTruck">ProductionTruck</a><a href="#ProductionWagon">ProductionWagon</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place a <a class="keyword" href="#Transporter">Transporter</a> token from the <a class="keyword" href="#Pool">Pool</a> onto the <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <a class="keyword" href="#Transporter">Transporter</a> comes from the <a class="keyword" href="#Pool">Pool</a> of the <abbr title="Imported from common/Game">Player</abbr> who provided the materials</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> must immediately be placed in the water: either on river or neighboring <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#PlayerConflict">PlayerConflict</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionWagon">ProductionWagon</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionTransporter">ProductionTransporter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a set of (<a class="keyword" href="#Donkey">Donkey</a>, <a class="keyword" href="#Board">Board</a>, <a class="keyword" href="#Board">Board</a>) counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ProduceTransporter">ProduceTransporter</a>&lt;<a class="keyword" href="#Wagon">Wagon</a>&gt;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionTruck">ProductionTruck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionTransporter">ProductionTransporter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a set of (<a class="keyword" href="#Fuel">Fuel</a>, <a class="keyword" href="#Iron">Iron</a>) counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ProduceTransporter">ProduceTransporter</a>&lt;<a class="keyword" href="#Truck">Truck</a>&gt;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionRaft">ProductionRaft</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionTransporter">ProductionTransporter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a pair of <a class="keyword" href="#TreeTrunk">TreeTrunk</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ProduceTransporter">ProduceTransporter</a>&lt;<a class="keyword" href="#Raft">Raft</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#ShoreCannotBeBlocked">ShoreCannotBeBlocked</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionRowboat">ProductionRowboat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionTransporter">ProductionTransporter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a set of 5 <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ProduceTransporter">ProduceTransporter</a>&lt;<a class="keyword" href="#Rowboat">Rowboat</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#ShoreCannotBeBlocked">ShoreCannotBeBlocked</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ProductionSteamship">ProductionSteamship</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionTransporter">ProductionTransporter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a set of (<a class="keyword" href="#Fuel">Fuel</a>, <a class="keyword" href="#Fuel">Fuel</a>, <a class="keyword" href="#Iron">Iron</a>) counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ProduceTransporter">ProduceTransporter</a>&lt;<a class="keyword" href="#Steamship">Steamship</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#ShoreCannotBeBlocked">ShoreCannotBeBlocked</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ShoreCannotBeBlocked">ShoreCannotBeBlocked</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ProductionRaft">ProductionRaft</a><a href="#ProductionRowboat">ProductionRowboat</a><a href="#ProductionSteamship">ProductionSteamship</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Access to the <a class="keyword" href="#Shore">Shore</a> must not be blocked by a <a class="keyword" href="#Wall">Wall</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=4>Movement Phase</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovementPhase">MovementPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#TransportersCarryingTransporters">TransportersCarryingTransporters</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#PhaseToken">PhaseToken</a> on the <a class="keyword" href="#MovementPhaseSpace">MovementPhaseSpace</a> of the <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EstablishOrderOfPlay">EstablishOrderOfPlay</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each <a class="keyword" href="#Transporter">Transporter</a> may move once per <a class="keyword" href="#MovementPhase">MovementPhase</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Donkey">Donkey</a>: <a class="keyword" href="#MoveDonkey">MoveDonkey</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Wagon">Wagon</a>: <a class="keyword" href="#MoveLandTransporter">MoveLandTransporter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Truck">Truck</a>: <a class="keyword" href="#MoveLandTransporter">MoveLandTransporter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Raft">Raft</a>: <a class="keyword" href="#MoveBoat">MoveBoat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Rowboat">Rowboat</a>: <a class="keyword" href="#MoveBoat">MoveBoat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Steamship">Steamship</a>: <a class="keyword" href="#MoveBoat">MoveBoat</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Transporter">Transporters</a> may carry <a class="keyword" href="#Good">Goods</a>/Geese up to their <a class="keyword" href="#CarryingCapacity">CarryingCapacity</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#TransportersCarryingTransporters">TransportersCarryingTransporters</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#GeeseMayFollowTransporters">GeeseMayFollowTransporters</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Transporter">Transporters</a> may pick up and drop off <a class="keyword" href="#Good">Goods</a>/Geese on any <a class="keyword" href="#LandTile">LandTile</a> it passes through (including start and end <a class="keyword" href="#HexTile">HexTile</a>)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Only docked <a class="keyword" href="#Boat">Boats</a> or <a class="keyword" href="#Boat">Boats</a> on a <a class="keyword" href="#River">River</a> may pick up/drop off <a class="keyword" href="#Good">Goods</a>/Geese on a <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> on a <a class="keyword" href="#River">River</a> may pick up (drop off) <a class="keyword" href="#Good">Goods</a>/Geese from (to) either side of the <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Good">Goods</a>/Geese that are dropped off can be placed on another <a class="keyword" href="#Transporter">Transporters</a> if the owner allows it</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Good">Goods</a>/Geese may not be forcable taken from another <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> may exchange <a class="keyword" href="#Good">Goods</a>/Geese if they are on the same <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> may not drop <a class="keyword" href="#Good">Goods</a>/Geese onto a <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> may be exchanged with an <a class="keyword" href="#OilRig">OilRig</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Good">Goods</a> may only be moved once by each <abbr title="Imported from common/Game">Player</abbr> per turn</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#SimultaneousPlay">SimultaneousPlay</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveDonkey">MoveDonkey</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Ignore <a class="keyword" href="#Road">Roads</a> and move into a neighboring <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#MoveLandTransporter">MoveLandTransporter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NeedsBridgeToCrossRiver">NeedsBridgeToCrossRiver</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MayNotMoveThroughAnotherPlayersWall">MayNotMoveThroughAnotherPlayersWall</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveLandTransporter">MoveLandTransporter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveDonkey">MoveDonkey</a><a href="#MovementPhase">MovementPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#LandTransporter">LandTransporter</a> can move up to its <a class="keyword" href="#MovementCapacity">MovementCapacity</a> along <a class="keyword" href="#Road">Roads</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NeedsBridgeToCrossRiver">NeedsBridgeToCrossRiver</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MayNotMoveThroughAnotherPlayersWall">MayNotMoveThroughAnotherPlayersWall</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NeedsBridgeToCrossRiver">NeedsBridgeToCrossRiver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveDonkey">MoveDonkey</a><a href="#MoveLandTransporter">MoveLandTransporter</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>All <a class="keyword" href="#LandTransporter">LandTransporters</a> require a <a class="keyword" href="#Bridge">Bridge</a> to cross a <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MayNotMoveThroughAnotherPlayersWall">MayNotMoveThroughAnotherPlayersWall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveDonkey">MoveDonkey</a><a href="#MoveLandTransporter">MoveLandTransporter</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#Transporter">Transporter</a> may not move through another <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#PlayerWall">PlayerWall</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveBoat">MoveBoat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#Boat">Boat</a> can move up to its <a class="keyword" href="#MovementCapacity">MovementCapacity</a>, paying 1 for each step:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Along a <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Into a <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Onto a <a class="keyword" href="#Coast">Coast</a> to dock</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Movement ends when a <a class="keyword" href="#Boat">Boat</a> docks</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When docked, a <a class="keyword" href="#Boat">Boat</a> may only move into the adjacent <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> may not dock on a <a class="keyword" href="#Coast">Coast</a> that has another <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#PlayerWall">PlayerWall</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TransportersCarryingTransporters">TransportersCarryingTransporters</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#Transporter">Transporter</a> may carry another <a class="keyword" href="#Transporter">Transporter</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; The carried <a class="keyword" href="#Transporter">Transporter</a> must be empty and the carrying <a class="keyword" href="#Transporter">Transporter</a> cannot be carrying anything else</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; The <a class="keyword" href="#Transporter">Transporter</a> may only be unloaded at the beginning of the next <a class="keyword" href="#MovementPhase">MovementPhase</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Boat">Boats</a> may only be unloaded in a <a class="keyword" href="#River">River</a> or at a <a class="keyword" href="#Shore">Shore</a> and are placed in the same <a class="keyword" href="#River">River</a> or <a class="keyword" href="#Shore">Shore</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not carry a <a class="keyword" href="#Transporter">Transporter</a> that has already moved this turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GeeseMayFollowTransporters">GeeseMayFollowTransporters</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MovementPhase">MovementPhase</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Goose">Geese</a> may follow a <a class="keyword" href="#Transporter">Transporter</a> if the owner wants it to</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Even if it previous followed another <abbr title="Imported from common/Game">Player</abbr>'s <a class="keyword" href="#Transporter">Transporter</a> this turn</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Goose">Geese</a> will always follow the last <a class="keyword" href="#Boat">Boat</a> that moves out of a <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=4>Building Phase</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildingPhase">BuildingPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#PhaseToken">PhaseToken</a> on the <a class="keyword" href="#BuildingPhaseSpace">BuildingPhaseSpace</a> of the <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EstablishOrderOfPlay">EstablishOrderOfPlay</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may construct any of the following objects (in any order):</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Road">Road</a>: <a class="keyword" href="#BuildRoad">BuildRoad</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Bridge">Bridge</a>: <a class="keyword" href="#BuildBridge">BuildBridge</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Wall">Wall</a>: <a class="keyword" href="#BuildWall">BuildWall</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Woodcutter">Woodcutter</a>: <a class="keyword" href="#BuildWoodcutter">BuildWoodcutter</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#StoneQuarry">StoneQuarry</a>: <a class="keyword" href="#BuildStoneQuarry">BuildStoneQuarry</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ClayPit">ClayPit</a>: <a class="keyword" href="#BuildClayPit">BuildClayPit</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#OilRig">OilRig</a>: <a class="keyword" href="#BuildOilRig">BuildOilRig</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Mine">Mine</a>: <a class="keyword" href="#BuildMine">BuildMine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Sawmill">Sawmill</a>: <a class="keyword" href="#BuildSawmill">BuildSawmill</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#StoneFactory">StoneFactory</a>: <a class="keyword" href="#BuildStoneFactory">BuildStoneFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CoalBurner">CoalBurner</a>: <a class="keyword" href="#BuildCoalBurner">BuildCoalBurner</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Papermill">Papermill</a>: <a class="keyword" href="#BuildPapermill">BuildPapermill</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Mint">Mint</a>: <a class="keyword" href="#BuildMint">BuildMint</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#StockExchange">StockExchange</a>: <a class="keyword" href="#BuildStockExchange">BuildStockExchange</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#WagonFactory">WagonFactory</a>: <a class="keyword" href="#BuildWagonFactory">BuildWagonFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TruckFactory">TruckFactory</a>: <a class="keyword" href="#BuildTruckFactory">BuildTruckFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#RaftFactory">RaftFactory</a>: <a class="keyword" href="#BuildRaftFactory">BuildRaftFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#RowboatFactory">RowboatFactory</a>: <a class="keyword" href="#BuildRowboatFactory">BuildRowboatFactory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#SteamshipFactory">SteamshipFactory</a>: <a class="keyword" href="#BuildSteamshipFactory">BuildSteamshipFactory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may also choose to:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DemolishWall">DemolishWall</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BuildNewMineShaft">BuildNewMineShaft</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may only build in <a class="keyword" href="#LandTile">LandTile</a> where you have a <a class="keyword" href="#Transporter">Transporter</a> (<a class="keyword" href="#LandTransporter">LandTransporter</a> or <a class="keyword" href="#Boat">Boat</a> in <a class="keyword" href="#River">River</a> or docked)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Only one <a class="keyword" href="#Building">Building</a> may be built on each <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">HomeMarker is not a Building</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialFromTransporterOrTile">MaterialFromTransporterOrTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#SimultaneousPlay">SimultaneousPlay</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildRoad">BuildRoad</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may build a <a class="keyword" href="#Road">Road</a> between 2 <a class="keyword" href="#HexTile">HexTile</a> centers by drawing a line on the <a class="keyword" href="#CoverSheet">CoverSheet</a> using the <a class="keyword" href="#NonPermanentMarker">NonPermanentMarker</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; All <a class="keyword" href="#Road">Roads</a> are automatically linked (unless blocked by <a class="keyword" href="#River">Rivers</a>)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Parallel <a class="keyword" href="#Road">Roads</a> may be built on both sides of a <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Road">Roads</a> may be build through <a class="keyword" href="#Wall">Walls</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildBridge">BuildBridge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may build a <a class="keyword" href="#Bridge">Bridge</a> by drawing a line over a <a class="keyword" href="#River">River</a> on the <a class="keyword" href="#CoverSheet">CoverSheet</a> using the <a class="keyword" href="#NonPermanentMarker">NonPermanentMarker</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; All <a class="keyword" href="#Road">Roads</a> on both sides of the <a class="keyword" href="#River">River</a> are automatically connected</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; For <a class="keyword" href="#River">Rivers</a> that split the <a class="keyword" href="#LandTile">LandTile</a> into 3 parts, 2 <a class="keyword" href="#Bridge">Bridges</a> are needed to fully connect the tile</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildWall">BuildWall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may build a <a class="keyword" href="#Wall">Wall</a> by placing a <a class="keyword" href="#PlayerWall">PlayerWall</a> token between 2 <a class="keyword" href="#HexTile">HexTiles</a> along an edge</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; One of the <a class="keyword" href="#HexTile">HexTiles</a> must be a <a class="keyword" href="#LandTile">LandTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not build a <a class="keyword" href="#Wall">Wall</a> where another <abbr title="Imported from common/Game">Player</abbr> has already built a <a class="keyword" href="#Wall">Wall</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may reinforce one of your <a class="keyword" href="#PlayerWall">PlayerWalls</a> by paying 1 <a class="keyword" href="#Stone">Stone</a> + 1 <a class="keyword" href="#Stone">Stone</a> per existing <a class="keyword" href="#Wall">Wall</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may build on top of a demolished <a class="keyword" href="#Wall">Wall</a> by paying to "reinforce" the <a class="keyword" href="#NeutralWall">NeutralWall</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialMustComeFromSameSideOfWall">MaterialMustComeFromSameSideOfWall</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Two additional <a class="keyword" href="#Stone">Stones</a> are required to build a <a class="keyword" href="#Wall">Wall</a> from a <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Wall">Walls</a> may be built across <a class="keyword" href="#River">Rivers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If a <a class="keyword" href="#Wall">Wall</a> is built on a <a class="keyword" href="#Shore">Shore</a> where a <a class="keyword" href="#Boat">Boat</a> is docked:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#Boat">Boat</a> is immediately placed in the neighboring <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DemolishWall">DemolishWall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Return the <a class="keyword" href="#PlayerWall">PlayerWall</a> tokens to the owning <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Replace each <a class="keyword" href="#PlayerWall">PlayerWall</a> token in the <a class="keyword" href="#Wall">Wall</a> with a <a class="keyword" href="#NeutralWall">NeutralWall</a> token</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; For reinforced <a class="keyword" href="#Wall">Walls</a>, you must pay 1 <a class="keyword" href="#Board">Board</a> + 1 <a class="keyword" href="#Board">Board</a> per <a class="keyword" href="#Wall">Wall</a> token</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#MaterialMustComeFromSameSideOfWall">MaterialMustComeFromSameSideOfWall</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Two additional <a class="keyword" href="#Board">Boards</a> are required to demolish a <a class="keyword" href="#Wall">Wall</a> from a <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MaterialMustComeFromSameSideOfWall">MaterialMustComeFromSameSideOfWall</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildWall">BuildWall</a><a href="#DemolishWall">DemolishWall</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>All building material must come from the same side of the <a class="keyword" href="#Wall">Wall</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Although you can build from one side, then reinforce from the other</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildNewMineShaft">BuildNewMineShaft</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have a <a class="keyword" href="#Transporter">Transporter</a> by a <a class="keyword" href="#Mine">Mine</a> and you can pay 1 <a class="keyword" href="#Iron">Iron</a> and 1 <a class="keyword" href="#Fuel">Fuel</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AddItemsToMine">AddItemsToMine</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You must have <a class="keyword" href="#NewShafts">NewShafts</a> <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AddItemsToMine">AddItemsToMine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildMine">BuildMine</a><a href="#BuildNewMineShaft">BuildNewMineShaft</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose one of the following sets to add to the <a class="keyword" href="#Mine">Mine</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>3 <a class="keyword" href="#Gold">Gold</a> and 3 <a class="keyword" href="#Iron">Iron</a> (default)</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>4 <a class="keyword" href="#Gold">Gold</a> or 4 <a class="keyword" href="#Iron">Iron</a> (if you have <a class="keyword" href="#Specialization">Specialization</a> <a class="keyword" href="#Research">Research</a>)</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>5 <a class="keyword" href="#Gold">Gold</a> and 5 <a class="keyword" href="#Iron">Iron</a> (if you have <a class="keyword" href="#Enlargement">Enlargement</a> <a class="keyword" href="#Research">Research</a>)</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Items are added to any that already exist in the Mine</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Build">Build&lt;Building&gt;</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildClayPit">BuildClayPit</a><a href="#BuildCoalBurner">BuildCoalBurner</a><a href="#BuildMine">BuildMine</a><a href="#BuildMint">BuildMint</a><a href="#BuildOilRig">BuildOilRig</a><a href="#BuildPapermill">BuildPapermill</a><a href="#BuildRaftFactory">BuildRaftFactory</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildSawmill">BuildSawmill</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a><a href="#BuildStockExchange">BuildStockExchange</a><a href="#BuildStoneFactory">BuildStoneFactory</a><a href="#BuildStoneQuarry">BuildStoneQuarry</a><a href="#BuildTruckFactory">BuildTruckFactory</a><a href="#BuildWagonFactory">BuildWagonFactory</a><a href="#BuildWoodcutter">BuildWoodcutter</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Building">Building</a> from <a class="keyword" href="#Store">Store</a> onto the <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildWoodcutter">BuildWoodcutter</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Board">Board</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#Woodcutter">Woodcutter</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on <a class="keyword" href="#WoodsTile">WoodsTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildStoneQuarry">BuildStoneQuarry</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#StoneQuarry">StoneQuarry</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on <a class="keyword" href="#RockTile">RockTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildClayPit">BuildClayPit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 3 <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#ClayPit">ClayPit</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> with a <a class="keyword" href="#Shore">Shore</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildOilRig">BuildOilRig</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 3 <a class="keyword" href="#Board">Board</a> counters and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#OilRig">OilRig</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on <a class="keyword" href="#SeaTile">SeaTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You must have <a class="keyword" href="#Drilling">Drilling</a> <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Since material may not be left on SeaTiles, all materials must be on a Transporter</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildMine">BuildMine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 3 <a class="keyword" href="#Board">Board</a> counters and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#Mine">Mine</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AddItemsToMine">AddItemsToMine</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on <a class="keyword" href="#MountainTile">MountainTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildSawmill">BuildSawmill</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#Sawmill">Sawmill</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildStoneFactory">BuildStoneFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#StoneFactory">StoneFactory</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildCoalBurner">BuildCoalBurner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 3 <a class="keyword" href="#Board">Board</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#CoalBurner">CoalBurner</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildPapermill">BuildPapermill</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Board">Board</a> counter and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#Papermill">Papermill</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildMint">BuildMint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#Mint">Mint</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildStockExchange">BuildStockExchange</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 3 <a class="keyword" href="#Stone">Stone</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#StockExchange">StockExchange</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildWagonFactory">BuildWagonFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#WagonFactory">WagonFactory</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildTruckFactory">BuildTruckFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters and 2 <a class="keyword" href="#Stone">Stone</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#TruckFactory">TruckFactory</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You must have <a class="keyword" href="#Trucking">Trucking</a> <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; May only be built on a <a class="keyword" href="#LandTile">LandTile</a> that is not a <a class="keyword" href="#DesertTile">DesertTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildRaftFactory">BuildRaftFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there is a <a class="keyword" href="#Board">Board</a> counter and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#RaftFactory">RaftFactory</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#CanOnlyBuildOnAShore">CanOnlyBuildOnAShore</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildRowboatFactory">BuildRowboatFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters and a <a class="keyword" href="#Stone">Stone</a> counter:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#RowboatFactory">RowboatFactory</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You must have <a class="keyword" href="#Rowing">Rowing</a> <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#CanOnlyBuildOnAShore">CanOnlyBuildOnAShore</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildSteamshipFactory">BuildSteamshipFactory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildingPhase">BuildingPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If there are 2 <a class="keyword" href="#Board">Board</a> counters and 2 <a class="keyword" href="#Stone">Stone</a> counters:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterial</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Build">Build</a>&lt;<a class="keyword" href="#SteamshipFactory">SteamshipFactory</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You must have <a class="keyword" href="#Shipping">Shipping</a> <a class="keyword" href="#Research">Research</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#CanOnlyBuildOnAShore">CanOnlyBuildOnAShore</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CanOnlyBuildOnAShore">CanOnlyBuildOnAShore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRaftFactory">BuildRaftFactory</a><a href="#BuildRowboatFactory">BuildRowboatFactory</a><a href="#BuildSteamshipFactory">BuildSteamshipFactory</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; This <a class="keyword" href="#Building">Building</a> can only be built on a <a class="keyword" href="#Shore">Shore</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=4>Construct Wonder Phase</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ConstructWonderPhase">ConstructWonderPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#PhaseToken">PhaseToken</a> on the <a class="keyword" href="#WonderPhaseSpace">WonderPhaseSpace</a> of the <a class="keyword" href="#PhaseChart">PhaseChart</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EstablishOrderOfPlay">EstablishOrderOfPlay</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Each <abbr title="Imported from common/Game">Player</abbr> may <a class="keyword" href="#PurchaseBricks">PurchaseBricks</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlaceBrick">PlaceBrick</a>&lt;<a class="keyword" href="#NeutralBrick">NeutralBrick</a>&gt;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PurchaseBricks">PurchaseBricks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructWonderPhase">ConstructWonderPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have <a class="keyword" href="#Good">Good</a> tokens equal to the <a class="keyword" href="#BrickCost">BrickCost</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ConsumeMaterial">ConsumeMaterials</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlaceBrick">PlaceBrick</a>&lt;<a class="keyword" href="#PlayerBrick">PlayerBrick</a>&gt;</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may place additional <a class="keyword" href="#PlayerBrick">PlayerBricks</a> by paying <a class="keyword" href="#BrickCost">BrickCost</a> + 1 <a class="keyword" href="#Good">Good</a> per <a class="keyword" href="#PlayerBrick">PlayerBrick</a> you already placed this turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceBrick">PlaceBrick&lt;WonderBrick&gt;</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructWonderPhase">ConstructWonderPhase</a><a href="#PurchaseBricks">PurchaseBricks</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#WonderBrick">WonderBrick</a> on the leftmost open <a class="keyword" href="#BrickSpace">BrickSpace</a> on the lowermost uncompleted <a class="keyword" href="#Row">Row</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">The first BrickSpace to fill is labeled "Start"</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#WonderBrick">WonderBrick</a> is placed on the <a class="keyword" href="#CostIncreaseSpace">CostIncreaseSpace</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#BrickCost">BrickCost</a> to 2</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#WonderBrick">WonderBrick</a> is placed on the <a class="keyword" href="#IrrigationSpace">IrrigationSpace</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>All <a class="keyword" href="#DesertTile">DesertTiles</a> become <a class="keyword" href="#PastureTile">PastureTiles</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">No need to replace the HexTiles on the Map</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#WonderBrick">WonderBrick</a> is plaed on the <a class="keyword" href="#GameEndSpace">GameEndSpace</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The game ends</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=4>Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ScoreGoods">ScoreGoods</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ScoreWonderBricks">ScoreWonderBricks</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoreGoods">ScoreGoods</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Increase <abbr title="Imported from common/Game">Score</abbr> for each of the following in your possession:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Gold">Gold</a>: 10</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Coin">Coin</a>: 40</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Stock">Stock</a>: 120</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Good">Goods</a> must be on one of your <a class="keyword" href="#Transporter">Transporters</a> in order to count as being in your possession</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Goods lying unattended on the ground do not count</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoreWonderBricks">ScoreWonderBricks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Row">Row</a> in the <a class="keyword" href="#WonderBoard">WonderBoard</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DistributeTenPointsToPlayers">DistributeTenPointsToPlayers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DistributeTenPointsToPlayers">DistributeTenPointsToPlayers</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreWonderBricks">ScoreWonderBricks</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>total_bricks = count all the <a class="keyword" href="#PlayerBrick">PlayerBricks</a> in the <a class="keyword" href="#Row">Row</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>your_bricks = count your <a class="keyword" href="#PlayerBrick">PlayerBricks</a> in the <a class="keyword" href="#Row">Row</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Increase your <abbr title="Imported from common/Game">Score</abbr> by (your_bricks / total_bricks), rounded down</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Ignore NeutralBricks and empty BrickSpaces</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If tied:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The tied <abbr title="Imported from common/Game">Player</abbr> closest to the <a class="keyword" href="#Temple">Temple</a> wins</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

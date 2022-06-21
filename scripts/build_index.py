@@ -20,7 +20,7 @@ class IndexBuilder:
 		self.vocab = {}
 		self.games = {}
 		self.children = {}
-		self.buckets = [30, 75, 120]
+		self.buckets = [30, 75, 120, 299]
 		
 	def loadGames(self):
 		listfile = os.path.join(SRC_DIR, LIST_FILE)

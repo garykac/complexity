@@ -1,0 +1,804 @@
+// NAME: Roads & Boats
+
+// Year: 1999
+// Designer: Jeroen Doumen, Joris Wiersinga
+// Players: 1-4
+// Time: 180-240m
+// BGG Weight: 4.19 = 1 / 7 / 53 / 160 / 137
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+HexTile: Noun
+
+LandTile: HexTile
+River: Attribute of HexTile
+	A LandTile may have a river running through the tile, splitting it into 2 sides.
+	Rivers on MountainTiles are always river sources that do not split the tile.
+
+WoodsTile: LandTile
+PastureTile: LandTile
+RockTile: LandTile
+MountainTile: LandTile
+DesertTile: LandTile
+
+SeaTile: HexTile
+
+Map: Gameboard
+	A collection of HexTiles for this game
+
+HomeLocation: LandTile
+	A Player's starting location
+
+Coast: Noun
+	A edge of a LandTile that is adjacent to a SeaTile
+
+Shore: Noun
+	Any of:
+		A LandTile that contains a Coast
+		A LandTile with a River
+
+EmptyPasture: Noun
+	A PastureTile with no Buildings
+	// The Roads, Bridges, Walls and the HomeMarker do not count as Buildings
+
+Livestock: Noun
+
+Goose|Geese: Livestock
+	Produced by Geese
+
+Transporter: Noun
+CarryingCapacity: Attribute of Transporter
+MovementCapacity: Attribute of Transporter
+	How far the Transporter can travel
+
+LandTransporter: Transporter
+
+Donkey: Livestock, LandTransporter
+	MovementCapacity = 2. CarryingCapacity = 2
+Wagon: LandTransporter
+	MovementCapacity = 3. CarryingCapacity = 3
+Truck: LandTransporter
+	MovementCapacity = 4. CarryingCapacity = 6
+
+Boat: Transporter
+
+Raft: Boat
+	MovementCapacity = 3. CarryingCapacity = 3
+Rowboat: Boat
+	MovementCapacity = 5. CarryingCapacity = 4
+Steamship: Boat
+	MovementCapacity = 8. CarryingCapacity = 6
+
+Good: Noun
+
+TreeTrunk: Good
+	Produced by Woodcutter
+Stone: Good
+	Produced by StoneQuarries or StoneFactories
+Clay: Good
+	Produced by ClayPit
+Fuel: Good
+	Produced by OilRigs or CoalBurners
+Gold: Good
+	Produced by Mines
+Iron: Good
+	Produced by Mines
+
+Board: Good
+	Produced by Sawmill
+Paper: Good
+	Produced by Papermill
+Coin: Good
+	Produced by Mint
+Stock: Good
+	Produced by StockExchange
+
+Building: Noun
+
+PrimaryProducer: Building
+	A square tile with an encircled Produce symbol
+
+Woodcutter: PrimaryProducer
+	Produces TreeTrunks
+StoneQuarry: PrimaryProducer
+	Produces Stone
+ClayPit: PrimaryProducer
+	Produces Clay
+OilRig: PrimaryProducer
+	Produces Fuel
+Mine: PrimaryProducer
+	Produces Gold and Iron
+
+MineBag: Noun
+	Numbered bag that contains the Gold and Iron in this Mine
+MineNumber: Attribute of MineBag
+
+SecondaryProducer: Building
+	A square tile with a Produce symbol
+
+Sawmill: SecondaryProducer
+	Produces Boards
+StoneFactory: SecondaryProducer
+	Produces Stone
+CoalBurner: SecondaryProducer
+	Produces Fuel
+Papermill: SecondaryProducer
+	Produced Paper
+Mint: SecondaryProducer
+	Produces Coins
+StockExchange: SecondaryProducer
+	Produces Stock
+
+TransporterProducer: Building
+
+WagonFactory: TransporterProducer
+	Produces Wagons
+TruckFactory: TransporterProducer
+	Produces Trucks
+RaftFactory: TransporterProducer
+	Produces Rafts
+RowboatFactory: TransporterProducer
+	Produces Rowboats
+SteamshipFactory: TransporterProducer
+	Produces Steamships
+
+HomeMarker: Noun
+	Identifies the Player's starting HomeLocation
+
+ResearchTable: Noun
+	A card that identifies the Research that you have.
+
+Research: Part of ResearchTable
+	A subject that you can research.
+
+Rowing: Research
+	Allows you to build RowboatFactories
+Trucking: Research
+	Allows you to build TruckFactories
+Shipping: Research
+	Allows you to build SteamshipFactories
+Drilling: Research
+	Allows you to build OilRigs
+Specialization: Research
+	Allows you to fill a MineBag with either Gold or Iron
+Enlargement: Research
+	Allows you to fill a MineBag with 5 Gold and 5 Iron
+NewShafts: Research
+	Allows you to replenish a MineBag
+//LightBulb: Research - Reserved for future expansions
+
+ResearchToken: Token
+	Used to cover the Research subjects on the ResearchTable that are not available
+	
+Road: Noun
+Bridge: Noun
+
+Wall: Noun
+PlayerWall: Wall
+NeutralWall: Wall
+
+WonderBoard: Gameboard
+Row: Part of WonderBoard
+	Total of 15 Rows in the WonderBoard
+BrickSpace: Part of Row
+	Each Row has between 4 to 7 BrickSpaces
+CostIncreaseSpace: BrickSpace
+	First BrickSpace of the 5th Row
+IrrigationSpace: BrickSpace
+	First BrickSpace of the 10th Row
+GameEndSpace: BrickSpace
+	Identifies the game end based on the number of Players
+
+WonderBrick: Tile
+PlayerBrick: WonderBrick
+NeutralBrick: WonderBrick
+
+BrickCost: Noun
+	Cost (in Goods) to add a PlayerBrick to the WonderBoard
+
+PhaseChart: Gameboard
+ProductionPhaseSpace: Part of PhaseChart
+MovementPhaseSpace: Part of PhaseChart
+BuildingPhaseSpace: Part of PhaseChart
+WonderPhaseSpace: Part of PhaseChart
+PhaseToken: Token
+
+TempleBoard: Gameboard
+Temple: Part of TempleBoard
+TempleSpace: Part of TempleBoard
+PlayerTempleToken: Token
+	Indicates the Player's position relative to the Temple
+
+SequenceChart: Gameboard
+TurnOrderSpace: Part of SequenceChart
+	Numbered 1 through 6
+PlayerSequenceToken: Token
+	Indicates the Player's position in the turn order sequence
+
+Store: Noun
+	Place where all unused Goods, Buildings and other components are stored
+
+Pool: Noun
+	A Player's collection of Livestock, Transporters and PlayerBricks
+
+CoverSheet: Noun
+	Plastic cover sheet placed over the Map HexTiles
+NonPermanentMarker: Noun
+	For writing on the CoverSheet
+
+// SECTION: Setup
+
+Setup: Verb
+	SetupMap
+	Set BrickCost to 1
+	For each Player:
+		ChoosePlayerComponents
+			* Transporters
+			* Walls
+			* PlayerBricks
+			* HomeMarker
+			* ResearchTable
+			* PlayerAid
+		InitializeResearchTable
+	InitializeOrderOfPlay
+	For each Player, ordered by PlayerSequenceToken:
+		Choose a LandTile for your HomeLocation
+			! It must be at least 1 empty HexTile away from the home location of any Player
+		Take 3 Donkeys from your Pool
+		Take 2 Geese, 1 Stone and 5 Boards from the Store
+		Place HomeMarker and all of your items on your HomeLocation
+
+SetupMap: Verb
+	Arrange the HexTiles basec on one of the maps in the "Scenario Book" that matches the Player count
+	Place the CoverSheet flat over the HexTiles of the Map
+	Place the NonPermanentMarker next to the Map where all Players can reach
+	// Rules for having the players create new maps are not included here
+
+InitializeResearchTable: Verb
+	Cover each Research space in the ResearchTable with a ResearchToken to indicate that you have not yet researched it
+
+InitializeOrderOfPlay: Verb
+	Place all of the PlayerTempleTokens in a cup
+	For each PlayerTempleToken in the cup:
+		Draw a random PlayerTempleToken
+		Place it on the empty TempleSpace that is closest to the Temple
+	Duplicate the order (left to right) of the PlayerTempleTokens to arrange the PlayerSequenceTokens on the SequenceChart
+	// When finished, the Player with the PlayerTempleToken closest to the Temple should have have the highest numbered TurnOrderSpace
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a WonderBrick is placed on the GameEndSpace that corresponds to the number of Players:
+		ProductionPhase
+		MovementPhase
+		BuildingPhase
+		ConstructWonderPhase
+
+EstablishOrderOfPlay: Verb
+	If any Player states that they would like to re-establish Player order:
+		ReorderTemple
+		ChoosePlayerSequence
+
+ReorderTemple: Verb
+	last_temple_token = the PlayerTempleToken that is currently furthest from the Temple
+	For each Player, based on the order of PlayerTempleTokens in the TempleBoard, from closest to the Temple to the furthest:
+		If the Player wants to change position:
+			Move Player's PlayerTempleToken away from the Temple, immediately behind the last_temple_token
+
+ChoosePlayerSequence: Verb
+	Remove all PlayerSequenceTokens from the SequenceChart
+	For each Player, based on the order of PlayerTempleTokens in the TempleBoard, from furthest from the Temple to the closest:
+		Move your PlayerSequenceToken onto any available TurnOrderSpace
+		! TurnOrderSpaces whose number is greater than the number of Players are not available
+
+SimultaneousPlay: Constraint
+	All Players take their turn simultaneously
+	! PlayerConflict
+
+PlayerConflict: Constraint
+	If there is a conflict between Players about the order in which they can perform actions:
+		Players perform actions in the order determined by the SequenceChart, from lowest to highest
+
+// SUBSECTION: Production Phase
+
+ProductionPhase: Verb
+	Place the PhaseToken on the ProductionPhaseSpace of the PhaseChart
+	DetermineMineProduction
+	EstablishOrderOfPlay
+	ReproduceLivestock
+	For each Building based on type:
+		PrimaryProducer: ProductionPrimary
+		SecondaryProducer: ProductionSecondary
+		TransporterProducer: ProductionTransporter
+	At any time during this phase, you may ProduceResearch
+	If, at the end of the ProductionPhase, there are 2 Geese and 1 Paper on a HexTile:
+		The materials are consumed but no Research is produced
+	! Transporters on the same HexTile can exchange Goods freely during the ProductionPhase
+	! If 2 Transporters want to exchange Goods but are separated by a River:
+		There must be a Bridge or a Boat willing to help transport the Goods
+	! SimultaneousPlay
+
+ProduceResearch: Verb
+	If you have 2 Geese and 1 Paper on the same HexTile as one of your Transporters:
+		ConsumeMaterials
+		AllocateResearch
+	
+AllocateResearch: Verb
+	Immediately remove a ResearchToken from one of the Research spaces on the ResearchTable
+	Based on the Research you just uncovered:
+		Rowing: UpgradeToRowboatFactory
+		Trucking: UpgradeToTruckFactory
+		Shipping: UpgradeToSteamshipFactory
+
+UpgradeToRowboatFactory: Verb
+	You may upgrade any RaftFactory where you have a Transporter to a RowboatFactory
+
+UpgradeToTruckFactory: Verb
+	You may upgrade any WagonFactory where you have a Transporter to a TruckFactory
+
+UpgradeToSteamshipFactory: Verb
+	You may upgrade any RaftFactory or RowboatFactory where you have a Transporter to a SteamshipFactory
+
+Produce<Good>: Verb
+	If the source materials came from a Transporter:
+		Place Good from the Store on that Transporter
+		Exit
+	If there is a Transporter on the HexTile:
+		Place Good on a Transporter
+	Otherwise:
+		Place Good on the HexTile
+	! If the Transporter cannot hold all the produced Goods:
+		Place remaining on the HexTile
+	! PlayerConflict
+	// Examples of player conflict:
+	// Multiple Transporters waiting to receive Goods from a PrimaryProducer
+	// Multiple Transporters with Goods that can be used as source materials
+
+DetermineMineProduction: Verb
+	For each Mine:
+		Draw a counter at random from the MineBag with the matching MineNumber
+	! At any time you may look at the contents of the MineBag
+	// Mines are the only Producers that have random output, so they are done before turn order is established
+
+ReproduceLivestock: Verb
+	If 2 of the same Livestock (Goose or Donkey) are in an EmptyPasture:
+		Create a new Livestock
+	! Must be exactly 2 of the same kind
+	! Donkeys don't reproduce if their owning Player doesn't want them to
+	! The 2 Donkeys must be owned by the same Player
+	! The 2 Livestock must be on the same side of any River 
+
+ProductionPrimary: Verb
+	Based on the PrimaryProducer:
+		Woodcutter: Produce<TreeTrunk>
+		StoneQuarry: Produce<Stone>
+		ClayPit: Produce<Clay>
+		OilRig: Produce<Fuel>
+		// Note: Mines are handled at the beginning of the ProductionPhase
+		
+ProductionSecondary: Verb
+	Based on the SecondaryProducer:
+		Sawmill: ProductionSawmill
+		StoneFactory: ProductionStoneFactory
+		CoalBurner: ProductionCoalBurner
+		Papermill: ProductionPaperMill
+		Mint: ProductionMint
+		StockExchange: ProductionStockExchange
+	! After all Players have produced whatever materials they want:
+		Leftover material on the HexTile will be processed, up to the max for the producer
+
+ConsumeMaterial: Verb
+	Return the materials used in the production back to the Store or your Pool
+
+MaterialFromTransporterOrTile: Constraint
+	The material must come from the Player's Transporter or from the HexTile
+
+ProductionSawmill: Verb
+	For each TreeTrunk counter, up to max 3 times:
+		ConsumeMaterial
+		Produce<Board> x2
+	! MaterialFromTransporterOrTile
+
+ProductionStoneFactory: Verb
+	For each Clay counter, up to max 3 times:
+		ConsumeMaterial
+		Produce<Stone> x2
+	! MaterialFromTransporterOrTile
+
+ProductionCoalBurner: Verb
+	For each pair of TreeTrunk or Board counters, up to max 6 times:
+		ConsumeMaterial
+		Produce<Fuel>
+	! MaterialFromTransporterOrTile
+	! When processing extra material, Boards will be consumed before TreeTrunks
+
+ProductionPaperMill: Verb
+	If there is a pair of TreeTrunk or Board counters:
+		ConsumeMaterial
+		Produce<Paper>
+	! MaterialFromTransporterOrTile
+	! When processing extra material, Boards will be consumed before TreeTrunks
+
+ProductionMint: Verb
+	If there is a set of (Fuel, Gold, Gold) counters:
+		ConsumeMaterial
+		Produce<Coin>
+	! MaterialFromTransporterOrTile
+
+ProductionStockExchange: Verb
+	If there is a set of (Paper, Coin, Coin) counters up to max 6 times:
+		ConsumeMaterial
+		Produce<Stock>
+	! MaterialFromTransporterOrTile
+
+ProductionTransporter: Verb
+	Based on the TransporterProducer:
+		WagonFactory: ProductionWagon
+		TruckFactory: ProductionTruck
+		RaftFactory: ProductionRaft
+		RowboatFactory: ProductionRowboat
+		SteamshipFactory: ProductionSteamship
+	! After all Players have produced whatever Transporters they want:
+		Leftover material on the HexTile will be consumed (up to the max for the producer) but will not create a Transporter
+	! LimitedNumberOfTransporters
+
+LimitedNumberOfTransporters: Constraint
+	A Player may have no more than 8 Transporters
+
+ProduceTransporter<Transporter>: Verb
+	Place a Transporter token from the Pool onto the HexTile
+	The Transporter comes from the Pool of the Player who provided the materials
+	! MaterialFromTransporterOrTile
+	! Boats must immediately be placed in the water: either on river or neighboring SeaTile
+	! PlayerConflict
+
+ProductionWagon: Verb
+	If there is a set of (Donkey, Board, Board) counters:
+		ConsumeMaterial
+		ProduceTransporter<Wagon>
+
+ProductionTruck: Verb
+	If there is a set of (Fuel, Iron) counters:
+		ConsumeMaterial
+		ProduceTransporter<Truck>
+
+ProductionRaft: Verb
+	If there is a pair of TreeTrunk counters:
+		ConsumeMaterial
+		ProduceTransporter<Raft>
+	! ShoreCannotBeBlocked
+
+ProductionRowboat: Verb
+	If there is a set of 5 Board counters:
+		ConsumeMaterial
+		ProduceTransporter<Rowboat>
+	! ShoreCannotBeBlocked
+
+ProductionSteamship: Verb
+	If there is a set of (Fuel, Fuel, Iron) counters:
+		ConsumeMaterial
+		ProduceTransporter<Steamship>
+	! ShoreCannotBeBlocked
+
+ShoreCannotBeBlocked: Constraint
+	Access to the Shore must not be blocked by a Wall
+
+// SUBSECTION: Movement Phase
+
+MovementPhase: Verb
+	Place the PhaseToken on the MovementPhaseSpace of the PhaseChart
+	EstablishOrderOfPlay
+	Each Transporter may move once per MovementPhase:
+		Donkey: MoveDonkey
+		Wagon: MoveLandTransporter
+		Truck: MoveLandTransporter
+		Raft: MoveBoat
+		Rowboat: MoveBoat
+		Steamship: MoveBoat
+	! Transporters may carry Goods/Geese up to their CarryingCapacity
+	! TransportersCarryingTransporters
+	! GeeseMayFollowTransporters
+	! Transporters may pick up and drop off Goods/Geese on any LandTile it passes through (including start and end HexTile)
+	! Only docked Boats or Boats on a River may pick up/drop off Goods/Geese on a LandTile
+	! Boats on a River may pick up (drop off) Goods/Geese from (to) either side of the River
+	! Goods/Geese that are dropped off can be placed on another Transporters if the owner allows it
+	! Goods/Geese may not be forcable taken from another Player's Transporter
+	! Boats may exchange Goods/Geese if they are on the same HexTile
+	! Boats may not drop Goods/Geese onto a SeaTile
+	! Boats may be exchanged with an OilRig
+	! Goods may only be moved once by each Player per turn
+	! SimultaneousPlay
+	
+MoveDonkey: Verb
+	Any of:
+		Ignore Roads and move into a neighboring LandTile
+		MoveLandTransporter
+	! NeedsBridgeToCrossRiver
+	! MayNotMoveThroughAnotherPlayersWall
+
+MoveLandTransporter: Verb
+	A LandTransporter can move up to its MovementCapacity along Roads
+	! NeedsBridgeToCrossRiver
+	! MayNotMoveThroughAnotherPlayersWall
+
+NeedsBridgeToCrossRiver: Constraint
+	All LandTransporters require a Bridge to cross a River
+
+MayNotMoveThroughAnotherPlayersWall: Constraint
+	A Transporter may not move through another Player's PlayerWall
+
+MoveBoat: Verb
+	A Boat can move up to its MovementCapacity, paying 1 for each step:
+		Along a River
+		Into a SeaTile
+		Onto a Coast to dock
+	! Movement ends when a Boat docks
+	! When docked, a Boat may only move into the adjacent SeaTile
+	! Boats may not dock on a Coast that has another Player's PlayerWall
+
+TransportersCarryingTransporters: Constraint
+	A Transporter may carry another Transporter
+	! The carried Transporter must be empty and the carrying Transporter cannot be carrying anything else
+	! The Transporter may only be unloaded at the beginning of the next MovementPhase
+	! Boats may only be unloaded in a River or at a Shore and are placed in the same River or Shore
+	! You may not carry a Transporter that has already moved this turn
+
+GeeseMayFollowTransporters: Constraint
+	Geese may follow a Transporter if the owner wants it to
+	! Even if it previous followed another Player's Transporter this turn
+	! Geese will always follow the last Boat that moves out of a SeaTile
+
+// SUBSECTION: Building Phase
+
+BuildingPhase: Verb
+	Place the PhaseToken on the BuildingPhaseSpace of the PhaseChart
+	EstablishOrderOfPlay
+	You may construct any of the following objects (in any order):
+		Road: BuildRoad
+		Bridge: BuildBridge
+		Wall: BuildWall
+		Woodcutter: BuildWoodcutter
+		StoneQuarry: BuildStoneQuarry
+		ClayPit: BuildClayPit
+		OilRig: BuildOilRig
+		Mine: BuildMine
+		Sawmill: BuildSawmill
+		StoneFactory: BuildStoneFactory
+		CoalBurner: BuildCoalBurner
+		Papermill: BuildPapermill
+		Mint: BuildMint
+		StockExchange: BuildStockExchange
+		WagonFactory: BuildWagonFactory
+		TruckFactory: BuildTruckFactory
+		RaftFactory: BuildRaftFactory
+		RowboatFactory: BuildRowboatFactory
+		SteamshipFactory: BuildSteamshipFactory
+	You may also choose to:
+		DemolishWall
+		BuildNewMineShaft
+	! You may only build in LandTile where you have a Transporter (LandTransporter or Boat in River or docked)
+	! Only one Building may be built on each HexTile
+		// HomeMarker is not a Building
+	! MaterialFromTransporterOrTile
+	! SimultaneousPlay
+
+BuildRoad: Verb
+	If there is a Stone counter:
+		ConsumeMaterial
+		You may build a Road between 2 HexTile centers by drawing a line on the CoverSheet using the NonPermanentMarker
+	! All Roads are automatically linked (unless blocked by Rivers)
+	! Parallel Roads may be built on both sides of a River
+	! Roads may be build through Walls
+
+BuildBridge: Verb
+	If there is a Stone counter:
+		ConsumeMaterial
+		You may build a Bridge by drawing a line over a River on the CoverSheet using the NonPermanentMarker
+	! All Roads on both sides of the River are automatically connected
+	! For Rivers that split the LandTile into 3 parts, 2 Bridges are needed to fully connect the tile
+
+BuildWall: Verb
+	If there is a Stone counter:
+		ConsumeMaterial
+		You may build a Wall by placing a PlayerWall token between 2 HexTiles along an edge
+	! One of the HexTiles must be a LandTile
+	! You may not build a Wall where another Player has already built a Wall
+	! You may reinforce one of your PlayerWalls by paying 1 Stone + 1 Stone per existing Wall
+	! You may build on top of a demolished Wall by paying to "reinforce" the NeutralWall
+	! MaterialMustComeFromSameSideOfWall
+	! Two additional Stones are required to build a Wall from a SeaTile
+	! Walls may be built across Rivers
+	! If a Wall is built on a Shore where a Boat is docked:
+		The Boat is immediately placed in the neighboring SeaTile
+
+DemolishWall: Verb
+	If there are 2 Board counters:
+		ConsumeMaterial
+		Return the PlayerWall tokens to the owning Player
+		Replace each PlayerWall token in the Wall with a NeutralWall token
+	! For reinforced Walls, you must pay 1 Board + 1 Board per Wall token
+	! MaterialMustComeFromSameSideOfWall
+	! Two additional Boards are required to demolish a Wall from a SeaTile
+
+MaterialMustComeFromSameSideOfWall: Constraint
+	All building material must come from the same side of the Wall
+	! Although you can build from one side, then reinforce from the other
+
+BuildNewMineShaft: Verb
+	If you have a Transporter by a Mine and you can pay 1 Iron and 1 Fuel:
+		ConsumeMaterial
+		AddItemsToMine
+	! You must have NewShafts Research
+
+AddItemsToMine: Verb
+	Choose one of the following sets to add to the Mine:
+		3 Gold and 3 Iron (default)
+		4 Gold or 4 Iron (if you have Specialization Research)
+		5 Gold and 5 Iron (if you have Enlargement Research)
+	// Items are added to any that already exist in the Mine
+
+Build<Building>: Verb
+	Place Building from Store onto the HexTile
+	
+BuildWoodcutter: Verb
+	If there is a Board counter:
+		ConsumeMaterial
+		Build<Woodcutter>
+	! May only be built on WoodsTile
+
+BuildStoneQuarry: Verb
+	If there are 2 Board counters:
+		ConsumeMaterial
+		Build<StoneQuarry>
+	! May only be built on RockTile
+
+BuildClayPit: Verb
+	If there are 3 Board counters:
+		Build<ClayPit>
+		ConsumeMaterial
+	! May only be built on a LandTile with a Shore
+
+BuildOilRig: Verb
+	If there are 3 Board counters and a Stone counter:
+		ConsumeMaterial
+		Build<OilRig>
+	! May only be built on SeaTile
+	! You must have Drilling Research
+	// Since material may not be left on SeaTiles, all materials must be on a Transporter
+
+BuildMine: Verb
+	If there are 3 Board counters and a Stone counter:
+		ConsumeMaterial
+		Build<Mine>
+		AddItemsToMine
+	! May only be built on MountainTile
+
+BuildSawmill: Verb
+	If there are 2 Board counters and a Stone counter:
+		ConsumeMaterial
+		Build<Sawmill>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildStoneFactory: Verb
+	If there are 2 Board counters:
+		ConsumeMaterial
+		Build<StoneFactory>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildCoalBurner: Verb
+	If there are 3 Board counters:
+		ConsumeMaterial
+		Build<CoalBurner>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildPapermill: Verb
+	If there is a Board counter and a Stone counter:
+		ConsumeMaterial
+		Build<Papermill>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildMint: Verb
+	If there are 2 Board counters and a Stone counter:
+		ConsumeMaterial
+		Build<Mint>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildStockExchange: Verb
+	If there are 3 Stone counters:
+		ConsumeMaterial
+		Build<StockExchange>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildWagonFactory: Verb
+	If there are 2 Board counters and a Stone counter:
+		ConsumeMaterial
+		Build<WagonFactory>
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildTruckFactory: Verb
+	If there are 2 Board counters and 2 Stone counters:
+		ConsumeMaterial
+		Build<TruckFactory>
+	! You must have Trucking Research
+	! May only be built on a LandTile that is not a DesertTile
+
+BuildRaftFactory: Verb
+	If there is a Board counter and a Stone counter:
+		ConsumeMaterial
+		Build<RaftFactory>
+	! CanOnlyBuildOnAShore
+
+BuildRowboatFactory: Verb
+	If there are 2 Board counters and a Stone counter:
+		ConsumeMaterial
+		Build<RowboatFactory>
+	! You must have Rowing Research
+	! CanOnlyBuildOnAShore
+
+BuildSteamshipFactory: Verb
+	If there are 2 Board counters and 2 Stone counters:
+		ConsumeMaterial
+		Build<SteamshipFactory>
+	! You must have Shipping Research
+	! CanOnlyBuildOnAShore
+
+CanOnlyBuildOnAShore: Constraint
+	! This Building can only be built on a Shore
+
+// SUBSECTION: Construct Wonder Phase
+
+ConstructWonderPhase: Verb
+	Place the PhaseToken on the WonderPhaseSpace of the PhaseChart
+	EstablishOrderOfPlay
+	Each Player may PurchaseBricks
+	PlaceBrick<NeutralBrick>
+
+PurchaseBricks: Verb
+	If you have Good tokens equal to the BrickCost:
+		ConsumeMaterials
+		PlaceBrick<PlayerBrick>
+	! You may place additional PlayerBricks by paying BrickCost + 1 Good per PlayerBrick you already placed this turn
+
+PlaceBrick<WonderBrick>: Verb
+	Place the WonderBrick on the leftmost open BrickSpace on the lowermost uncompleted Row
+		// The first BrickSpace to fill is labeled "Start"
+	If the WonderBrick is placed on the CostIncreaseSpace:
+		Set BrickCost to 2
+	If the WonderBrick is placed on the IrrigationSpace:
+		All DesertTiles become PastureTiles
+		// No need to replace the HexTiles on the Map
+	If the WonderBrick is plaed on the GameEndSpace:
+		The game ends
+
+// SUBSECTION: Scoring
+
+CalculateScore: Verb
+	ScoreGoods
+	ScoreWonderBricks
+
+ScoreGoods: Verb
+	Increase Score for each of the following in your possession:
+		* Gold: 10
+		* Coin: 40
+		* Stock: 120
+	! Goods must be on one of your Transporters in order to count as being in your possession
+	// Goods lying unattended on the ground do not count
+
+ScoreWonderBricks: Verb
+	For each Row in the WonderBoard:
+		DistributeTenPointsToPlayers
+
+DistributeTenPointsToPlayers: Verb
+	total_bricks = count all the PlayerBricks in the Row
+	your_bricks = count your PlayerBricks in the Row
+	Increase your Score by (your_bricks / total_bricks), rounded down
+	// Ignore NeutralBricks and empty BrickSpaces
+
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	! If tied:
+		The tied Player closest to the Temple wins

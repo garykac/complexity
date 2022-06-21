@@ -14,6 +14,7 @@ leaving-earth;Leaving Earth;;;325
 mancala;Mancala;Kalah;;21
 regicide;Regicide;;;75
 risk;Risk;;;67
+roads-and-boats;Roads & Boats;;;314
 splendor;Splendor;;;62
 tic-tac-toe;Tic Tac Toe;;;10
 ticket-to-ride-first-journey;Ticket to Ride;First Journey;;40
