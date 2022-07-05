@@ -17,7 +17,9 @@ FREE_ACTIONS = [
 	"If any of:",
 	"If all of:",
 	"For each Player:",
+	"For each other Player:",
 	"Choose one:",
+	# Conditions
 	"Any of:",
 ]
 
@@ -73,9 +75,9 @@ class GambitParser:
 
 	def error(self, msg):
 		print("ERROR: {0:s}".format(msg))
-		#traceback.print_exc()
-		#raise Exception(msg)
-		exit(0)
+		traceback.print_exc()
+		raise Exception(msg)
+		#exit(0)
 
 	def warning(self, msg):
 		print("WARNING: {0:s}".format(msg))
@@ -160,7 +162,7 @@ class GambitParser:
 					if words[1] in FREE_SUFFIX_WORDS:
 						r['cost'] = 0
 					# Handle: "Discard x2"
-					if re.match('x\d+$', words[1]):
+					if re.match(r'x\d+$', words[1]):
 						r['cost'] = 0
 				# Handle "Success:" and "Success: DrawCard"
 				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
@@ -171,16 +173,16 @@ class GambitParser:
 
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
-	# If the DEF has at least one DESC, then the cost comes from the DESC lines.
-	# Otherwise, the DEF is assigned a cost of 1.
 	def defHasDesc(self, iDef):
+		if not self.lines[iDef]['type'] in ["DEF", "TEMPLATE"]:
+			self.error("Not a DEF on line {0:d}: {1:s}".format(iDef, self.lines[iDef]['type']))
 		maxLines = len(self.lines)
 		i = iDef + 1
 		# Look ahead to search for DESC lines that follow the DEF.
 		while i < maxLines:
 			r = self.lines[i]
 			type = r['type']
-			if type in ['DEF', 'BLANK']:
+			if type in ['DEF', 'BLANK', 'TEMPLATE']:
 				return False
 			if type == 'DESC' and r['indent'] == 1:
 				return True
@@ -240,6 +242,13 @@ class GambitParser:
 		except Exception as ex:
 			self.errorLine(str(ex))
 		
+		# |lineinfo| is a dict with:
+		#   'type'
+		#   'cost'
+		#   'indent'
+		#   'line'
+		#   'comment'
+		# plus additional values depending on the |type|.
 		if lineinfo:
 			self.lines.append(lineinfo)
 			type = lineinfo['type']
@@ -262,7 +271,10 @@ class GambitParser:
 				self.addVocab(lineinfo['keyword'], None, info)
 			elif type == "NAME":
 				self.gameTitle = lineinfo['comment']
+			elif not type in ['COMMENT', 'CONSTRAINT', 'DESC', 'SECTION', 'SUBSECTION', 'BLANK']:
+				self.error("Unhandled type in processLine: {0:s}".format(type))
 
+			# Record the max indent level so that we can format the HTML table correctly.
 			if lineinfo['indent'] > self.maxIndent:
 				self.maxIndent = lineinfo['indent']
 
@@ -314,18 +326,23 @@ class GambitParser:
 					self.addRef(t, currDef)
 				if r['parent']:
 					self.addRef(r['parent'], currDef)
-				self.extractReference(r['comment'], currDef)
+					r['tokens'] = self.extractReference(
+						"{0:s} of {1:s}".format(r['types'][0], r['parent']), currDef)
+				else:
+					r['tokens'] = self.extractReference(', '.join(r['types']), currDef)
+				self.extractReference(r['comment'], currDef, True)
 			elif type == "TEMPLATE":
 				currDef = r['keyword']
 				self.addRef("Verb", currDef)
-				self.extractReference(r['comment'], currDef)
+				r['tokens'] = ["Verb"]
+				self.extractReference(r['comment'], currDef, True)
 			elif type == "DESC":
-				self.extractReference(r['line'], currDef)
-				self.extractReference(r['comment'], currDef)
+				r['tokens'] = self.extractReference(r['line'], currDef)
+				self.extractReference(r['comment'], currDef, True)
 			elif type == "CONSTRAINT":
 				(type, cost, indent, line, comment) = r
-				self.extractReference(r['line'], currDef)
-				self.extractReference(r['comment'], currDef)
+				r['tokens'] = self.extractReference(r['line'], currDef)
+				self.extractReference(r['comment'], currDef, True)
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
@@ -353,12 +370,21 @@ class GambitParser:
 					msg = "Term is defined but never referenced: {0:s}".format(k)
 					self.warning(msg) if self.useWarnings else self.error(msg)
 	
-	# This method is similar to calcKeywordLinks. When updating, consider if
-	# changes are needed both places.
-	def extractReference(self, str, currDef):
+	def extractReference(self, str, currDef, inComment=False):
+		if str == "":
+			return
+		newWords = []
+		firstWord = True
 		for word in Tokenizer.tokenize(str):
+			# Skip over special initial characters.
+			if firstWord and word == '*':
+				newWords.append('*')
+				# Don't update firstWord since the next word might be capitalized.
+				continue
+				
 			# Ignore strings.
 			if word[0] == '"' and word[-1] == '"':
+				newWords.append(word)
 				continue
 
 			# Look for template references.
@@ -367,17 +393,33 @@ class GambitParser:
 				(keyword, param) = template
 				self.addRef(keyword, currDef)
 				self.addRef(param, currDef)
+				newWords.append(["TREF", keyword, param])
 				continue
 
 			# Strip non-alphanumeric from beginning/end of token.
 			# Also remove contraction endings like "'s".
-			(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
+			(prefix, word0, postfix) = GambitLineProcessor.extractKeyword(word)
 
 			# Normalize plural forms.
-			canonicalForm = word
-			if word in self.vocabPlural:
-				canonicalForm = self.vocabPlural[word]
+			canonicalForm = word0
+			if word0 in self.vocabPlural:
+				canonicalForm = self.vocabPlural[word0]
 			
 			if canonicalForm in self.vocab:
 				self.addRef(canonicalForm, currDef)
+				newWords.append(["REF", canonicalForm, prefix, word0, postfix])
+			elif inComment:
+				newWords.append(word)
+			else:
+				# Verify capitalized words.
+				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
+					raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+				elif not firstWord and word0[0].isupper():
+					raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+				newWords.append(word)
 
+			firstWord = False
+			if (word0 != "" and word0[-1] == '.') or (postfix != "" and postfix[-1] == '.'):
+				firstWord = True
+
+		return newWords

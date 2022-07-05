@@ -101,6 +101,9 @@ class GambitHtmlExporter:
 			prefix = ""
 			line = r['line']
 			comment = r['comment']
+			tokens = None
+			if 'tokens' in r:
+				tokens = r['tokens']
 			rowclass = None
 
 			if type == "DEF":
@@ -138,7 +141,7 @@ class GambitHtmlExporter:
 			if rowclass:
 				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, comment)
 			else:
-				row += self.calcTableRowDescColumn(r['indent'], line, comment, prefix)
+				row += self.calcTableRowDescColumn(r['indent'], line, tokens, comment, prefix)
 
 			row += '</tr>\n'
 
@@ -149,7 +152,7 @@ class GambitHtmlExporter:
 			return '<td class="cost">{0:d}</td>'.format(cost)
 		return '<td class="cost"></td>'
 	
-	def calcTableRowDescColumn(self, indent, line, comment, descPrefix = ""):
+	def calcTableRowDescColumn(self, indent, line, tokens, comment, descPrefix = ""):
 		row = '<td></td>' * indent
 
 		colspan = self.maxIndent + 1 - indent
@@ -160,7 +163,7 @@ class GambitHtmlExporter:
 			
 		if line != "" or descPrefix != "":
 			row += descPrefix
-			row += self.calcKeywordLinks(line, required=True)
+			row += self.calcKeywordLinks(line, tokens)
 			if comment != "":
 				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
 		if comment != "":
@@ -204,68 +207,34 @@ class GambitHtmlExporter:
 		defn += '</div>'
 		return defn
 
-	# This method is similar to extractReferences. When updating, consider if
-	# changes are needed both places.
-	# TODO: Precalculate these links and store them in the |self.parser.lines|.
-	#
-	# |line| - string to process
-	# |required| - True if it should verify that the keyword is defined
-	def calcKeywordLinks(self, line, required=False):
-		words = []
-		firstWord = True
-		for word in Tokenizer.tokenize(line):
-			# Skip over special initial characters.
-			if firstWord and word == '*':
-				words.append('*')
-				# Don't update firstWord since the next word might be capitalized.
-				continue
+	def calcKeywordLinks(self, line, tokens):
+		if not tokens:
+			return Tokenizer.untokenize(line.split())
+		
+		newWords = []
+		for t in tokens:
+			if isinstance(t, list):
+				ttype = t[0]
+				if ttype == "TREF":
+					(ttype, keyword, param) = t
+					newWords.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
+							.format(keyword, param))
+				elif ttype == "REF":
+					(ttype, canonicalForm, prefix, word, postfix) = t
+					info = self.parser.vocab[canonicalForm]
+					scope = info[0]
+					if scope == "BASE":
+						newWords.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
+					elif scope == "IMPORT":
+						newWords.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
+								.format(prefix, info[1], word, postfix))
 				
-			# Ignore strings.
-			if word[0] == '"' and word[-1] == '"':
-				words.append(word)
-				continue
-
-			# Look for template references.
-			template = GambitLineProcessor.isTemplate(word)
-			if template:
-				(keyword, param) = template
-				words.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
-						.format(keyword, param))
-				continue
-
-			# Strip non-alphanumeric from beginning/end of keyword token.
-			# Also remove contraction endings like "'s".
-			(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
-
-			# Normalize plural forms.
-			canonicalForm = word
-			if word in self.parser.vocabPlural:
-				canonicalForm = self.parser.vocabPlural[word]
-
-			if canonicalForm in self.parser.vocab:
-				info = self.parser.vocab[canonicalForm]
-				scope = info[0]
-				if scope == "BASE":
-					words.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
-				elif scope == "IMPORT":
-					words.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
-							.format(prefix, info[1], word, postfix))
-					
+					else:
+						newWords.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'
+								.format(prefix, canonicalForm, word, postfix))
 				else:
-					words.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'
-							.format(prefix, canonicalForm, word, postfix))
-			elif required:
-				if firstWord and re.match(r'[A-Z].*[A-Z].*', word):
-					raise Exception('Unable to find definition for "{0:s}"'.format(word))
-				elif not firstWord and word[0].isupper():
-					raise Exception('Unable to find definition for "{0:s}"'.format(word))
-				else:
-					words.append('{0:s}{1:s}{2:s}'.format(prefix, self.htmlify(word), postfix))
+					raise Exception('Unknown token type: {0:s}'.format(ttype))
 			else:
-				words.append('{0:s}{1:s}{2:s}'.format(prefix, self.htmlify(word), postfix))
-			
-			firstWord = False
-			if (word != "" and word[-1] == '.') or (postfix != "" and postfix[-1] == '.'):
-				firstWord = True
-			
-		return Tokenizer.untokenize(words)
+				newWords.append(t)
+
+		return Tokenizer.untokenize(newWords)
