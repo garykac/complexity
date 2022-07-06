@@ -34,6 +34,7 @@ class GambitParser:
 	def __init__(self):
 		self.debug = False
 		self.useWarnings = True
+		self.warnOnTodo = False
 
 		self.vocab = {}
 		self.vocabPlural = {}
@@ -69,6 +70,9 @@ class GambitParser:
 		for key in ["Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit"]:
 			self.addVocab(key, None, ["BASE"])
 
+	def setWarnOnTodo(self):
+		self.warnOnTodo = True
+
 	def errorLine(self, msg):
 		print("LINE {0:d}: {1:s}".format(self.lineNum, self.currentLine))
 		self.error(msg)
@@ -81,6 +85,9 @@ class GambitParser:
 
 	def warning(self, msg):
 		print("WARNING: {0:s}".format(msg))
+
+	def warningLine(self, msg):
+		print("WARNING {0:d}: {1:s}".format(self.lineNum, msg))
 
 	# ==========
 	# Vocabulary and Cross-reference
@@ -228,12 +235,14 @@ class GambitParser:
 			self.lineNum = 0
 			for line in file:
 				self.processLine(line)
-		
-		self.updateCosts()
-		self.calcTotalCost()
+				if self.warnOnTodo and line.find("TODO") != -1:
+					self.warningLine("Unresolved TODO {0:s}".format(line.strip()))
 		
 		self.extractAllReferences()
 
+		self.updateCosts()
+		self.calcTotalCost()
+		
 	def processLine(self, line):
 		self.currentLine = line
 		self.lineNum += 1

@@ -75,6 +75,7 @@ class Analyzer:
 			warning('Unable to find "{0:s}" in game list'.format(id))
 
 		parser = GambitParser()
+		parser.setWarnOnTodo()
 
 		filename = "{0:s}.gm".format(id)
 		filepath = os.path.join(SRC_DIR, filename)
