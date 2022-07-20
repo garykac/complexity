@@ -118,8 +118,8 @@ class GambitHtmlExporter:
 				prefix = "{0:s}: ".format(defn)
 				line = "Verb"
 			elif type == "CONSTRAINT":
-				# &bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
-				prefix = "&roplus; "
+				# &roplus;&bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
+				prefix = "&#9888; " # "!" in triangle
 			elif type == "BLANK":
 				prefix = "&nbsp;"
 			elif type == "IMPORT":
