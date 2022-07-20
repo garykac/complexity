@@ -8,6 +8,8 @@ import traceback
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
 
+from typing import Optional
+
 FREE_ACTIONS = [
 	"Then:",
 	"Else:",
@@ -32,26 +34,26 @@ FREE_SUFFIX_WORDS = [
 class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
-		self.debug = False
-		self.useWarnings = True
-		self.warnOnTodo = False
+		self.debug: bool = False
+		self.useWarnings: bool = True
+		self.warnOnTodo: bool = False
 
-		self.vocab = {}
-		self.vocabPlural = {}
+		self.vocab: dict[str, list] = {}
+		self.vocabPlural: dict[str, str] = {}
 		
 		# Definitions that were imported (and possibly overwritten).
 		self.imports = {}
 		
 		self.lines = []
-		self.lineNum = 0
-		self.maxIndent = 0
+		self.lineNum: int = 0
+		self.maxIndent: int = 0
 
-		self.costTotal = 0
+		self.costTotal: int = 0
 		self.sectionCosts = []
 
-		self.gameTitle = "Unknown"
+		self.gameTitle: str = "Unknown"
 
-		self.currentDir = None
+		self.currentDir: Optional[str] = None
 	
 		# Dict of defs that reference this def.
 		self.referencedBy = {}
@@ -62,43 +64,44 @@ class GambitParser:
 		self.freeActions = {}
 		self.initFreeActions()
 	
-	def initFreeActions(self):
+	def initFreeActions(self) -> None:
 		for a in FREE_ACTIONS:
 			self.freeActions[a] = True
 	
-	def initVocab(self):
+	def initVocab(self) -> None:
 		for key in ["Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit"]:
 			self.addVocab(key, None, ["BASE"])
 
-	def setWarnOnTodo(self):
+	# Provide a warning if there are TODO comments left in the source file.
+	def setWarnOnTodo(self) -> None:
 		self.warnOnTodo = True
 
-	def errorLine(self, msg):
+	def errorLine(self, msg: str) -> None:
 		print("LINE {0:d}: {1:s}".format(self.lineNum, self.currentLine))
 		self.error(msg)
 
-	def error(self, msg):
+	def error(self, msg: str) -> None:
 		print("ERROR: {0:s}".format(msg))
 		traceback.print_exc()
 		raise Exception(msg)
 		#exit(0)
 
-	def warning(self, msg):
+	def warning(self, msg: str) -> None:
 		print("WARNING: {0:s}".format(msg))
 
-	def warningLine(self, msg):
+	def warningLine(self, msg: str) -> None:
 		print("WARNING {0:d}: {1:s}".format(self.lineNum, msg))
 
 	# ==========
 	# Vocabulary and Cross-reference
 	# ==========
 	
-	def addVocab(self, key, keyPlural, info):
+	def addVocab(self, key: str, keyPlural: Optional[str], info: list) -> None:
 		self.vocab[key] = info
 		self.referencedBy[key] = set()
 
 		# Simple default plurals.
-		if keyPlural == None:
+		if keyPlural is None:
 			if key[-1] == 's':
 				keyPlural = key
 			# Factory, Quarry, City, but not Donkey
@@ -112,27 +115,27 @@ class GambitParser:
 		if self.debug:
 			print("addVocab", key, keyPlural, info)
 		
-	def isVocab(self, word):
+	def isVocab(self, word: str) -> bool:
 		# Normalize plural forms.
-		canonicalForm = word
+		canonicalForm: str = word
 		if word in self.vocabPlural:
 			canonicalForm = self.vocabPlural[word]
 
 		return canonicalForm in self.vocab
 	
-	def isDefinedTerm(self, term):
+	def isDefinedTerm(self, term: str) -> bool:
 		if self.isVocab(term):
 			return True
 
 		# Check for templates.
-		template = GambitLineProcessor.isTemplate(term)
+		template: bool = GambitLineProcessor.isTemplate(term)
 		if template:
 			(keyword, param) = template
 			return self.isVocab(keyword) and self.isVocab(param)
 
 		return False
 
-	def addImportTerm(self, key):
+	def addImportTerm(self, key: str) -> None:
 		self.imports[key] = True
 	
 	# ==========
