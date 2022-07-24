@@ -1,0 +1,126 @@
+// NAME: Kingdomino
+
+// Year: 2016
+// Designer: Bruno Cathala
+// Players: 2-4
+// Time: 15-25m
+// BGG Weight: 1.21 = 706 / 168 / 9 / 1 / 0
+
+#import common/Game
+#import common/BoardGame
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+StartingTile: Tile
+
+Castle: Noun
+
+Domino: Tile
+NumberSide: Part of Domino
+LandscapeSide: Part of Domino
+
+TerritorySquare: Part of LandscapeSide
+Terrain: Attribute of TerritorySquare
+Crown: Attribute of TerritorySquare
+
+King: Piece
+
+DrawPile: Noun
+
+Line: Noun
+	An ordered list of Dominoes
+CurrentLine: Line
+NextLine: Line
+
+Kingdom: Noun
+	Your collection of Dominoes, arranged on a 5x5 grid.
+
+Territory: Noun
+	A set of TerritorySquares in your Kingdom with matching Terrain that connect horizontally or vertically.
+
+// SECTION: Setup
+
+Setup: Verb
+	SetupComponents
+	CreateNextLineOfDominoes
+	PlaceInitialKings
+	SlideNextLineToBecomeCurrentLine
+	CreateNextLineOfDominoes
+
+SetupComponents: Verb
+	Place the box as shown.
+		// So the stack of Dominoes can be horizontal without revealing the bottom one.
+	Choose player color and take components or matching color:
+		* StartingTile
+		* Castle
+	Take the following number of Kings (matching player color), based on player count:
+		* 2 player: 2 Kings
+		* 2-4 player: 1 King
+	Return unused Kings back to the Box
+	Place your StartingTile in front of you
+	Place your Castle on your StartingTile
+	Shuffle the Dominoes
+	Place Dominoes in box with NumberSide facing up to form a (horizontal) DrawPile
+	Adjust the number of Dominoes in the DrawPile based on the number of Players:
+		* 2 Players: 24 Dominoes
+		* 3 Players: 36 Dominoes
+		* 4 Players: 48 Dominoes
+
+CreateNextLineOfDominoes: Verb
+	Draw a number of Dominoes from the DrawPile equal to the number of Kings in play:
+		* 3 player: Draw 3 Dominoes
+		* 2 or 4 player: Draw 4 Dominoes
+	Place them NumberSide up to form the NextLine
+	Arrange them in ascending order, with the lowest number at the top of the Line
+	Flip over all these Dominoes to reveal the LandscapeSide
+
+PlaceInitialKings: Verb
+	Gather all the Kings
+		// Except for the ones placed back in the Box
+	Select start player
+	Repeat until all Kings have been placed on tiles:
+		Randomly take a King
+			! Note: The King may not necessarily match your Player color
+		PlaceKingOnDomino
+		NextPlayerClockwise
+
+PlaceKingOnDomino: Verb
+	Place your King token on one of Dominoes in the NextLine
+	! You may not place on a Domino that already has a King on it
+	! Skip placement if there is no NextLine
+
+SlideNextLineToBecomeCurrentLine: Verb
+	Slide the entire NextLine over so that it becomes the CurrentLine
+	// By convention, the CurrentLine is closet to the Box than the NextLine
+	! Game ends if there is no NextLine to slide over
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	For each Domino in the CurrentLine, starting at the top (lowest number):
+		The Player whose King is on the Domino must:
+			AddDominoToTerritory
+			PlaceKingOnDomino
+		SlideNextLineToBecomeCurrentLine
+		CreateNextLineOfDominoes
+
+AddDominoToTerritory: Verb
+	Choose one:
+		Connect the Domino so a TerritorySquare shares an edge with your StartingTile
+		Connect the Domino so the Terrain of at least one TerritorySquare shares a matching edge with another Domino in your Territory
+	! Your Kingdom is restricted to a 5x5 grid
+	! Discard the Domino if you cannot place it in your Territory
+
+// SECTION: Endgame Scoring
+
+CalculateScore: Verb
+	For each Territory in your Kingdom:
+		Add (number of TerritorySquares in Territory) * (number of Crowns in Territory) to your score
+	// Note: A Territory with 0 Crowns scores 0 points
+	
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	! If tie, Player with biggest Territory (most TerritorySquares) wins
+		! If still tied, the tied Player with the most Crowns wins
+			! If still tied, the tied Players share the victory

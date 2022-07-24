@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Kingdomino</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-column {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Kingdomino</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">15</td><td class="summary-column">30.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">23</td><td class="summary-column">46.9%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">6</td><td class="summary-column">12.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">5</td><td class="summary-column">10.2%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>49</b></td><td class="summary-column"></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Kingdomino</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2016</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Bruno Cathala</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 15-25m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/Game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/BoardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">#import common/CardGame</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartingTile">StartingTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddDominoToTerritory">AddDominoToTerritory</a><a href="#SetupComponents">SetupComponents</a></div></div>: <abbr title="Imported from common/BoardGame">Tile</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Castle">Castle</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupComponents">SetupComponents</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Domino">Domino</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddDominoToTerritory">AddDominoToTerritory</a><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#Kingdom">Kingdom</a><a href="#LandscapeSide">LandscapeSide</a><a href="#Line">Line</a><a href="#NumberSide">NumberSide</a><a href="#PlaceKingOnDomino">PlaceKingOnDomino</a><a href="#PlayGame">PlayGame</a><a href="#SetupComponents">SetupComponents</a></div></div>: <abbr title="Imported from common/BoardGame">Tile</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NumberSide">NumberSide</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#SetupComponents">SetupComponents</a></div></div>: Part of <a class="keyword" href="#Domino">Domino</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LandscapeSide">LandscapeSide</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#TerritorySquare">TerritorySquare</a></div></div>: Part of <a class="keyword" href="#Domino">Domino</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TerritorySquare">TerritorySquare</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddDominoToTerritory">AddDominoToTerritory</a><a href="#CalculateScore">CalculateScore</a><a href="#Crown">Crown</a><a href="#DetermineWinner">DetermineWinner</a><a href="#Terrain">Terrain</a><a href="#Territory">Territory</a></div></div>: Part of <a class="keyword" href="#LandscapeSide">LandscapeSide</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Terrain">Terrain</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddDominoToTerritory">AddDominoToTerritory</a><a href="#Territory">Territory</a></div></div>: Attribute of <a class="keyword" href="#TerritorySquare">TerritorySquare</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Crown">Crown</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#DetermineWinner">DetermineWinner</a></div></div>: Attribute of <a class="keyword" href="#TerritorySquare">TerritorySquare</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="King">King</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#PlaceInitialKings">PlaceInitialKings</a><a href="#PlaceKingOnDomino">PlaceKingOnDomino</a><a href="#PlayGame">PlayGame</a><a href="#SetupComponents">SetupComponents</a></div></div>: <abbr title="Imported from common/BoardGame">Piece</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawPile">DrawPile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#SetupComponents">SetupComponents</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Line">Line</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#CurrentLine">CurrentLine</a><a href="#NextLine">NextLine</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>An ordered list of <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CurrentLine">CurrentLine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#SlideNextLineToBecomeCurrentLine">SlideNextLineToBecomeCurrentLine</a></div></div>: <a class="keyword" href="#Line">Line</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NextLine">NextLine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><a href="#PlaceKingOnDomino">PlaceKingOnDomino</a><a href="#SlideNextLineToBecomeCurrentLine">SlideNextLineToBecomeCurrentLine</a></div></div>: <a class="keyword" href="#Line">Line</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Kingdom">Kingdom</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddDominoToTerritory">AddDominoToTerritory</a><a href="#CalculateScore">CalculateScore</a><a href="#Territory">Territory</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Your collection of <a class="keyword" href="#Domino">Dominoes</a>, arranged on a 5x5 grid.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Territory">Territory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddDominoToTerritory">AddDominoToTerritory</a><a href="#CalculateScore">CalculateScore</a><a href="#DetermineWinner">DetermineWinner</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A set of <a class="keyword" href="#TerritorySquare">TerritorySquares</a> in your <a class="keyword" href="#Kingdom">Kingdom</a> with matching <a class="keyword" href="#Terrain">Terrain</a> that connect horizontally or vertically.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupComponents">SetupComponents</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlaceInitialKings">PlaceInitialKings</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SlideNextLineToBecomeCurrentLine">SlideNextLineToBecomeCurrentLine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupComponents">SetupComponents</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the box as shown.</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">So the stack of Dominoes can be horizontal without revealing the bottom one.</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose player color and take components or matching color:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#StartingTile">StartingTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Castle">Castle</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take the following number of <a class="keyword" href="#King">Kings</a> (matching player color), based on player count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2 player: 2 <a class="keyword" href="#King">Kings</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2-4 player: 1 <a class="keyword" href="#King">King</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Return unused <a class="keyword" href="#King">Kings</a> back to the <abbr title="Imported from common/BoardGame">Box</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place your <a class="keyword" href="#StartingTile">StartingTile</a> in front of you</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place your <a class="keyword" href="#Castle">Castle</a> on your <a class="keyword" href="#StartingTile">StartingTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> the <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Domino">Dominoes</a> in box with <a class="keyword" href="#NumberSide">NumberSide</a> facing up to form a (horizontal) <a class="keyword" href="#DrawPile">DrawPile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Adjust the number of <a class="keyword" href="#Domino">Dominoes</a> in the <a class="keyword" href="#DrawPile">DrawPile</a> based on the number of <abbr title="Imported from common/Game">Players</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2 <abbr title="Imported from common/Game">Players</abbr>: 24 <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3 <abbr title="Imported from common/Game">Players</abbr>: 36 <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 4 <abbr title="Imported from common/Game">Players</abbr>: 48 <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CreateNextLineOfDominoes">CreateNextLineOfDominoes</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> a number of <a class="keyword" href="#Domino">Dominoes</a> from the <a class="keyword" href="#DrawPile">DrawPile</a> equal to the number of <a class="keyword" href="#King">Kings</a> in play:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 3 player: <abbr title="Imported from common/CardGame">Draw</abbr> 3 <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* 2 or 4 player: <abbr title="Imported from common/CardGame">Draw</abbr> 4 <a class="keyword" href="#Domino">Dominoes</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place them <a class="keyword" href="#NumberSide">NumberSide</a> up to form the <a class="keyword" href="#NextLine">NextLine</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Arrange them in ascending order, with the lowest number at the top of the <a class="keyword" href="#Line">Line</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Flip over all these <a class="keyword" href="#Domino">Dominoes</a> to reveal the <a class="keyword" href="#LandscapeSide">LandscapeSide</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceInitialKings">PlaceInitialKings</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Gather all the <a class="keyword" href="#King">Kings</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Except for the ones placed back in the Box</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Select start player</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until all <a class="keyword" href="#King">Kings</a> have been placed on tiles:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Randomly take a <a class="keyword" href="#King">King</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">&#9888; Note: The <a class="keyword" href="#King">King</a> may not necessarily match your <abbr title="Imported from common/Game">Player</abbr> color</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlaceKingOnDomino">PlaceKingOnDomino</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceKingOnDomino">PlaceKingOnDomino</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceInitialKings">PlaceInitialKings</a><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place your <a class="keyword" href="#King">King</a> token on one of <a class="keyword" href="#Domino">Dominoes</a> in the <a class="keyword" href="#NextLine">NextLine</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may not place on a <a class="keyword" href="#Domino">Domino</a> that already has a <a class="keyword" href="#King">King</a> on it</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Skip placement if there is no <a class="keyword" href="#NextLine">NextLine</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SlideNextLineToBecomeCurrentLine">SlideNextLineToBecomeCurrentLine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Slide the entire <a class="keyword" href="#NextLine">NextLine</a> over so that it becomes the <a class="keyword" href="#CurrentLine">CurrentLine</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">By convention, the CurrentLine is closet to the Box than the NextLine</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Game ends if there is no <a class="keyword" href="#NextLine">NextLine</a> to slide over</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Domino">Domino</a> in the <a class="keyword" href="#CurrentLine">CurrentLine</a>, starting at the top (lowest number):</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The <abbr title="Imported from common/Game">Player</abbr> whose <a class="keyword" href="#King">King</a> is on the <a class="keyword" href="#Domino">Domino</a> must:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#AddDominoToTerritory">AddDominoToTerritory</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PlaceKingOnDomino">PlaceKingOnDomino</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#SlideNextLineToBecomeCurrentLine">SlideNextLineToBecomeCurrentLine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CreateNextLineOfDominoes">CreateNextLineOfDominoes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AddDominoToTerritory">AddDominoToTerritory</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Connect the <a class="keyword" href="#Domino">Domino</a> so a <a class="keyword" href="#TerritorySquare">TerritorySquare</a> shares an edge with your <a class="keyword" href="#StartingTile">StartingTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Connect the <a class="keyword" href="#Domino">Domino</a> so the <a class="keyword" href="#Terrain">Terrain</a> of at least one <a class="keyword" href="#TerritorySquare">TerritorySquare</a> shares a matching edge with another <a class="keyword" href="#Domino">Domino</a> in your <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Your <a class="keyword" href="#Kingdom">Kingdom</a> is restricted to a 5x5 grid</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; <abbr title="Imported from common/CardGame">Discard</abbr> the <a class="keyword" href="#Domino">Domino</a> if you cannot place it in your <a class="keyword" href="#Territory">Territory</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Territory">Territory</a> in your <a class="keyword" href="#Kingdom">Kingdom</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add (number of <a class="keyword" href="#TerritorySquare">TerritorySquares</a> in <a class="keyword" href="#Territory">Territory</a>) * (number of <a class="keyword" href="#Crown">Crowns</a> in <a class="keyword" href="#Territory">Territory</a>) to your score</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note: A Territory with 0 Crowns scores 0 points</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If tie, <abbr title="Imported from common/Game">Player</abbr> with biggest <a class="keyword" href="#Territory">Territory</a> (most <a class="keyword" href="#TerritorySquare">TerritorySquares</a>) wins</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; If still tied, the tied <abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#Crown">Crowns</a> wins</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">&#9888; If still tied, the tied <abbr title="Imported from common/Game">Players</abbr> share the victory</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>
