@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,14 @@ a.keyword:hover {
 <div class="title">Automobiles</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">44</td><td class="summary-column">40.7%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">14</td><td class="summary-column">13.0%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">43</td><td class="summary-column">39.8%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">5</td><td class="summary-column">4.6%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">2</td><td class="summary-column">1.9%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>108</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">44</td><td class="summary-column">40.7%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">14</td><td class="summary-column">13.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">43</td><td class="summary-column">39.8%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">5</td><td class="summary-column">4.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">2</td><td class="summary-column">1.9%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>108</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -331,7 +340,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CurrentPosition">CurrentPosition</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformanceAction">PerformanceAction</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Position">Position</a> of your <a class="keyword" href="#RaceCar">RaceCar</a> at the beginning of your <a class="keyword" href="#ActionPhase">ActionPhase</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -366,7 +375,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuyStartCubes">BuyStartCubes</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Using your <a class="keyword" href="#StartingMoney">StartingMoney</a> (based on <a class="keyword" href="#StartPosition">StartPosition</a>):</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Buy as many <a class="keyword" href="#Cube">Cubes</a> as you wish by paying the <a class="keyword" href="#Cost">Costs</a> on the corresponding <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#UnspentMoneyIsLost">UnspentMoneyIsLost</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#UnspentMoneyIsLost">UnspentMoneyIsLost</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -403,16 +412,16 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#HandlingCube">HandlingCube</a>: <a class="keyword" href="#HandlingAction">HandlingAction</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PerformanceCube">PerformanceCube</a>: <a class="keyword" href="#PerformanceAction">PerformanceAction</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PitCube">PitCube</a>: <a class="keyword" href="#PitAction">PitAction</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#MustPerformAllCardEffects">MustPerformAllCardEffects</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#MustPerformAllCardEffects">MustPerformAllCardEffects</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveRaceCar">MoveRaceCar</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EngineAction">EngineAction</a><a href="#GearAction">GearAction</a><a href="#HandlingAction">HandlingAction</a><a href="#PerformanceAction">PerformanceAction</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Starting from your <a class="keyword" href="#RaceCar">RaceCar</a> or one of the <a class="keyword" href="#Cube">Cubes</a> you placed on a <a class="keyword" href="#Space">Space</a> this turn:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#Cube">Cube</a> that you used to make the move onto an <a class="keyword" href="#AdjacentSpace">AdjacentSpace</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not move into a <a class="keyword" href="#Space">Space</a> that has an opponent's <a class="keyword" href="#RaceCar">RaceCar</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may not move into a <a class="keyword" href="#Space">Space</a> that has an opponent's <a class="keyword" href="#RaceCar">RaceCar</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Unless the <a class="keyword" href="#Space">Space</a> has multiple <a class="keyword" href="#Segment">Segments</a> and there is an empty <a class="keyword" href="#Segment">Segment</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When moving into a <a class="keyword" href="#Space">Space</a> with multiple <a class="keyword" href="#Segment">Segments</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; When moving into a <a class="keyword" href="#Space">Space</a> with multiple <a class="keyword" href="#Segment">Segments</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Move your <a class="keyword" href="#RaceCar">RaceCar</a> forward to the frontmost empty <a class="keyword" href="#Segment">Segment</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Any <a class="keyword" href="#Cube">Cube</a> you place on a <a class="keyword" href="#Space">Space</a> is still considered to be in your <a class="keyword" href="#UsedPile">UsedPile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Any <a class="keyword" href="#Cube">Cube</a> you place on a <a class="keyword" href="#Space">Space</a> is still considered to be in your <a class="keyword" href="#UsedPile">UsedPile</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Placing a Cube instead of moving your RaceCar directly helps you track your actions.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -456,7 +465,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add the <a class="keyword" href="#Value">Value</a> from the matching <a class="keyword" href="#AutomobileCard">AutomobileCard</a> to your money</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Buy as many <a class="keyword" href="#Cube">Cubes</a> are you wish with your money</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place purchased <a class="keyword" href="#Cube">Cubes</a> into your <a class="keyword" href="#UsedPile">UsedPile</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#UnspentMoneyIsLost">UnspentMoneyIsLost</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#UnspentMoneyIsLost">UnspentMoneyIsLost</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CarPhase">CarPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StandardTurn">StandardTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move your <a class="keyword" href="#RaceCar">RaceCar</a> up to the furthest <a class="keyword" href="#Cube">Cube</a> that you placed on the <a class="keyword" href="#TrackBoard">TrackBoard</a></td></tr>
@@ -472,8 +481,8 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#LightGraySpace">LightGraySpace</a>: <a class="keyword" href="#GainWear">GainWear</a> x2</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DarkGraySpace">DarkGraySpace</a>: <a class="keyword" href="#GainWear">GainWear</a> x3</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BlackSpace">BlackSpace</a>: <a class="keyword" href="#GainWear">GainWear</a> x4</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; For <a class="keyword" href="#Space">Spaces</a> with multiple colors, treat it as if it was the darker color</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Don't gain any <a class="keyword" href="#WearCube">WearCubes</a> if you didn't move this turn</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; For <a class="keyword" href="#Space">Spaces</a> with multiple colors, treat it as if it was the darker color</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Don't gain any <a class="keyword" href="#WearCube">WearCubes</a> if you didn't move this turn</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EndPhase">EndPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AlternativeTurn">AlternativeTurn</a><a href="#StandardTurn">StandardTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move all of your <a class="keyword" href="#Cube">Cube</a> from the <a class="keyword" href="#TrackBoard">TrackBoard</a>, <a class="keyword" href="#ActivePile">ActivePile</a> and <a class="keyword" href="#UsedPile">UsedPile</a> into your <a class="keyword" href="#DiscardPile">DiscardPile</a></td></tr>
@@ -485,7 +494,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawCube">DrawCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndPhase">EndPhase</a><a href="#PitAction">PitAction</a><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Draw</abbr> a <a class="keyword" href="#Cube">Cube</a> from your <a class="keyword" href="#DrawBag">DrawBag</a> and place it in your <a class="keyword" href="#ActivePile">ActivePile</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If your <a class="keyword" href="#DrawBag">DrawBag</a> is empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If your <a class="keyword" href="#DrawBag">DrawBag</a> is empty:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place all <a class="keyword" href="#Cube">Cubes</a> from your <a class="keyword" href="#DiscardPile">DiscardPile</a> into your <a class="keyword" href="#DrawBag">DrawBag</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemoveCube">RemoveCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AlternativeTurn">AlternativeTurn</a><a href="#GarageAction">GarageAction</a><a href="#PitAction">PitAction</a></div></div>: Verb</td></tr>
@@ -515,7 +524,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The winner is the <a class="keyword" href="#RaceCar">RaceCar</a> that went the furthest past the <a class="keyword" href="#FinishLine">FinishLine</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#InnerLanesLeadOuterLanes">InnerLanesLeadOuterLanes</a></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

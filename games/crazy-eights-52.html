@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,13 +164,13 @@ a.keyword:hover {
 <div class="title">Crazy Eights (52-card)</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">10</td><td class="summary-column">26.3%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">8</td><td class="summary-column">21.1%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">19</td><td class="summary-column">50.0%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">2.6%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>38</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">10</td><td class="summary-column">26.3%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">8</td><td class="summary-column">21.1%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">19</td><td class="summary-column">50.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">2.6%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>38</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -222,7 +231,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until a <abbr title="Imported from common/Game">Player</abbr> runs out of cards:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#NextPlayer">NextPlayer</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Starting with the <abbr title="Imported from common/Game">Player</abbr> to the left of the <abbr title="Imported from common/CardGame">Dealer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Starting with the <abbr title="Imported from common/Game">Player</abbr> to the left of the <abbr title="Imported from common/CardGame">Dealer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of the <a class="keyword" href="#TopCard">TopCard</a> is a 2:</td></tr>
@@ -231,7 +240,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose one of the following:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayMatchingCard">PlayMatchingCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you can't play a matching card, then you must <a class="keyword" href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you can't play a matching card, then you must <a class="keyword" href="#DrawCardsUntilMatch">DrawCardsUntilMatch</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleDraw2">HandleDraw2</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You must play a <abbr title="Imported from common/CardGame">Card</abbr> with <abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of 2:</td></tr>
@@ -253,7 +262,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of 2: set <a class="keyword" href="#Draw2Multiplier">Draw2Multiplier</a> to 1</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of <abbr title="Imported from common/DeckFrenchSuit">Queen</abbr>: <a class="keyword" href="#SkipPlayer">SkipPlayer</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/DeckFrenchSuit">Rank</abbr> of <abbr title="Imported from common/DeckFrenchSuit">Ace</abbr>: <a class="keyword" href="#ReverseDirection">ReverseDirection</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you have multiple <abbr title="Imported from common/CardGame">Cards</abbr> that match, you may choose any one.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you have multiple <abbr title="Imported from common/CardGame">Cards</abbr> that match, you may choose any one.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ReverseDirection">ReverseDirection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayMatchingCard">PlayMatchingCard</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Swap current <a class="keyword" href="#PlayDirection">PlayDirection</a> between clockwise and counterclockwise</td></tr>

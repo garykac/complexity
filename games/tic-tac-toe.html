@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,13 +164,13 @@ a.keyword:hover {
 <div class="title">Tic-tac-toe</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">3</td><td class="summary-column">30.0%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">0</td><td class="summary-column">0.0%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">6</td><td class="summary-column">60.0%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">10.0%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>10</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">3</td><td class="summary-column">30.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column"></td><td class="summary-column"></td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">6</td><td class="summary-column">60.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">10.0%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>10</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -203,7 +212,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Move <a class="keyword" href="#Piece">Piece</a> into an empty <a class="keyword" href="#Square">Square</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#CheckWin">CheckWin</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">SwitchPlayer</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If no empty <a class="keyword" href="#Square">Square</a> on <a class="keyword" href="#Board">Board</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If no empty <a class="keyword" href="#Square">Square</a> on <a class="keyword" href="#Board">Board</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">End the game as tie</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CheckWin">CheckWin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>

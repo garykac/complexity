@@ -29,7 +29,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -38,9 +37,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {

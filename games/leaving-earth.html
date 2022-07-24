@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,14 @@ a.keyword:hover {
 <div class="title">Leaving Earth</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">97</td><td class="summary-column">29.8%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">16</td><td class="summary-column">4.9%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">205</td><td class="summary-column">63.1%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">4</td><td class="summary-column">1.2%</td></tr>
-<tr><td class="summary-first-column">EndGame</td><td class="summary-column">3</td><td class="summary-column">0.9%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>325</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">97</td><td class="summary-column">29.8%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">16</td><td class="summary-column">4.9%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">205</td><td class="summary-column">63.1%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">4</td><td class="summary-column">1.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">EndGame</td><td class="summary-column">3</td><td class="summary-column">0.9%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>325</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -653,7 +662,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> in <a class="keyword" href="#Space">Space</a> that doesn't have <a class="keyword" href="#TimeToken">TimeTokens</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If in a <a class="keyword" href="#Location">Location</a> with a <a class="keyword" href="#Maneuver">Maneuver</a> that has a <a class="keyword" href="#Difficulty">Difficulty</a> of "!" :</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PerformAutoManeuver">PerformAutoManeuver</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PerformAutoManeuver">PerformAutoManeuver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AutomaticManeuvers">AutomaticManeuvers</a><a href="#PerformManeuver">PerformManeuver</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If <a class="keyword" href="#Maneuver">Maneuver</a>'s <a class="keyword" href="#TargetLocation">TargetLocation</a> is <a class="keyword" href="#Lost">Lost</a>:</td></tr>
@@ -697,12 +706,12 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If you have the required <a class="keyword" href="#Advancement">Advancement</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Pay <a class="keyword" href="#Cost">Cost</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#Component">Component</a> in your <a class="keyword" href="#Warehouse">Warehouse</a> (in undamaged state)</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#NotComponentLimited">NotComponentLimited</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#NotComponentLimited">NotComponentLimited</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AssembleSpacecraft">AssembleSpacecraft</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AgencyTurn">AgencyTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Select <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place corresponding <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> on <a class="keyword" href="#Earth">Earth</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#NotComponentLimited">NotComponentLimited</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#NotComponentLimited">NotComponentLimited</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add any number of <a class="keyword" href="#Component">Components</a> from your <a class="keyword" href="#Warehouse">Warehouse</a> (at least one)</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you add <a class="keyword" href="#Astronaut">Astronauts</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The number of <a class="keyword" href="#Astronaut">Astronauts</a> must not exceed the <a class="keyword" href="#Capsule">Capsule</a>'s <a class="keyword" href="#Capacity">Capacity</a></td></tr>
@@ -728,8 +737,8 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The <a class="keyword" href="#Maneuver">Maneuver</a> fails and the <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> stays in the same location</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DealWithHazards">DealWithHazards</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> to <a class="keyword" href="#Maneuver">Maneuver</a>'s <a class="keyword" href="#TargetLocation">TargetLocation</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#FasterManeuvers">FasterManeuvers</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#FasterManeuvers">FasterManeuvers</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GenerateThrustForManeuver">GenerateThrustForManeuver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformManeuver">PerformManeuver</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If <a class="keyword" href="#Rocket">Rocket</a>:</td></tr>
@@ -753,7 +762,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If <a class="keyword" href="#Maneuver">Maneuver</a>'s <a class="keyword" href="#Hazards">Hazards</a> contains one or more <a class="keyword" href="#HourglassIcon">HourglassIcons</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MultiYearManeuver">MultiYearManeuver</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DealWithEntryHazards">DealWithEntryHazards</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="IrradiateAstronauts">IrradiateAstronauts</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealWithHazards">DealWithHazards</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ExploreLocation">ExploreLocation</a> <a class="keyword" href="#SolarRadiation">SolarRadiation</a></td></tr>
@@ -840,7 +849,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MajorFailure">MajorFailure</a>: <a class="keyword" href="#DamageSelectedComponent">DamageSelectedComponent</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#AdjustOutcomeForPilot">AdjustOutcomeForPilot</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#KeepOrRemoveOutcomeCard">KeepOrRemoveOutcomeCard</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="VerifyRendezvousRequirements">VerifyRendezvousRequirements</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DockSpacecraft">DockSpacecraft</a><a href="#SeparateSpacecraft">SeparateSpacecraft</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Must have <a class="keyword" href="#RendezvousAdvancement">RendezvousAdvancement</a></td></tr>
@@ -867,7 +876,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add new <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> to <a class="keyword" href="#Location">Location</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Take corresponding <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move whichever <a class="keyword" href="#Component">Components</a> you wish to new <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; The <a class="keyword" href="#Capsule">Capsule</a> <a class="keyword" href="#Capacity">Capacity</a> on each <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a> must be suffient for the number of <a class="keyword" href="#Astronaut">Astronauts</a> it contains</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; The <a class="keyword" href="#Capsule">Capsule</a> <a class="keyword" href="#Capacity">Capacity</a> on each <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a> must be suffient for the number of <a class="keyword" href="#Astronaut">Astronauts</a> it contains</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="FullRendezvousTest">FullRendezvousTest</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AgencyTurn">AgencyTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until failure or there are no more <a class="keyword" href="#Outcome">Outcome</a> <abbr title="Imported from common/CardGame">Cards</abbr> to draw:</td></tr>
@@ -884,8 +893,8 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The corresponding <a class="keyword" href="#SpacecraftToken">SpacecraftToken</a> is in a <a class="keyword" href="#Location">Location</a> with a <a class="keyword" href="#Maneuver">Maneuver</a> that has an <a class="keyword" href="#ExplorationHazardIcon">ExplorationHazardIcon</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Then:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#SurveyLocation">SurveyLocation</a> on the <a class="keyword" href="#Maneuver">Maneuver</a>'s <a class="keyword" href="#TargetLocation">TargetLocation</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; You may not survey <a class="keyword" href="#SuborbitalSpace">SuborbitalSpace</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You may not survey <a class="keyword" href="#SuborbitalSpace">SuborbitalSpace</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SurveyLocation">SurveyLocation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SurveyConditions">SurveyConditions</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DrawOutcome">DrawOutcome</a> for <a class="keyword" href="#SurveyingAdvancement">SurveyingAdvancement</a></td></tr>
@@ -903,7 +912,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Astronaut">Astronaut</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>Then:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TakeSample">TakeSample</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MultiYearTravel">MultiYearTravel</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TakeSample">TakeSample</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CollectSample">CollectSample</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If <a class="keyword" href="#Location">Location</a> has a <a class="keyword" href="#DiscoveryIcon">DiscoveryIcon</a>:</td></tr>
@@ -913,7 +922,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlentifulSupplies">PlentifulSupplies</a>: take <a class="keyword" href="#Supplies">Supplies</a> for free</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ValuableMinerals">ValuableMinerals</a>: minerals can be traded for <a class="keyword" href="#Money">Money</a> at start of year</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move a <a class="keyword" href="#Sample">Sample</a> card corresponding to your <a class="keyword" href="#Location">Location</a> onto your <a class="keyword" href="#SpacecraftCard">SpacecraftCard</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#NotComponentLimited">NotComponentLimited</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#NotComponentLimited">NotComponentLimited</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AlienAdvancement">AlienAdvancement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeSample">TakeSample</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Choose one:</td></tr>
@@ -978,7 +987,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Choose one:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PayToDiscardOutcomeCard">PayToDiscardOutcomeCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported from common/CardGame">Shuffle</abbr> <a class="keyword" href="#Outcome">Outcome</a> <abbr title="Imported from common/CardGame">Card</abbr> back into stack on the <a class="keyword" href="#Advancement">Advancement</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; Skip if no <a class="keyword" href="#Outcome">Outcome</a> <abbr title="Imported from common/CardGame">Card</abbr> was drawn</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; Skip if no <a class="keyword" href="#Outcome">Outcome</a> <abbr title="Imported from common/CardGame">Card</abbr> was drawn</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PayToDiscardOutcomeCard">PayToDiscardOutcomeCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#FullRendezvousTest">FullRendezvousTest</a><a href="#KeepOrRemoveOutcomeCard">KeepOrRemoveOutcomeCard</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Pay <a class="keyword" href="#CostToDiscardOutcomeCard">CostToDiscardOutcomeCard</a></td></tr>

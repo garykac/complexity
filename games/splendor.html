@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,14 @@ a.keyword:hover {
 <div class="title">Splendor</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">16</td><td class="summary-column">25.8%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">10</td><td class="summary-column">16.1%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">28</td><td class="summary-column">45.2%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">7</td><td class="summary-column">11.3%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>62</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">16</td><td class="summary-column">25.8%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">10</td><td class="summary-column">16.1%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">28</td><td class="summary-column">45.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">7</td><td class="summary-column">11.3%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>62</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -269,7 +278,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PurchaseCard">PurchaseCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#ReserveCard">ReserveCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PurchaseReservedCard">PurchaseReservedCard</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you have more than 10 <abbr title="Imported from common/BoardGame">Tokens</abbr> at the end of your turn:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If you have more than 10 <abbr title="Imported from common/BoardGame">Tokens</abbr> at the end of your turn:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Return <abbr title="Imported from common/BoardGame">Tokens</abbr> to their <a class="keyword" href="#Pile">Piles</a> until you have only 10</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Take3DifferentGems">Take3DifferentGems</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
@@ -277,7 +286,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Take2SameGems">Take2SameGems</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Take 2 <a class="keyword" href="#GemToken">GemTokens</a> of the same <a class="keyword" href="#Color">Color</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; You may only take 2 <a class="keyword" href="#GemToken">GemTokens</a> of the same color if there are at least 4 available</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; You may only take 2 <a class="keyword" href="#GemToken">GemTokens</a> of the same color if there are at least 4 available</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PurchaseCard">PurchaseCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Take a <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> from the <a class="keyword" href="#Market">Market</a></td></tr>
@@ -299,11 +308,11 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add the chosen <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> to your <a class="keyword" href="#InactiveArea">InactiveArea</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place a <a class="keyword" href="#GoldToken">GoldToken</a> on the newly reserved <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RefillMarket">RefillMarket</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; You may not have more than 3 <abbr title="Imported from common/CardGame">Cards</abbr> in your <a class="keyword" href="#InactiveArea">InactiveArea</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If there aren't any <a class="keyword" href="#GoldToken">GoldTokens</a> remaining:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; You may not have more than 3 <abbr title="Imported from common/CardGame">Cards</abbr> in your <a class="keyword" href="#InactiveArea">InactiveArea</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If there aren't any <a class="keyword" href="#GoldToken">GoldTokens</a> remaining:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">You may still reserve a <abbr title="Imported from common/CardGame">Card</abbr>, but you don't get a <a class="keyword" href="#GoldToken">GoldToken</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#VisibleDevelopmentCards">VisibleDevelopmentCards</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If you <abbr title="Imported from common/CardGame">Draw</abbr> directly from a <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#VisibleDevelopmentCards">VisibleDevelopmentCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If you <abbr title="Imported from common/CardGame">Draw</abbr> directly from a <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">You may keep the reserved <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> hidden from other <abbr title="Imported from common/Game">Players</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PurchaseReservedCard">PurchaseReservedCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
@@ -316,7 +325,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CheckForNobleVisit">CheckForNobleVisit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllPlayerTurns">AllPlayerTurns</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If you have <a class="keyword" href="#BonusGem">BonusGems</a> that match the <a class="keyword" href="#VisitRequirement">VisitRequirement</a> of a <a class="keyword" href="#NobleTile">NobleTile</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Place the matching <a class="keyword" href="#NobleTile">NobleTile</a> in front of you</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If your <a class="keyword" href="#BonusGem">BonusGems</a> match more than one <a class="keyword" href="#NobleTile">NobleTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If your <a class="keyword" href="#BonusGem">BonusGems</a> match more than one <a class="keyword" href="#NobleTile">NobleTile</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Choose which <a class="keyword" href="#NobleTile">NobleTile</a> to take</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Constraints</td></tr>
@@ -334,7 +343,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Winner is the <abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#PrestigePoints">PrestigePoints</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; In case of a tie:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; In case of a tie:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">Player</abbr> with fewest <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> wins</td></tr>
 </table>
 <div class="footer">&nbsp;</div>

@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,13 +164,13 @@ a.keyword:hover {
 <div class="title">Checkers</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">7</td><td class="summary-column">28.0%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">2</td><td class="summary-column">8.0%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">15</td><td class="summary-column">60.0%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">4.0%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>25</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">7</td><td class="summary-column">28.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">2</td><td class="summary-column">8.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">15</td><td class="summary-column">60.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">4.0%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>25</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -182,7 +191,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Square">Square</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DarkSquare">DarkSquare</a></div></div>: Part of <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Squares can be Dark (Black) or Light (often Red).</span></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DarkSquare">DarkSquare</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Capture">Capture</a><a href="#MovePiece">MovePiece</a><a href="#PlaceBoard">PlaceBoard</a><a href="#PlacePawns">PlacePawns</a></div></div>: <a class="keyword" href="#Square">Square</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">where Color = Dark</span></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; The light <a class="keyword" href="#Square">Squares</a> on the <abbr title="Imported from common/BoardGame">Gameboard</abbr> are not used</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; The light <a class="keyword" href="#Square">Squares</a> on the <abbr title="Imported from common/BoardGame">Gameboard</abbr> are not used</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="KingRow">KingRow</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForPromotion">CheckForPromotion</a></div></div>: Part of <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Row of Squares on the board furthest from the player.</span></td></tr>
@@ -220,26 +229,26 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#MoveOrCapture">MoveOrCapture</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#CheckForPromotion">CheckForPromotion</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">SwitchPlayer</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <abbr title="Imported from common/Game">Player</abbr> with the dark <a class="keyword" href="#Piece">Pieces</a> plays first</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; <abbr title="Imported from common/Game">Player</abbr> with the dark <a class="keyword" href="#Piece">Pieces</a> plays first</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveOrCapture">MoveOrCapture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose one of the following:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#MovePiece">MovePiece</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Capture">Capture</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you have a <a class="keyword" href="#Capture">Capture</a> available:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you have a <a class="keyword" href="#Capture">Capture</a> available:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>you must <a class="keyword" href="#Capture">Capture</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovePiece">MovePiece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveOrCapture">MoveOrCapture</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move a <a class="keyword" href="#Piece">Piece</a> diagonally into empty <a class="keyword" href="#DarkSquare">DarkSquare</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#Pawn">Pawns</a> may only move forward (away from the <abbr title="Imported from common/Game">Player</abbr>)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#Pawn">Pawns</a> may only move forward (away from the <abbr title="Imported from common/Game">Player</abbr>)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Capture">Capture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveOrCapture">MoveOrCapture</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Jump diagonally over a <a class="keyword" href="#Piece">Piece</a> into an empty <a class="keyword" href="#DarkSquare">DarkSquare</a> on the opposite side</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove the <a class="keyword" href="#Piece">Piece</a> that was jumped over from the game</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#Piece">Piece</a> that was moved has another <a class="keyword" href="#Capture">Capture</a> available:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Capture">Capture</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may only <a class="keyword" href="#Capture">Capture</a> an opponent's piece (not your own)</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you have multiple <a class="keyword" href="#Capture">Captures</a> available:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may only <a class="keyword" href="#Capture">Capture</a> an opponent's piece (not your own)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you have multiple <a class="keyword" href="#Capture">Captures</a> available:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>you may choose whichever</td></tr>
 <tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: Some variants differ and restrict the choice</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>

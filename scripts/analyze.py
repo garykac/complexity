@@ -87,6 +87,8 @@ class Analyzer:
 			print("   = {0:d}".format(cost))
 			for s in parser.sectionCosts:
 				print(s)
+			for s in parser.subsectionCosts:
+				print(s, parser.subsectionCosts[s])
 
 		parser.checkReferences()
 

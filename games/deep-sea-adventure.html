@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,14 @@ a.keyword:hover {
 <div class="title">Deep Sea Adventure</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">23</td><td class="summary-column">36.5%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">8</td><td class="summary-column">12.7%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">30</td><td class="summary-column">47.6%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
-<tr><td class="summary-first-column">EndGame</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>63</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">23</td><td class="summary-column">36.5%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">8</td><td class="summary-column">12.7%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">30</td><td class="summary-column">47.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">EndGame</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>63</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -279,18 +288,18 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ChooseDirection">ChooseDirection</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Advance">Advance</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SearchForTreasure">SearchForTreasure</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Once you return to the <a class="keyword" href="#Submarine">Submarine</a>, you do not take any actions until the next round</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Once you return to the <a class="keyword" href="#Submarine">Submarine</a>, you do not take any actions until the next round</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AdjustAir">AdjustAir</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move the <a class="keyword" href="#RemainingAir">RemainingAir</a> token down the number of <a class="keyword" href="#AirGaugeSpace">AirGaugeSpaces</a> equal to the number of <a class="keyword" href="#RuinsChip">RuinsChips</a> in your <a class="keyword" href="#Inventory">Inventory</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; The <a class="keyword" href="#RemainingAir">RemainingAir</a> token stops when it gets to 0</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; The <a class="keyword" href="#RemainingAir">RemainingAir</a> token stops when it gets to 0</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Advance">Advance</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CalcMovement">CalcMovement</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move <a class="keyword" href="#PlayerToken">PlayerToken</a> that many <a class="keyword" href="#RuinsSpace">RuinsSpaces</a> in the <a class="keyword" href="#Direction">Direction</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When moving, jump over (without counting) any <a class="keyword" href="#RuinsSpace">RuinsSpaces</a> that already have a <a class="keyword" href="#PlayerToken">PlayerToken</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; If you would go beyond the deepest location, stop at that location</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; When moving, jump over (without counting) any <a class="keyword" href="#RuinsSpace">RuinsSpaces</a> that already have a <a class="keyword" href="#PlayerToken">PlayerToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you would go beyond the deepest location, stop at that location</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AwardOrLoseTreasure">AwardOrLoseTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndRound">EndRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, starting with <abbr title="Imported from common/Game">Player</abbr> furthest from <a class="keyword" href="#Submarine">Submarine</a>:</td></tr>
@@ -302,7 +311,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalcMovement">CalcMovement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Advance">Advance</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Dice">Roll</abbr> both <a class="keyword" href="#MovementDice">MovementDice</a> and add together</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Subtract the number of <a class="keyword" href="#RuinsChip">RuinsChips</a> in your <a class="keyword" href="#Inventory">Inventory</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ChooseDirection">ChooseDirection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If your <a class="keyword" href="#PlayerToken">PlayerToken</a>'s <a class="keyword" href="#Direction">Direction</a> is <a class="keyword" href="#ContinueSearch">ContinueSearch</a>:</td></tr>
@@ -310,25 +319,25 @@ a.keyword:hover {
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Your PlayerToken should be facing to match your Direction.</span></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Once you ReturnToSub, you cannot change Directions this round.</span></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">If you forget to declare your Direction, it stays the same as last turn.</span></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; On first turn, your <a class="keyword" href="#Direction">Direction</a> must be <a class="keyword" href="#ContinueSearch">ContinueSearch</a> (to leave the <a class="keyword" href="#Submarine">Submarine</a>)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; On first turn, your <a class="keyword" href="#Direction">Direction</a> must be <a class="keyword" href="#ContinueSearch">ContinueSearch</a> (to leave the <a class="keyword" href="#Submarine">Submarine</a>)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DropTreasure">DropTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SearchForTreasure">SearchForTreasure</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If your <a class="keyword" href="#PlayerToken">PlayerToken</a> is on <a class="keyword" href="#CircleChip">CircleChip</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Replace <a class="keyword" href="#CircleChip">CircleChip</a> with a <a class="keyword" href="#RuinsChip">RuinsChip</a> taken from your <a class="keyword" href="#Inventory">Inventory</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="LoseTreasure">LoseTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Create <a class="keyword" href="#ChipStack">ChipStacks</a> by grouping <a class="keyword" href="#RuinsChip">RuinsChips</a> from your <a class="keyword" href="#Inventory">Inventory</a> into stacks of 3 <a class="keyword" href="#Chip">Chips</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place each <a class="keyword" href="#ChipStack">ChipStack</a> next in line to create a new <a class="keyword" href="#RuinsSpace">RuinsSpace</a> at the end of the <a class="keyword" href="#Ruins">Ruins</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; When building <a class="keyword" href="#ChipStack">ChipStacks</a>, place any partial stacks at the end.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; When building <a class="keyword" href="#ChipStack">ChipStacks</a>, place any partial stacks at the end.</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The next player will add to this partial stack first.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PickUpTreasure">PickUpTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SearchForTreasure">SearchForTreasure</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If on <a class="keyword" href="#RuinsChip">RuinsChip</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Replace the <a class="keyword" href="#RuinsChip">RuinsChip</a> with a <a class="keyword" href="#CircleChip">CircleChip</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add the <a class="keyword" href="#RuinsChip">RuinsChip</a> to your <a class="keyword" href="#Inventory">Inventory</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not look at any <a class="keyword" href="#RuinsChip">RuinsChip</a> until you are back in the <a class="keyword" href="#Submarine">Submarine</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may not look at any <a class="keyword" href="#RuinsChip">RuinsChip</a> until you are back in the <a class="keyword" href="#Submarine">Submarine</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SearchForTreasure">SearchForTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>

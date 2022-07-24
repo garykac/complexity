@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,13 +164,13 @@ a.keyword:hover {
 <div class="title">Welcome to the Dungeon</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">14</td><td class="summary-column">32.6%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">7</td><td class="summary-column">16.3%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">21</td><td class="summary-column">48.8%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">2.3%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>43</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">14</td><td class="summary-column">32.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">7</td><td class="summary-column">16.3%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">21</td><td class="summary-column">48.8%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">2.3%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>43</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -261,7 +270,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">Pass</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; Once you <abbr title="Imported from common/Game">Pass</abbr>, you are done until after the <a class="keyword" href="#DungeonPhase">DungeonPhase</a>.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Once you <abbr title="Imported from common/Game">Pass</abbr>, you are done until after the <a class="keyword" href="#DungeonPhase">DungeonPhase</a>.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DungeonPhase">DungeonPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BiddingPhase">BiddingPhase</a><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The player who did not <abbr title="Imported from common/Game">Pass</abbr> does the following:</td></tr>
@@ -284,7 +293,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemoveMonster">RemoveMonster</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCard">DrawCard</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#MonsterCard">MonsterCard</a> in front of you, face-down</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove an <a class="keyword" href="#EquipmentTile">EquipmentTile</a> from the <a class="keyword" href="#Inventory">Inventory</a> and place it on the <a class="keyword" href="#MonsterCard">MonsterCard</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&roplus; You may not remove a <a class="keyword" href="#MonsterCard">MonsterCard</a> if the <a class="keyword" href="#Inventory">Inventory</a> is empty</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may not remove a <a class="keyword" href="#MonsterCard">MonsterCard</a> if the <a class="keyword" href="#Inventory">Inventory</a> is empty</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateHitPoints">CalculateHitPoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DungeonPhase">DungeonPhase</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#HitPoints">HitPoints</a> = <a class="keyword" href="#BaseHP">BaseHP</a> from the <a class="keyword" href="#AdventurerTile">AdventurerTile</a></td></tr>

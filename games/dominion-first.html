@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,17 @@ a.keyword:hover {
 <div class="title">Dominion</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">21</td><td class="summary-column">27.6%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">9</td><td class="summary-column">11.8%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">43</td><td class="summary-column">56.6%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">2</td><td class="summary-column">2.6%</td></tr>
-<tr><td class="summary-first-column">EndGame</td><td class="summary-column">1</td><td class="summary-column">1.3%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>76</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">21</td><td class="summary-column">27.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">9</td><td class="summary-column">11.8%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column"></td><td class="summary-column"></td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">-</td><td class="summary-column">33</td><td class="summary-column">43.4%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column"></td><td class="summary-column"></td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">-</td><td class="summary-column">10</td><td class="summary-column">13.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">2</td><td class="summary-column">2.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">EndGame</td><td class="summary-column">1</td><td class="summary-column">1.3%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>76</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -301,7 +313,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DrawCard">DrawCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Cellar">Cellar</a><a href="#Market">Market</a><a href="#Merchant">Merchant</a><a href="#Moat">Moat</a><a href="#Village">Village</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Draw</abbr> <abbr title="Imported from common/CardGame">Card</abbr> from your <a class="keyword" href="#PlayerDeck">PlayerDeck</a> into your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&roplus; If your <a class="keyword" href="#PlayerDeck">PlayerDeck</a> is empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If your <a class="keyword" href="#PlayerDeck">PlayerDeck</a> is empty:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Shuffle</abbr> the <abbr title="Imported from common/CardGame">DiscardPile</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Use as your new <a class="keyword" href="#PlayerDeck">PlayerDeck</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
@@ -372,7 +384,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#GainCoin">GainCoin</a> x2</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Each other <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc"><a class="keyword" href="#Discard">Discard</a> down to 3 <abbr title="Imported from common/CardGame">Cards</abbr> in <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc">&roplus; <a class="keyword" href="#Reaction">Reaction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">&#9888; <a class="keyword" href="#Reaction">Reaction</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Mine">Mine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Optional: <a class="keyword" href="#Trash">Trash</a> a <a class="keyword" href="#TreasureCard">TreasureCard</a></td></tr>
@@ -381,7 +393,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Moat">Moat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a>, <a class="keyword" href="#ReactionCard">ReactionCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCard">DrawCard</a> x2</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&roplus; <a class="keyword" href="#Reaction">Reaction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#Reaction">Reaction</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Remodel">Remodel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeAction">TakeAction</a></div></div>: <a class="keyword" href="#ActionCard">ActionCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Optional: <a class="keyword" href="#TrashFromHand">TrashFromHand</a></td></tr>

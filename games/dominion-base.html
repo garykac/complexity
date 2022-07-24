@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,13 +164,13 @@ a.keyword:hover {
 <div class="title">Dominion</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">2</td><td class="summary-column">4.5%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">2</td><td class="summary-column">4.5%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">6</td><td class="summary-column">13.6%</td></tr>
-<tr><td class="summary-first-column">Cards</td><td class="summary-column">34</td><td class="summary-column">77.3%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>44</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">2</td><td class="summary-column">4.5%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">2</td><td class="summary-column">4.5%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">6</td><td class="summary-column">13.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Cards</td><td class="summary-column">34</td><td class="summary-column">77.3%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>44</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">

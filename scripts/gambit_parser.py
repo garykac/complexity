@@ -31,6 +31,10 @@ FREE_SUFFIX_WORDS = [
 	"them",
 ]
 
+BASE_TYPES = [
+	"Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit",
+]
+
 class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
@@ -69,15 +73,15 @@ class GambitParser:
 			self.freeActions[a] = True
 	
 	def initVocab(self) -> None:
-		for key in ["Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit"]:
+		for key in BASE_TYPES:
 			self.addVocab(key, None, ["BASE"])
 
 	# Provide a warning if there are TODO comments left in the source file.
 	def setWarnOnTodo(self) -> None:
 		self.warnOnTodo = True
 
-	def errorLine(self, msg: str) -> None:
-		print("LINE {0:d}: {1:s}".format(self.lineNum, self.currentLine))
+	def errorLine(self, lineNum: int, msg: str) -> None:
+		print("LINE {0:d}: {1:s}".format(lineNum, self.lines[lineNum]['line']))
 		self.error(msg)
 
 	def error(self, msg: str) -> None:
@@ -107,6 +111,9 @@ class GambitParser:
 			# Factory, Quarry, City, but not Donkey
 			elif key[-2:] == 'ry' or key[-2:] == 'ty':
 				keyPlural = key[0:-1] + "ies"
+			# Domino
+			elif key[-1:] == 'o':
+				keyPlural = key + "es"
 			else:
 				keyPlural = key + "s"
 
@@ -205,28 +212,61 @@ class GambitParser:
 	def calcTotalCost(self):
 		self.costTotal = 0
 		self.sectionCosts = []
+		self.subsectionCosts = {}
 		currentSection = None
-		sectionCost = 0
+		currentSubsection = None
+		cost = 0
 		for r in self.lines:
 			type = r['type']
 			if type in ["DEF", "TEMPLATE"]:
 				if r['cost']:
 					self.costTotal += r['cost']
-					sectionCost += r['cost']
+					cost += r['cost']
 			elif type in ["DESC", "CONSTRAINT"]:
 				self.costTotal += r['cost']
-				sectionCost += r['cost']
+				cost += r['cost']
 			elif type == "SECTION":
-				if currentSection:
-					self.sectionCosts.append([currentSection, sectionCost])
+				if currentSubsection:
+					print(f"*** Adding {currentSubsection} to {currentSection}")
+					self.subsectionCosts[currentSection].append([currentSubsection, cost])
+				elif currentSection:
+					self.sectionCosts.append([currentSection, cost])
 				currentSection = r['comment']
-				sectionCost = 0
+				currentSubsection = None
+				print("Adding section for:")
+				print(r)
+				print(self.sectionCosts)
+				print(self.subsectionCosts)
+				print(f"current section: {currentSection}")
+				print(f"current subsection: {currentSubsection}")
+				print()
+				cost = 0
+			elif type == "SUBSECTION":
+				if currentSubsection:
+					print(f"*** Adding {currentSubsection} to {currentSection}")
+					self.subsectionCosts[currentSection].append([currentSubsection, cost])
+				else:
+					self.sectionCosts.append([currentSection, cost])
+				currentSubsection = r['comment']
+				if not currentSection in self.subsectionCosts:
+					self.subsectionCosts[currentSection] = []
+				print("Adding subsection for:")
+				print(r)
+				print(self.sectionCosts)
+				print(self.subsectionCosts)
+				print(f"current section: {currentSection}")
+				print(f"current subsection: {currentSubsection}")
+				print()
+				cost = 0
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		
 		# Record cost for last section.
 		if currentSection:
-			self.sectionCosts.append([currentSection, sectionCost])
+			if currentSubsection:
+				self.subsectionCosts[currentSection].append([currentSubsection, cost])
+			else:
+				self.sectionCosts.append([currentSection, cost])
 	
 	# ==========
 	# Process a Gambit file to calculate cost and generate HTML.
@@ -330,7 +370,9 @@ class GambitParser:
 		
 	def extractAllReferences(self):
 		currDef = None
-		for r in self.lines:
+		for i in range(len(self.lines)):
+		#for r in self.lines:
+			r = self.lines[i]
 			type = r['type']
 			if type == "DEF":
 				currDef = r['keyword']
@@ -338,23 +380,23 @@ class GambitParser:
 					self.addRef(t, currDef)
 				if r['parent']:
 					self.addRef(r['parent'], currDef)
-					r['tokens'] = self.extractReference(
+					r['tokens'] = self.extractReference(i,
 						"{0:s} of {1:s}".format(r['types'][0], r['parent']), currDef)
 				else:
-					r['tokens'] = self.extractReference(', '.join(r['types']), currDef)
-				self.extractReference(r['comment'], currDef, True)
+					r['tokens'] = self.extractReference(i, ', '.join(r['types']), currDef)
+				self.extractReference(i, r['comment'], currDef, True)
 			elif type == "TEMPLATE":
 				currDef = r['keyword']
 				self.addRef("Verb", currDef)
 				r['tokens'] = ["Verb"]
-				self.extractReference(r['comment'], currDef, True)
+				self.extractReference(i, r['comment'], currDef, True)
 			elif type == "DESC":
-				r['tokens'] = self.extractReference(r['line'], currDef)
-				self.extractReference(r['comment'], currDef, True)
+				r['tokens'] = self.extractReference(i, r['line'], currDef)
+				self.extractReference(i, r['comment'], currDef, True)
 			elif type == "CONSTRAINT":
 				(type, cost, indent, line, comment) = r
-				r['tokens'] = self.extractReference(r['line'], currDef)
-				self.extractReference(r['comment'], currDef, True)
+				r['tokens'] = self.extractReference(i, r['line'], currDef)
+				self.extractReference(i, r['comment'], currDef, True)
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
@@ -382,12 +424,12 @@ class GambitParser:
 					msg = "Term is defined but never referenced: {0:s}".format(k)
 					self.warning(msg) if self.useWarnings else self.error(msg)
 	
-	def extractReference(self, str, currDef, inComment=False):
-		if str == "":
+	def extractReference(self, lineNum: int, line: str, currDef: str, inComment=False):
+		if line == "":
 			return
 		newWords = []
 		firstWord = True
-		for word in Tokenizer.tokenize(str):
+		for word in Tokenizer.tokenize(line):
 			# Skip over special initial characters.
 			if firstWord and word == '*':
 				newWords.append('*')
@@ -425,13 +467,15 @@ class GambitParser:
 			else:
 				# Verify capitalized words.
 				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
-					raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+					self.errorLine(lineNum, f"Unable1 to find definition for '{word0}'")
 				elif not firstWord and word0[0].isupper():
-					raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+					self.errorLine(lineNum, f"Unable2 to find definition for '{word0}'")
 				newWords.append(word)
 
 			firstWord = False
-			if (word0 != "" and word0[-1] == '.') or (postfix != "" and postfix[-1] == '.'):
+			if (word0 != "" and word0[-1] in ['.',':']) or (postfix != "" and postfix[-1] in ['.',':']):
 				firstWord = True
 
 		return newWords

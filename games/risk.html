@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,14 @@ a.keyword:hover {
 <div class="title">Risk</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">16</td><td class="summary-column">23.9%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">8</td><td class="summary-column">11.9%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">41</td><td class="summary-column">61.2%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.5%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">1.5%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>67</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">16</td><td class="summary-column">23.9%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">8</td><td class="summary-column">11.9%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">41</td><td class="summary-column">61.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.5%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">1.5%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>67</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -262,7 +271,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainArmiesFromTerritories">GainArmiesFromTerritories</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeployArmies">DeployArmies</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Gain <a class="keyword" href="#Army">Armies</a> equal to (number of <a class="keyword" href="#Territory">Territories</a> occupied by <abbr title="Imported from common/Game">Player</abbr>) / 3 (round down)</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; You always gain at least 3 <a class="keyword" href="#Army">Armies</a>, even if you have fewer than 9 <a class="keyword" href="#Territory">Territories</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You always gain at least 3 <a class="keyword" href="#Army">Armies</a>, even if you have fewer than 9 <a class="keyword" href="#Territory">Territories</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainArmiesFromContinents">GainArmiesFromContinents</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeployArmies">DeployArmies</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you occupy all of the <a class="keyword" href="#Territory">Territories</a> in a <a class="keyword" href="#Continent">Continent</a>:</td></tr>
@@ -281,7 +290,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 7th+ set: same as previous +5 additional <a class="keyword" href="#Army">Armies</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If any of the matched cards has a <a class="keyword" href="#Territory">Territory</a> that matches a <a class="keyword" href="#Territory">Territory</a> you occupy:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Immediately place 2 <a class="keyword" href="#Army">Armies</a> on that <a class="keyword" href="#Territory">Territory</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; You must trade in a match if you have 5 <a class="keyword" href="#RiskCard">RiskCards</a> in your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You must trade in a match if you have 5 <a class="keyword" href="#RiskCard">RiskCards</a> in your <abbr title="Imported from common/CardGame">Hand</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AttackOpposition">AttackOpposition</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until you feel like stopping:</td></tr>
@@ -307,8 +316,8 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>You (the attacker) <abbr title="Imported from common/Dice">Roll</abbr> <a class="keyword" href="#AttackerDice">AttackerDice</a> equal to the number of <a class="keyword" href="#Army">Armies</a> attacking</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The defender <abbr title="Imported from common/Dice">Rolls</abbr> <a class="keyword" href="#DefenderDice">DefenderDice</a> equal to the number of <a class="keyword" href="#Army">Armies</a> defending</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ResolveAttack">ResolveAttack</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#Territory">Territories</a> connected by a dotted line are also considered to be adjacent</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#Territory">Territories</a> connected by a dotted line are also considered to be adjacent</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResolveAttack">ResolveAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AttackAdjacentTerritory">AttackAdjacentTerritory</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat while there is at least one <a class="keyword" href="#AttackerDice">AttackerDie</a> and one <a class="keyword" href="#DefenderDice">DefenderDie</a>:</td></tr>
@@ -329,7 +338,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Fortify">Fortify</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>You may move <a class="keyword" href="#Army">Armies</a> from one of your <a class="keyword" href="#Territory">Territories</a> into an adjacent <a class="keyword" href="#Territory">Territory</a> that you also occupy</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#TerritoriesMustAlwaysBeOccupied">TerritoriesMustAlwaysBeOccupied</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=5>Constraints</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>

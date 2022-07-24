@@ -40,7 +40,6 @@ body {
 	margin: 0.4rem 0;
 }
 table.summary {
-	width: 25%;
 	min-width: 200px;
 	margin: auto;
 	text-align: center;
@@ -49,9 +48,19 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-first-column {
+.summary-section-column {
 	width: 50%;
-	text-align: right;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
 	padding: 0 5px;
 }
 .summary-column {
@@ -155,14 +164,17 @@ a.keyword:hover {
 <div class="title">1830</div>
 
 <table class="summary">
-<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-first-column">Vocabulary</td><td class="summary-column">88</td><td class="summary-column">25.4%</td></tr>
-<tr><td class="summary-first-column">Setup</td><td class="summary-column">14</td><td class="summary-column">4.0%</td></tr>
-<tr><td class="summary-first-column">Gameplay</td><td class="summary-column">213</td><td class="summary-column">61.4%</td></tr>
-<tr><td class="summary-first-column">Constraints</td><td class="summary-column">28</td><td class="summary-column">8.1%</td></tr>
-<tr><td class="summary-first-column">Endgame</td><td class="summary-column">4</td><td class="summary-column">1.2%</td></tr>
-<tr><td class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>347</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">88</td><td class="summary-column">25.4%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">14</td><td class="summary-column">4.0%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column"></td><td class="summary-column"></td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">-</td><td class="summary-column">8</td><td class="summary-column">2.3%</td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">Privates</td><td class="summary-column">39</td><td class="summary-column">11.2%</td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">Stock Round</td><td class="summary-column">62</td><td class="summary-column">17.9%</td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">Operating Round</td><td class="summary-column">132</td><td class="summary-column">38.0%</td></tr>
+<tr><td class="summary-section-indent"><td class="summary-subsection-column">Scoring</td><td class="summary-column">4</td><td class="summary-column">1.2%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>347</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
@@ -412,7 +424,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* <a class="keyword" href="#Type">Type</a>-5: 3 total</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* <a class="keyword" href="#Type">Type</a>-6: 2 total</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* <a class="keyword" href="#Diesel">Diesel</a>: 6 total</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#Diesel">Diesel</a> trains are unlimited in quantity and may be purchased even if the stack runs out</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#Diesel">Diesel</a> trains are unlimited in quantity and may be purchased even if the stack runs out</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="SetupPrivates">SetupPrivates</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Arrange <a class="keyword" href="#Private">Privates</a> face-up from lowest <a class="keyword" href="#Cost">Cost</a> to highest</td></tr>
@@ -451,11 +463,11 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="TriggerEndGame">TriggerEndGame</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndGameIfBankCannotPay">EndGameIfBankCannotPay</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Put remaining <a class="keyword" href="#Money">Money</a> in <a class="keyword" href="#Bank">Bank</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#Bank">Bank</a> didn't have enough <a class="keyword" href="#Money">Money</a> to pay out a <a class="keyword" href="#Train">Train</a> run:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#Bank">Bank</a> didn't have enough <a class="keyword" href="#Money">Money</a> to pay out the last <a class="keyword" href="#Train">Train</a> run:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Make the rest of the <a class="keyword" href="#Bank">Bank</a> payment to the <a class="keyword" href="#Railroad">Railroad</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Set <a class="keyword" href="#EndGameTriggered">EndGameTriggered</a> to "Yes"</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr class="subsection"><td class="cost"></td><td colspan=6>Phase 1 - Privates</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=6>Privates</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="SellAllPrivates">SellAllPrivates</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Repeat until all <a class="keyword" href="#Private">Privates</a> have been purchased, starting with the <a class="keyword" href="#PriorityPlayer">PriorityPlayer</a>:</td></tr>
@@ -468,7 +480,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>Otherwise:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResolveAuction">ResolveAuction</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ContinueWithPriorityDealer">ContinueWithPriorityDealer</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/Game">Pass</abbr> consecutively and there are still unsold <a class="keyword" href="#Private">Privates</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If all <abbr title="Imported from common/Game">Players</abbr> <abbr title="Imported from common/Game">Pass</abbr> consecutively and there are still unsold <a class="keyword" href="#Private">Privates</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If <a class="keyword" href="#SV">SV</a> <a class="keyword" href="#Private">Private</a> is unsold:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Reduce <a class="keyword" href="#Cost">Cost</a> of <a class="keyword" href="#SV">SV</a> by $5</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>If <a class="keyword" href="#Cost">Cost</a> reaches $0:</td></tr>
@@ -483,8 +495,8 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="BuyLowestPrivate">BuyLowestPrivate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellAllPrivates">SellAllPrivates</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Buy the <a class="keyword" href="#Private">Private</a> with the lowest <a class="keyword" href="#Cost">Cost</a> from the <a class="keyword" href="#Bank">Bank</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#GivePriorityDealToNextPlayer">GivePriorityDealToNextPlayer</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#CASpecialEffect">CASpecialEffect</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#BOSpecialEffect">BOSpecialEffect</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#CASpecialEffect">CASpecialEffect</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#BOSpecialEffect">BOSpecialEffect</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="BidForPrivate">BidForPrivate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellAllPrivates">SellAllPrivates</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Select an unsold <a class="keyword" href="#Private">Private</a> other than the one with the lowest <a class="keyword" href="#Cost">Cost</a></td></tr>
@@ -515,8 +527,8 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PayBidForPrivate">PayBidForPrivate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PrivateBidAuction">PrivateBidAuction</a><a href="#ResolveAuction">ResolveAuction</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Pay your bid and take the <a class="keyword" href="#Private">Private</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#CASpecialEffect">CASpecialEffect</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#BOSpecialEffect">BOSpecialEffect</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#CASpecialEffect">CASpecialEffect</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#BOSpecialEffect">BOSpecialEffect</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PrivatesPayRevenue">PrivatesPayRevenue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellAllPrivates">SellAllPrivates</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>For each <a class="keyword" href="#Private">Private</a> owned by a <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
@@ -536,7 +548,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="CSSpecialEffect">CSSpecialEffect</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>During the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#OperatingRound">OperatingRound</a>, you may <a class="keyword" href="#ConstructTrack">ConstructTrack</a> in location "B 20"</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; This does not count as your turn's normal track placement (so you can place 2 track that turn)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; This does not count as your turn's normal track placement (so you can place 2 track that turn)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="DHSpecialEffect">DHSpecialEffect</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you <a class="keyword" href="#LayTrack">LayTrack</a> on location "F 16" :</td></tr>
@@ -550,9 +562,9 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may exchange it for a <a class="keyword" href="#ShareCertificate">ShareCertificate</a> of "NYC" from the <a class="keyword" href="#Bank">Bank</a> or <a class="keyword" href="#Pool">Pool</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>If you do:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ClosePrivate">ClosePrivate</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You can make this exchange during your <a class="keyword" href="#StockRound">StockRound</a> or in-between other <abbr title="Imported from common/Game">Players</abbr>' turns (<a class="keyword" href="#StockRound">StockRound</a> or <a class="keyword" href="#OperatingRound">OperatingRound</a>)</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoMoreThanSixtyPercentOwnership">NoMoreThanSixtyPercentOwnership</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; You can make this exchange during your <a class="keyword" href="#StockRound">StockRound</a> or in-between other <abbr title="Imported from common/Game">Players</abbr>' turns (<a class="keyword" href="#StockRound">StockRound</a> or <a class="keyword" href="#OperatingRound">OperatingRound</a>)</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#NoMoreThanSixtyPercentOwnership">NoMoreThanSixtyPercentOwnership</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="CASpecialEffect">CASpecialEffect</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyLowestPrivate">BuyLowestPrivate</a><a href="#PayBidForPrivate">PayBidForPrivate</a></div></div>: Constraint</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you purchase the <a class="keyword" href="#CA">CA</a> <a class="keyword" href="#Private">Private</a>:</td></tr>
@@ -572,8 +584,14 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#CheckForFloat">CheckForFloat</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#AdjustSharePriceAfterStockRound">AdjustSharePriceAfterStockRound</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MHSpecialEffect">MHSpecialEffect</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MHSpecialEffect">MHSpecialEffect</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyOneShare">BuyOneShare</a><a href="#ExchangePresidentCertificate">ExchangePresidentCertificate</a><a href="#MHSpecialEffect">MHSpecialEffect</a><a href="#StockRound">StockRound</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You may not have more <a class="keyword" href="#Certificate">Certificates</a> than the <a class="keyword" href="#CertificateLimit">CertificateLimit</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you exceed the <a class="keyword" href="#CertificateLimit">CertificateLimit</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You must sell <a class="keyword" href="#Certificate">Certificates</a> until you're under the limit during your next opportunity to sell</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#Certificate">Certificates</a> for <a class="keyword" href="#Railroad">Railroads</a> who's <a class="keyword" href="#ShareValueToken">ShareValueToken</a> is on a <a class="keyword" href="#Yellow">Yellow</a>, <a class="keyword" href="#Orange">Orange</a> or <a class="keyword" href="#Brown">Brown</a> <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a> do not count toward this limit</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="StockRoundTurn">StockRoundTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyOneShare">BuyOneShare</a><a href="#StockRound">StockRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#SellShares">SellShares</a></td></tr>
@@ -590,11 +608,16 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Pay the <a class="keyword" href="#SharePrice">SharePrice</a> for this <a class="keyword" href="#Railroad">Railroad</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Take a <a class="keyword" href="#Certificate">Certificate</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#CheckForGainingPresidency">CheckForGainingPresidency</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You may not buy <a class="keyword" href="#Share">Shares</a> in a <a class="keyword" href="#Railroad">Railroad</a> that you sold <a class="keyword" href="#Share">Shares</a> of during this <a class="keyword" href="#StockRoundTurn">StockRoundTurn</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoMoreThanSixtyPercentOwnership">NoMoreThanSixtyPercentOwnership</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#ShareValueToken">ShareValueToken</a> is on a <a class="keyword" href="#Brown">Brown</a> <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; You may not buy <a class="keyword" href="#Share">Shares</a> in a <a class="keyword" href="#Railroad">Railroad</a> that you sold <a class="keyword" href="#Share">Shares</a> of during this <a class="keyword" href="#StockRoundTurn">StockRoundTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#NoMoreThanSixtyPercentOwnership">NoMoreThanSixtyPercentOwnership</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#ShareValueToken">ShareValueToken</a> is on a <a class="keyword" href="#Brown">Brown</a> <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may buy any number of <a class="keyword" href="#Certificate">Certificates</a> of that <a class="keyword" href="#Railroad">Railroad</a> at one time</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="NoMoreThanSixtyPercentOwnership">NoMoreThanSixtyPercentOwnership</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyOneShare">BuyOneShare</a><a href="#MHSpecialEffect">MHSpecialEffect</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You may not own more than 5 <a class="keyword" href="#Certificate">Certificates</a> for a single <a class="keyword" href="#Railroad">Railroad</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Unless the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#ShareValueToken">ShareValueToken</a> is on an <a class="keyword" href="#Orange">Orange</a> or <a class="keyword" href="#Brown">Brown</a> <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">Note: Because the PresidentCertificate is worth 2 Shares, this corresponds to 60% ownership.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="SellShares">SellShares</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StockRoundTurn">StockRoundTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>For each <a class="keyword" href="#Railroad">Railroad</a> that you want to sell <a class="keyword" href="#Share">Shares</a> of:</td></tr>
@@ -602,33 +625,33 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#CheckForLosingPresidency">CheckForLosingPresidency</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Place these <a class="keyword" href="#Share">Shares</a> in the <a class="keyword" href="#Pool">Pool</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Take (number of <a class="keyword" href="#Share">Shares</a> sold) x (<a class="keyword" href="#Share">Share</a> price) from <a class="keyword" href="#Bank">Bank</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3>&roplus; <a class="keyword" href="#EndGameIfBankCannotPay">EndGameIfBankCannotPay</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#EndGameIfBankCannotPay">EndGameIfBankCannotPay</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#AdjustSharePriceAfterSale">AdjustSharePriceAfterSale</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You may not sell <a class="keyword" href="#Share">Shares</a> during the very first <a class="keyword" href="#StockRound">StockRound</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You may not make a sale that would cause the number of <a class="keyword" href="#Share">Shares</a> of a <a class="keyword" href="#Railroad">Railroad</a> in the <a class="keyword" href="#Pool">Pool</a> to exceed 5 <a class="keyword" href="#Share">Shares</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; You may not sell <a class="keyword" href="#Share">Shares</a> during the very first <a class="keyword" href="#StockRound">StockRound</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; You may not make a sale that would cause the number of <a class="keyword" href="#Share">Shares</a> of a <a class="keyword" href="#Railroad">Railroad</a> in the <a class="keyword" href="#Pool">Pool</a> to exceed 5 <a class="keyword" href="#Share">Shares</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="AdjustSharePriceAfterDividend">AdjustSharePriceAfterDividend</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PayDividends">PayDividends</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#MoveShareValueToken">MoveShareValueToken</a> right 1 space</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If it is already at the right end of a row:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#MoveShareValueToken">MoveShareValueToken</a> up 1 space</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>&roplus; Unless it's already at the top</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>&#9888; Unless it's already at the top</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="AdjustSharePriceAfterNoDividend">AdjustSharePriceAfterNoDividend</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PayTreasury">PayTreasury</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#MoveShareValueToken">MoveShareValueToken</a> left 1 space</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If it is already at the left end of a row:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#MoveShareValueToken">MoveShareValueToken</a> down 1 space</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>&roplus; Unless it's already at the bottom</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>&#9888; Unless it's already at the bottom</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="AdjustSharePriceAfterSale">AdjustSharePriceAfterSale</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SellShares">SellShares</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>For each <a class="keyword" href="#Share">Share</a> that was sold:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#MoveShareValueToken">MoveShareValueToken</a> down 1 space</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>&roplus; Unless it's already at the bottom</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>&#9888; Unless it's already at the bottom</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="AdjustSharePriceAfterStockRound">AdjustSharePriceAfterStockRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StockRound">StockRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>For each <a class="keyword" href="#Railroad">Railroad</a>, ordered by <a class="keyword" href="#Share">Share</a> value, highest to lowest:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If all <a class="keyword" href="#Share">Shares</a> are owned by <abbr title="Imported from common/Game">Players</abbr>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MoveShareValueToken">MoveShareValueToken</a> up 1 space</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>&roplus; Unless it's already at the top</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>&#9888; Unless it's already at the top</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="CheckForFloat">CheckForFloat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StockRound">StockRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>For each <a class="keyword" href="#Railroad">Railroad</a> that has not already <a class="keyword" href="#Floated">Floated</a>:</td></tr>
@@ -641,7 +664,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The sale of <a class="keyword" href="#Share">Shares</a> will result in another <abbr title="Imported from common/Game">Player</abbr> have more <a class="keyword" href="#Share">Shares</a> in that <a class="keyword" href="#Railroad">Railroad</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Then:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#ExchangePresidentCertificate">ExchangePresidentCertificate</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If multiple <abbr title="Imported from common/Game">Players</abbr> will have more <a class="keyword" href="#Share">Shares</a> than you:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If multiple <abbr title="Imported from common/Game">Players</abbr> will have more <a class="keyword" href="#Share">Shares</a> than you:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Exchange with the <abbr title="Imported from common/Game">Player</abbr> with the most <a class="keyword" href="#Share">Shares</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If a tie:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Exchange with tied <abbr title="Imported from common/Game">Player</abbr> closest to you going clockwise</td></tr>
@@ -656,8 +679,8 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="ExchangePresidentCertificate">ExchangePresidentCertificate</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForGainingPresidency">CheckForGainingPresidency</a><a href="#CheckForLosingPresidency">CheckForLosingPresidency</a><a href="#ForcedStockSaleForTrain">ForcedStockSaleForTrain</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Exchange the <a class="keyword" href="#PresidentCertificate">PresidentCertificate</a> for 2 <a class="keyword" href="#ShareCertificate">ShareCertificates</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The <abbr title="Imported from common/Game">Player</abbr> gaining the <a class="keyword" href="#PresidentCertificate">PresidentCertificate</a> takes the <a class="keyword" href="#Charter">Charter</a> and everything on it</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The owner of the <a class="keyword" href="#BO">BO</a> <a class="keyword" href="#Private">Private</a> does not lose the <a class="keyword" href="#Private">Private</a> if they lose the <a class="keyword" href="#PresidentCertificate">PresidentCertificate</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; The owner of the <a class="keyword" href="#BO">BO</a> <a class="keyword" href="#Private">Private</a> does not lose the <a class="keyword" href="#Private">Private</a> if they lose the <a class="keyword" href="#PresidentCertificate">PresidentCertificate</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="FloatRailroad">FloatRailroad</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckForFloat">CheckForFloat</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#President">President</a> does the following:</td></tr>
@@ -678,6 +701,10 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If there is already one or more <a class="keyword" href="#ShareValueToken">ShareValueTokens</a> in the space:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Place this token underneath the stack of existing tokens</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="EndGameIfBankCannotPay">EndGameIfBankCannotPay</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CollectRevenue">CollectRevenue</a><a href="#SellShares">SellShares</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#Bank">Bank</a> doesn't have enough <a class="keyword" href="#Money">Money</a> to pay:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#TriggerEndGame">TriggerEndGame</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr class="subsection"><td class="cost"></td><td colspan=6>Operating Round</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="OperatingRound">OperatingRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CSSpecialEffect">CSSpecialEffect</a><a href="#MHSpecialEffect">MHSpecialEffect</a><a href="#NumOperatingRounds">NumOperatingRounds</a><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
@@ -690,28 +717,28 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#BuildStation">BuildStation</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#OperateTrains">OperateTrains</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#PurchaseTrains">PurchaseTrains</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If multiple <a class="keyword" href="#Floated">Floated</a> <a class="keyword" href="#Railroad">Railroads</a> share the same <a class="keyword" href="#SharePrice">SharePrice</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If multiple <a class="keyword" href="#Floated">Floated</a> <a class="keyword" href="#Railroad">Railroads</a> share the same <a class="keyword" href="#SharePrice">SharePrice</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If they are on the same <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Process the <a class="keyword" href="#Railroad">Railroads</a> in the order of the stack of <a class="keyword" href="#ShareValueToken">ShareValueTokens</a>, from top to bottom</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>Otherwise:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Start with the <a class="keyword" href="#Railroad">Railroad</a> the furthest right on the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>If they are in the same column:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>Start with the <a class="keyword" href="#Railroad">Railroad</a> the furthest up on the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If <a class="keyword" href="#RailroadsMayPurchasePrivates">RailroadsMayPurchasePrivates</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If <a class="keyword" href="#RailroadsMayPurchasePrivates">RailroadsMayPurchasePrivates</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#Railroad">Railroads</a> may purchase <a class="keyword" href="#Private">Privates</a> at any time during their <a class="keyword" href="#OperatingRound">OperatingRound</a> turn</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>&roplus; The "BO" <a class="keyword" href="#Private">Private</a> may not be sold to a <a class="keyword" href="#Railroad">Railroad</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>&#9888; The "BO" <a class="keyword" href="#Private">Private</a> may not be sold to a <a class="keyword" href="#Railroad">Railroad</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PlaceHomeStation">PlaceHomeStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperatingRound">OperatingRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place your first <a class="keyword" href="#Station">Station</a> (with <a class="keyword" href="#Cost">Cost</a> of $0) on your <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "ERIE" <a class="keyword" href="#Railroad">Railroad</a> may choose either "Dunkirk" or "Buffalo" as their <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; The "ERIE" <a class="keyword" href="#Railroad">Railroad</a> may choose either "Dunkirk" or "Buffalo" as their <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="ConstructTrack">ConstructTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CSSpecialEffect">CSSpecialEffect</a><a href="#OperatingRound">OperatingRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You may choose one of the following:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#LayTrack">LayTrack</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#UpgradeTrack">UpgradeTrack</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If <a class="keyword" href="#CS">CS</a> is owned by this <a class="keyword" href="#Railroad">Railroad</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If <a class="keyword" href="#CS">CS</a> is owned by this <a class="keyword" href="#Railroad">Railroad</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#CSSpecialEffect">CSSpecialEffect</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If <a class="keyword" href="#DH">DH</a> is owned by this <a class="keyword" href="#Railroad">Railroad</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If <a class="keyword" href="#DH">DH</a> is owned by this <a class="keyword" href="#Railroad">Railroad</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#DHSpecialEffect">DHSpecialEffect</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="LayTrack">LayTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a><a href="#DHSpecialEffect">DHSpecialEffect</a><a href="#DevelopmentCost">DevelopmentCost</a></div></div>: Verb</td></tr>
@@ -719,28 +746,28 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Select based on the <a class="keyword" href="#Color">Color</a> of the <a class="keyword" href="#MapHex">MapHex</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#Tan">Tan</a>: <a class="keyword" href="#LayYellowTrack">LayYellowTrack</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#Yellow">Yellow</a>: <a class="keyword" href="#LayGreenTrack">LayGreenTrack</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#TrackTile">TrackTiles</a> may not be placed on <a class="keyword" href="#Red">Red</a> or <a class="keyword" href="#Gray">Gray</a> <a class="keyword" href="#MapHex">MapHexes</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#TrackTile">TrackTiles</a> may not be placed on <a class="keyword" href="#Red">Red</a> or <a class="keyword" href="#Gray">Gray</a> <a class="keyword" href="#MapHex">MapHexes</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="LayYellowTrack">LayYellowTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> has a <a class="keyword" href="#DevelopmentCost">DevelopmentCost</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Your <a class="keyword" href="#Railroad">Railroad</a> must pay this cost to lay track here</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place a <a class="keyword" href="#YellowTile">YellowTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NotOnPrivateHomes">NotOnPrivateHomes</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "NYC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayYellowTrack">LayYellowTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E 19" , ignoring route restrictions</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#NotOnPrivateHomes">NotOnPrivateHomes</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; The "NYC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayYellowTrack">LayYellowTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E 19" , ignoring route restrictions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="LayGreenTrack">LayGreenTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayTrack">LayTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place a <a class="keyword" href="#GreenTile">GreenTile</a> in the <a class="keyword" href="#MapHex">MapHex</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; The "ERIC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayGreenTrack">LayGreenTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E 11" , ignoring route restrictions</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; The "ERIC" <a class="keyword" href="#Railroad">Railroad</a> may <a class="keyword" href="#LayGreenTrack">LayGreenTrack</a> on the <a class="keyword" href="#Hex">Hex</a> containing its <a class="keyword" href="#HomeCity">HomeCity</a> "E 11" , ignoring route restrictions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="UpgradeTrack">UpgradeTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConstructTrack">ConstructTrack</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Choose a <a class="keyword" href="#MapHex">MapHex</a> with a <a class="keyword" href="#YellowTile">YellowTile</a> or <a class="keyword" href="#GreenTile">GreenTile</a></td></tr>
@@ -749,14 +776,55 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#GreenTile">GreenTile</a>: <a class="keyword" href="#BrownTile">BrownTile</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Replace the existing <a class="keyword" href="#TrackTile">TrackTile</a> in the <a class="keyword" href="#MapHex">MapHex</a> with the new one</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Add the previous <a class="keyword" href="#TrackTile">TrackTile</a> to the <a class="keyword" href="#Supply">Supply</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchExistingTrack">MustMatchExistingTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchCities">MustMatchCities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustMatchCityLabel">MustMatchCityLabel</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#GreenTile">GreenTiles</a> may only be used if <a class="keyword" href="#Phase">Phase</a> >= 2</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#BrownTile">BrownTiles</a> may only be chosen if <a class="keyword" href="#Phase">Phase</a> >= 4</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchExistingTrack">MustMatchExistingTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The orientation of the new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must match all the existing <a class="keyword" href="#TrackEdge">TrackEdges</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchCities">MustMatchCities</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> or existing <a class="keyword" href="#TrackTile">TrackTile</a> on the <a class="keyword" href="#MapHex">MapHex</a> has <a class="keyword" href="#LargeCity">LargeCities</a> or <a class="keyword" href="#SmallCity">SmallCities</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Match the number of <a class="keyword" href="#LargeCity">LargeCities</a> and <a class="keyword" href="#SmallCity">SmallCities</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Maintain the connections (or lack thereof) between the <a class="keyword" href="#City">Cities</a> within the tile</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchCityLabel">MustMatchCityLabel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> or existingTrackTile has a <a class="keyword" href="#Label">Label</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must also have the same <a class="keyword" href="#Label">Label</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#PlaceStation">PlaceStation</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You must be able to track a continuous path (of any length) from this <a class="keyword" href="#TrackTile">TrackTile</a> to one of your <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#Station">Stations</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MayNotPassThroughBlockedCities">MayNotPassThroughBlockedCities</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">You may start or end at a Blocked City</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">If there are multiple paths on the TrackTile, only 1 needs to connect to a Station</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> has an <a class="keyword" href="#Edge">Edge</a> that matches any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Is along the outside of the <a class="keyword" href="#MapBoard">MapBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Is a <a class="keyword" href="#RedEdge">RedEdge</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Abuts a non-TrackEdge <a class="keyword" href="#Edge">Edge</a> of a <a class="keyword" href="#Red">Red</a> or <a class="keyword" href="#Gray">Gray</a> <a class="keyword" href="#MapHex">MapHex</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Then:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must must be oriented so that this <a class="keyword" href="#Edge">Edge</a> is not a <a class="keyword" href="#TrackEdge">TrackEdge</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="NotOnPrivateHomes">NotOnPrivateHomes</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayYellowTrack">LayYellowTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>If all of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The <a class="keyword" href="#MapHex">MapHex</a> is a <a class="keyword" href="#HomeHex">HomeHex</a> of a <a class="keyword" href="#Private">Private</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>That <a class="keyword" href="#Private">Private</a> is owned by a <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Then:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may not place a <a class="keyword" href="#TrackTile">TrackTile</a> in this location</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">Tile placement is allowed if the Private is closed or owned by a Railroad</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="BuildStation">BuildStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperatingRound">OperatingRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you have a <a class="keyword" href="#Station">Station</a> available on one of your <a class="keyword" href="#Charter">Charter</a>'s <a class="keyword" href="#StationSpace">StationSpaces</a>:</td></tr>
@@ -767,12 +835,12 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PlaceStation">PlaceStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildStation">BuildStation</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Choose a <a class="keyword" href="#LargeCity">LargeCity</a> with an available <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place <a class="keyword" href="#Station">Station</a> on the <a class="keyword" href="#LargeCity">LargeCity</a>'s <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; Multiple <a class="keyword" href="#Station">Stations</a> may not be placed in the same <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; A <a class="keyword" href="#Railroad">Railroad</a> may not build multiple <a class="keyword" href="#Station">Stations</a> in the same <a class="keyword" href="#LargeCity">LargeCity</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If your new <a class="keyword" href="#Station">Station</a> would block a <a class="keyword" href="#Railroad">Railroad</a> from placing a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; Multiple <a class="keyword" href="#Station">Stations</a> may not be placed in the same <a class="keyword" href="#StationCircle">StationCircle</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; A <a class="keyword" href="#Railroad">Railroad</a> may not build multiple <a class="keyword" href="#Station">Stations</a> in the same <a class="keyword" href="#LargeCity">LargeCity</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If your new <a class="keyword" href="#Station">Station</a> would block a <a class="keyword" href="#Railroad">Railroad</a> from placing a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may not place a <a class="keyword" href="#Station">Station</a> there</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You may not place a <a class="keyword" href="#Station">Station</a> in "E 11" until the "ERIE" <a class="keyword" href="#Railroad">Railroad</a> has placed a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; You may not place a <a class="keyword" href="#Station">Station</a> in "E 11" until the "ERIE" <a class="keyword" href="#Railroad">Railroad</a> has placed a <a class="keyword" href="#Station">Station</a> in their <a class="keyword" href="#HomeCity">HomeCity</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="OperateTrains">OperateTrains</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperatingRound">OperatingRound</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>total_revenue = 0</td></tr>
@@ -790,13 +858,16 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The route may not use the same segment of track more than once</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The route may not visit the same <a class="keyword" href="#City">City</a> more than once</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The route must include one of your <a class="keyword" href="#Station">Stations</a> (at the start, middle or end)</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MayNotPassThroughBlockedCities">MayNotPassThroughBlockedCities</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MayNotChangeTrackAtCrossover">MayNotChangeTrackAtCrossover</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>&roplus; <a class="keyword" href="#MayNotReverseDirection">MayNotReverseDirection</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#MayNotPassThroughBlockedCities">MayNotPassThroughBlockedCities</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>&#9888; You may not change tracks when one track crosses over another</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>&#9888; The route may not reverse direction at a junction</td></tr>
 <tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=4><span class="comment">You may pass through the same TrackTile multiple times as long as you use different segments of track</span></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you're running multiple trains as part of the same operation:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may not use track already used by one of your previous runs this turn</td></tr>
 <tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=4><span class="comment">But you may use the same City in multiple runs</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MayNotPassThroughBlockedCities">MayNotPassThroughBlockedCities</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a><a href="#RunTrain">RunTrain</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Any <a class="keyword" href="#LargeCity">LargeCity</a> you pass through must not be <a class="keyword" href="#Blocked">Blocked</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="CalcRunValue">CalcRunValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OperateTrains">OperateTrains</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The value of the run is the sum of the <a class="keyword" href="#Value">Value</a> of each <a class="keyword" href="#City">City</a> visited</td></tr>
@@ -811,8 +882,8 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Choose one:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayDividends">PayDividends</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayTreasury">PayTreasury</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; You can not <a class="keyword" href="#PayDividends">PayDividends</a> unless the revenue is greater than $0</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#EndGameIfBankCannotPay">EndGameIfBankCannotPay</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; You can not <a class="keyword" href="#PayDividends">PayDividends</a> unless the revenue is greater than $0</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&#9888; <a class="keyword" href="#EndGameIfBankCannotPay">EndGameIfBankCannotPay</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PayDividends">PayDividends</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CollectRevenue">CollectRevenue</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Pay 10% of the total revenue to the owner of each <a class="keyword" href="#Share">Share</a></td></tr>
@@ -834,7 +905,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Unless you are trading in for a <a class="keyword" href="#Diesel">Diesel</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you do not have any <a class="keyword" href="#Train">Trains</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#ForcedTrainPurchase">ForcedTrainPurchase</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; When the "B&O" <a class="keyword" href="#Railroad">Railroad</a> purchases its first <a class="keyword" href="#Train">Train</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; When the "B&O" <a class="keyword" href="#Railroad">Railroad</a> purchases its first <a class="keyword" href="#Train">Train</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#ClosePrivate">ClosePrivate</a> <a class="keyword" href="#BO">BO</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PurchaseTrainFromBank">PurchaseTrainFromBank</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseTrains">PurchaseTrains</a></div></div>: Verb</td></tr>
@@ -843,9 +914,9 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayBankForTrain">PayBankForTrain</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>If this is the first <a class="keyword" href="#Type">Type</a> 3, 4, 5, 6 or <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Train</a> purchased (by any <abbr title="Imported from common/Game">Player</abbr>):</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#NextPhase">NextPhase</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; During <a class="keyword" href="#Phase">Phase</a> 6 and 7, you may purchase <a class="keyword" href="#Type">Type</a> 6 or <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Trains</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; There are unlimited <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Trains</a> available, even if the <a class="keyword" href="#Train">Train</a> cards run out</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; If purchasing a <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Train</a>, you may:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; During <a class="keyword" href="#Phase">Phase</a> 6 and 7, you may purchase <a class="keyword" href="#Type">Type</a> 6 or <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Trains</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; There are unlimited <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Trains</a> available, even if the <a class="keyword" href="#Train">Train</a> cards run out</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&#9888; If purchasing a <a class="keyword" href="#Diesel">Diesel</a> <a class="keyword" href="#Train">Train</a>, you may:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#DieselTradeIn">DieselTradeIn</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="PurchaseTrainFromMarket">PurchaseTrainFromMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PurchaseTrains">PurchaseTrains</a></div></div>: Verb</td></tr>
@@ -877,7 +948,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#Railroad">Railroad</a> and the <a class="keyword" href="#President">President</a> combined have enough money to purchase the cheapest <a class="keyword" href="#Train">Train</a> available:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#Railroad">Railroad</a> spends all the <a class="keyword" href="#Money">Money</a> from its <a class="keyword" href="#Treasury">Treasury</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#President">President</a> pays the rest of the cost</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>&roplus; If buying from another <a class="keyword" href="#Railroad">Railroad</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2>&#9888; If buying from another <a class="keyword" href="#Railroad">Railroad</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td></td><td class="desc">The price may not exceed the <a class="keyword" href="#Train">Train</a>'s <a class="keyword" href="#Cost">Cost</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ForcedStockSaleForTrain">ForcedStockSaleForTrain</a></td></tr>
@@ -928,75 +999,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="AddTrainToMarket">AddTrainToMarket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextPhase">NextPhase</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#President">President</a> chooses a <a class="keyword" href="#Train">Train</a> to add to the <a class="keyword" href="#OpenMarket">OpenMarket</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=6>Constraints</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="EndGameIfBankCannotPay">EndGameIfBankCannotPay</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CollectRevenue">CollectRevenue</a><a href="#SellShares">SellShares</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#Bank">Bank</a> doesn't have enough <a class="keyword" href="#Money">Money</a> to pay:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4><a class="keyword" href="#TriggerEndGame">TriggerEndGame</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="BrownTilesOnlyInPhase4">BrownTilesOnlyInPhase4</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#BrownTile">BrownTiles</a> may only be chosen if <a class="keyword" href="#Phase">Phase</a> >= 4</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="GreenTilesOnlyInPhase2">GreenTilesOnlyInPhase2</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5><a class="keyword" href="#GreenTile">GreenTiles</a> may only be used if <a class="keyword" href="#Phase">Phase</a> >= 2</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MayNotReverseDirection">MayNotReverseDirection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RunTrain">RunTrain</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The route may not reverse direction at a junction</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchCities">MustMatchCities</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> or existing <a class="keyword" href="#TrackTile">TrackTile</a> on the <a class="keyword" href="#MapHex">MapHex</a> has <a class="keyword" href="#LargeCity">LargeCities</a> or <a class="keyword" href="#SmallCity">SmallCities</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Match the number of <a class="keyword" href="#LargeCity">LargeCities</a> and <a class="keyword" href="#SmallCity">SmallCities</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=3>Maintain the connections (or lack thereof) between the <a class="keyword" href="#City">Cities</a> within the tile</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchCityLabel">MustMatchCityLabel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> or existingTrackTile has a <a class="keyword" href="#Label">Label</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must also have the same <a class="keyword" href="#Label">Label</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustMatchExistingTrack">MustMatchExistingTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>The orientation of the new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must match all the existing <a class="keyword" href="#TrackEdge">TrackEdges</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#PlaceStation">PlaceStation</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You must be able to track a continuous path (of any length) from this <a class="keyword" href="#TrackTile">TrackTile</a> to one of your <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#Station">Stations</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#MayNotPassThroughBlockedCities">MayNotPassThroughBlockedCities</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">You may start or end at a Blocked City</span></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">If there are multiple paths on the TrackTile, only 1 needs to connect to a Station</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MayNotChangeTrackAtCrossover">MayNotChangeTrackAtCrossover</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RunTrain">RunTrain</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You may not change tracks when one track crosses over another</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MayNotExceedCertificateLimits">MayNotExceedCertificateLimits</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyOneShare">BuyOneShare</a><a href="#ExchangePresidentCertificate">ExchangePresidentCertificate</a><a href="#MHSpecialEffect">MHSpecialEffect</a><a href="#StockRound">StockRound</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You may not have more <a class="keyword" href="#Certificate">Certificates</a> than the <a class="keyword" href="#CertificateLimit">CertificateLimit</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If you exceed the <a class="keyword" href="#CertificateLimit">CertificateLimit</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You must sell <a class="keyword" href="#Certificate">Certificates</a> until you're under the limit during your next opportunity to sell</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>&roplus; <a class="keyword" href="#Certificate">Certificates</a> for <a class="keyword" href="#Railroad">Railroads</a> who's <a class="keyword" href="#ShareValueToken">ShareValueToken</a> is on a <a class="keyword" href="#Yellow">Yellow</a>, <a class="keyword" href="#Orange">Orange</a> or <a class="keyword" href="#Brown">Brown</a> <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a> do not count toward this limit</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="MayNotPassThroughBlockedCities">MayNotPassThroughBlockedCities</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MustTraceUnblockedPathToYourStation">MustTraceUnblockedPathToYourStation</a><a href="#RunTrain">RunTrain</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Any <a class="keyword" href="#LargeCity">LargeCity</a> you pass through must not be <a class="keyword" href="#Blocked">Blocked</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="NoMoreThanSixtyPercentOwnership">NoMoreThanSixtyPercentOwnership</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyOneShare">BuyOneShare</a><a href="#MHSpecialEffect">MHSpecialEffect</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>You may not own more than 5 <a class="keyword" href="#Certificate">Certificates</a> for a single <a class="keyword" href="#Railroad">Railroad</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Unless the <a class="keyword" href="#Railroad">Railroad</a>'s <a class="keyword" href="#ShareValueToken">ShareValueToken</a> is on an <a class="keyword" href="#Orange">Orange</a> or <a class="keyword" href="#Brown">Brown</a> <a class="keyword" href="#Square">Square</a> in the <a class="keyword" href="#StockMarketGrid">StockMarketGrid</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">Note: Because the PresidentCertificate is worth 2 Shares, this corresponds to 60% ownership.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="NoRailLeadingIntoForbiddenEdges">NoRailLeadingIntoForbiddenEdges</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayGreenTrack">LayGreenTrack</a><a href="#LayYellowTrack">LayYellowTrack</a><a href="#UpgradeTrack">UpgradeTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=5>If the <a class="keyword" href="#MapHex">MapHex</a> has an <a class="keyword" href="#Edge">Edge</a> that matches any of:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Is along the outside of the <a class="keyword" href="#MapBoard">MapBoard</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Is a <a class="keyword" href="#RedEdge">RedEdge</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Abuts a non-TrackEdge <a class="keyword" href="#Edge">Edge</a> of a <a class="keyword" href="#Red">Red</a> or <a class="keyword" href="#Gray">Gray</a> <a class="keyword" href="#MapHex">MapHex</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Then:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The new <a class="keyword" href="#TrackTile">TrackTile</a> being placed must must be oriented so that this <a class="keyword" href="#Edge">Edge</a> is not a <a class="keyword" href="#TrackEdge">TrackEdge</a></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="NotOnPrivateHomes">NotOnPrivateHomes</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LayYellowTrack">LayYellowTrack</a></div></div>: Constraint</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>If all of:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>The <a class="keyword" href="#MapHex">MapHex</a> is a <a class="keyword" href="#HomeHex">HomeHex</a> of a <a class="keyword" href="#Private">Private</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>That <a class="keyword" href="#Private">Private</a> is owned by a <abbr title="Imported from common/Game">Player</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=5>Then:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>You may not place a <a class="keyword" href="#TrackTile">TrackTile</a> in this location</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=5><span class="comment">Tile placement is allowed if the Private is closed or owned by a Railroad</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=6>Endgame</td></tr>
+<tr class="subsection"><td class="cost"></td><td colspan=6>Scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>A <abbr title="Imported from common/Game">Player</abbr>'s total wealth is the sum of:</td></tr>

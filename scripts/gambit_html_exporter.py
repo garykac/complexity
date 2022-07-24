@@ -25,7 +25,7 @@ class GambitHtmlExporter:
 	def writeHtml(self, outpath):
 		with open(outpath, 'w') as out:
 			self.writeHtmlHeader(out, self.gameTitle, self.costTotal)
-			self.writeHtmlCostSummary(out, self.parser.sectionCosts, self.costTotal)
+			self.writeHtmlCostSummary(out, self.parser)
 			self.writeTableHeader(out)
 			self.writeTableRows(out)
 			self.writeTableFooter(out)
@@ -54,23 +54,63 @@ class GambitHtmlExporter:
 		out.write('<div class="container">\n')
 		out.write('<div class="title">{0:s}</div>\n\n'.format(title))
 
-	def writeHtmlCostSummary(self, out, sectionCosts, costTotal):
+	def writeHtmlCostSummary(self, out, parser):
+		sectionCosts = parser.sectionCosts
+		subsectionCosts = parser.subsectionCosts
+
 		out.write('<table class="summary">\n')
-		out.write('<colgroup><col class="summary-first-column"><col class="summary-column"><col class="summary-column"></colgroup>\n')
-		out.write('<tr><td colspan="3"><b>Rule Complexity</b></td></tr>\n')
+
+		out.write('<colgroup>')
+		out.write('<col class="summary-section-indent">')
+		out.write('<col class="summary-subsection-column">')
+		out.write('<col class="summary-column">')
+		out.write('<col class="summary-column">')
+		out.write('</colgroup>\n')
+
+		out.write('<tr><td colspan="4"><b>Rule Complexity</b></td></tr>\n')
+		print("sections:")
+		print(sectionCosts)
+		print("subsections:")
+		print(subsectionCosts)
 		for s in sectionCosts:
 			(name, cost) = s
-			out.write('<tr><td class="summary-first-column">')
-			out.write(name)
-			out.write('</td><td class="summary-column">')
-			out.write(str(cost))
-			out.write('</td><td class="summary-column">')
-			out.write("{0:.1f}%".format(100 * cost / costTotal))
-			out.write('</td></tr>\n')
-		out.write('<tr><td class="summary-first-column"><b>Total</b></td>')
-		out.write('<td class="summary-column"><b>{0:d}</b></td>'.format(costTotal))
+			if name in subsectionCosts:
+				self.writeHtmlCostSection(out, name, None)
+				self.writeHtmlCostSubsection(out, "-", cost)
+				for sub in subsectionCosts[name]:
+					(subname, subcost) = sub
+					self.writeHtmlCostSubsection(out, subname, subcost)
+			else:
+				self.writeHtmlCostSection(out, name, cost)
+
+		out.write('<tr><td colspan=2 class="summary-first-column"><b>Total</b></td>')
+		out.write('<td class="summary-column"><b>{0:d}</b></td>'.format(self.parser.costTotal))
 		out.write('<td class="summary-column"></td></tr>\n')
+
 		out.write('</table>\n\n')
+
+	def writeHtmlCostSection(self, out, name, cost):
+		out.write('<tr>')
+		out.write('<td colspan=2 class="summary-section-column">')
+		out.write(name)
+		out.write('</td><td class="summary-column">')
+		if cost:
+			out.write(str(cost))
+		out.write('</td><td class="summary-column">')
+		if cost:
+			out.write("{0:.1f}%".format(100 * cost / self.parser.costTotal))
+		out.write('</td></tr>\n')
+
+	def writeHtmlCostSubsection(self, out, name, cost):
+		out.write('<tr>')
+		out.write('<td class="summary-section-indent">')
+		out.write('<td class="summary-subsection-column">')
+		out.write(name)
+		out.write('</td><td class="summary-column">')
+		out.write(str(cost))
+		out.write('</td><td class="summary-column">')
+		out.write("{0:.1f}%".format(100 * cost / self.parser.costTotal))
+		out.write('</td></tr>\n')
 
 	def writeHtmlFooter(self, out):
 		out.write('<div class="footer">&nbsp;</div>\n')
