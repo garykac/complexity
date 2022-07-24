@@ -20,7 +20,7 @@ class IndexBuilder:
 		self.vocab = {}
 		self.games = {}
 		self.children = {}
-		self.buckets = [30, 75, 120, 299]
+		self.buckets = [29, 59, 99, 199, 299]
 		
 	def loadGames(self):
 		listfile = os.path.join(SRC_DIR, LIST_FILE)
@@ -85,7 +85,7 @@ class IndexBuilder:
 		out.write('	<meta charset="utf-8" />\n')
 		out.write('	<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n')
 		out.write('	<meta name="viewport" content="width=device-width, initial-scale=1" />\n')
-		out.write('	<title>Boardgame Learning Complexity</title>')
+		out.write('	<title>Boardgame Rule Complexity</title>')
 		out.write('	<link rel="preconnect" href="https://fonts.googleapis.com">\n')
 		out.write('	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n')
 		out.write('	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">\n')
@@ -93,7 +93,7 @@ class IndexBuilder:
 		out.write('</head>\n')
 		out.write('<body>\n')
 		out.write('<div class="container">\n')
-		out.write('<div class="pagetitle">Boardgame Learning Complexity</div>\n')
+		out.write('<div class="pagetitle">Boardgame Rule Complexity</div>\n')
 
 	def writeListHeader(self, out):
 		out.write('<div class="list">\n')
