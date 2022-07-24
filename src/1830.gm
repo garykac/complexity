@@ -282,11 +282,11 @@ PlayGame: Verb
 
 TriggerEndGame: Verb
 	Put remaining Money in Bank
-	If the Bank didn't have enough Money to pay out a Train run:
+	If the Bank didn't have enough Money to pay out the last Train run:
 		Make the rest of the Bank payment to the Railroad
 	Set EndGameTriggered to "Yes"
 
-// SUBSECTION: Phase 1 - Privates
+// SUBSECTION: Privates
 
 SellAllPrivates: Verb
 	Repeat until all Privates have been purchased, starting with the PriorityPlayer:
@@ -406,6 +406,12 @@ StockRound: Verb
 	! MayNotExceedCertificateLimits
 	! MHSpecialEffect
 
+MayNotExceedCertificateLimits: Constraint
+	You may not have more Certificates than the CertificateLimit
+	If you exceed the CertificateLimit:
+		You must sell Certificates until you're under the limit during your next opportunity to sell
+	! Certificates for Railroads who's ShareValueToken is on a Yellow, Orange or Brown Square in the StockMarketGrid do not count toward this limit
+
 StockRoundTurn: Verb
 	SellShares
 	BuyOneShare
@@ -427,6 +433,11 @@ BuyOneShare: Verb
 	! If the Railroad's ShareValueToken is on a Brown Square in the StockMarketGrid:
 		You may buy any number of Certificates of that Railroad at one time
 
+NoMoreThanSixtyPercentOwnership: Constraint
+	You may not own more than 5 Certificates for a single Railroad
+		Unless the Railroad's ShareValueToken is on an Orange or Brown Square in the StockMarketGrid
+	// Note: Because the PresidentCertificate is worth 2 Shares, this corresponds to 60% ownership.
+	
 SellShares: Verb
 	For each Railroad that you want to sell Shares of:
 		Choose how many Shares to sell
@@ -509,6 +520,10 @@ MoveShareValueToken: Verb
 	If there is already one or more ShareValueTokens in the space:
 		Place this token underneath the stack of existing tokens
 
+EndGameIfBankCannotPay: Constraint
+	If the Bank doesn't have enough Money to pay:
+		TriggerEndGame
+
 // SUBSECTION: Operating Round
 
 OperatingRound: Verb
@@ -589,6 +604,47 @@ UpgradeTrack: Verb
 	! MustMatchCityLabel
 	// There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost
 
+GreenTilesOnlyInPhase2: Constraint
+	GreenTiles may only be used if Phase >= 2
+
+BrownTilesOnlyInPhase4: Constraint
+	BrownTiles may only be chosen if Phase >= 4
+		
+MustMatchExistingTrack: Constraint
+	The orientation of the new TrackTile being placed must match all the existing TrackEdges
+
+MustMatchCities: Constraint
+	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
+		The new TrackTile being placed must:
+			Match the number of LargeCities and SmallCities
+			Maintain the connections (or lack thereof) between the Cities within the tile
+
+MustMatchCityLabel: Constraint
+	If the MapHex or existingTrackTile has a Label:
+		The new TrackTile being placed must also have the same Label
+
+MustTraceUnblockedPathToYourStation: Constraint
+	You must be able to track a continuous path (of any length) from this TrackTile to one of your Railroad's Stations
+	! MayNotPassThroughBlockedCities
+	// You may start or end at a Blocked City
+	// If there are multiple paths on the TrackTile, only 1 needs to connect to a Station
+
+NoRailLeadingIntoForbiddenEdges: Constraint
+	If the MapHex has an Edge that matches any of:
+		Is along the outside of the MapBoard
+		Is a RedEdge
+		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
+	Then:
+		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
+
+NotOnPrivateHomes: Constraint
+	If all of:
+		The MapHex is a HomeHex of a Private
+		That Private is owned by a Player
+	Then:
+		You may not place a TrackTile in this location
+	// Tile placement is allowed if the Private is closed or owned by a Railroad
+
 BuildStation: Verb
 	If you have a Station available on one of your Charter's StationSpaces:
 		You may pay the associated Cost
@@ -622,12 +678,15 @@ RunTrain: Verb
 		The route may not visit the same City more than once
 		The route must include one of your Stations (at the start, middle or end)
 		! MayNotPassThroughBlockedCities
-		! MayNotChangeTrackAtCrossover
-		! MayNotReverseDirection
+		! You may not change tracks when one track crosses over another
+		! The route may not reverse direction at a junction
 		// You may pass through the same TrackTile multiple times as long as you use different segments of track
 	If you're running multiple trains as part of the same operation:
 		You may not use track already used by one of your previous runs this turn
 		// But you may use the same City in multiple runs
+
+MayNotPassThroughBlockedCities: Constraint
+	Any LargeCity you pass through must not be Blocked
 
 CalcRunValue: Verb
 	The value of the run is the sum of the Value of each City visited
@@ -759,75 +818,7 @@ RemoveTrain: Verb
 AddTrainToMarket: Verb
 	President chooses a Train to add to the OpenMarket
 
-
-// SECTION: Constraints
-
-EndGameIfBankCannotPay: Constraint
-	If the Bank doesn't have enough Money to pay:
-		TriggerEndGame
-
-BrownTilesOnlyInPhase4: Constraint
-	BrownTiles may only be chosen if Phase >= 4
-		
-GreenTilesOnlyInPhase2: Constraint
-	GreenTiles may only be used if Phase >= 2
-
-MayNotReverseDirection: Constraint
-	The route may not reverse direction at a junction
-
-MustMatchCities: Constraint
-	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
-		The new TrackTile being placed must:
-			Match the number of LargeCities and SmallCities
-			Maintain the connections (or lack thereof) between the Cities within the tile
-
-MustMatchCityLabel: Constraint
-	If the MapHex or existingTrackTile has a Label:
-		The new TrackTile being placed must also have the same Label
-
-MustMatchExistingTrack: Constraint
-	The orientation of the new TrackTile being placed must match all the existing TrackEdges
-
-MustTraceUnblockedPathToYourStation: Constraint
-	You must be able to track a continuous path (of any length) from this TrackTile to one of your Railroad's Stations
-	! MayNotPassThroughBlockedCities
-	// You may start or end at a Blocked City
-	// If there are multiple paths on the TrackTile, only 1 needs to connect to a Station
-
-MayNotChangeTrackAtCrossover: Constraint
-	You may not change tracks when one track crosses over another
-	
-MayNotExceedCertificateLimits: Constraint
-	You may not have more Certificates than the CertificateLimit
-	If you exceed the CertificateLimit:
-		You must sell Certificates until you're under the limit during your next opportunity to sell
-	! Certificates for Railroads who's ShareValueToken is on a Yellow, Orange or Brown Square in the StockMarketGrid do not count toward this limit
-
-MayNotPassThroughBlockedCities: Constraint
-	Any LargeCity you pass through must not be Blocked
-
-NoMoreThanSixtyPercentOwnership: Constraint
-	You may not own more than 5 Certificates for a single Railroad
-		Unless the Railroad's ShareValueToken is on an Orange or Brown Square in the StockMarketGrid
-	// Note: Because the PresidentCertificate is worth 2 Shares, this corresponds to 60% ownership.
-	
-NoRailLeadingIntoForbiddenEdges: Constraint
-	If the MapHex has an Edge that matches any of:
-		Is along the outside of the MapBoard
-		Is a RedEdge
-		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
-	Then:
-		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
-
-NotOnPrivateHomes: Constraint
-	If all of:
-		The MapHex is a HomeHex of a Private
-		That Private is owned by a Player
-	Then:
-		You may not place a TrackTile in this location
-	// Tile placement is allowed if the Private is closed or owned by a Railroad
-
-// SECTION: Endgame
+// SUBSECTION: Scoring
 
 CalculateScore: Verb
 	A Player's total wealth is the sum of:
