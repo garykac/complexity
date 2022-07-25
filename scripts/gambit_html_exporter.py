@@ -68,10 +68,6 @@ class GambitHtmlExporter:
 		out.write('</colgroup>\n')
 
 		out.write('<tr><td colspan="4"><b>Rule Complexity</b></td></tr>\n')
-		print("sections:")
-		print(sectionCosts)
-		print("subsections:")
-		print(subsectionCosts)
 		for s in sectionCosts:
 			(name, cost) = s
 			if name in subsectionCosts:

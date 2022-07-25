@@ -227,36 +227,20 @@ class GambitParser:
 				cost += r['cost']
 			elif type == "SECTION":
 				if currentSubsection:
-					print(f"*** Adding {currentSubsection} to {currentSection}")
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				elif currentSection:
 					self.sectionCosts.append([currentSection, cost])
 				currentSection = r['comment']
 				currentSubsection = None
-				print("Adding section for:")
-				print(r)
-				print(self.sectionCosts)
-				print(self.subsectionCosts)
-				print(f"current section: {currentSection}")
-				print(f"current subsection: {currentSubsection}")
-				print()
 				cost = 0
 			elif type == "SUBSECTION":
 				if currentSubsection:
-					print(f"*** Adding {currentSubsection} to {currentSection}")
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				else:
 					self.sectionCosts.append([currentSection, cost])
 				currentSubsection = r['comment']
 				if not currentSection in self.subsectionCosts:
 					self.subsectionCosts[currentSection] = []
-				print("Adding subsection for:")
-				print(r)
-				print(self.sectionCosts)
-				print(self.subsectionCosts)
-				print(f"current section: {currentSection}")
-				print(f"current subsection: {currentSubsection}")
-				print()
 				cost = 0
 			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in calcTotalCost: {0:s}".format(type))
