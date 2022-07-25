@@ -163,7 +163,8 @@ class GambitHtmlExporter:
 			elif type == "BLANK":
 				prefix = "&nbsp;"
 			elif type == "IMPORT":
-				comment = "#import {0:s}".format(comment)
+				#comment = "#import {0:s}".format(comment)
+				continue
 			elif type == "SECTION":
 				rowclass = "section"
 			elif type == "SUBSECTION":

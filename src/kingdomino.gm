@@ -27,17 +27,20 @@ Crown: Attribute of TerritorySquare
 King: Piece
 
 DrawPile: Noun
-
+	Stack of Dominoes
+	
 Line: Noun
 	An ordered list of Dominoes
 CurrentLine: Line
+	The Line of Dominoes being placed this turn.
 NextLine: Line
+	The Line of Dominoes to be placed next turn.
 
 Kingdom: Noun
 	Your collection of Dominoes, arranged on a 5x5 grid.
 
 Territory: Noun
-	A set of TerritorySquares in your Kingdom with matching Terrain that connect horizontally or vertically.
+	A set of TerritorySquares in your Kingdom with matching Terrain that connect (share an edge) horizontally or vertically.
 
 // SECTION: Setup
 
@@ -51,7 +54,7 @@ Setup: Verb
 SetupComponents: Verb
 	Place the box as shown.
 		// So the stack of Dominoes can be horizontal without revealing the bottom one.
-	Choose player color and take components or matching color:
+	Choose player color and take components of matching color:
 		* StartingTile
 		* Castle
 	Take the following number of Kings (matching player color), based on player count:
@@ -76,8 +79,8 @@ CreateNextLineOfDominoes: Verb
 	Flip over all these Dominoes to reveal the LandscapeSide
 
 PlaceInitialKings: Verb
-	Gather all the Kings
-		// Except for the ones placed back in the Box
+	Gather all the Kings from the Players
+		// Ignore the ones placed back in the Box
 	Select start player
 	Repeat until all Kings have been placed on tiles:
 		Randomly take a King
@@ -86,7 +89,7 @@ PlaceInitialKings: Verb
 		NextPlayerClockwise
 
 PlaceKingOnDomino: Verb
-	Place your King token on one of Dominoes in the NextLine
+	Place the King token on one of Dominoes in the NextLine
 	! You may not place on a Domino that already has a King on it
 	! Skip placement if there is no NextLine
 
@@ -100,17 +103,17 @@ SlideNextLineToBecomeCurrentLine: Verb
 PlayGame: Verb
 	For each Domino in the CurrentLine, starting at the top (lowest number):
 		The Player whose King is on the Domino must:
-			AddDominoToTerritory
+			AddDominoToKingdom
 			PlaceKingOnDomino
 		SlideNextLineToBecomeCurrentLine
 		CreateNextLineOfDominoes
 
-AddDominoToTerritory: Verb
+AddDominoToKingdom: Verb
 	Choose one:
 		Connect the Domino so a TerritorySquare shares an edge with your StartingTile
 		Connect the Domino so the Terrain of at least one TerritorySquare shares a matching edge with another Domino in your Territory
 	! Your Kingdom is restricted to a 5x5 grid
-	! Discard the Domino if you cannot place it in your Territory
+	! Discard the Domino (remove it from the game) if you cannot place it in your Kingdom
 
 // SECTION: Endgame Scoring
 
