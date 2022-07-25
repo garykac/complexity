@@ -55,7 +55,7 @@ CaptureSeeds: Verb
 	Take the last Seed that you placed in your Pit
 	Take all of the Seeds in your opponent's Pit directly opposite the Pit where you placed your last Seed
 	Place all these Seeds into your Store
-	// Variant: If the opposite Pit is empty, then nothing no Seeds are captured.
+	// Variant: If the opposite Pit is empty, then no Seeds are captured.
 
 // SECTION: Endgame
 
