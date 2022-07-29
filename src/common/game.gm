@@ -1,5 +1,7 @@
 // Game
 
+Box: Noun
+
 Rulebook: Noun
 
 Player: Noun
@@ -38,3 +40,6 @@ NextPlayerCounterClockwise: Verb
 
 PlayerWithHighestScore: Noun
 	The Player with the highest Score is the winner
+
+PlayerWithLowestScore: Noun
+	The Player with the lowest Score is the winner

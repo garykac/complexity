@@ -1,7 +1,5 @@
 // Boardgame
 
-Box: Noun
-
 Gameboard: Noun
 
 Piece: Noun
