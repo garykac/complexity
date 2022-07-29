@@ -1,0 +1,81 @@
+// NAME: No Thanks!
+
+// Year: 2004
+// Designer: Thorsten Gimmler
+// Players: 3-5
+// Time: 20m
+// BGG Weight: 1.14 = 1182 / 156 / 3 / 4 / 2
+
+#import common/Game
+#import common/CardGame
+
+// SECTION: Vocabulary
+
+Number: Attribute of Card
+
+CurrentCard: Card
+	The currently revealed Card
+	
+Chip: Noun
+
+Pool: Noun
+	A Player's collection of Chips
+
+Tableau: Noun
+	The set of Cards owned by the Player
+
+// SECTION: Setup
+
+Setup: Verb
+	CreateDeck
+	For each Player:
+		Take 11 Chips to create your Pool
+		! Keep your Chips hidden from other Players
+	
+CreateDeck: Verb
+	Shuffle
+	Deal 24 Cards face down to create the Deck
+	Place remaining Cards back in the Box (without looking)
+
+// SECTION: Gameplay
+
+PlayGame: Verb
+	ChooseFirstPlayer
+	RevealNextCard
+	Repeat until Deck is empty:
+		PlayerTurn
+		NextPlayerClockwise
+
+RevealNextCard: Verb
+	Reveal top Card from Deck as the CurrentCard
+
+PlayerTurn: Verb
+	Choose one of:
+		TakeCard
+		DeclineCard
+
+TakeCard: Verb
+	Take the CurrentCard and all Chips that are on it
+	Add the Chips to your Pool
+	AddCardToTableau
+	RevealNextCard
+
+AddCardToTableau: Verb
+	If the Card's Number is adjacent to a Card already in your Tableau:
+		Arrange adjacent Cards in an unbroken sequence
+	Add Card separated from other Cards in Tableau
+	
+DeclineCard: Verb
+	Place a Chip from your Pool onto the CurrentCard
+
+// SECTION: Endgame Scoring
+	
+CalculateScore: Verb
+	For each single Card in your Tableau:
+		Add the Cards's Number to your Score
+	For each unbroken sequence of Cards in your Tableau:
+		Add the lowest Number of the sequence to your Score
+	Subtract the number of Chips in your Pool from your Score
+		
+DetermineWinner: Verb
+	PlayerWithLowestScore

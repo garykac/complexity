@@ -13,6 +13,7 @@ just-one;Just One;;;48
 kingdomino;Kingdomino;;;49
 leaving-earth;Leaving Earth;;;325
 mancala;Mancala;Kalah;;21
+no-thanks;No Thanks!;;;23
 regicide;Regicide;;;75
 risk;Risk;;;67
 roads-and-boats;Roads & Boats;;;314
