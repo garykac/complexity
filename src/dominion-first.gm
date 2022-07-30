@@ -22,7 +22,7 @@ Cost: Attribute of Card
 
 BaseCard: Card
 	Common cards used in all games: TreasureCard, VictoryCard
-Value: Attribute of BaseCard		
+Value: Attribute of BaseCard
 
 TreasureCard: BaseCard
 	Card with Type = "Treasure"
@@ -42,7 +42,7 @@ Duchy: VictoryCard
 Province: VictoryCard
 	GainVP x6
 
-KingdomCard: Card			
+KingdomCard: Card
 ActionCard: KingdomCard
 	// KingdomCard that can be played as an Action
 AttackCard: KingdomCard
@@ -228,8 +228,6 @@ Village: ActionCard
 
 Workshop: ActionCard
 	GainCard costing up to 4
-
-// SECTION: Constraints
 
 Reaction: Constraint
 	When another player plays an AttackCard:
