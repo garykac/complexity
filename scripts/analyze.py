@@ -63,19 +63,21 @@ class Analyzer:
 	# Process .GM files
 	# ==========
 	
-	def processAll(self):
+	def processAll(self, options):
 		self.loadGameList()
 		for id in self.games:
-			self.processOne(id)
+			self.processOne(id, options)
 
-	def processOne(self, id):
+	def processOne(self, id, options):
 		print("Analyzing {0:s}...".format(id))
 		self.loadGameList()
 		if not id in self.games:
 			warning('Unable to find "{0:s}" in game list'.format(id))
 
-		parser = GambitParser()
+		parser = GambitParser(options)
 		parser.setWarnOnTodo()
+
+		parser.loadImportableTerms(os.path.join(SRC_DIR, "_import.gm"))
 
 		filename = "{0:s}.gm".format(id)
 		filepath = os.path.join(SRC_DIR, filename)
@@ -100,33 +102,39 @@ class Analyzer:
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
 	print("where <options> are:")
-	print("  --game <id>")  # process a single game
-	print("  --verbose")  # verbose debug output
+	print("  --game <id> [-g]")  # process a single game
+	print("  --verbose [-v]")  # verbose debug output
+	print("  --warnings [-w]")  # verbose debug output
 
 def main():
 	try:
 		opts, args = getopt.getopt(sys.argv[1:],
-			'g:v',
-			['game=', 'verbose'])
+			'g:vw',
+			['game=', 'verbose', 'warnings'])
 	except getopt.GetoptError:
 		usage()
 		exit()
 
 	gameId = None
-	verbose = False
+	options = {
+		'verbose': False,
+		'warnings': False,
+	}
 	
 	for opt, arg in opts:
 		if opt in ('-g', '--game'):
 			gameId = arg
 		if opt in ('-v', '--verbose'):
-			verbose = True
+			options['verbose'] = True
+		if opt in ('-w', '--warnings'):
+			options['warnings'] = True
 
 	analyzer = Analyzer()
 	if gameId:
 		analyzer.showCost = True
-		analyzer.processOne(gameId)
+		analyzer.processOne(gameId, options)
 	else:
-		analyzer.processAll()
+		analyzer.processAll(options)
 
 if __name__ == '__main__':
 	main()

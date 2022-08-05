@@ -1,50 +1,57 @@
-// NAME: Regicide
-
+NAME: Regicide
 // Year: 2020
 // Designer: Paul Abrahams, Luke Badger, Andy Richdale
 // Players: 1-4
 // Time: 15-30m
 // BGG Weight: 2.08 = 7 / 22 / 8 / 1 / 0
 
-#import common/Game
-#import common/CardGame
-#import common/DeckFrenchSuit
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise, Pass
+IMPORT: Deck, Card, Hand, DiscardPile, Shuffle
+IMPORT: FrenchSuitDeck
+IMPORT: Suit, Club, Diamond, Heart, Spade
+IMPORT: Rank, JQK, Jack, Queen, King, Ace, Joker
 
-AnimalCompanion: Noun
-	// Alternate name for Ace (value = 1)
-Attack: Noun
-	// Current attack value	
+SECTION: Vocabulary
+
+DeckOfCards: FrenchSuitDeck
+	A standard 52 Card Deck with 2 Jokers
+CastleDeck: Deck
+	A Deck of cards with just the Jacks, Queens and Kings
+TavernDeck: Deck
+	A Deck of Cards with the 2-10 + Aces and Jokers	
+
+MaxHandSize: Noun
+	A player's Hand may never have more Cards than this value
+
 CardValue:	Noun
 	Value is Rank of Card with the following exceptions:
 		* Jester: 0
-		* Ace: 1
+		* AnimalCompanion: 1
 		* Jack: 10
 		* Queen: 15
 		* King: 20
-CastleDeck: Deck
-	A Deck of cards with just the Jacks, Queens and Kings
-Combo: Noun
-	A set of 2, 3, or 4 of the same Rank as long as the total <= 10
-DeckOfCards: Deck
-	A standard 52 Card Deck with 2 Jokers
+Jester: Noun
+	An alternate name for Joker (value = 0)
+AnimalCompanion: Noun
+	// Alternate name for Ace (value = 1)
+
 Enemy: Noun
 	The Card representing the Enemy
+
+Attack: Noun
+	// Current attack value	
 EnemyAttack: Noun
 	The current Enemy's attack value
 EnemyHealth: Noun
 	The current Enemy's hit points
 IncomingDamage: Noun
 	Damage that the Enemy is dealing to you
-Jester: Noun
-	An alternate name for Joker (value = 0)
-MaxHandSize: Noun
-	A player's Hand may never have more Cards than this value
-TavernDeck: Deck
-	A Deck of Cards with the 2-10 + Aces and Jokers	
+Combo: Noun
+	A set of 2, 3, or 4 of the same Rank as long as the total <= 10
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	CreateDecks
@@ -74,7 +81,7 @@ AdjustHandSize: Verb
 DealInitialHand: Verb
 	Deal from TavernDeck up to MaxHandSize for each Player
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until CastleDeck is empty:
@@ -155,7 +162,7 @@ HandleDamage: Verb
 HandleJester: Verb
 	Skip to the end of the turn
 	Choose the next player to take a turn
-	// Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not.
+	// Note: Spades played prior to the Jester will begin applying their power, but Clubs played prior will not. See CalcAttack and CalcDefense.
 	! Players may hint whether or not they'd like to take the next turn
 
 HealFromDiscard: Verb
@@ -210,14 +217,12 @@ SufferDamage: Verb
 Yield: Verb
 	Pass
 
-// SECTION: Constraints
-
 EnemyCancelsMatchingSuitPower: Constraint
 	If the Suit of a Card matches the Suit of the Enemy:
 		Do not Activate the Suit's power
 	Unless a Jester has been played against this Enemy
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
-	Player win or lose as a group.
+	Players win or lose as a group.

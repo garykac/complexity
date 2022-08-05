@@ -1,4 +1,4 @@
-// NAME: Checkers
+NAME: Checkers
 // Played on an 8x8 board with dark and light squares.
 // Only the 32 dark squares are used in the game.
 
@@ -6,10 +6,12 @@
 // Time: 30m
 // BGG Weight: 1.75 = 283 / 223 / 69 / 14 / 12
 
-#import common/Game
-#import common/BoardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, SwitchPlayer
+IMPORT: Gameboard, ChoosePlayerComponents
+
+SECTION: Vocabulary
 
 Square: Part of Gameboard
 	// Squares can be Dark (Black) or Light (often Red).
@@ -30,7 +32,7 @@ King: Piece
 	// by stacking 2 Pawns on top of each other.
 	// However, that's just an implementation detail.
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
@@ -45,7 +47,7 @@ PlaceBoard: Verb
 PlacePawns: Verb
 	Place your 12 Pawns on the DarkSquares closest to you (closest 3 rows)
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until a Player cannot MoveOrCapture:
@@ -79,7 +81,7 @@ CheckForPromotion: Verb
 	If you have a Pawn in your KingRow:
 		Replace that Pawn with a King
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	The Player who cannot make a move loses to the other Player.

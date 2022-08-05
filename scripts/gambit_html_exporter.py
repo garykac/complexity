@@ -92,9 +92,13 @@ class GambitHtmlExporter:
 		out.write('</td><td class="summary-column">')
 		if cost:
 			out.write(str(cost))
+		else:
+			out.write("-")		
 		out.write('</td><td class="summary-column">')
 		if cost:
 			out.write("{0:.1f}%".format(100 * cost / self.parser.costTotal))
+		else:
+			out.write("-")		
 		out.write('</td></tr>\n')
 
 	def writeHtmlCostSubsection(self, out, name, cost):
@@ -158,14 +162,18 @@ class GambitHtmlExporter:
 				prefix = "&#9888; " # "!" in triangle
 			elif type == "BLANK":
 				prefix = "&nbsp;"
-			elif type == "IMPORT":
+			elif type == "OLDIMPORT":
 				#comment = "#import {0:s}".format(comment)
 				continue
+			elif type == "IMPORT":
+				comment = ', '.join(comment)
 			elif type == "SECTION":
 				rowclass = "section"
 			elif type == "SUBSECTION":
 				rowclass = "subsection"
-			elif not type in ["COMMENT", "CONSTRAINT", "DESC", "NAME"]:
+			elif type == "NAME":
+				continue
+			elif not type in ["COMMENT", "CONSTRAINT", "DESC"]:
 				raise Exception("Unrecognized type in writeTableRows: {0:s}".format(type))
 
 			if rowclass:
@@ -262,10 +270,12 @@ class GambitHtmlExporter:
 					scope = info[0]
 					if scope == "BASE":
 						newWords.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
-					elif scope == "IMPORT":
+					elif scope == "OLDIMPORT":
 						newWords.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
 								.format(prefix, info[1], word, postfix))
-				
+					elif scope == "IMPORT":
+						newWords.append(f'{prefix}<abbr title="Imported term">{word}</abbr>{postfix}')
+								
 					else:
 						newWords.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'
 								.format(prefix, canonicalForm, word, postfix))

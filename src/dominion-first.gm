@@ -1,4 +1,4 @@
-// NAME: Dominion
+NAME: Dominion
 // Just the rules necessary for the first game with the 10 suggested starter cards.
 
 // Year: 2008
@@ -7,10 +7,12 @@
 // Time: 30m
 // BGG Weight: 2.35 = 406 / 2828 / 1499 / 209 / 90
 
-#import common/Game
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise, PlayerWithHighestScore
+IMPORT: Card, Hand, DiscardPile, Deck, Shuffle
+
+SECTION: Vocabulary
 
 Supply: Noun
 	// Shared play area that contains Base and Kingdom cards
@@ -65,7 +67,7 @@ BuyPoint: Noun
 PlayerDeck: Noun
 	Your set of Cards
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupSupply
@@ -88,7 +90,7 @@ SetupSupply: Verb
 ChooseKingdomCards: Verb
 	Use standard set of 10 for starter game
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until GameEnd:
@@ -180,7 +182,7 @@ Trash: Verb
 TrashFromHand: Verb
 	Trash a Card from your Hand
 
-// SUBSECTION: Cards
+SUBSECTION: Cards
 
 Cellar: ActionCard
 	GainAction
@@ -233,7 +235,7 @@ Reaction: Constraint
 	When another player plays an AttackCard:
 		You may Reveal a ReactionCard to ignore the attack
 
-// SECTION: EndGame
+SECTION: EndGame Scoring
 
 CalculateScore: Verb
 	Gain VP from each VictoryCard in your Deck, Hand and DiscardPile

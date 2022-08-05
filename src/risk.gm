@@ -1,26 +1,27 @@
-// NAME: Risk
-
+NAME: Risk
 // Year: 1959
 // Designer: Albert Lamorisse
 // Players: 3-6
 // Time: 120-240m
 // BGG Weight: 2.08 = 576 / 1139 / 422 / 116 / 33
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
-#import common/Dice
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Box, NextPlayerClockwise
+IMPORT: Gameboard, ChoosePlayerComponents
+IMPORT: Card, Deck, Hand
+IMPORT: D6, Roll, Dice
+
+SECTION: Vocabulary
 
 RiskBoard: Gameboard
 Territory|Territories: Part of RiskBoard
-	// 42 territories on map
+	There are 42 Territories on RiskBoard
 
 Continent: Part of RiskBoard
-	// A collection of Territories
+	A collection of Territories
 BonusArmies: Attribute of Continent
-	// Extra Armies gained if you occupy all Territories in this Continent
+	Extra Armies gained if you occupy all Territories in this Continent
 
 Army|Armies: Noun
 
@@ -46,7 +47,7 @@ AttackerDice|AttackerDie: D6
 DefenderDice|DefenderDie: D6
 	// 2 white dice
 	
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	Shuffle the RiskCards into the RiskDeck
@@ -73,7 +74,7 @@ InitialArmyPlacement: Verb
 		Place one Army in a Territory where you already have an Army
 		NextPlayerClockwise
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until a single Player occupies all the Territories:
@@ -162,12 +163,10 @@ Fortify: Verb
 	You may move Armies from one of your Territories into an adjacent Territory that you also occupy
 	! TerritoriesMustAlwaysBeOccupied
 
-// SECTION: Constraints
-
 TerritoriesMustAlwaysBeOccupied: Constraint
 	A Territory must always have at least one Army on it
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	The Player that remains after defeating all other Player's Armies is the winner

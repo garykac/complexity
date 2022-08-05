@@ -1,16 +1,17 @@
-// NAME: Ticket to Ride - First Journey
-
+NAME: Ticket to Ride - First Journey
 // Year: 2004
 // Designer: Alan R. Moon
 // Players: 2-5
 // Time: 30-60m
 // BGG Weight: 1.84 = 1509 / 2624 / 486 / 88 / 33
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise
+IMPORT: Gameboard, Token, ChoosePlayerComponents
+IMPORT: Card, Deck, Hand
+
+SECTION: Vocabulary
 
 City: Part of Gameboard
 
@@ -58,7 +59,7 @@ BonusTicket: Ticket	// 4 copies
 GoldenTicket: Ticket	// 1 copy
 	The Ticket you claim when you win the game
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	ChoosePlayerComponents
@@ -74,7 +75,7 @@ DrawTrainCard: Verb
 DrawTicket: Verb
 	Draw a CityConnectionTicket from the TicketDeck
 	
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until GameOver, starting with youngest Player:
@@ -114,7 +115,7 @@ CheckForCompletedTicket: Verb
 		Claim a BonusTicket and place it in front of you
 	// Game ends if you obtain your 6th Ticket
 	
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	Player with 6 Tickets wins

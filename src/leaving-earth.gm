@@ -1,16 +1,17 @@
-// NAME: Leaving Earth
-
+NAME: Leaving Earth
 // Year: 2015
 // Designer: Joseph Fatula
 // Players: 1-5
 // Time: 60-180m
 // BGG Weight: 3.72 = 2 / 6 / 59 / 81 / 28
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Box, Rulebook, Pass, NextPlayerClockwise, PlayerWithHighestScore
+IMPORT: Token, Gameboard, ChoosePlayerComponents
+IMPORT: Card, Reveal, Discard, Shuffle
+
+SECTION: Vocabulary
 
 Money: Noun
 
@@ -291,7 +292,7 @@ SpaceStationMission: StartOfYearMission
 // Mercury Orbit - UnderstoodLocations
 // Mercury - ExplorableLocations
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	ChooseAgencies
@@ -354,7 +355,7 @@ SetupCalendar: Verb
 	Place CalendarMarker on "Start"
 	UpdateCalendar
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until GameEnd:
@@ -826,8 +827,6 @@ CostToDiscardOutcomeCard: Verb
 	If an Astronaut's Skills were used to improve a MinorFailure to a Success:
 		The cost to Discard is still $5
 
-// SECTION: Constraints
-
 NotComponentLimited: Constraint
 	If any component runs out, you may use substitute components
 
@@ -838,7 +837,7 @@ FasterManeuvers: Constraint
 	To reduce by half (rounded up) the time required for a Maneuver:
 		Double the Maneuver's Difficulty
 
-// SECTION: EndGame
+SECTION: EndGame Scoring
 
 CalculateScore: Verb
 	Add VPs from each Mission						

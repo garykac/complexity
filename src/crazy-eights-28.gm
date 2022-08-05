@@ -1,4 +1,4 @@
-// NAME: Crazy Eights (28-card)
+NAME: Crazy Eights (28-card)
 // Historically, this game was played by children with the leftover deck once the cards for Euchre (9,10,J,Q,K,A) were removed from a standard 52-card deck.
 // Higher player counts can be supported by using multiple decks.
 
@@ -6,20 +6,22 @@
 // Time: 15m
 // BGG Weight: 1.07 = 78 / 6 / 0 / 0 / 0
 
-#import common/Game
-#import common/CardGame
-#import common/DeckFrenchSuit
+SECTION: Assumptions
+
+IMPORT: Player, NextPlayerClockwise
+IMPORT: Card, DiscardPile, Dealer, Deal, Hand
+IMPORT: FrenchSuitDeck, Suit, Rank
 	
-// SECTION: Vocabulary
+SECTION: Vocabulary
 
 Crazy8Deck: FrenchSuitDeck
-	// With only the 2-8 cards (assumes 9,10,J,Q,K,A have been removed)
+	Deck with only the 2-8 cards (assumes 9,10,J,Q,K,A have been removed)
 
 TopCard: Card
-	// The top card of the DiscardPile.
+	The top card of the DiscardPile.
 
 CurrentSuit: Suit
-	// Normally matches the TopCard, but may differ for 8s.
+	Normally matches the TopCard, but may differ for 8s.
 
 MatchingCard: Noun
 	A MatchingCard is one that satisfies one or more of the following:
@@ -27,39 +29,38 @@ MatchingCard: Noun
 		Matches the Suit of the TopCard
 			or the CurrentSuit if the TopCard is an 8
 		Is an 8 (which matches anything)
-	
-// SECTION: Setup
+
+SECTION: Setup
 
 Setup: Verb
-	Shuffle the Crazy8Deck to create a DrawDeck
+	Shuffle all the Cards to create a Crazy8Deck
 	Choose a Player to be the Dealer
-	Have the Dealer Deal a Hand of 5 cards to each Player from the DrawDeck
-	Place DrawDeck in center of table
-	Leave room next to the DrawDeck for the DiscardPile
+	Have the Dealer Deal a Hand of 5 cards to each Player from the Crazy8Deck
+	Place Crazy8Deck in center of table
+	Leave room next to the Crazy8Deck for the DiscardPile
 	RevealStartCard
-	
+
 RevealStartCard: Verb
 	Repeat until the TopCard's Rank is something other than 8:
-		Reveal the top card of the DrawDeck
+		Reveal the top card of the Crazy8Deck
 		Discard it
-		
-// SECTION: Gameplay
+
+SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat until a Player runs out of cards:
+	Repeat until a Player runs out of cards, starting with the Player to the left of the Dealer:
 		PlayerTurn
 		NextPlayerClockwise
-	! Starting with the Player to the left of the Dealer	
 
 PlayerTurn: Verb
-	Choose one of the following:
+	Choose one:
 		PlayMatchingCard
 		DrawCardsUntilMatch
 	! If you can't play a matching card, then you must DrawCardsUntilMatch
 
 DrawCardsUntilMatch: Verb
 	Repeat until you have a MatchingCard in your Hand:
-		Draw Card from DrawDeck
+		Draw Card from Crazy8Deck
 	PlayMatchingCard
 
 PlayMatchingCard: Verb
@@ -69,7 +70,7 @@ PlayMatchingCard: Verb
 			Choose new CurrentSuit
 	! If you have multiple Cards that match, you may choose any one.
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	The Player who ran out of Cards in their Hand

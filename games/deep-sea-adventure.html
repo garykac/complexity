@@ -166,43 +166,47 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
 <tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">23</td><td class="summary-column">36.5%</td></tr>
 <tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">8</td><td class="summary-column">12.7%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">30</td><td class="summary-column">47.6%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Constraints</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
-<tr><td colspan=2 class="summary-section-column">EndGame</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">31</td><td class="summary-column">49.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">EndGame Scoring</td><td class="summary-column">1</td><td class="summary-column">1.6%</td></tr>
 <tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>63</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Deep Sea Adventure</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2014</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Jun Sasaki, Goro Sasaki</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2-6</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 30m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">BGG Weight: 1.17 = 262 / 47 / 3 / 0 / 0</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, NextPlayerClockwise, PlayerWithHighestScore, Pass</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gameboard, Token, ChoosePlayerComponents</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">D3</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Submarine">Submarine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AirGauge">AirGauge</a><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#ChooseDirection">ChooseDirection</a><a href="#PickUpTreasure">PickUpTreasure</a><a href="#PlayerTurn">PlayerTurn</a><a href="#RoundOver">RoundOver</a><a href="#Setup">Setup</a><a href="#SetupRuins">SetupRuins</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Submarine">Submarine</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AirGauge">AirGauge</a><a href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a><a href="#ChooseDirection">ChooseDirection</a><a href="#PickUpTreasure">PickUpTreasure</a><a href="#PlayerTurn">PlayerTurn</a><a href="#RoundOver">RoundOver</a><a href="#Setup">Setup</a><a href="#SetupRuins">SetupRuins</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AirGauge">AirGauge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AirGaugeSpace">AirGaugeSpace</a></div></div>: Part of <a class="keyword" href="#Submarine">Submarine</a></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AirGaugeSpace">AirGaugeSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#ResetAirGauge">ResetAirGauge</a></div></div>: Part of <a class="keyword" href="#AirGauge">AirGauge</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">26 spaces on Submarine: Counting down from 25 to 0</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemainingAir">RemainingAir</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#ResetAirGauge">ResetAirGauge</a><a href="#RoundOver">RoundOver</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RemainingAir">RemainingAir</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#ResetAirGauge">ResetAirGauge</a><a href="#RoundOver">RoundOver</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Red disc</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerToken">PlayerToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Advance">Advance</a><a href="#ChooseDirection">ChooseDirection</a><a href="#Direction">Direction</a><a href="#DropTreasure">DropTreasure</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/BoardGame">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerToken">PlayerToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Advance">Advance</a><a href="#ChooseDirection">ChooseDirection</a><a href="#Direction">Direction</a><a href="#DropTreasure">DropTreasure</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">6 different colors</span></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Direction">Direction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Advance">Advance</a><a href="#ChooseDirection">ChooseDirection</a><a href="#ContinueSearch">ContinueSearch</a><a href="#ReturnToSub">ReturnToSub</a></div></div>: Attribute of <a class="keyword" href="#PlayerToken">PlayerToken</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">What direction the player is heading: toward or away from the Submarine</span></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ReturnToSub">ReturnToSub</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseDirection">ChooseDirection</a></div></div>: <a class="keyword" href="#Direction">Direction</a></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ContinueSearch">ContinueSearch</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseDirection">ChooseDirection</a></div></div>: <a class="keyword" href="#Direction">Direction</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovementDice">MovementDice</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcMovement">CalcMovement</a></div></div>: <abbr title="Imported from common/Dice">D3</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MovementDice">MovementDice</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalcMovement">CalcMovement</a></div></div>: <abbr title="Imported term">D3</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">2 d6 with 1-3 twice</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Chip">Chip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CircleChip">CircleChip</a><a href="#LoseTreasure">LoseTreasure</a><a href="#RuinsChip">RuinsChip</a></div></div>: Noun</td></tr>
@@ -227,7 +231,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ChipStack">ChipStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LoseTreasure">LoseTreasure</a><a href="#StackedRuinsChips">StackedRuinsChips</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">A stack of (up to) 3 RuinsChips created when you lose your treasure.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Ruins">Ruins</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LoseTreasure">LoseTreasure</a><a href="#RuinsSpace">RuinsSpace</a></div></div>: <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Ruins">Ruins</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#LoseTreasure">LoseTreasure</a><a href="#RuinsSpace">RuinsSpace</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Line of RuinsSpaces leading out from the Submarine.</span></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">This is a dynamic board created during gameplay.</span></td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RuinsSpace">RuinsSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Advance">Advance</a><a href="#LoseTreasure">LoseTreasure</a><a href="#ShrinkRuins">ShrinkRuins</a></div></div>: Part of <a class="keyword" href="#Ruins">Ruins</a></td></tr>
@@ -244,8 +248,8 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#Submarine">Submarine</a> on table</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResetAirGauge">ResetAirGauge</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupRuins">SetupRuins</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/BoardGame">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* <a class="keyword" href="#PlayerToken">PlayerToken</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#PlayerToken">PlayerToken</a> on <a class="keyword" href="#Submarine">Submarine</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -269,12 +273,12 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GameRound">GameRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#RoundOver">RoundOver</a>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RoundOver">RoundOver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a></div></div>: Condition</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If any of:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#RemainingAir">RemainingAir</a> token is at 0</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>All <abbr title="Imported from common/Game">Players</abbr> are on the <a class="keyword" href="#Submarine">Submarine</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>All <abbr title="Imported term">Players</abbr> are on the <a class="keyword" href="#Submarine">Submarine</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EndRound">EndRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AwardOrLoseTreasure">AwardOrLoseTreasure</a></td></tr>
@@ -299,14 +303,14 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you would go beyond the deepest location, stop at that location</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AwardOrLoseTreasure">AwardOrLoseTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndRound">EndRound</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported from common/Game">Player</abbr>, starting with <abbr title="Imported from common/Game">Player</abbr> furthest from <a class="keyword" href="#Submarine">Submarine</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>, starting with <abbr title="Imported term">Player</abbr> furthest from <a class="keyword" href="#Submarine">Submarine</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If you are back in <a class="keyword" href="#Submarine">Submarine</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Add the <a class="keyword" href="#RuinsChip">RuinsChips</a> from your <a class="keyword" href="#Inventory">Inventory</a> into your <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Otherwise:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#LoseTreasure">LoseTreasure</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalcMovement">CalcMovement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Advance">Advance</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Dice">Roll</abbr> both <a class="keyword" href="#MovementDice">MovementDice</a> and add together</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Roll both <a class="keyword" href="#MovementDice">MovementDice</a> and add together</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Subtract the number of <a class="keyword" href="#RuinsChip">RuinsChips</a> in your <a class="keyword" href="#Inventory">Inventory</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#StackedRuinsChips">StackedRuinsChips</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -338,7 +342,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SearchForTreasure">SearchForTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">Pass</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">Pass</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PickUpTreasure">PickUpTreasure</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DropTreasure">DropTreasure</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -346,18 +350,16 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove all <a class="keyword" href="#RuinsSpace">RuinsSpaces</a> that contain <a class="keyword" href="#CircleChip">CircleChips</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Slide the remaining <a class="keyword" href="#RuinsSpace">RuinsSpaces</a> together to remove the gaps</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Constraints</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StackedRuinsChips">StackedRuinsChips</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AdjustAir">AdjustAir</a><a href="#CalcMovement">CalcMovement</a><a href="#DropTreasure">DropTreasure</a><a href="#PickUpTreasure">PickUpTreasure</a></div></div>: Constraint</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#ChipStack">ChipStack</a> counts as of it was a single <a class="keyword" href="#RuinsChip">RuinsChip</a> for all purposes except endgame scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>EndGame</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>EndGame Scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add all the <a class="keyword" href="#TreasurePoints">TreasurePoints</a> from the <a class="keyword" href="#RuinsChip">RuinsChips</a> in your <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlayerWithHighestScore</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

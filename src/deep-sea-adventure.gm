@@ -1,16 +1,17 @@
-// NAME: Deep Sea Adventure
-
+NAME: Deep Sea Adventure
 // Year: 2014
 // Designer: Jun Sasaki, Goro Sasaki
 // Players: 2-6
 // Time: 30m
 // BGG Weight: 1.17 = 262 / 47 / 3 / 0 / 0
 
-#import common/Game
-#import common/BoardGame
-#import common/Dice
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise, PlayerWithHighestScore, Pass
+IMPORT: Gameboard, Token, ChoosePlayerComponents
+IMPORT: D3
+
+SECTION: Vocabulary
 
 Submarine: Gameboard
 
@@ -63,7 +64,7 @@ Inventory: Noun
 TreasurePile: Noun
 	// Accumulated treasure
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	Place Submarine on table
@@ -84,7 +85,7 @@ SetupRuins: Verb
 		Build a line of RuinsChips leading out from the Submarine
 		Continue with SquareChips (2 Dots), PentagonChips (3 Dots) and then HexagonChips (4 Dots)
 
-// SECTION: Gameplay					
+SECTION: Gameplay					
 
 PlayGame: Verb
 	Repeat 3 times:
@@ -171,12 +172,10 @@ ShrinkRuins: Verb
 	Remove all RuinsSpaces that contain CircleChips
 	Slide the remaining RuinsSpaces together to remove the gaps
 
-// SECTION: Constraints
-
 StackedRuinsChips: Constraint
 	A ChipStack counts as of it was a single RuinsChip for all purposes except endgame scoring	
 
-// SECTION: EndGame
+SECTION: EndGame Scoring
 
 CalculateScore: Verb
 	Add all the TreasurePoints from the RuinsChips in your TreasurePile

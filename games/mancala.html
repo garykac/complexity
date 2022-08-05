@@ -166,17 +166,17 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
 <tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">5</td><td class="summary-column">23.8%</td></tr>
 <tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">2</td><td class="summary-column">9.5%</td></tr>
 <tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">12</td><td class="summary-column">57.1%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">2</td><td class="summary-column">9.5%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">2</td><td class="summary-column">9.5%</td></tr>
 <tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>21</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Mancala (Kalah)</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Kalah is a member of the mancala family of games that is popular in Europe and North America.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Variants of mancala games have been around since 700.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -184,19 +184,24 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: William Julius Champion Jr.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 10m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">BGG Weight: 1.62 = 231 / 157 / 41 / 9 / 1</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, PlayerWithHighestScore</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gameboard</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pocket">Pocket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveSeeds">MoveSeeds</a><a href="#Owner">Owner</a><a href="#Pit">Pit</a><a href="#Seed">Seed</a><a href="#Store">Store</a></div></div>: Part of <abbr title="Imported from common/BoardGame">Gameboard</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Owner">Owner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveSeeds">MoveSeeds</a></div></div>: <abbr title="Imported from common/Game">Player</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported from common/Game">Player</abbr> that owns the <a class="keyword" href="#Pocket">Pocket</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pocket">Pocket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveSeeds">MoveSeeds</a><a href="#Owner">Owner</a><a href="#Pit">Pit</a><a href="#Seed">Seed</a><a href="#Store">Store</a></div></div>: Part of <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Owner">Owner</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveSeeds">MoveSeeds</a></div></div>: <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported term">Player</abbr> that owns the <a class="keyword" href="#Pocket">Pocket</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pit">Pit</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#CaptureSeeds">CaptureSeeds</a><a href="#MoveSeeds">MoveSeeds</a><a href="#PlayGame">PlayGame</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Pocket">Pocket</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Also known as "holes"</span></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>One of the small <a class="keyword" href="#Pocket">Pockets</a>.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Store">Store</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#CaptureSeeds">CaptureSeeds</a><a href="#MoveSeeds">MoveSeeds</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Pocket">Pocket</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Also known as the "mancala" or "capture pit"</span></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A large <a class="keyword" href="#Pocket">Pocket</a> where the <abbr title="Imported from common/Game">Player</abbr> keeps the <a class="keyword" href="#Seed">Seeds</a> that they have scored.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A large <a class="keyword" href="#Pocket">Pocket</a> where the <abbr title="Imported term">Player</abbr> keeps the <a class="keyword" href="#Seed">Seeds</a> that they have scored.</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Seed">Seed</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#CaptureSeeds">CaptureSeeds</a><a href="#MoveSeeds">MoveSeeds</a><a href="#Setup">Setup</a><a href="#Store">Store</a></div></div>: Noun &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Also known as "stones"</span></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A small token that moves from one <a class="keyword" href="#Pocket">Pocket</a> to another.</td></tr>
@@ -204,13 +209,13 @@ a.keyword:hover {
 <tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a side to determine which <a class="keyword" href="#Pit">Pits</a> and <a class="keyword" href="#Store">Store</a> are owned by each <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a side to determine which <a class="keyword" href="#Pit">Pits</a> and <a class="keyword" href="#Store">Store</a> are owned by each <abbr title="Imported term">Player</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place 4 <a class="keyword" href="#Seed">Seeds</a> in each of the 12 <a class="keyword" href="#Pit">Pits</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until all the <a class="keyword" href="#Pit">Pits</a> of one <abbr title="Imported from common/Game">Player</abbr> are empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until all the <a class="keyword" href="#Pit">Pits</a> of one <abbr title="Imported term">Player</abbr> are empty:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#MoveSeeds">MoveSeeds</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveSeeds">MoveSeeds</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
@@ -232,7 +237,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place all these <a class="keyword" href="#Seed">Seeds</a> into your <a class="keyword" href="#Store">Store</a></td></tr>
 <tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Variant: If the opposite Pit is empty, then no Seeds are captured.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=4>Endgame</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame Scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move all the <a class="keyword" href="#Seed">Seeds</a> in your <a class="keyword" href="#Pit">Pits</a> into your <a class="keyword" href="#Store">Store</a></td></tr>
@@ -240,7 +245,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Your score is the number of <a class="keyword" href="#Seed">Seeds</a> in your <a class="keyword" href="#Store">Store</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported from common/Game">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlayerWithHighestScore</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

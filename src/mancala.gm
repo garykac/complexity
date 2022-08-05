@@ -1,4 +1,4 @@
-// NAME: Mancala (Kalah)
+NAME: Mancala (Kalah)
 // Kalah is a member of the mancala family of games that is popular in Europe and North America.
 // Variants of mancala games have been around since 700.
 
@@ -8,10 +8,12 @@
 // Time: 10m
 // BGG Weight: 1.62 = 231 / 157 / 41 / 9 / 1
 
-#import common/Game
-#import common/BoardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, PlayerWithHighestScore
+IMPORT: Gameboard
+
+SECTION: Vocabulary
 
 Pocket: Part of Gameboard
 Owner: Player
@@ -26,13 +28,13 @@ Store: Pocket	// Also known as the "mancala" or "capture pit"
 Seed: Noun	// Also known as "stones"
 	A small token that moves from one Pocket to another.
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	Choose a side to determine which Pits and Store are owned by each Player
 	Place 4 Seeds in each of the 12 Pits
 	
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until all the Pits of one Player are empty:
@@ -57,7 +59,7 @@ CaptureSeeds: Verb
 	Place all these Seeds into your Store
 	// Variant: If the opposite Pit is empty, then no Seeds are captured.
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	Move all the Seeds in your Pits into your Store

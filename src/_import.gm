@@ -1,0 +1,166 @@
+// ====
+// Game
+// ====
+
+Box: Noun
+
+Rulebook: Noun
+
+Player: Noun
+
+FirstPlayer: Noun
+	The Player who takes the first turn
+
+Score: Noun
+
+Setup: Verb
+	Steps to setup game before play
+	
+PlayGame: Verb
+	Playing the game
+	
+CalculateScore: Verb
+	How each Player calculates their score
+	
+DetermineWinner: Verb
+	Determining the overall winner of the game
+	
+Pass: Verb
+	Voluntarily skip your turn or choose not to perform an action
+
+ChooseFirstPlayer: Verb
+	Choose which Player goes first (however you like)
+
+SwitchPlayer: Verb
+	Switch player (in a 2 Player game)
+
+NextPlayerClockwise: Verb
+	Pass control to the new Player, going around clockwise
+
+NextPlayerCounterClockwise: Verb
+	Pass control to the new Player, going around counter-clockwise
+
+PlayerWithHighestScore: Noun
+	The Player with the highest Score is the winner
+
+PlayerWithLowestScore: Noun
+	The Player with the lowest Score is the winner
+
+
+// =========
+// Boardgame
+// =========
+
+Gameboard: Noun
+
+Piece: Noun
+
+Token: Noun
+
+Tile: Noun
+
+PlayerAid: Noun
+
+PlaceBoard: Verb
+	Place board on table
+
+ChoosePlayerComponents: Verb
+	Choose one of the available Players
+	Take all the components for that Player
+
+
+// =========
+// Card Game
+// =========
+
+Card: Noun
+
+Title: Attribute of Card
+
+Deck: Noun
+	A set of Cards that are the same size and arranged in a stack.
+
+Hand: Noun
+	A set of cards that a Player keeps hidden from the other Players.
+
+Deal: Verb
+	Draw the top Card from the Deck and give it to a Player to add to their Hand.
+
+Dealer: Noun
+	The Player who Deals the Cards to all the Players.
+
+DrawDeck: Deck
+	A Deck of Cards that Players will Draw Cards from.
+
+Draw: Verb
+	Draw a Card from a Deck
+
+DiscardPile: Noun
+	A face-up pile of Cards that are no longer in play.
+
+Shuffle: Verb
+	Randomize the Cards in a Deck
+	
+Reveal: Verb
+	Turn the Card face up so that all the Players can see
+
+Discard: Verb
+	Place a Card face up in the DiscardPile.
+
+DealCardToEachPlayer: Verb
+	Deal a Card to each Player
+	
+
+// ====
+// Dice
+// ====
+// Standard dice.
+
+Dice: Noun
+
+D3: Noun
+	// Standard 6-sided die with values from 1-3 (each repeated twice)
+
+D6: Noun
+	// Standard 6-sided die with values from 1-6
+
+Roll: Verb
+	Roll die and use the top face as the value
+
+
+// ================
+// French suit deck
+// ================
+
+FrenchSuitDeck: Deck
+
+FrenchSuitCard: Noun
+
+Suit: Attribute of FrenchSuitCard
+
+Rank: Attribute of FrenchSuitCard
+
+Color: Attribute of FrenchSuitCard
+
+Club: Suit
+
+Diamond: Suit
+
+Heart: Suit
+
+Spade: Suit
+
+Ace: Rank
+
+// 2-10 are standard values
+
+Jack: Rank
+
+Queen: Rank
+
+King: Rank
+
+Joker: Card
+
+JQK: Noun
+	Jack, Queen or King

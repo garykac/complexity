@@ -8,7 +8,7 @@ import traceback
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
 
-from typing import Optional
+from typing import Optional, List, Union
 
 FREE_ACTIONS = [
 	"Then:",
@@ -18,9 +18,10 @@ FREE_ACTIONS = [
 	"If you don't:",
 	"If any of:",
 	"If all of:",
-	"For each Player:",
+	"For each Player:",	# TODO: generalize to "For each <term>:"
 	"For each other Player:",
 	"Choose one:",
+	"Choose one of:",
 	# Conditions
 	"Any of:",
 ]
@@ -35,18 +36,29 @@ BASE_TYPES = [
 	"Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit",
 ]
 
+STANDARD_TERMS = [
+	"Setup", "PlayGame", "CalculateScore", "DetermineWinner"
+]
+
 class GambitParser:
 	"""Parser for Gambit (.gm) files."""
-	def __init__(self):
+	def __init__(self, options):
 		self.debug: bool = False
-		self.useWarnings: bool = True
+		self.useWarnings: bool = False
 		self.warnOnTodo: bool = False
+
+		if 'warnings' in options:
+			self.useWarnings = options['warnings']
 
 		self.vocab: dict[str, list] = {}
 		self.vocabPlural: dict[str, str] = {}
 		
 		# Definitions that were imported (and possibly overwritten).
+		self.old_imports = {}
 		self.imports = {}
+		
+		# Term that are declared as imports.
+		self.importable = {}
 		
 		self.lines = []
 		self.lineNum: int = 0
@@ -75,20 +87,41 @@ class GambitParser:
 	def initVocab(self) -> None:
 		for key in BASE_TYPES:
 			self.addVocab(key, None, ["BASE"])
+	
+	def loadImportableTerms(self, import_file) -> None:
+		with open(import_file, 'r') as file:
+			for line in file:
+				try:
+					lineinfo = GambitLineProcessor.processLine(line)
+				except Exception as ex:
+					self.errorLine(str(ex))
+
+				if lineinfo:
+					type = lineinfo['type']
+					if type == "DEF":
+						keyword = lineinfo['keyword']
+						plural = lineinfo['alt-keyword']
+						self.importable[keyword] = plural
 
 	# Provide a warning if there are TODO comments left in the source file.
 	def setWarnOnTodo(self) -> None:
 		self.warnOnTodo = True
 
-	def errorLine(self, lineNum: int, msg: str) -> None:
-		print("LINE {0:d}: {1:s}".format(lineNum, self.lines[lineNum]['line']))
+	def errorLine(self, msg: str, lineNum: int = -1) -> None:
+		num = -1
+		if lineNum != -1:
+			num = lineNum
+		elif self.lineNum > 0:
+			num = self.lineNum - 2
+		if num > 0:
+			print("LINE {0:d}: {1:s}".format(num, self.lines[num]['line']))
 		self.error(msg)
 
 	def error(self, msg: str) -> None:
 		print("ERROR: {0:s}".format(msg))
-		traceback.print_exc()
-		raise Exception(msg)
-		#exit(0)
+		#traceback.print_exc()
+		#raise Exception(msg)
+		exit(0)
 
 	def warning(self, msg: str) -> None:
 		print("WARNING: {0:s}".format(msg))
@@ -135,13 +168,16 @@ class GambitParser:
 			return True
 
 		# Check for templates.
-		template: bool = GambitLineProcessor.isTemplate(term)
+		template = GambitLineProcessor.isTemplate(term)
 		if template:
 			(keyword, param) = template
 			return self.isVocab(keyword) and self.isVocab(param)
 
 		return False
 
+	def addOldImportTerm(self, key: str) -> None:
+		self.old_imports[key] = True
+	
 	def addImportTerm(self, key: str) -> None:
 		self.imports[key] = True
 	
@@ -152,40 +188,81 @@ class GambitParser:
 	# Update the costs of the individual lines.
 	def updateCosts(self):
 		maxLines = len(self.lines)
+		isVocabSection = False
+		currDef = -1
+		currDefCost = 0
 		for i in range(0, maxLines):
 			r = self.lines[i]
 			type = r['type']
-			if type == "DEF" or type == "TEMPLATE":
+
+			if type == "SECTION":
+				isVocabSection = False
+				if r['comment'] == "Vocabulary":
+					isVocabSection = True
+
+			elif type == "DEF" or type == "TEMPLATE":
+				# DEF must alwyas cost at least one.
+				if currDef != -1 and isVocabSection and currDefCost == 0:
+					self.lines[currDef]['cost'] = 1
+
+				currDef = i
+				currDefCost = 0
+
 				# If a DEF has DESC indented under it, then the cost is
 				# determined by the associated DESCs and the DEF itself is 0.
 				# Otherwise (with no DESCs) the cost of the DEF is 1.
 				if self.defHasDesc(i):
 					# Set to None instead of 0 so that the cost column is left blank.
 					r['cost'] = None
+
 			elif type in ["DESC", "CONSTRAINT"]:
+				zeroCost = False
+				line = r['line']
+
+				# Free actions are free.
+				if line in self.freeActions:
+					zeroCost = True
+
 				# Lines that consist entirely of a single defined term are free.
 				# The cost comes from the definition.
-				if self.isDefinedTerm(r['line']):
-					r['cost'] = 0
-				# Free actions are free.
-				if r['line'] in self.freeActions:
-					r['cost'] = 0
+				if self.isDefinedTerm(line):
+					zeroCost = True
+
+				# TODO: Better detection of possible missing imports.
+				# This will only catch it if the import is the only thing on the line.
+				if (not zeroCost) and (line in self.importable):
+					self.warning(f"Possibly missing import for {line}")
 
 				# Handle special cases with Vocab
-				words = Tokenizer.tokenize(r['line'])
+				words = Tokenizer.tokenize(line)
+
+				# Lines that consist entirely of a defined terms are free.
+				allDefined = True
+				for w in words:
+					if not self.isDefinedTerm(w):
+						allDefined = False
+				if allDefined:
+					zeroCost = True
+
 				# Handle "Discard xxx"
 				if len(words) == 2 and self.isDefinedTerm(words[0]):
 					# Handle: "Discard it"
 					if words[1] in FREE_SUFFIX_WORDS:
-						r['cost'] = 0
+						zeroCost = True
 					# Handle: "Discard x2"
 					if re.match(r'x\d+$', words[1]):
-						r['cost'] = 0
+						zeroCost = True
 				# Handle "Success:" and "Success: DrawCard"
 				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
 					if len(words) == 1 or  self.isDefinedTerm(words[1]):
-						r['cost'] = 0
-			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
+						zeroCost = True
+				
+				if zeroCost:
+					r['cost'] = 0
+				else:
+					currDefCost += 1
+			
+			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
@@ -218,13 +295,10 @@ class GambitParser:
 		cost = 0
 		for r in self.lines:
 			type = r['type']
-			if type in ["DEF", "TEMPLATE"]:
+			if type in ["DEF", "TEMPLATE", "DESC", "CONSTRAINT"]:
 				if r['cost']:
 					self.costTotal += r['cost']
 					cost += r['cost']
-			elif type in ["DESC", "CONSTRAINT"]:
-				self.costTotal += r['cost']
-				cost += r['cost']
 			elif type == "SECTION":
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
@@ -242,7 +316,7 @@ class GambitParser:
 				if not currentSection in self.subsectionCosts:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
-			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		
 		# Record cost for last section.
@@ -288,15 +362,17 @@ class GambitParser:
 		if lineinfo:
 			self.lines.append(lineinfo)
 			type = lineinfo['type']
-			if type == "IMPORT":
-				self.importFile(lineinfo['comment'])
+			if type == "OLDIMPORT":
+				self.oldImportFile(lineinfo['comment'])
+			elif type == "IMPORT":
+				self.importTerms(lineinfo['comment'])
 			elif type == "DEF":
 				parent = lineinfo['parent']
 				if parent and not parent in self.vocab:
-					self.errorLine("Unknown parent: {0:s}".format(parent))
+					self.errorLine(f"Unknown parent: {parent}")
 				for t in lineinfo['types']:
 					if not t in self.vocab:
-						self.errorLine("Unknown term: {0:s}".format(t))
+						self.errorLine(f"Unknown term: {t}")
 
 				info = ["LOCAL", lineinfo['types']]
 				if parent:
@@ -307,8 +383,10 @@ class GambitParser:
 				self.addVocab(lineinfo['keyword'], None, info)
 			elif type == "NAME":
 				self.gameTitle = lineinfo['comment']
+			elif type == "ERROR":
+				self.errorLine(lineinfo['comment'])
 			elif not type in ['COMMENT', 'CONSTRAINT', 'DESC', 'SECTION', 'SUBSECTION', 'BLANK']:
-				self.error("Unhandled type in processLine: {0:s}".format(type))
+				self.error(f"Unhandled type in processLine: {type}")
 
 			# Record the max indent level so that we can format the HTML table correctly.
 			if lineinfo['indent'] > self.maxIndent:
@@ -316,7 +394,17 @@ class GambitParser:
 
 		return lineinfo
 
-	def importFile(self, name):
+	def importTerms(self, terms):
+		for t in terms:
+			if not t in self.importable:
+				self.errorLine(f"Unknown term for import: {t}")
+			keyword = t
+			plural = self.importable[t]
+			info = ["IMPORT", "_import.gm"]
+			self.addVocab(keyword, plural, info)
+			self.addImportTerm(keyword)
+
+	def oldImportFile(self, name):
 		basename = os.path.basename(name)
 		dirname = os.path.dirname(name)
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
@@ -332,9 +420,9 @@ class GambitParser:
 					if type == "DEF":
 						keyword = lineinfo['keyword']
 						plural = lineinfo['alt-keyword']
-						info = ["IMPORT", name]
+						info = ["OLDIMPORT", name]
 						self.addVocab(keyword, plural, info)
-						self.addImportTerm(keyword)
+						self.addOldImportTerm(keyword)
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]
@@ -381,7 +469,7 @@ class GambitParser:
 				(type, cost, indent, line, comment) = r
 				r['tokens'] = self.extractReference(i, r['line'], currDef)
 				self.extractReference(i, r['comment'], currDef, True)
-			elif not type in ['COMMENT', 'IMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	# Record that |refTerm| is referenced by |refBy|.
@@ -401,17 +489,23 @@ class GambitParser:
 	
 	def checkReferences(self):
 		for k,v in self.referencedBy.items():
+			# Ignore standard terms (entry points like "Setup").
+			if k in STANDARD_TERMS:
+				continue
 			# If defined locally but no references.
 			if self.vocab[k][0] == "LOCAL" and len(v) == 0:
 				# Allow local definitions to overwrite imported defs.
-				if not k in self.imports:
+				if not k in self.old_imports:
 					msg = "Term is defined but never referenced: {0:s}".format(k)
 					self.warning(msg) if self.useWarnings else self.error(msg)
+			if self.vocab[k][0] == "IMPORT" and len(v) == 0:
+				msg = f"Term is imported but never referenced: {k}"
+				self.warning(msg) if self.useWarnings else self.error(msg)
 	
 	def extractReference(self, lineNum: int, line: str, currDef: str, inComment=False):
 		if line == "":
 			return
-		newWords = []
+		newWords: List[Union[str, List[str]]] = []
 		firstWord = True
 		for word in Tokenizer.tokenize(line):
 			# Skip over special initial characters.
@@ -452,10 +546,10 @@ class GambitParser:
 				# Verify capitalized words.
 				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
 					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
-					self.errorLine(lineNum, f"Unable1 to find definition for '{word0}'")
+					self.errorLine(f"Unable to find definition for '{word0}'", lineNum)
 				elif not firstWord and word0[0].isupper():
 					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
-					self.errorLine(lineNum, f"Unable2 to find definition for '{word0}'")
+					self.errorLine(f"Unable to find definition for '{word0}'", lineNum)
 				newWords.append(word)
 
 			firstWord = False

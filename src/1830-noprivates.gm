@@ -1,15 +1,21 @@
-// NAME: 1830 w/o Privates
+NAME: 1830 w/o Privates
 // This is a variant of 1830 without any of the rules relating to Privates.
 // It is not intended as a playable variant, but rather as a way to quantify the cost of the rules for Privates.
 
 // Year: 1986
 // Designer: Francis Tresham
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Pass, NextPlayerClockwise, Score, PlayerWithHighestScore
+IMPORT: Gameboard, Token
+IMPORT: Card
+
+//#import common/Game
+//#import common/BoardGame
+//#import common/CardGame
+
+SECTION: Vocabulary
 
 MapBoard: Gameboard
 
@@ -188,7 +194,7 @@ PriorityPlayer: Noun
 TurnOrderCard: Noun
 	Number card that are used to randomly assign turn order at the start of the game
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupBank
@@ -245,7 +251,7 @@ SetupCertificateLimit: Verb
 SetupTrackTiles: Verb
 	Arrange TrackTiles by color and other attributes so they can be found easily
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Set Phase to 1
@@ -263,7 +269,7 @@ TriggerEndGame: Verb
 		Make the rest of the Bank payment to the Railroad
 	Set EndGameTriggered to "Yes"
 
-// SUBSECTION: Stock Round
+SUBSECTION: Stock Round
 
 StockRound: Verb
 	Repeat until all Players Pass consecutively, starting with the PriorityPlayer:
@@ -274,6 +280,12 @@ StockRound: Verb
 	CheckForFloat
 	AdjustSharePriceAfterStockRound
 	! MayNotExceedCertificateLimits
+
+MayNotExceedCertificateLimits: Constraint
+	You may not have more Certificates than the CertificateLimit
+	If you exceed the CertificateLimit:
+		You must sell Certificates until you're under the limit during your next opportunity to sell
+	! Certificates for Railroads who's ShareValueToken is on a Yellow, Orange or Brown Square in the StockMarketGrid do not count toward this limit
 
 StockRoundTurn: Verb
 	SellShares
@@ -299,6 +311,11 @@ BuyOneShare: Verb
 	! If the Railroad's ShareValueToken is on a Brown Square in the StockMarketGrid:
 		You may buy any number of Certificates of that Railroad at one time
 
+NoMoreThanSixtyPercentOwnership: Constraint
+	You may not own more than 5 Certificates for a single Railroad
+		Unless the Railroad's ShareValueToken is on an Orange or Brown Square in the StockMarketGrid
+	// Note: Because the PresidentCertificate is worth 2 Shares, this corresponds to 60% ownership.
+	
 SellShares: Verb
 	For each Railroad that you want to sell Shares of:
 		Choose how many Shares to sell
@@ -380,7 +397,11 @@ MoveShareValueToken: Verb
 	If there is already one or more ShareValueTokens in the space:
 		Place this token underneath the stack of existing tokens
 
-// SUBSECTION: Operating Round
+EndGameIfBankCannotPay: Constraint
+	If the Bank doesn't have enough Money to pay:
+		TriggerEndGame
+
+SUBSECTION: Operating Round
 
 OperatingRound: Verb
 	For each Railroad that has Floated, ordered by SharePrice from highest to lowest:
@@ -450,6 +471,39 @@ UpgradeTrack: Verb
 	! MustMatchCityLabel
 	// There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost
 
+GreenTilesOnlyInPhase2: Constraint
+	GreenTiles may only be used if Phase >= 2
+
+BrownTilesOnlyInPhase4: Constraint
+	BrownTiles may only be chosen if Phase >= 4
+		
+MustMatchExistingTrack: Constraint
+	The orientation of the new TrackTile being placed must match all the existing TrackEdges
+
+MustMatchCities: Constraint
+	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
+		The new TrackTile being placed must:
+			Match the number of LargeCities and SmallCities
+			Maintain the connections (or lack thereof) between the Cities within the tile
+
+MustMatchCityLabel: Constraint
+	If the MapHex or existingTrackTile has a Label:
+		The new TrackTile being placed must also have the same Label
+
+MustTraceUnblockedPathToYourStation: Constraint
+	You must be able to track a continuous path (of any length) from this TrackTile to one of your Railroad's Stations
+	! MayNotPassThroughBlockedCities
+	// You may start or end at a Blocked City
+	// If there are multiple paths on the TrackTile, only 1 needs to connect to a Station
+
+NoRailLeadingIntoForbiddenEdges: Constraint
+	If the MapHex has an Edge that matches any of:
+		Is along the outside of the MapBoard
+		Is a RedEdge
+		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
+	Then:
+		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
+
 BuildStation: Verb
 	If you have a Station available on one of your Charter's StationSpaces:
 		You may pay the associated Cost
@@ -483,12 +537,15 @@ RunTrain: Verb
 		The route may not visit the same City more than once
 		The route must include one of your Stations (at the start, middle or end)
 		! MayNotPassThroughBlockedCities
-		! MayNotChangeTrackAtCrossover
-		! MayNotReverseDirection
+		! You may not change tracks when one track crosses over another
+		! The route may not reverse direction at a junction
 		// You may pass through the same TrackTile multiple times as long as you use different segments of track
 	If you're running multiple trains as part of the same operation:
 		You may not use track already used by one of your previous runs this turn
 		// But you may use the same City in multiple runs
+
+MayNotPassThroughBlockedCities: Constraint
+	Any LargeCity you pass through must not be Blocked
 
 CalcRunValue: Verb
 	The value of the run is the sum of the Value of each City visited
@@ -612,72 +669,12 @@ RemoveTrain: Verb
 AddTrainToMarket: Verb
 	President chooses a Train to add to the OpenMarket
 
-
-// SECTION: Constraints
-
-EndGameIfBankCannotPay: Constraint
-	If the Bank doesn't have enough Money to pay:
-		TriggerEndGame
-
-BrownTilesOnlyInPhase4: Constraint
-	BrownTiles may only be chosen if Phase >= 4
-		
-GreenTilesOnlyInPhase2: Constraint
-	GreenTiles may only be used if Phase >= 2
-
-MayNotReverseDirection: Constraint
-	The route may not reverse direction at a junction
-
-MustMatchCities: Constraint
-	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
-		The new TrackTile being placed must:
-			Match the number of LargeCities and SmallCities
-			Maintain the connections (or lack thereof) between the Cities within the tile
-
-MustMatchCityLabel: Constraint
-	If the MapHex or existingTrackTile has a Label:
-		The new TrackTile being placed must also have the same Label
-
-MustMatchExistingTrack: Constraint
-	The orientation of the new TrackTile being placed must match all the existing TrackEdges
-
-MustTraceUnblockedPathToYourStation: Constraint
-	You must be able to track a continuous path (of any length) from this TrackTile to one of your Railroad's Stations
-	! MayNotPassThroughBlockedCities
-	// You may start or end at a Blocked City
-	// If there are multiple paths on the TrackTile, only 1 needs to connect to a Station
-
-MayNotChangeTrackAtCrossover: Constraint
-	You may not change tracks when one track crosses over another
-	
-MayNotExceedCertificateLimits: Constraint
-	You may not have more Certificates than the CertificateLimit
-	If you exceed the CertificateLimit:
-		You must sell Certificates until you're under the limit during your next opportunity to sell
-	! Certificates for Railroads who's ShareValueToken is on a Yellow, Orange or Brown Square in the StockMarketGrid do not count toward this limit
-
-MayNotPassThroughBlockedCities: Constraint
-	Any LargeCity you pass through must not be Blocked
-
-NoMoreThanSixtyPercentOwnership: Constraint
-	You may not own more than 5 Certificates for a single Railroad
-		Unless the Railroad's ShareValueToken is on an Orange or Brown Square in the StockMarketGrid
-	// Note: Because the PresidentCertificate is worth 2 Shares, this corresponds to 60% ownership.
-	
-NoRailLeadingIntoForbiddenEdges: Constraint
-	If the MapHex has an Edge that matches any of:
-		Is along the outside of the MapBoard
-		Is a RedEdge
-		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
-	Then:
-		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
-
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
-	A Player's total wealth is the sum of:
+	A Player's Score is the total sum of their wealth:
 		The Player's Money
 		The SharePrice of each Share owned by the Player
 
 DetermineWinner: Verb
-	The Player with the highest wealth
+	PlayerWithHighestScore

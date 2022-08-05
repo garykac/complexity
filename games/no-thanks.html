@@ -166,66 +166,72 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="4"><b>Rule Complexity</b></td></tr>
-<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">5</td><td class="summary-column">21.7%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">4</td><td class="summary-column">17.4%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">9</td><td class="summary-column">39.1%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">5</td><td class="summary-column">21.7%</td></tr>
-<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>23</b></td><td class="summary-column"></td></tr>
+<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">5</td><td class="summary-column">22.7%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">4</td><td class="summary-column">18.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">8</td><td class="summary-column">36.4%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">5</td><td class="summary-column">22.7%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>22</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
-<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">No Thanks!</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Year: 2004</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Designer: Thorsten Gimmler</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Players: 3-5</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Time: 20m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">BGG Weight: 1.14 = 1182 / 156 / 3 / 4 / 2</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Box, Player</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">ChooseFirstPlayer, NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Card, Deck, Shuffle</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Score, PlayerWithLowestScore</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Number">Number</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCardToTableau">AddCardToTableau</a><a href="#CalculateScore">CalculateScore</a></div></div>: Attribute of <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Number">Number</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCardToTableau">AddCardToTableau</a><a href="#CalculateScore">CalculateScore</a></div></div>: Attribute of <abbr title="Imported term">Card</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CurrentCard">CurrentCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeclineCard">DeclineCard</a><a href="#RevealNextCard">RevealNextCard</a><a href="#TakeCard">TakeCard</a></div></div>: <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The currently revealed <abbr title="Imported from common/CardGame">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CurrentCard">CurrentCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DeclineCard">DeclineCard</a><a href="#RevealNextCard">RevealNextCard</a><a href="#TakeCard">TakeCard</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The currently revealed <abbr title="Imported term">Card</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Chip">Chip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#DeclineCard">DeclineCard</a><a href="#Pool">Pool</a><a href="#Setup">Setup</a><a href="#TakeCard">TakeCard</a></div></div>: Noun</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Pool">Pool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#DeclineCard">DeclineCard</a><a href="#Setup">Setup</a><a href="#TakeCard">TakeCard</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A <abbr title="Imported from common/Game">Player</abbr>'s collection of <a class="keyword" href="#Chip">Chips</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A <abbr title="Imported term">Player</abbr>'s collection of <a class="keyword" href="#Chip">Chips</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Tableau">Tableau</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCardToTableau">AddCardToTableau</a><a href="#CalculateScore">CalculateScore</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The set of <abbr title="Imported from common/CardGame">Cards</abbr> owned by the <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The set of <abbr title="Imported term">Cards</abbr> owned by the <abbr title="Imported term">Player</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#CreateDeck">CreateDeck</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>For each <abbr title="Imported from common/Game">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>For each <abbr title="Imported term">Player</abbr>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Take 11 <a class="keyword" href="#Chip">Chips</a> to create your <a class="keyword" href="#Pool">Pool</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">&#9888; Keep your <a class="keyword" href="#Chip">Chips</a> hidden from other <abbr title="Imported from common/Game">Players</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">&#9888; Keep your <a class="keyword" href="#Chip">Chips</a> hidden from other <abbr title="Imported term">Players</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CreateDeck">CreateDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Shuffle</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Deal</abbr> 24 <abbr title="Imported from common/CardGame">Cards</abbr> face down to create the <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place remaining <abbr title="Imported from common/CardGame">Cards</abbr> back in the <abbr title="Imported from common/Game">Box</abbr> (without looking)</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">Shuffle</abbr> <abbr title="Imported term">Cards</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Deal 24 <abbr title="Imported term">Cards</abbr> face down to create the <abbr title="Imported term">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place remaining <abbr title="Imported term">Cards</abbr> back in the <abbr title="Imported term">Box</abbr> (without looking)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RevealNextCard">RevealNextCard</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <abbr title="Imported from common/CardGame">Deck</abbr> is empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <abbr title="Imported term">Deck</abbr> is empty:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="RevealNextCard">RevealNextCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#TakeCard">TakeCard</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Reveal</abbr> top <abbr title="Imported from common/CardGame">Card</abbr> from <abbr title="Imported from common/CardGame">Deck</abbr> as the <a class="keyword" href="#CurrentCard">CurrentCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Reveal top <abbr title="Imported term">Card</abbr> from <abbr title="Imported term">Deck</abbr> as the <a class="keyword" href="#CurrentCard">CurrentCard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Choose one of:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>Choose one of:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#TakeCard">TakeCard</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#DeclineCard">DeclineCard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
@@ -236,9 +242,9 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#RevealNextCard">RevealNextCard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="AddCardToTableau">AddCardToTableau</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeCard">TakeCard</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If the <abbr title="Imported from common/CardGame">Card</abbr>'s <a class="keyword" href="#Number">Number</a> is adjacent to a <abbr title="Imported from common/CardGame">Card</abbr> already in your <a class="keyword" href="#Tableau">Tableau</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Arrange adjacent <abbr title="Imported from common/CardGame">Cards</abbr> in an unbroken sequence</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add <abbr title="Imported from common/CardGame">Card</abbr> separated from other <abbr title="Imported from common/CardGame">Cards</abbr> in <a class="keyword" href="#Tableau">Tableau</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If the <abbr title="Imported term">Card</abbr>'s <a class="keyword" href="#Number">Number</a> is adjacent to a <abbr title="Imported term">Card</abbr> already in your <a class="keyword" href="#Tableau">Tableau</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Arrange adjacent <abbr title="Imported term">Cards</abbr> in an unbroken sequence</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add <abbr title="Imported term">Card</abbr> separated from other <abbr title="Imported term">Cards</abbr> in <a class="keyword" href="#Tableau">Tableau</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DeclineCard">DeclineCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place a <a class="keyword" href="#Chip">Chip</a> from your <a class="keyword" href="#Pool">Pool</a> onto the <a class="keyword" href="#CurrentCard">CurrentCard</a></td></tr>
@@ -246,14 +252,14 @@ a.keyword:hover {
 <tr class="section"><td class="cost"></td><td colspan=3>Endgame Scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each single <abbr title="Imported from common/CardGame">Card</abbr> in your <a class="keyword" href="#Tableau">Tableau</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add the <abbr title="Imported from common/CardGame">Cards</abbr>'s <a class="keyword" href="#Number">Number</a> to your <abbr title="Imported from common/Game">Score</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each unbroken sequence of <abbr title="Imported from common/CardGame">Cards</abbr> in your <a class="keyword" href="#Tableau">Tableau</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add the lowest <a class="keyword" href="#Number">Number</a> of the sequence to your <abbr title="Imported from common/Game">Score</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Subtract the number of <a class="keyword" href="#Chip">Chips</a> in your <a class="keyword" href="#Pool">Pool</a> from your <abbr title="Imported from common/Game">Score</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each single <abbr title="Imported term">Card</abbr> in your <a class="keyword" href="#Tableau">Tableau</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add the <abbr title="Imported term">Cards</abbr>'s <a class="keyword" href="#Number">Number</a> to your <abbr title="Imported term">Score</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>For each unbroken sequence of <abbr title="Imported term">Cards</abbr> in your <a class="keyword" href="#Tableau">Tableau</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Add the lowest <a class="keyword" href="#Number">Number</a> of the sequence to your <abbr title="Imported term">Score</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Subtract the number of <a class="keyword" href="#Chip">Chips</a> in your <a class="keyword" href="#Pool">Pool</a> from your <abbr title="Imported term">Score</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/Game">PlayerWithLowestScore</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">PlayerWithLowestScore</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

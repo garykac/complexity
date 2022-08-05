@@ -1,16 +1,16 @@
-// NAME: Kingdomino
-
+NAME: Kingdomino
 // Year: 2016
 // Designer: Bruno Cathala
 // Players: 2-4
 // Time: 15-25m
 // BGG Weight: 1.21 = 706 / 168 / 9 / 1 / 0
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Box, Player, NextPlayerClockwise, PlayerWithHighestScore
+IMPORT: Tile, Piece
+
+SECTION: Vocabulary
 
 StartingTile: Tile
 
@@ -42,7 +42,7 @@ Kingdom: Noun
 Territory: Noun
 	A set of TerritorySquares in your Kingdom with matching Terrain that connect (share an edge) horizontally or vertically.
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupComponents
@@ -98,7 +98,7 @@ SlideNextLineToBecomeCurrentLine: Verb
 	// By convention, the CurrentLine is closet to the Box than the NextLine
 	! Game ends if there is no NextLine to slide over
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	For each Domino in the CurrentLine, starting at the top (lowest number):
@@ -115,7 +115,7 @@ AddDominoToKingdom: Verb
 	! Your Kingdom is restricted to a 5x5 grid
 	! Discard the Domino (remove it from the game) if you cannot place it in your Kingdom
 
-// SECTION: Endgame Scoring
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	For each Territory in your Kingdom:

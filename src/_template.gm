@@ -1,24 +1,26 @@
-// NAME: GameTitle
-
+NAME: GameTitle
 // Year: xxxx
 // Designer: xxx
 // Players: 2-4
 // Time: 1m
-// BGG Weight: 1.75 = 283 / 223 / 69 / 14 / 12
+// BGG Weight: x = x / x / x / x / x
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Rulebook
+IMPORT: NextPlayerClockwise
 
-// SECTION: Setup
+SECTION: Vocabulary
+
+SECTION: Setup
 
 Setup: Verb
 	
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
+
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
 

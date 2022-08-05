@@ -166,32 +166,37 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
 <tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
 <tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">10</td><td class="summary-column">20.8%</td></tr>
 <tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">4</td><td class="summary-column">8.3%</td></tr>
 <tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">33</td><td class="summary-column">68.8%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Endgame</td><td class="summary-column">1</td><td class="summary-column">2.1%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">1</td><td class="summary-column">2.1%</td></tr>
 <tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>48</b></td><td class="summary-column"></td></tr>
 </table>
 
 <table class="main">
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=3>Description</th></tr></thead>
-<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Just One</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Cooperatively guess a mystery word.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Year: 2018</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Designer: Ludovic Roudy, Bruno Sautter</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Players: 3-7</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Time: 20m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">BGG Weight: 1.05 = 317 / 12 / 0 / 0 / 1</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Player, NextPlayerClockwise, Box</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Deck</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActivePlayer">ActivePlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#CompareClues">CompareClues</a><a href="#GuessMysteryWord">GuessMysteryWord</a><a href="#GuessWord">GuessWord</a><a href="#NonActivePlayers">NonActivePlayers</a><a href="#PlayGame">PlayGame</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported from common/Game">Player</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <abbr title="Imported from common/Game">Player</abbr> attempting to guess the <a class="keyword" href="#MysteryWord">MysteryWord</a> from the clues</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ActivePlayer">ActivePlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#CompareClues">CompareClues</a><a href="#GuessMysteryWord">GuessMysteryWord</a><a href="#GuessWord">GuessWord</a><a href="#NonActivePlayers">NonActivePlayers</a><a href="#PlayGame">PlayGame</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <abbr title="Imported term">Player</abbr> attempting to guess the <a class="keyword" href="#MysteryWord">MysteryWord</a> from the clues</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="NonActivePlayers">NonActivePlayers</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CompareClues">CompareClues</a><a href="#SelectClues">SelectClues</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>All <abbr title="Imported from common/Game">Players</abbr> except for the <a class="keyword" href="#ActivePlayer">ActivePlayer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>All <abbr title="Imported term">Players</abbr> except for the <a class="keyword" href="#ActivePlayer">ActivePlayer</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Easel">Easel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#CompareClues">CompareClues</a><a href="#SelectClues">SelectClues</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>A small stand on which guesses are written</td></tr>
@@ -206,24 +211,24 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Word">Word</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#MysteryWord">MysteryWord</a><a href="#Number">Number</a></div></div>: Attribute of <a class="keyword" href="#WordCard">WordCard</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Candidates to be the <a class="keyword" href="#MysteryWord">MysteryWord</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="WordDeck">WordDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#CreateWordDeck">CreateWordDeck</a><a href="#FailedGuess">FailedGuess</a><a href="#PlayGame">PlayGame</a><a href="#SuccessDeck">SuccessDeck</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="WordDeck">WordDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#CreateWordDeck">CreateWordDeck</a><a href="#FailedGuess">FailedGuess</a><a href="#PlayGame">PlayGame</a><a href="#SuccessDeck">SuccessDeck</a></div></div>: <abbr title="Imported term">Deck</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The set of <a class="keyword" href="#WordCard">WordCards</a> chosen for this game</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="MysteryWord">MysteryWord</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivePlayer">ActivePlayer</a><a href="#ChooseMysteryWord">ChooseMysteryWord</a><a href="#SelectClues">SelectClues</a><a href="#Word">Word</a><a href="#WordCard">WordCard</a></div></div>: Noun</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#Word">Word</a> on the <a class="keyword" href="#WordCard">WordCard</a> that the <abbr title="Imported from common/Game">Players</abbr> are trying to guess</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#Word">Word</a> on the <a class="keyword" href="#WordCard">WordCard</a> that the <abbr title="Imported term">Players</abbr> are trying to guess</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SuccessDeck">SuccessDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#FailedGuess">FailedGuess</a><a href="#SuccessfulGuess">SuccessfulGuess</a></div></div>: <abbr title="Imported from common/CardGame">Deck</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The stack of cards next to the <a class="keyword" href="#WordDeck">WordDeck</a> that the <abbr title="Imported from common/Game">Players</abbr> have guessed correctly</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SuccessDeck">SuccessDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#FailedGuess">FailedGuess</a><a href="#SuccessfulGuess">SuccessfulGuess</a></div></div>: <abbr title="Imported term">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The stack of cards next to the <a class="keyword" href="#WordDeck">WordDeck</a> that the <abbr title="Imported term">Players</abbr> have guessed correctly</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#CreateWordDeck">CreateWordDeck</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Give <a class="keyword" href="#Easel">Easel</a> and <a class="keyword" href="#Marker">Marker</a> to each <abbr title="Imported from common/Game">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Give <a class="keyword" href="#Easel">Easel</a> and <a class="keyword" href="#Marker">Marker</a> to each <abbr title="Imported term">Player</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Choose the <a class="keyword" href="#ActivePlayer">ActivePlayer</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CreateWordDeck">CreateWordDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Shuffle</abbr> all the <a class="keyword" href="#WordCard">WordCards</a> together</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Shuffle all the <a class="keyword" href="#WordCard">WordCards</a> together</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Randomly draw 13 to create the <a class="keyword" href="#WordDeck">WordDeck</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
@@ -231,7 +236,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <a class="keyword" href="#WordDeck">WordDeck</a> is empty:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#TakeTurn">TakeTurn</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">New <a class="keyword" href="#ActivePlayer">ActivePlayer</a> is the <abbr title="Imported from common/Game">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">New <a class="keyword" href="#ActivePlayer">ActivePlayer</a> is the <abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TakeTurn">TakeTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#ChooseMysteryWord">ChooseMysteryWord</a></td></tr>
@@ -241,16 +246,16 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ChooseMysteryWord">ChooseMysteryWord</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#ActivePlayer">ActivePlayer</a> should:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc"><abbr title="Imported from common/CardGame">Draw</abbr> the top card (the <a class="keyword" href="#WordCard">WordCard</a>) of the <a class="keyword" href="#WordDeck">WordDeck</a> without looking</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Place the <a class="keyword" href="#WordCard">WordCard</a> on their <a class="keyword" href="#Easel">Easel</a> so that the other <abbr title="Imported from common/Game">Players</abbr> can see it</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Draw the top card (the <a class="keyword" href="#WordCard">WordCard</a>) of the <a class="keyword" href="#WordDeck">WordDeck</a> without looking</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Place the <a class="keyword" href="#WordCard">WordCard</a> on their <a class="keyword" href="#Easel">Easel</a> so that the other <abbr title="Imported term">Players</abbr> can see it</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Choose a number between 1 and 5</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#MysteryWord">MysteryWord</a> is the <a class="keyword" href="#Word">Word</a> next to the chosen <a class="keyword" href="#Number">Number</a> on the <a class="keyword" href="#WordCard">WordCard</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; <abbr title="Imported from common/Game">Players</abbr> can ask for a different number if they are not familiar with the selected <a class="keyword" href="#MysteryWord">MysteryWord</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; <abbr title="Imported term">Players</abbr> can ask for a different number if they are not familiar with the selected <a class="keyword" href="#MysteryWord">MysteryWord</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SelectClues">SelectClues</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TakeTurn">TakeTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#NonActivePlayers">NonActivePlayers</a> simultaneously:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">Write a single clue word on their <a class="keyword" href="#Easel">Easel</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; No communication between <abbr title="Imported from common/Game">Players</abbr> is allowed.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; No communication between <abbr title="Imported term">Players</abbr> is allowed.</td></tr>
 <tr><td class="cost"></td><td></td><td></td><td class="desc"><span class="comment">This includes verbal and non-verbal (like showing their word) communication.</span></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; Digits, numbers, acronyms, onomatopoeia and special characters are all considered words</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; Invalid words include:</td></tr>
@@ -286,14 +291,14 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Add the <a class="keyword" href="#WordCard">WordCard</a> to the <a class="keyword" href="#SuccessDeck">SuccessDeck</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="FailedGuess">FailedGuess</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GuessWord">GuessWord</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Discard</abbr> the <a class="keyword" href="#WordCard">WordCard</a> to the <abbr title="Imported from common/Game">Box</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2><abbr title="Imported from common/CardGame">Discard</abbr> the top card of the <a class="keyword" href="#WordDeck">WordDeck</a> to the <abbr title="Imported from common/Game">Box</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; On the final turn, discard a card from the <a class="keyword" href="#SuccessDeck">SuccessDeck</a> to the <abbr title="Imported from common/Game">Box</abbr> (since the <a class="keyword" href="#WordDeck">WordDeck</a> is empty)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Discard the <a class="keyword" href="#WordCard">WordCard</a> to the <abbr title="Imported term">Box</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Discard the top card of the <a class="keyword" href="#WordDeck">WordDeck</a> to the <abbr title="Imported term">Box</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; On the final turn, discard a card from the <a class="keyword" href="#SuccessDeck">SuccessDeck</a> to the <abbr title="Imported term">Box</abbr> (since the <a class="keyword" href="#WordDeck">WordDeck</a> is empty)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="SkipGuess">SkipGuess</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CompareClues">CompareClues</a><a href="#GuessMysteryWord">GuessMysteryWord</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#WordCard">WordCard</a> in the <abbr title="Imported from common/Game">Box</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#WordCard">WordCard</a> in the <abbr title="Imported term">Box</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr class="section"><td class="cost"></td><td colspan=3>Endgame</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=3>Endgame Scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The number of cards in the <a class="keyword" href="#SuccessDeck">SuccessDeck</a></td></tr>

@@ -1,15 +1,18 @@
-// NAME: No Thanks!
-
+NAME: No Thanks!
 // Year: 2004
 // Designer: Thorsten Gimmler
 // Players: 3-5
 // Time: 20m
 // BGG Weight: 1.14 = 1182 / 156 / 3 / 4 / 2
 
-#import common/Game
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Box, Player
+IMPORT: ChooseFirstPlayer, NextPlayerClockwise
+IMPORT: Card, Deck, Shuffle
+IMPORT: Score, PlayerWithLowestScore
+
+SECTION: Vocabulary
 
 Number: Attribute of Card
 
@@ -24,7 +27,7 @@ Pool: Noun
 Tableau: Noun
 	The set of Cards owned by the Player
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	CreateDeck
@@ -33,11 +36,11 @@ Setup: Verb
 		! Keep your Chips hidden from other Players
 	
 CreateDeck: Verb
-	Shuffle
+	Shuffle Cards
 	Deal 24 Cards face down to create the Deck
 	Place remaining Cards back in the Box (without looking)
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	ChooseFirstPlayer
@@ -68,7 +71,7 @@ AddCardToTableau: Verb
 DeclineCard: Verb
 	Place a Chip from your Pool onto the CurrentCard
 
-// SECTION: Endgame Scoring
+SECTION: Endgame Scoring
 	
 CalculateScore: Verb
 	For each single Card in your Tableau:

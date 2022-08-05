@@ -1,4 +1,4 @@
-// NAME: 1830 Starter
+NAME: 1830 Starter
 // This is a simplified version of 1830 that eliminates the stock investment portion.
 // It was included in the 2011 Mayfair release of 1830.
 // It is intended as an introductory game to learn the train-related rules before tackling the full game.
@@ -8,11 +8,13 @@
 // Players: 2-6
 // Time: 60-90m
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Box, PlayerWithHighestScore
+IMPORT: Gameboard, Token
+IMPORT: Card, Shuffle
+
+SECTION: Vocabulary
 
 MapBoard: Gameboard
 
@@ -114,7 +116,7 @@ Bank: Noun
 Banker: Noun
 	Player who manages the Bank
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupBank
@@ -152,7 +154,7 @@ SetupRailroads: Verb
 		* 4p: "PRR", "NYC", "C&O", "B&M"
 		* 5p: "PRR", "NYC", "C&O", "B&M", "NNH"
 		* 6p: "PRR", "NYC", "C&O", "B&M", "NNH", "B&O"
-	Shuffle them
+	Shuffle Charters
 	Deal one to each Player
 	
 SetupStations: Verb
@@ -165,7 +167,7 @@ SetupStations: Verb
 SetupTrackTiles: Verb
 	Arrange TrackTiles by color and other attributes so they can be found easily
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Set Phase to 1
@@ -223,6 +225,9 @@ LayGreenTrack: Verb
 	! NoRailLeadingIntoForbiddenEdges
 	! MustMatchCityLabel
 
+GreenTilesOnlyInPhase2: Constraint
+	GreenTiles may only be used if Phase >= 2
+
 UpgradeTrack: Verb
 	Choose a MapHex with a YellowTile or GreenTile
 	Choose an upgrade TrackTile based on the tile being upgraded:
@@ -238,6 +243,33 @@ UpgradeTrack: Verb
 	! NoRailLeadingIntoForbiddenEdges
 	! MustMatchCityLabel
 	// There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost
+
+BrownTilesOnlyInPhase4: Constraint
+	BrownTiles may only be chosen if Phase >= 4
+		
+MustTracePathToYourStation: Constraint
+	You must be able to track a continuous path from this TrackTile to one of the Railroad's Stations
+
+MustMatchExistingTrack: Constraint
+	The orientation of the new TrackTile being placed must match all the existing TrackEdges
+
+MustMatchCities: Constraint
+	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
+		The new TrackTile being placed must:
+			Match the number of LargeCities and SmallCities
+			Maintain the connections (or lack thereof) between the Cities
+
+NoRailLeadingIntoForbiddenEdges: Constraint
+	If the MapHex has an Edge that matches any of:
+		Is along the outside of the MapBoard
+		Is a RedEdge
+		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
+	Then:
+		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
+
+MustMatchCityLabel: Constraint
+	If the MapHex or existingTrackTile has a Label:
+		The new TrackTile being placed must also have the same Label
 
 BuildStation: Verb
 	If you have a Station available on one of your Charter's StationSpaces:
@@ -321,39 +353,8 @@ RemoveTrain: Verb
 AddTrainToMarket: Verb
 	Add the Train to the OpenMarket
 
-// SECTION: Constraints
-
-BrownTilesOnlyInPhase4: Constraint
-	BrownTiles may only be chosen if Phase >= 4
-		
-GreenTilesOnlyInPhase2: Constraint
-	GreenTiles may only be used if Phase >= 2
-
-MustMatchCities: Constraint
-	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
-		The new TrackTile being placed must:
-			Match the number of LargeCities and SmallCities
-			Maintain the connections (or lack thereof) between the Cities
-
-MustMatchCityLabel: Constraint
-	If the MapHex or existingTrackTile has a Label:
-		The new TrackTile being placed must also have the same Label
-
-MustMatchExistingTrack: Constraint
-	The orientation of the new TrackTile being placed must match all the existing TrackEdges
-
-MustTracePathToYourStation: Constraint
-	You must be able to track a continuous path from this TrackTile to one of the Railroad's Stations
-
-NoRailLeadingIntoForbiddenEdges: Constraint
-	If the MapHex has an Edge that matches any of:
-		Is along the outside of the MapBoard
-		Is a RedEdge
-		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
-	Then:
-		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
-
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
-	The Player with the most Money
+	Score = total Money
+	PlayerWithHighestScore

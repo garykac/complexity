@@ -1,16 +1,18 @@
-// NAME: Automobiles
-
+NAME: Automobiles
 // Year: 2016
 // Designer: David Short
 // Players: 2-5
 // Time: 45m
 // BGG Weight: 2.20 = 3 / 51 / 17 / 0 / 0
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Box
+IMPORT: NextPlayerClockwise
+IMPORT: Gameboard, Token, ChoosePlayerComponents
+IMPORT: Card
+
+SECTION: Vocabulary
 
 TrackBoard: Gameboard
 
@@ -50,8 +52,8 @@ Stock: Noun
 DrawBag: Noun
 
 AutomobileCard: Card
-//Type: "Engine", "Garage", "Handling", "Performance", "Pit"
-//Color: Matches corresponding Cube
+	//Type: "Engine", "Garage", "Handling", "Performance", "Pit"
+	//Color: Matches corresponding Cube
 Cost: Attribute of AutomobileCard
 	Cost to purchase the Cube associated with this card.
 Value: Attribute of AutomobileCard
@@ -164,7 +166,10 @@ CurrentPosition: Noun
 	Position of your RaceCar at the beginning of your ActionPhase
 	! InnerLanesLeadOuterLanes
 
-// SECTION: Setup
+InnerLanesLeadOuterLanes: Constraint
+	Inner lanes lead outer lanes in case of a tie
+
+SECTION: Setup
 
 Setup: Verb
 	Select which side of the TrackBoard you wish to use
@@ -199,7 +204,10 @@ BuyStartCubes: Verb
 		Buy as many Cubes as you wish by paying the Costs on the corresponding Card
 	! UnspentMoneyIsLost
 
-// SECTION: Gameplay
+UnspentMoneyIsLost: Constraint
+	Any unspent money is lost
+
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until a LapMarker is on "Finish":
@@ -235,6 +243,12 @@ ActionPhase: Verb
 			PerformanceCube: PerformanceAction
 			PitCube: PitAction
 		! MustPerformAllCardEffects
+
+MustPerformAllCardEffects: Constraint
+	When applying an AutomobileCard's effect:
+		If some of the effects cannot be applied:
+			You may not apply any of the effects
+	! For WearCubes, you can still apply the other effects even if the Stock is out of WearCubes
 
 MoveRaceCar: Verb
 	Starting from your RaceCar or one of the Cubes you placed on a Space this turn:
@@ -326,23 +340,7 @@ GainWear: Verb
 	If there is a WearCube available in the Stock:
 		Take a WearCube from the Stock and put it in your UsedPile
 
-// SECTION: Constraints
-
-UnspentMoneyIsLost: Constraint
-	Any unspent money is lost
-
-MustPerformAllCardEffects: Constraint
-	When applying an AutomobileCard's effect:
-		If some of the effects cannot be applied:
-			You may not apply any of the effects
-	// Note that you can still apply the other effects, even if the Stock is out of WearCubes
-
-InnerLanesLeadOuterLanes: Constraint
-	Inner lanes lead outer lanes in case of a tie
-
-// SECTION: Endgame
-
-CalculateScore: Verb
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	The winner is the RaceCar that went the furthest past the FinishLine

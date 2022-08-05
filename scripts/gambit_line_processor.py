@@ -8,6 +8,11 @@ MULTI_KEYWORDS = "[A-Z][A-Za-z0-9\|_]*"
 TEMPLATE_KEYWORD = "(" + KEYWORD + ")\<(" + KEYWORD + ")\>"
 TAB_SIZE = 4
 
+NAME_KEYWORD = "NAME"
+IMPORT_KEYWORD = "IMPORT"
+SECTION_KEYWORD = "SECTION"
+SUBSECTION_KEYWORD = "SUBSECTION"
+
 class GambitLineProcessor:
 	"""Process a single line from a Gambit (.gm) file."""
 	def __init__(self):
@@ -32,13 +37,53 @@ class GambitLineProcessor:
 	# ==========
 	
 	@staticmethod
-	def addImport(comment):
+	def addName(name):
 		return {
-			'type': "IMPORT",
+			'type': NAME_KEYWORD,
+			'cost': None,
+			'indent': 0,
+			'line': "",
+			'comment': name,
+		}
+
+	@staticmethod
+	def addOldImport(comment):
+		return {
+			'type': "OLDIMPORT",
 			'cost': None,
 			'indent': 0,
 			'line': "",
 			'comment': comment,
+		}
+
+	@staticmethod
+	def addImport(comment):
+		return {
+			'type': IMPORT_KEYWORD,
+			'cost': None,
+			'indent': 0,
+			'line': "",
+			'comment': [x.strip() for x in comment.split(',')],
+		}
+
+	@staticmethod
+	def addSection(name):
+		return {
+			'type': SECTION_KEYWORD,
+			'cost': None,
+			'indent': 0,
+			'line': "",
+			'comment': name.strip()
+		}
+
+	@staticmethod
+	def addSubsection(name):
+		return {
+			'type': SUBSECTION_KEYWORD,
+			'cost': None,
+			'indent': 0,
+			'line': "",
+			'comment': name.strip()
 		}
 
 	@staticmethod
@@ -56,19 +101,6 @@ class GambitLineProcessor:
 			info['type'] = "BLANK"
 			indent = 0
 			info['indent'] = indent
-		elif indent == 0:
-			if comment.startswith("SECTION:"):
-				info['type'] = "SECTION"
-				info['comment'] = comment[8:].strip()
-			elif comment.startswith("SUBSECTION:"):
-				info['type'] = "SUBSECTION"
-				info['comment'] = comment[11:].strip()
-			elif comment.startswith("NAME:"):
-				info['type'] = "NAME"
-				info['comment'] = comment[5:].strip()
-			elif comment.startswith("BGG Weight:"):
-				# Ignore
-				return None
 
 		return info
 
@@ -139,6 +171,9 @@ class GambitLineProcessor:
 		if line[0] == '*':
 			cost = 0
 
+		if indent == 0:
+			raise Exception(f"Invalid line: {line}")
+
 		return {
 			'type': "DESC",
 			'cost': cost,
@@ -171,7 +206,25 @@ class GambitLineProcessor:
 
 		# Import base definitions from another file.
 		if line.startswith("#import"):
-			return GambitLineProcessor.addImport(line[8:].strip())
+			return GambitLineProcessor.addOldImport(line[8:].strip())
+
+		# Declare imported terms.
+		if line.startswith(IMPORT_KEYWORD + ':'):
+			return GambitLineProcessor.addImport(line[len(IMPORT_KEYWORD)+1:].strip())
+
+		if line.startswith("// " + NAME_KEYWORD):
+			raise Exception(f"Bad name: {line}")
+		if line.startswith("// " + SECTION_KEYWORD):
+			raise Exception(f"Bad section: {line}")
+		if line.startswith("// " + SUBSECTION_KEYWORD):
+			raise Exception(f"Bad subsection: {line}")
+		
+		if line.startswith(NAME_KEYWORD + ':'):
+			return GambitLineProcessor.addName(line[len(NAME_KEYWORD)+1:].strip())
+		if line.startswith(SECTION_KEYWORD + ':'):
+			return GambitLineProcessor.addSection(line[len(SECTION_KEYWORD)+1:].strip())
+		if line.startswith(SUBSECTION_KEYWORD + ':'):
+			return GambitLineProcessor.addSubsection(line[len(SUBSECTION_KEYWORD)+1:].strip())
 
 		# Separate out comments and handle empty lines.
 		m = re.match("(.*?)//(.*)", line)

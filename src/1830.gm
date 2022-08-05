@@ -1,16 +1,17 @@
-// NAME: 1830
-
+NAME: 1830
 // Year: 1986
 // Designer: Francis Tresham
 // Players: 2-6
 // Time: 180-360m
 // BGG Weight: 4.16 = 6 / 9 / 87 / 239 / 212
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise, Pass, Score, PlayerWithHighestScore
+IMPORT: Gameboard, Token
+IMPORT: Card
+
+SECTION: Vocabulary
 
 MapBoard: Gameboard
 
@@ -206,7 +207,7 @@ PriorityPlayer: Noun
 TurnOrderCard: Noun
 	Number card that are used to randomly assign turn order at the start of the game
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupBank
@@ -267,7 +268,7 @@ SetupCertificateLimit: Verb
 SetupTrackTiles: Verb
 	Arrange TrackTiles by color and other attributes so they can be found easily
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Set Phase to 0
@@ -286,7 +287,7 @@ TriggerEndGame: Verb
 		Make the rest of the Bank payment to the Railroad
 	Set EndGameTriggered to "Yes"
 
-// SUBSECTION: Privates
+SUBSECTION: Privates
 
 SellAllPrivates: Verb
 	Repeat until all Privates have been purchased, starting with the PriorityPlayer:
@@ -393,7 +394,7 @@ BOSpecialEffect: Constraint
 	If you purchase the BO Private:
 		You immediately GainPresidentCertificate of "B&O"
 
-// SUBSECTION: Stock Round
+SUBSECTION: Stock Round
 
 StockRound: Verb
 	Repeat until all Players Pass consecutively, starting with the PriorityPlayer:
@@ -524,7 +525,7 @@ EndGameIfBankCannotPay: Constraint
 	If the Bank doesn't have enough Money to pay:
 		TriggerEndGame
 
-// SUBSECTION: Operating Round
+SUBSECTION: Operating Round
 
 OperatingRound: Verb
 	For each Private that has not been closed:
@@ -818,10 +819,10 @@ RemoveTrain: Verb
 AddTrainToMarket: Verb
 	President chooses a Train to add to the OpenMarket
 
-// SUBSECTION: Scoring
+SUBSECTION: Endgame Scoring
 
 CalculateScore: Verb
-	A Player's total wealth is the sum of:
+	A Player's Score is the total sum of their wealth:
 		The Player's Money
 		The SharePrice of each Share owned by the Player
 		The Cost of any Private still owned by the Player

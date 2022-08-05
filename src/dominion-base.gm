@@ -1,4 +1,4 @@
-// NAME: Dominion
+NAME: Dominion
 // This summarizes the rules associated with the additional 16 cards in the Base Set beyond the 10 recommended starter cards.
 // Since you only use a random set of 10 cards for each game, you can't simply add these rules to the starter 10 cards and get a sensible number.
 // But this does provide an upper bound answering: What if all 26 cards were used in a game?
@@ -8,18 +8,20 @@
 // Players: 2-4
 // Time: 30m
 
-#import common/Game
-#import common/CardGame
+SECTION: Assumptions
+
+IMPORT: Card, Hand, Deck, DiscardPile, Shuffle
+
 #import DominionFirst
 
-// SECTION: Vocabulary
+SECTION: Vocabulary
 
 CurseCard: BaseCard
 	Card with Type = Curse
 Curse: CurseCard
 	CurseCard with Value = -1 VPs
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	// Same Setup as for the standard game
@@ -31,7 +33,7 @@ Setup: Verb
 ChooseKingdomCards: Verb
 	Choose a random set of 10 KingdomCards
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 GainCardToDeck: Verb
 	Move card from Supply to top of your PlayerDeck
@@ -67,7 +69,7 @@ TakeAction: Verb
 		Vassal
 		Witch
 
-// SECTION: Cards
+SUBSECTION: Cards
 
 Artisan: ActionCard
 	GainCard costing up to 5

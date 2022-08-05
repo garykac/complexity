@@ -1,16 +1,17 @@
-// NAME: Jaipur
-
+NAME: Jaipur
 // Year: 2009
 // Designer: Sébastien Pauchon
 // Players: 2
 // Time: 30m
 // BGG Weight: 1.48 = 854 / 666 / 28 / 4 / 1
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise
+IMPORT: Token
+IMPORT: Card, DrawDeck, DealCardToEachPlayer, Hand, DiscardPile
+
+SECTION: Vocabulary
 
 GoodsCard: Card
 Type: Attribute of GoodsCard
@@ -43,7 +44,7 @@ Bonus5Token: BonusToken
 
 SealOfExcellence|SealsOfExcellence: Token
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	Place 3 CamelCards faceup in a line between the 2 Players to create the Market
@@ -52,9 +53,8 @@ Setup: Verb
 	Draw 2 Cards from the DrawDeck and add them to the Market
 	For each Player:
 		Take any CamelCards from your Hand and add them to your Herd
-		
-		
-// SECTION: Gameplay
+				
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until a Player has 2 SealsOfExcellence:
@@ -125,13 +125,11 @@ CalculateScore: Verb
 	! If Players have the same number of CamelCards:
 		Neither Player claims the CamelToken
 
-// SECTION: Constraints
-
 NeverMoreThanSevenCardsInHand: Constraint
 	You may never have more than 7 Cards in your Hand at the end of your turn
 	// CamelCards are in your Herd and don't count toward the Hand limit
 	
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	Player with 2 SealsOfExcellence is the winner

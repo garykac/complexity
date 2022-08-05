@@ -1,15 +1,17 @@
-// NAME: Crazy Eights (52-card)
+NAME: Crazy Eights (52-card)
 // Historically, this game was played with a 28-card deck, but as it gained in popularity it was more comonly played with a full 52-card deck.
 
 // Players: 2-4
 // Time: 15m
 // BGG Weight: 1.07 = 78 / 6 / 0 / 0 / 0
 
-#import common/Game
-#import common/CardGame
-#import common/DeckFrenchSuit
+SECTION: Assumptions
+
+IMPORT: Player, NextPlayerClockwise, NextPlayerCounterClockwise
+IMPORT: Card, DiscardPile, Dealer, Deal, Hand
+IMPORT: FrenchSuitDeck, Suit, Rank, Queen, Ace
 	
-// SECTION: Vocabulary
+SECTION: Vocabulary
 
 Crazy8Deck: FrenchSuitDeck
 
@@ -32,23 +34,23 @@ PlayDirection: Noun
 Draw2Multiplier: Noun
 	The number of 2s played in a row on the top of the DiscardPile
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
-	Shuffle the Crazy8Deck to create a DrawDeck
+	Shuffle the Cards to create a Crazy8Deck
 	Choose a Player to be the Dealer
 	Set the PlayDirection to clockwise
-	Have the Dealer Deal a Hand of 5 cards to each Player from the DrawDeck
-	Place DrawDeck in center of table
-	Leave room next to the DrawDeck for the DiscardPile
+	Have the Dealer Deal a Hand of 5 cards to each Player from the Crazy8Deck
+	Place Crazy8Deck in center of table
+	Leave room next to the Crazy8Deck for the DiscardPile
 	RevealStartCard
 	
 RevealStartCard: Verb
 	Repeat until the TopCard's Rank is something other than 8:
-		Reveal the top card of the DrawDeck
+		Reveal the top card of the Crazy8Deck
 		Discard it
 		
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until a Player runs out of cards:
@@ -60,7 +62,7 @@ PlayerTurn: Verb
 	If Rank of the TopCard is a 2:
 		HandleDraw2
 		Exit
-	Choose one of the following:
+	Choose one:
 		PlayMatchingCard
 		DrawCardsUntilMatch
 	! If you can't play a matching card, then you must DrawCardsUntilMatch
@@ -70,11 +72,11 @@ HandleDraw2: Verb
 	If you do:
 		Increment the Draw2Multiplier
 	Otherwise:
-		Draw Cards from DrawDeck equal to 2 x Draw2Multiplier
+		Draw Cards from Crazy8Deck equal to 2 x Draw2Multiplier
 
 DrawCardsUntilMatch: Verb
 	Repeat until you have a MatchingCard in your Hand:
-		Draw Card from DrawDeck
+		Draw Card from Crazy8Deck
 	PlayMatchingCard
 
 PlayMatchingCard: Verb
@@ -99,7 +101,7 @@ NextPlayer: Verb
 	Otherwise:
 		NextPlayerCounterClockwise
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	The Player who ran out of Cards in their Hand

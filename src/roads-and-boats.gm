@@ -1,23 +1,22 @@
-// NAME: Roads & Boats
-
+NAME: Roads & Boats
 // Year: 1999
 // Designer: Jeroen Doumen, Joris Wiersinga
 // Players: 1-4
 // Time: 180-240m
 // BGG Weight: 4.19 = 1 / 7 / 53 / 160 / 137
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Score, PlayerWithHighestScore
+IMPORT: Gameboard, Token, Tile, ChoosePlayerComponents, PlayerAid
+
+SECTION: Vocabulary
 
 HexTile: Noun
 
 LandTile: HexTile
 River: Attribute of HexTile
-	A LandTile may have a river running through the tile, splitting it into 2 sides.
-	Rivers on MountainTiles are always river sources that do not split the tile.
+	A LandTile may have a river running through the tile, splitting it into 2 sides. Rivers on MountainTiles are always river sources that do not split the tile.
 
 WoodsTile: LandTile
 PastureTile: LandTile
@@ -127,7 +126,7 @@ StoneFactory: SecondaryProducer
 CoalBurner: SecondaryProducer
 	Produces Fuel
 Papermill: SecondaryProducer
-	Produced Paper
+	Produces Paper
 Mint: SecondaryProducer
 	Produces Coins
 StockExchange: SecondaryProducer
@@ -230,7 +229,7 @@ CoverSheet: Noun
 NonPermanentMarker: Noun
 	For writing on the CoverSheet
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupMap
@@ -269,7 +268,7 @@ InitializeOrderOfPlay: Verb
 	Duplicate the order (left to right) of the PlayerTempleTokens to arrange the PlayerSequenceTokens on the SequenceChart
 	// When finished, the Player with the PlayerTempleToken closest to the Temple should have have the highest numbered TurnOrderSpace
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until a WonderBrick is placed on the GameEndSpace that corresponds to the number of Players:
@@ -303,7 +302,7 @@ PlayerConflict: Constraint
 	If there is a conflict between Players about the order in which they can perform actions:
 		Players perform actions in the order determined by the SequenceChart, from lowest to highest
 
-// SUBSECTION: Production Phase
+SUBSECTION: Production Phase
 
 ProductionPhase: Verb
 	Place the PhaseToken on the ProductionPhaseSpace of the PhaseChart
@@ -367,7 +366,7 @@ DetermineMineProduction: Verb
 ReproduceLivestock: Verb
 	If 2 of the same Livestock (Goose or Donkey) are in an EmptyPasture:
 		Create a new Livestock
-	! Must be exactly 2 of the same kind
+	// Must be exactly 2 of the same kind
 	! Donkeys don't reproduce if their owning Player doesn't want them to
 	! The 2 Donkeys must be owned by the same Player
 	! The 2 Livestock must be on the same side of any River 
@@ -487,7 +486,7 @@ ProductionSteamship: Verb
 ShoreCannotBeBlocked: Constraint
 	Access to the Shore must not be blocked by a Wall
 
-// SUBSECTION: Movement Phase
+SUBSECTION: Movement Phase
 
 MovementPhase: Verb
 	Place the PhaseToken on the MovementPhaseSpace of the PhaseChart
@@ -552,7 +551,7 @@ GeeseMayFollowTransporters: Constraint
 	! Even if it previous followed another Player's Transporter this turn
 	! Geese will always follow the last Boat that moves out of a SeaTile
 
-// SUBSECTION: Building Phase
+SUBSECTION: Building Phase
 
 BuildingPhase: Verb
 	Place the PhaseToken on the BuildingPhaseSpace of the PhaseChart
@@ -749,7 +748,7 @@ BuildSteamshipFactory: Verb
 CanOnlyBuildOnAShore: Constraint
 	! This Building can only be built on a Shore
 
-// SUBSECTION: Construct Wonder Phase
+SUBSECTION: Construct Wonder Phase
 
 ConstructWonderPhase: Verb
 	Place the PhaseToken on the WonderPhaseSpace of the PhaseChart
@@ -774,7 +773,7 @@ PlaceBrick<WonderBrick>: Verb
 	If the WonderBrick is plaed on the GameEndSpace:
 		The game ends
 
-// SUBSECTION: Scoring
+SUBSECTION: Endgame Scoring
 
 CalculateScore: Verb
 	ScoreGoods

@@ -1,4 +1,4 @@
-// NAME: Just One
+NAME: Just One
 // Cooperatively guess a mystery word.
 
 // Year: 2018
@@ -7,11 +7,12 @@
 // Time: 20m
 // BGG Weight: 1.05 = 317 / 12 / 0 / 0 / 1
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, NextPlayerClockwise, Box
+IMPORT: Deck
+
+SECTION: Vocabulary
 
 ActivePlayer: Player
 	The Player attempting to guess the MysteryWord from the clues
@@ -41,7 +42,7 @@ MysteryWord: Noun
 SuccessDeck: Deck
 	The stack of cards next to the WordDeck that the Players have guessed correctly
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	CreateWordDeck
@@ -52,7 +53,7 @@ CreateWordDeck: Verb
 	Shuffle all the WordCards together
 	Randomly draw 13 to create the WordDeck
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until WordDeck is empty:
@@ -119,7 +120,7 @@ FailedGuess: Verb
 SkipGuess: Verb
 	Place the WordCard in the Box
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	The number of cards in the SuccessDeck

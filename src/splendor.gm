@@ -1,26 +1,21 @@
-// NAME: Splendor
-
+NAME: Splendor
 // Year: 2014
 // Designer: Marc André
 // Players: 2-4
 // Time: 30m
 // BGG Weight: 1.79 = 700 / 1486 / 157 / 14 / 5
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, Box, ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
+IMPORT: Token
+IMPORT: Card, Deck, Draw, Shuffle
+
+SECTION: Vocabulary
 
 GemToken: Token
 Color: Attribute of GemToken
-
-// GemTokens:
-// Emerald
-// Sapphire
-// Ruby
-// Diamond
-// Onyx
+	// Emerald, Sapphire, Ruby, Diamond, Onyx
 
 GoldToken: Token
 	A special Token that can be used in place of a GemToken
@@ -54,7 +49,7 @@ InactiveArea: Noun
 PrestigePoints: Noun
 	Victory points
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupMarket
@@ -80,7 +75,7 @@ SetupTokens: Verb
 		* 3p: remove 2
 		* 4p: remove none
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	ChooseFirstPlayer
@@ -150,12 +145,10 @@ CheckForNobleVisit: Verb
 	! If your BonusGems match more than one NobleTile:
 		Choose which NobleTile to take
 
-// SECTION: Constraints
-
 VisibleDevelopmentCards: Constraint
 	Your DevelopmentCards should be arranged so that all Players can see the BonusGems they grant
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	For each of your DevelopmentCards:

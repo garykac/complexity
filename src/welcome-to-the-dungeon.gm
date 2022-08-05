@@ -1,4 +1,4 @@
-// NAME: Welcome to the Dungeon
+NAME: Welcome to the Dungeon
 // This covers only the first game which uses only the Warrior.
 
 // Year: 2013
@@ -7,13 +7,14 @@
 // Time: 30m
 // BGG Weight: 1.23 = 269 / 64 / 4 / 1 / 1
 
-#import common/Game
-#import common/BoardGame
-#import common/CardGame
+SECTION: Assumptions
 
-// SECTION: Vocabulary
+IMPORT: Player, ChooseFirstPlayer, Pass, NextPlayerClockwise
+IMPORT: Card, Deck
 
-MonsterCard: Noun
+SECTION: Vocabulary
+
+MonsterCard: Card
 Strength: Attribute of MonsterCard
 Weakness: Attribute of MonsterCard
 	// Icon showing EquipmentTiles that can defeat this MonsterCard
@@ -28,7 +29,6 @@ BaseHP: Attribute of AdventurerTile
 
 EquipmentTile: Noun
 	// 24 total. 6 per AdventurerTile.
-Title: Attribute of EquipmentTile
 BonusHP: Attribute of EquipmentTile		// Optional
 
 // EquipmentTiles:
@@ -39,7 +39,7 @@ BonusHP: Attribute of EquipmentTile		// Optional
 // DragonSpear: Defeat Dragon
 // KnightShield: HP +3
 
-SuccessCard: Noun
+SuccessCard: Card
 	Used to track successful runs through the dungeon
 
 PlayerAid: Noun
@@ -50,13 +50,13 @@ MonsterDeck: Deck
 	// Deck of MonsterCards
 
 Inventory: Noun
-	// Collection of Equipment Cards
+	Collection of EquipmentTiles
 DungeonPile: Noun
-	// Collection of Monster Cards
+	Collection of MonsterCards
 HitPoints: Noun
-	// Player's current health tracker
+	Player's current health tracker
 
-// SECTION: Setup
+SECTION: Setup
 
 Setup: Verb
 	SetupAdventurer
@@ -80,7 +80,7 @@ SetupPlayerAid: Verb
 		Place PlayerAid in front of you with the white background side showing
 	// The PlayerAid is also a health tracker for the Player.
 
-// SECTION: Gameplay
+SECTION: Gameplay
 
 PlayGame: Verb
 	Repeat until Winner:
@@ -136,7 +136,7 @@ Failure: Verb
 	Otherwise:
 		You are eliminated from the game
 
-// SECTION: Endgame
+SECTION: Endgame Scoring
 
 Winner: Verb
 	The winner is the first Player with 2 SuccessCards or the last remaining Player
