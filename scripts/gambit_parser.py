@@ -326,6 +326,12 @@ class GambitParser:
 			else:
 				self.sectionCosts.append([currentSection, cost])
 	
+	def getVocabCost(self):
+		for s in self.sectionCosts:
+			if s[0] == "Vocabulary":
+				return s[1]
+		return 0
+
 	# ==========
 	# Process a Gambit file to calculate cost and generate HTML.
 	# ==========

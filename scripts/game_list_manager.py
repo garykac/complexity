@@ -20,6 +20,12 @@ class GameListManager:
 		for id in self.gameOrder:
 			yield (id, self.games[id])
 
+	def getVocab(self, id):
+		return self.games[id]['vocab']
+
+	def updateVocab(self, id, vocab):
+		self.games[id]['vocab'] = vocab
+	
 	def getScore(self, id):
 		return self.games[id]['score']
 
@@ -29,11 +35,12 @@ class GameListManager:
 	def load(self):
 		with open(self.listfile, 'r') as fp:
 			for line in fp:
-				(id, title, subtitle, parentId, score) = line.strip().split(';')
+				(id, title, subtitle, parentId, vocab, score) = line.strip().split(';')
 				info = {
 					'title': title,
 					'subtitle': subtitle,
 					'parent-id': parentId,
+					'vocab': int(vocab),
 					'score': int(score),
 				}
 				self.gameOrder.append(id)
@@ -43,6 +50,6 @@ class GameListManager:
 		with open(self.listfile, 'w') as fp:
 			for gameId in self.gameOrder:
 				d = self.games[gameId]
-				out = [gameId, d['title'], d['subtitle'], d['parent-id'], str(d['score'])]
+				out = [gameId, d['title'], d['subtitle'], d['parent-id'], str(d['vocab']), str(d['score'])]
 				fp.write(';'.join(out))
 				fp.write('\n')

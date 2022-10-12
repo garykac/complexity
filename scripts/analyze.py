@@ -42,12 +42,14 @@ class Analyzer:
 		for (gameId, d) in self.gameMgr.nextGame():
 			self.games[gameId] = d
 
-	def updateIndexList(self, id, newScore):
+	def updateGameList(self, id, newScore, newVocab):
 		if not id in self.games:
 			warning("Unable to update score for {0:s}".format(id))
 			return
 		oldScore = self.gameMgr.getScore(id)
-		if oldScore != newScore:
+		oldVocab = self.gameMgr.getVocab(id)
+		if oldScore != newScore or oldVocab != newVocab:
+			self.gameMgr.updateVocab(id, newVocab)
 			self.gameMgr.updateScore(id, newScore)
 			self.gameMgr.save()
 			
@@ -76,7 +78,8 @@ class Analyzer:
 		parser.process(SRC_DIR, filepath)
 
 		cost = parser.costTotal
-		self.updateIndexList(id, cost)
+		vocab = parser.getVocabCost()
+		self.updateGameList(id, cost, vocab)
 		if self.showCost:
 			print("   = {0:d}".format(cost))
 			for s in parser.sectionCosts:
