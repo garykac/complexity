@@ -35,12 +35,13 @@ class GameListManager:
 	def load(self):
 		with open(self.listfile, 'r') as fp:
 			for line in fp:
-				(id, title, subtitle, parentId, bggWeight, vocab, score) = line.strip().split(';')
+				(id, title, subtitle, parentId, exportCsv, bggWeight, vocab, score) = line.strip().split(';')
 				info = {
 					'title': title,
 					'subtitle': subtitle,
 					'parent-id': parentId,
-					'bgg-weight': float(vocab),
+					'export-csv': exportCsv,
+					'bgg-weight': bggWeight,  # Leave as string
 					'vocab': int(vocab),
 					'score': int(score),
 				}
@@ -51,6 +52,6 @@ class GameListManager:
 		with open(self.listfile, 'w') as fp:
 			for gameId in self.gameOrder:
 				d = self.games[gameId]
-				out = [gameId, d['title'], d['subtitle'], d['parent-id'], str(d['bgg-weight']), str(d['vocab']), str(d['score'])]
+				out = [gameId, d['title'], d['subtitle'], d['parent-id'], d['export-csv'], d['bgg-weight'], str(d['vocab']), str(d['score'])]
 				fp.write(';'.join(out))
 				fp.write('\n')

@@ -9,7 +9,8 @@ import sys
 from game_list_manager import GameListManager
 
 SRC_DIR = "../src"
-OUTPUT_FILE = "../index.html"
+HTML_OUTPUT_FILE = "../index.html"
+CSV_OUTPUT_FILE = "../data.csv"
 
 def error(msg):
 	print("ERROR: {0:s}".format(msg))
@@ -26,12 +27,27 @@ class IndexBuilder:
 		
 	def loadGames(self):
 		self.games = {}
+		self.gameData = {}
 		for (gameId, d) in self.gameMgr.nextGame():
+			self.games[gameId] = d
 			parentId = d['parent-id']
-			info = [d['title'], d['subtitle'], parentId, d['score']]
-			self.games[gameId] = info
 			if parentId:
 				self.children[parentId] = [ gameId ]
+
+	def writeCsvData(self):
+		with open(CSV_OUTPUT_FILE, 'w') as fp:
+			for id, d in self.games.items():
+				if d['export-csv'] == "y":
+					title = d['title']
+					if d['subtitle'] != "":
+						title += " " + d['subtitle']
+					bgg = str(d['bgg-weight'])
+					if bgg == "-":
+						bgg = ""
+					out = [title, bgg, str(d['vocab']), str(d['score'])]
+					fp.write(','.join(out))
+					fp.write('\n')
+
 
 	def htmlify(self, str):
 		str = str.replace("&", "&amp;")
@@ -46,32 +62,41 @@ class IndexBuilder:
 		self.writeListHeader(out)
 		
 		# Find games in range.
-		games = {}
-		for id, value in self.games.items():
-			(title, subtitle, parent, score) = value
+		gameGroups = {}
+		for id, info in self.games.items():
+			parent = info['parent-id']
+			score = info['score']
 			if parent:
 				continue
 			if score >= bucketMin and (not bucketMax or score <= bucketMax):
-				if not score in games:
-					games[score] = []
-				games[score].append(id)
+				if not score in gameGroups:
+					gameGroups[score] = []
+				gameGroups[score].append(id)
 				print("adding", id, "to bucket")
 		
 		# Write out games
-		for score in sorted(games.keys()):
-			for id in sorted(games[score]):
-				(title, subtitle, parent, s) = self.games[id]
+		for scoreGroup in sorted(gameGroups.keys()):
+			for id in sorted(gameGroups[scoreGroup]):
+				info = self.games[id]
+				title = info['title']
+				subtitle = info['subtitle']
+				parent = info['parent-id']
+				score = info['score']
 				self.writeListEntry(out, id, title, subtitle, score)
 				if id in self.children:
 					for idChild in self.children[id]:
-						(title, subtitle, parent, scoreChild) = self.games[idChild]
+						infoChild = self.games[idChild]
+						title = infoChild['title']
+						subtitle = infoChild['subtitle']
+						parent = infoChild['parent-id']
+						scoreChild = infoChild['score']
 						self.writeListEntry(out, idChild, title, subtitle, scoreChild, parentScore=score)
 
 		self.writeListFooter(out)
 
 	def writeHtml(self):
 		bucketStart = 1
-		with open(OUTPUT_FILE, 'w') as out:
+		with open(HTML_OUTPUT_FILE, 'w') as out:
 			self.writeHtmlHeader(out)
 			for bMax in self.buckets:
 				self.writeBucket(out, bucketStart, bMax)
@@ -125,6 +150,7 @@ class IndexBuilder:
 	def build(self):
 		self.loadGames()
 		self.writeHtml()
+		self.writeCsvData()
 
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
