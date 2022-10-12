@@ -6,8 +6,9 @@ import os
 import re
 import sys
 
+from game_list_manager import GameListManager
+
 SRC_DIR = "../src"
-LIST_FILE = "_list.txt"
 OUTPUT_FILE = "../index.html"
 
 def error(msg):
@@ -21,16 +22,16 @@ class IndexBuilder:
 		self.games = {}
 		self.children = {}
 		self.buckets = [29, 59, 99, 199, 299]
+		self.gameMgr = GameListManager()
 		
 	def loadGames(self):
-		listfile = os.path.join(SRC_DIR, LIST_FILE)
 		self.games = {}
-		with open(listfile, 'r') as file:
-			for line in file:
-				(id, title, subtitle, parentId, score) = line.strip().split(';')
-				self.games[id] = [title, subtitle, parentId, int(score)]
-				if parentId:
-					self.children[parentId] = [ id ]
+		for (gameId, d) in self.gameMgr.nextGame():
+			parentId = d['parent-id']
+			info = [d['title'], d['subtitle'], parentId, d['score']]
+			self.games[gameId] = info
+			if parentId:
+				self.children[parentId] = [ gameId ]
 
 	def htmlify(self, str):
 		str = str.replace("&", "&amp;")

@@ -6,6 +6,7 @@ import os
 import sys
 
 from gambit_html_exporter import GambitHtmlExporter
+from game_list_manager import GameListManager
 from gambit_parser import GambitParser
 
 SRC_DIR = "../src"
@@ -23,6 +24,7 @@ class Analyzer:
 		self.useWarnings = True
 
 		self.games = None
+		self.gameMgr = GameListManager()
 	
 	# ==========
 	# Game list
@@ -37,27 +39,17 @@ class Analyzer:
 		listfile = os.path.join(SRC_DIR, LIST_FILE)
 
 		self.games = {}
-		with open(listfile, 'r') as file:
-			for line in file:
-				(id, title, subtitle, parentId, score) = line.strip().split(';')
-				self.games[id] = [title, subtitle, parentId, score]
+		for (gameId, d) in self.gameMgr.nextGame():
+			self.games[gameId] = d
 
 	def updateIndexList(self, id, newScore):
 		if not id in self.games:
 			warning("Unable to update score for {0:s}".format(id))
 			return
-		(title, subtitle, parentId, score) = self.games[id]
-		if score != newScore:
-			# Update the score in the games dict.
-			self.games[id][3] = newScore
-
-			# Update _list.txt
-			listfile = os.path.join(SRC_DIR, LIST_FILE)
-			with open(listfile, 'w') as out:
-				for key, value in self.games.items():
-					(title, subtitle, parentId, score) = value					
-					out.write(';'.join([key, title, subtitle, str(parentId), str(score)]))
-					out.write('\n')
+		oldScore = self.games[id]['score']
+		if oldScore != newScore:
+			self.gameMgr.updateScore(id, newScore)
+			self.gameMgr.save()
 			
 	# ==========
 	# Process .GM files
