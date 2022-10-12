@@ -20,6 +20,9 @@ class GameListManager:
 		for id in self.gameOrder:
 			yield (id, self.games[id])
 
+	def getScore(self, id):
+		return self.games[id]['score']
+
 	def updateScore(self, id, score):
 		self.games[id]['score'] = score
 	

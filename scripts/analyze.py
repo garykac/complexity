@@ -46,7 +46,7 @@ class Analyzer:
 		if not id in self.games:
 			warning("Unable to update score for {0:s}".format(id))
 			return
-		oldScore = self.games[id]['score']
+		oldScore = self.gameMgr.getScore(id)
 		if oldScore != newScore:
 			self.gameMgr.updateScore(id, newScore)
 			self.gameMgr.save()
