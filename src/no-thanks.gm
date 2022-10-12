@@ -66,7 +66,8 @@ TakeCard: Verb
 AddCardToTableau: Verb
 	If the Card's Number is adjacent to a Card already in your Tableau:
 		Arrange adjacent Cards in an unbroken sequence
-	Add Card separated from other Cards in Tableau
+	Otherwise:
+		Add Card separated from other Cards in Tableau
 	
 DeclineCard: Verb
 	Place a Chip from your Pool onto the CurrentCard

@@ -101,10 +101,11 @@ SlideNextLineToBecomeCurrentLine: Verb
 SECTION: Gameplay
 
 PlayGame: Verb
-	For each Domino in the CurrentLine, starting at the top (lowest number):
-		The Player whose King is on the Domino must:
-			AddDominoToKingdom
-			PlaceKingOnDomino
+	Repeat until there is no CurrentLine:
+		For each Domino in the CurrentLine, starting at the top (lowest number):
+			The Player whose King is on the Domino must:
+				AddDominoToKingdom
+				PlaceKingOnDomino
 		SlideNextLineToBecomeCurrentLine
 		CreateNextLineOfDominoes
 

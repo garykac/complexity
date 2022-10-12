@@ -208,7 +208,7 @@ Militia: ActionCard, AttackCard
 		! Reaction
 
 Mine: ActionCard
-	Optional: Trash a TreasureCard
+	Optional: TrashFromHand a TreasureCard
 	If you do:
 		GainCard a TreasureCard costing up to 1 more than it
 

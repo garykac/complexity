@@ -10,7 +10,7 @@ dominion-first;Dominion;10 starter cards;;79
 dominion-base;Dominion;Rest of base set;dominion-first;41
 jaipur;Jaipur;;;47
 just-one;Just One;;;48
-kingdomino;Kingdomino;;;49
+kingdomino;Kingdomino;;;50
 leaving-earth;Leaving Earth;;;323
 mancala;Mancala;Kalah;;21
 no-thanks;No Thanks!;;;22

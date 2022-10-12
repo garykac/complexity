@@ -100,39 +100,38 @@ class Analyzer:
 		htmlExporter.writeHtml(outpath)
 
 def usage():
-	print("Usage: %s <options>" % sys.argv[0])
+	print("Usage: %s [<options>] [<game>]" % sys.argv[0])
 	print("where <options> are:")
-	print("  --game <id> [-g]")  # process a single game
 	print("  --verbose [-v]")  # verbose debug output
 	print("  --warnings [-w]")  # verbose debug output
+	print("if <game> is not specified, then all games will be processed")
 
 def main():
 	try:
 		opts, args = getopt.getopt(sys.argv[1:],
-			'g:vw',
-			['game=', 'verbose', 'warnings'])
+			'vw',
+			['verbose', 'warnings'])
 	except getopt.GetoptError:
 		usage()
 		exit()
 
-	gameId = None
 	options = {
 		'verbose': False,
 		'warnings': False,
 	}
-	
+
 	for opt, arg in opts:
-		if opt in ('-g', '--game'):
-			gameId = arg
 		if opt in ('-v', '--verbose'):
 			options['verbose'] = True
 		if opt in ('-w', '--warnings'):
 			options['warnings'] = True
+		
 
 	analyzer = Analyzer()
-	if gameId:
+	if args:
 		analyzer.showCost = True
-		analyzer.processOne(gameId, options)
+		for gameId in args:
+			analyzer.processOne(gameId, options)
 	else:
 		analyzer.processAll(options)
 
