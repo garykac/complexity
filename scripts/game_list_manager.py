@@ -41,7 +41,7 @@ class GameListManager:
 					'subtitle': subtitle,
 					'parent-id': parentId,
 					'export-csv': exportCsv,
-					'bgg-weight': bggWeight,  # Leave as string
+					'bgg-weight': bggWeight,  # Leave as string. May be '-'.
 					'vocab': int(vocab),
 					'score': int(score),
 				}
