@@ -2,6 +2,7 @@
 1830-noprivates;1830;w/o Privates;;n;-;77;281
 1830-starter;1830;Starter Game;;y;-;42;133
 automobiles;Automobiles;;;y;2.20;45;108
+catan;Catan;;;y;2.31;41;111
 checkers;Checkers;;;y;1.75;7;25
 crazy-eights-28;Crazy Eights;28-card;;n;1.07;8;26
 crazy-eights-52;Crazy Eights;52-card;;y;1.07;10;39

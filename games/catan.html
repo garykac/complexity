@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Catan</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-column {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Catan</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">41</td><td class="summary-column">36.9%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">13</td><td class="summary-column">11.7%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">57</td><td class="summary-column">51.4%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>111</b></td><td class="summary-column"></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=5>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">The game formerly known as The Settlers of Catan</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Year: 1995</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Designer: Klaus Teuber</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Players: 2-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Time: 60-120m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Player, Rulebook</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Gameboard, Token, Piece, ChoosePlayerComponents</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Card, Deck, Hand</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">D6</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Map">Map</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckVictoryPoints">CheckVictoryPoints</a><a href="#SetupSpecialCards">SetupSpecialCards</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HexTile">HexTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateRobber">ActivateRobber</a><a href="#BuildMap">BuildMap</a><a href="#ClaimInitialResourceCards">ClaimInitialResourceCards</a><a href="#ClaimResource">ClaimResource</a><a href="#DesertTile">DesertTile</a><a href="#FieldsTile">FieldsTile</a><a href="#ForestTile">ForestTile</a><a href="#HillsTile">HillsTile</a><a href="#MountainsTile">MountainsTile</a><a href="#PastureTile">PastureTile</a><a href="#Path">Path</a><a href="#ProduceResources">ProduceResources</a><a href="#StealResource">StealResource</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HillsTile">HillsTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PastureTile">PastureTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="MountainsTile">MountainsTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="FieldsTile">FieldsTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ForestTile">ForestTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DesertTile">DesertTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Path">Path</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Intersection">Intersection</a><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>One of the 6 edges that mark the outer boundary of a <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Intersection">Intersection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildSettlement">BuildSettlement</a><a href="#ProduceResources">ProduceResources</a><a href="#Setup">Setup</a><a href="#StealResource">StealResource</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Where 2 <a class="keyword" href="#Path">Paths</a> meet in a point</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SeaFramePiece">SeaFramePiece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildMap">BuildMap</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Note: Harbor pieces are not used for the base game</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="NumberToken">NumberToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildMap">BuildMap</a><a href="#ProduceResources">ProduceResources</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResourceCard">ResourceCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateRobber">ActivateRobber</a><a href="#BrickCard">BrickCard</a><a href="#ClaimResource">ClaimResource</a><a href="#DiscardResource">DiscardResource</a><a href="#DomesticTrade">DomesticTrade</a><a href="#DrawResource">DrawResource</a><a href="#GenericHarbor">GenericHarbor</a><a href="#GrainCard">GrainCard</a><a href="#HandleMonopoly">HandleMonopoly</a><a href="#HandleYearOfPlenty">HandleYearOfPlenty</a><a href="#LumberCard">LumberCard</a><a href="#MaritimeTrade">MaritimeTrade</a><a href="#OreCard">OreCard</a><a href="#ResourcePile">ResourcePile</a><a href="#SetupBank">SetupBank</a><a href="#StealResource">StealResource</a><a href="#WoolCard">WoolCard</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BrickCard">BrickCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRoad">BuildRoad</a><a href="#BuildSettlement">BuildSettlement</a><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#ResourceCard">ResourceCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GrainCard">GrainCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#BuildSettlement">BuildSettlement</a><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#ResourceCard">ResourceCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="LumberCard">LumberCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRoad">BuildRoad</a><a href="#BuildSettlement">BuildSettlement</a><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#ResourceCard">ResourceCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="OreCard">OreCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#ResourceCard">ResourceCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="WoolCard">WoolCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildSettlement">BuildSettlement</a><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#ClaimResource">ClaimResource</a></div></div>: <a class="keyword" href="#ResourceCard">ResourceCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResourcePile">ResourcePile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Bank">Bank</a><a href="#DiscardResource">DiscardResource</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A stack of <a class="keyword" href="#ResourceCard">ResourceCards</a> of the same type</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Bank">Bank</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a><a href="#DiscardHalfOfHand">DiscardHalfOfHand</a><a href="#DiscardResource">DiscardResource</a><a href="#SetupBank">SetupBank</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Set of all <a class="keyword" href="#ResourcePile">ResourcePiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DevelopmentCard">DevelopmentCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#CannotPlayNewlyPurchasedDevelopmentCards">CannotPlayNewlyPurchasedDevelopmentCards</a><a href="#DevelopmentDeck">DevelopmentDeck</a><a href="#KnightCard">KnightCard</a><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a><a href="#ProgressCard">ProgressCard</a><a href="#SetupDevelopmentCards">SetupDevelopmentCards</a><a href="#VictoryPointCard">VictoryPointCard</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="VictoryPointCard">VictoryPointCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckVictoryPoints">CheckVictoryPoints</a><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a></div></div>: <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="KnightCard">KnightCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a><a href="#PlayKnightCard">PlayKnightCard</a></div></div>: <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ProgressCard">ProgressCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MonopolyCard">MonopolyCard</a><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a><a href="#PlayProgressCard">PlayProgressCard</a><a href="#RoadBuildingCard">RoadBuildingCard</a><a href="#YearOfPlentyCard">YearOfPlentyCard</a></div></div>: <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="MonopolyCard">MonopolyCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayProgressCard">PlayProgressCard</a></div></div>: <a class="keyword" href="#ProgressCard">ProgressCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RoadBuildingCard">RoadBuildingCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayProgressCard">PlayProgressCard</a></div></div>: <a class="keyword" href="#ProgressCard">ProgressCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="YearOfPlentyCard">YearOfPlentyCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayProgressCard">PlayProgressCard</a></div></div>: <a class="keyword" href="#ProgressCard">ProgressCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DevelopmentDeck">DevelopmentDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#SetupDevelopmentCards">SetupDevelopmentCards</a></div></div>: <abbr title="Imported term">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">Deck</abbr> of <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SpecialCard">SpecialCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckVictoryPoints">CheckVictoryPoints</a><a href="#LargestArmyCard">LargestArmyCard</a><a href="#LongestRoadCard">LongestRoadCard</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="LongestRoadCard">LongestRoadCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a><a href="#SetupSpecialCards">SetupSpecialCards</a></div></div>: <a class="keyword" href="#SpecialCard">SpecialCard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="LargestArmyCard">LargestArmyCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayKnightCard">PlayKnightCard</a><a href="#SetupSpecialCards">SetupSpecialCards</a></div></div>: <a class="keyword" href="#SpecialCard">SpecialCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="City">City</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#CheckVictoryPoints">CheckVictoryPoints</a><a href="#MaritimeTrade">MaritimeTrade</a><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a><a href="#ProduceResources">ProduceResources</a><a href="#Setup">Setup</a><a href="#StealResource">StealResource</a><a href="#Supply">Supply</a></div></div>: <abbr title="Imported term">Piece</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Settlement">Settlement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#BuildSettlement">BuildSettlement</a><a href="#CheckVictoryPoints">CheckVictoryPoints</a><a href="#ClaimInitialResourceCards">ClaimInitialResourceCards</a><a href="#MaritimeTrade">MaritimeTrade</a><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a><a href="#ProduceResources">ProduceResources</a><a href="#Setup">Setup</a><a href="#StealResource">StealResource</a><a href="#Supply">Supply</a></div></div>: <abbr title="Imported term">Piece</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Road">Road</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildSettlement">BuildSettlement</a><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a><a href="#Setup">Setup</a><a href="#Supply">Supply</a></div></div>: <abbr title="Imported term">Piece</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Supply">Supply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#BuildSettlement">BuildSettlement</a><a href="#LimitedByYourSupply">LimitedByYourSupply</a><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <abbr title="Imported term">Player</abbr>'s collection of <a class="keyword" href="#City">Cities</a>, <a class="keyword" href="#Settlement">Settlements</a> and <a class="keyword" href="#Road">Roads</a>.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Harbor">Harbor</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GenericHarbor">GenericHarbor</a><a href="#MaritimeTrade">MaritimeTrade</a><a href="#SpecialHarbor">SpecialHarbor</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GenericHarbor">GenericHarbor</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MaritimeTrade">MaritimeTrade</a></div></div>: <a class="keyword" href="#Harbor">Harbor</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <a class="keyword" href="#Harbor">Harbor</a> that allows you to perform <a class="keyword" href="#MaritimeTrade">MaritimeTrade</a> using only 3 matching <a class="keyword" href="#ResourceCard">ResourceCards</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SpecialHarbor">SpecialHarbor</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MaritimeTrade">MaritimeTrade</a></div></div>: <a class="keyword" href="#Harbor">Harbor</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Dice">Dice</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RollResourceProduction">RollResourceProduction</a></div></div>: <abbr title="Imported term">D6</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Robber">Robber</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateRobber">ActivateRobber</a><a href="#ProduceResources">ProduceResources</a><a href="#StealResource">StealResource</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="VictoryPoint">VictoryPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckVictoryPoints">CheckVictoryPoints</a><a href="#PlayGame">PlayGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#BuildMap">BuildMap</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupBank">SetupBank</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupDevelopmentCards">SetupDevelopmentCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupSpecialCards">SetupSpecialCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Add the following <abbr title="Imported term">Pieces</abbr> into your <a class="keyword" href="#Supply">Supply</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 5 <a class="keyword" href="#Settlement">Settlements</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 4 <a class="keyword" href="#City">Cities</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 15 <a class="keyword" href="#Road">Roads</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place 2 <a class="keyword" href="#Settlement">Settlements</a> on <a class="keyword" href="#Intersection">Intersections</a> as shown in the "Starting Map for Beginners"</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place 2 <a class="keyword" href="#Road">Roads</a> on <a class="keyword" href="#Path">Paths</a> as shown in the "Starting Map for Beginners"</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ClaimInitialResourceCards">ClaimInitialResourceCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BuildMap">BuildMap</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">This is the basic setup. Advanced setup is not covered here.</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Connect the <a class="keyword" href="#SeaFramePiece">SeaFramePieces</a> together by matching the numbers on each end</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Based on the "Starting Map for Beginners" figure in the <abbr title="Imported term">Rulebook</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Arrange the 19 <a class="keyword" href="#HexTile">HexTiles</a> within the sea frame to match the figure</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place the 18 <a class="keyword" href="#NumberToken">NumberTokens</a> on the <a class="keyword" href="#HexTile">HexTiles</a> as shown in the figure</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupBank">SetupBank</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Arrange <a class="keyword" href="#ResourceCard">ResourceCards</a> into 5 piles by type to create the <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupDevelopmentCards">SetupDevelopmentCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Shuffle the <a class="keyword" href="#DevelopmentCard">DevelopmentCards</a> to create the <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupSpecialCards">SetupSpecialCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place <a class="keyword" href="#LongestRoadCard">LongestRoadCard</a> and <a class="keyword" href="#LargestArmyCard">LargestArmyCard</a> face up by side of <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ClaimInitialResourceCards">ClaimInitialResourceCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each <a class="keyword" href="#HexTile">HexTile</a> that surrounds your <a class="keyword" href="#Settlement">Settlement</a> that is marked with a white star in the "Starting Map for Beginners" :</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ClaimResource">ClaimResource</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ClaimResource">ClaimResource</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimInitialResourceCards">ClaimInitialResourceCards</a><a href="#ProduceResources">ProduceResources</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw a <a class="keyword" href="#ResourceCard">ResourceCard</a> into your <abbr title="Imported term">Hand</abbr> from the <a class="keyword" href="#Bank">Bank</a> based on the <a class="keyword" href="#HexTile">HexTile</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#DesertTile">DesertTile</a>: &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Nothing</span></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#FieldsTile">FieldsTile</a>: <a class="keyword" href="#DrawResource">DrawResource</a>&lt;<a class="keyword" href="#GrainCard">GrainCard</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ForestTile">ForestTile</a>: <a class="keyword" href="#DrawResource">DrawResource</a>&lt;<a class="keyword" href="#LumberCard">LumberCard</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#HillsTile">HillsTile</a>: <a class="keyword" href="#DrawResource">DrawResource</a>&lt;<a class="keyword" href="#BrickCard">BrickCard</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MountainsTile">MountainsTile</a>: <a class="keyword" href="#DrawResource">DrawResource</a>&lt;<a class="keyword" href="#OreCard">OreCard</a>&gt;</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PastureTile">PastureTile</a>: <a class="keyword" href="#DrawResource">DrawResource</a>&lt;<a class="keyword" href="#WoolCard">WoolCard</a>&gt;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DrawResource">DrawResource&lt;ResourceCard&gt;</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimResource">ClaimResource</a><a href="#HandleYearOfPlenty">HandleYearOfPlenty</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw the <a class="keyword" href="#ResourceCard">ResourceCard</a> into your <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until a <abbr title="Imported term">Player</abbr> reveals they have 10 or more <a class="keyword" href="#VictoryPoint">VictoryPoints</a> on their turn:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#RollResourceProduction">RollResourceProduction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#TradeAndBuild">TradeAndBuild</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#CheckVictoryPoints">CheckVictoryPoints</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RollResourceProduction">RollResourceProduction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Roll the 2 <a class="keyword" href="#Dice">Dice</a> and add the values together</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Based on the result:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>7: <a class="keyword" href="#ActivateRobber">ActivateRobber</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>2-6,8-12: <a class="keyword" href="#ProduceResources">ProduceResources</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ActivateRobber">ActivateRobber</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayKnightCard">PlayKnightCard</a><a href="#RollResourceProduction">RollResourceProduction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If you have more than 7 <a class="keyword" href="#ResourceCard">ResourceCards</a> in your <abbr title="Imported term">Hand</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DiscardHalfOfHand">DiscardHalfOfHand</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move the <a class="keyword" href="#Robber">Robber</a> to a new <a class="keyword" href="#HexTile">HexTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#StealResource">StealResource</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="StealResource">StealResource</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateRobber">ActivateRobber</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Choose a <abbr title="Imported term">Player</abbr> with a <a class="keyword" href="#Settlement">Settlement</a> or <a class="keyword" href="#City">City</a> on an <a class="keyword" href="#Intersection">Intersection</a> of the <a class="keyword" href="#HexTile">HexTile</a> with the <a class="keyword" href="#Robber">Robber</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Take a <a class="keyword" href="#ResourceCard">ResourceCard</a> at random from their <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DiscardHalfOfHand">DiscardHalfOfHand</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActivateRobber">ActivateRobber</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Return half (rounded down) of the cards in your <abbr title="Imported term">Hand</abbr> to the <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ProduceResources">ProduceResources</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RollResourceProduction">RollResourceProduction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each <a class="keyword" href="#HexTile">HexTile</a> with a <a class="keyword" href="#NumberToken">NumberToken</a> that matches the rolled result:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>If you have a <a class="keyword" href="#Settlement">Settlement</a> on an <a class="keyword" href="#Intersection">Intersection</a> of this <a class="keyword" href="#HexTile">HexTile</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ClaimResource">ClaimResource</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>If you have a <a class="keyword" href="#City">City</a> on an <a class="keyword" href="#Intersection">Intersection</a> of this <a class="keyword" href="#HexTile">HexTile</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ClaimResource">ClaimResource</a> x2</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; <abbr title="Imported term">Players</abbr> may not claim resources from the <a class="keyword" href="#HexTile">HexTile</a> with the <a class="keyword" href="#Robber">Robber</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TradeAndBuild">TradeAndBuild</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Perform the following actions as many times as you wish:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#DomesticTrade">DomesticTrade</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MaritimeTrade">MaritimeTrade</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#BuildRoad">BuildRoad</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#BuildSettlement">BuildSettlement</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#BuildCity">BuildCity</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#BuyDevelopmentCard">BuyDevelopmentCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Once during your turn, you may <a class="keyword" href="#PlayDevelopmentCard">PlayDevelopmentCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DomesticTrade">DomesticTrade</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>You may trade <a class="keyword" href="#ResourceCard">ResourceCards</a> with any other <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=3><span class="comment">Players may propose trades, and then make counter offers</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; All trades made during your turn must include you - other <abbr title="Imported term">Players</abbr> may not trade amongst themselves during this time</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="MaritimeTrade">MaritimeTrade</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GenericHarbor">GenericHarbor</a><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Select 4 identical <a class="keyword" href="#ResourceCard">ResourceCards</a> from your <abbr title="Imported term">Hand</abbr> to discard</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DiscardResource">DiscardResource</a> x4</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw 1 <a class="keyword" href="#ResourceCard">ResourceCard</a> of your choice into your <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You only need to discard 3 matching <a class="keyword" href="#ResourceCard">ResourceCards</a> if you have a <a class="keyword" href="#Settlement">Settlement</a> or <a class="keyword" href="#City">City</a> on a <a class="keyword" href="#GenericHarbor">GenericHarbor</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You only need to discard 2 <a class="keyword" href="#ResourceCard">ResourceCards</a> if you have a <a class="keyword" href="#Settlement">Settlement</a> or <a class="keyword" href="#City">City</a> on a <a class="keyword" href="#SpecialHarbor">SpecialHarbor</a> and the <a class="keyword" href="#ResourceCard">ResourceCards</a> match the <a class="keyword" href="#Harbor">Harbor</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BuildRoad">BuildRoad</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Select a <a class="keyword" href="#BrickCard">BrickCard</a> and <a class="keyword" href="#LumberCard">LumberCard</a> from your <abbr title="Imported term">Hand</abbr> to discard</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DiscardResource">DiscardResource</a> x2</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PlaceRoadOnMap">PlaceRoadOnMap</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlaceRoadOnMap">PlaceRoadOnMap</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildRoad">BuildRoad</a><a href="#PlayProgressCard">PlayProgressCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place a <a class="keyword" href="#Road">Road</a> token from your <a class="keyword" href="#Supply">Supply</a> onto an empty <a class="keyword" href="#Path">Path</a> that connects to one of your existing <a class="keyword" href="#Road">Roads</a>, <a class="keyword" href="#Settlement">Settlements</a> or <a class="keyword" href="#City">Cities</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you just created a continuous road of at least 5 <a class="keyword" href="#Road">Road</a> pieces connected end to end:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If this continuous road is longer than that of all other <abbr title="Imported term">Players</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Take the <a class="keyword" href="#LongestRoadCard">LongestRoadCard</a> and place it in front of you</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#LimitedByYourSupply">LimitedByYourSupply</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; Do not count forks when calculating the continuous road</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BuildSettlement">BuildSettlement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Select a <a class="keyword" href="#BrickCard">BrickCard</a>, <a class="keyword" href="#LumberCard">LumberCard</a>, <a class="keyword" href="#WoolCard">WoolCard</a> and <a class="keyword" href="#GrainCard">GrainCard</a> from your <abbr title="Imported term">Hand</abbr> to discard</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DiscardResource">DiscardResource</a> x4</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place one of your <a class="keyword" href="#Settlement">Settlement</a> tokens (from your <a class="keyword" href="#Supply">Supply</a>) on an empty <a class="keyword" href="#Intersection">Intersection</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#Settlement">Settlements</a> must connect to at least one of your <a class="keyword" href="#Road">Roads</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#Settlement">Settlements</a> may not be placed adjacent to any existing <a class="keyword" href="#Settlement">Settlement</a> (even yours)</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#LimitedByYourSupply">LimitedByYourSupply</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BuildCity">BuildCity</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Select 3 <a class="keyword" href="#OreCard">OreCards</a> and 2 <a class="keyword" href="#GrainCard">GrainCards</a> from your <abbr title="Imported term">Hand</abbr> to discard</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DiscardResource">DiscardResource</a> x5</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Replace one of your <a class="keyword" href="#Settlement">Settlements</a> on the map with a <a class="keyword" href="#City">City</a> token from your <a class="keyword" href="#Supply">Supply</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add the removed <a class="keyword" href="#Settlement">Settlement</a> token back into your <a class="keyword" href="#Supply">Supply</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#LimitedByYourSupply">LimitedByYourSupply</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="LimitedByYourSupply">LimitedByYourSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#BuildSettlement">BuildSettlement</a><a href="#PlaceRoadOnMap">PlaceRoadOnMap</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>You may only perform the action if you have the required piece in your <a class="keyword" href="#Supply">Supply</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BuyDevelopmentCard">BuyDevelopmentCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Select an <a class="keyword" href="#OreCard">OreCard</a>, <a class="keyword" href="#WoolCard">WoolCard</a> and a <a class="keyword" href="#GrainCard">GrainCard</a> from your <abbr title="Imported term">Hand</abbr> to discard</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DiscardResource">DiscardResource</a> x3</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw a <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> from the <a class="keyword" href="#DevelopmentDeck">DevelopmentDeck</a> into your <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#CannotPlayNewlyPurchasedDevelopmentCards">CannotPlayNewlyPurchasedDevelopmentCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayDevelopmentCard">PlayDevelopmentCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#TradeAndBuild">TradeAndBuild</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Based on the <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> you select from your <abbr title="Imported term">Hand</abbr> to play:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#KnightCard">KnightCard</a>: <a class="keyword" href="#PlayKnightCard">PlayKnightCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ProgressCard">ProgressCard</a>: <a class="keyword" href="#PlayProgressCard">PlayProgressCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#CannotPlayNewlyPurchasedDevelopmentCards">CannotPlayNewlyPurchasedDevelopmentCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You cannot play <a class="keyword" href="#VictoryPointCard">VictoryPointCards</a> unless you are revealing them to win the game</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CannotPlayNewlyPurchasedDevelopmentCards">CannotPlayNewlyPurchasedDevelopmentCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>You may not play a <a class="keyword" href="#DevelopmentCard">DevelopmentCard</a> that you purchased this turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayKnightCard">PlayKnightCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ActivateRobber">ActivateRobber</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place <a class="keyword" href="#KnightCard">KnightCard</a> face up in front of you</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you have at least 3 <a class="keyword" href="#KnightCard">KnightCards</a> in front of you:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If you have more <a class="keyword" href="#KnightCard">KnightCards</a> in front you than all other <abbr title="Imported term">Players</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Take the <a class="keyword" href="#LargestArmyCard">LargestArmyCard</a> and place it in front of you</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayProgressCard">PlayProgressCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayDevelopmentCard">PlayDevelopmentCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Based on the <a class="keyword" href="#ProgressCard">ProgressCard</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MonopolyCard">MonopolyCard</a>: <a class="keyword" href="#HandleMonopoly">HandleMonopoly</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#RoadBuildingCard">RoadBuildingCard</a>: <a class="keyword" href="#PlaceRoadOnMap">PlaceRoadOnMap</a> x2</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#YearOfPlentyCard">YearOfPlentyCard</a>: <a class="keyword" href="#HandleYearOfPlenty">HandleYearOfPlenty</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HandleMonopoly">HandleMonopoly</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayProgressCard">PlayProgressCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Announce 1 type of <a class="keyword" href="#ResourceCard">ResourceCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each other <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>They must give you all of the matching <a class="keyword" href="#ResourceCard">ResourceCards</a> from their <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HandleYearOfPlenty">HandleYearOfPlenty</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayProgressCard">PlayProgressCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Choose any 2 <a class="keyword" href="#ResourceCard">ResourceCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DrawResource">DrawResource</a> x2</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">The chosen ResourceCards may the same or different</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DiscardResource">DiscardResource</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildCity">BuildCity</a><a href="#BuildRoad">BuildRoad</a><a href="#BuildSettlement">BuildSettlement</a><a href="#BuyDevelopmentCard">BuyDevelopmentCard</a><a href="#MaritimeTrade">MaritimeTrade</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Return the <a class="keyword" href="#ResourceCard">ResourceCard</a> to the matching <a class="keyword" href="#ResourcePile">ResourcePile</a> in the <a class="keyword" href="#Bank">Bank</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CheckVictoryPoints">CheckVictoryPoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Count your total <a class="keyword" href="#VictoryPoint">VictoryPoints</a> by adding:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>1 <a class="keyword" href="#VictoryPoint">VictoryPoint</a> for each <a class="keyword" href="#Settlement">Settlement</a> you have on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>2 <a class="keyword" href="#VictoryPoint">VictoryPoints</a> for each <a class="keyword" href="#City">City</a> you have on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>2 <a class="keyword" href="#VictoryPoint">VictoryPoints</a> for each <a class="keyword" href="#SpecialCard">SpecialCard</a> that you own</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#VictoryPoint">VictoryPoints</a> from any <a class="keyword" href="#VictoryPointCard">VictoryPointCards</a> in your <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you have 10 or more <a class="keyword" href="#VictoryPoint">VictoryPoints</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Game ends and you win</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

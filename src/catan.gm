@@ -1,0 +1,278 @@
+NAME: Catan
+// The game formerly known as The Settlers of Catan
+
+// Year: 1995
+// Designer: Klaus Teuber
+// Players: 2-4
+// Time: 60-120m
+
+SECTION: Assumptions
+
+IMPORT: Player, Rulebook
+IMPORT: NextPlayerClockwise
+IMPORT: Gameboard, Token, Piece, ChoosePlayerComponents
+IMPORT: Card, Deck, Hand
+IMPORT: D6
+
+SECTION: Vocabulary
+
+Map: Gameboard
+	
+HexTile: Noun
+HillsTile: HexTile
+PastureTile: HexTile
+MountainsTile: HexTile
+FieldsTile: HexTile
+ForestTile: HexTile
+DesertTile: HexTile
+
+Path: Noun
+	One of the 6 edges that mark the outer boundary of a HexTile
+Intersection: Noun
+	Where 2 Paths meet in a point
+	
+SeaFramePiece: Noun
+// Note: Harbor pieces are not used for the base game
+
+NumberToken: Token
+
+ResourceCard: Card
+BrickCard: ResourceCard
+GrainCard: ResourceCard
+LumberCard: ResourceCard
+OreCard: ResourceCard
+WoolCard: ResourceCard
+
+ResourcePile: Noun
+	A stack of ResourceCards of the same type
+Bank: Noun
+	Set of all ResourcePiles
+	
+DevelopmentCard: Card
+
+VictoryPointCard: DevelopmentCard
+KnightCard: DevelopmentCard
+
+ProgressCard: DevelopmentCard
+MonopolyCard: ProgressCard
+RoadBuildingCard: ProgressCard
+YearOfPlentyCard: ProgressCard
+
+DevelopmentDeck: Deck
+	Deck of DevelopmentCards
+
+SpecialCard: Card
+LongestRoadCard: SpecialCard
+LargestArmyCard: SpecialCard
+
+City: Piece
+Settlement: Piece
+Road: Piece
+
+Supply: Noun
+	A Player's collection of Cities, Settlements and Roads.
+
+Harbor: Noun
+GenericHarbor: Harbor
+	A Harbor that allows you to perform MaritimeTrade using only 3 matching ResourceCards
+SpecialHarbor: Harbor
+
+Dice: D6
+
+Robber: Token
+
+VictoryPoint: Noun
+
+SECTION: Setup
+
+Setup: Verb
+	BuildMap
+	SetupBank
+	SetupDevelopmentCards
+	SetupSpecialCards
+	For each Player:
+		ChoosePlayerComponents
+		Add the following Pieces into your Supply:
+			* 5 Settlements
+			* 4 Cities
+			* 15 Roads
+		Place 2 Settlements on Intersections as shown in the "Starting Map for Beginners"
+		Place 2 Roads on Paths as shown in the "Starting Map for Beginners"
+		ClaimInitialResourceCards
+
+BuildMap: Verb
+	// This is the basic setup. Advanced setup is not covered here.
+	Connect the SeaFramePieces together by matching the numbers on each end
+	Based on the "Starting Map for Beginners" figure in the Rulebook:
+		Arrange the 19 HexTiles within the sea frame to match the figure
+		Place the 18 NumberTokens on the HexTiles as shown in the figure
+
+SetupBank: Verb
+	Arrange ResourceCards into 5 piles by type to create the Bank
+
+SetupDevelopmentCards: Verb
+	Shuffle the DevelopmentCards to create the DevelopmentDeck
+
+SetupSpecialCards: Verb
+	Place LongestRoadCard and LargestArmyCard face up by side of Map
+
+ClaimInitialResourceCards: Verb
+	For each HexTile that surrounds your Settlement that is marked with a white star in the "Starting Map for Beginners":
+		ClaimResource
+
+ClaimResource: Verb
+	Draw a ResourceCard into your Hand from the Bank based on the HexTile:
+		DesertTile: // Nothing
+		FieldsTile: DrawResource<GrainCard>
+		ForestTile: DrawResource<LumberCard>
+		HillsTile: DrawResource<BrickCard>
+		MountainsTile: DrawResource<OreCard>
+		PastureTile: DrawResource<WoolCard>
+		
+DrawResource<ResourceCard>: Verb
+	Draw the ResourceCard into your Hand
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until a Player reveals they have 10 or more VictoryPoints on their turn:
+		PlayerTurn
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	RollResourceProduction
+	TradeAndBuild
+	CheckVictoryPoints
+
+RollResourceProduction: Verb
+	Roll the 2 Dice and add the values together
+	Based on the result:
+		7: ActivateRobber
+		2-6,8-12: ProduceResources
+
+ActivateRobber: Verb
+	For each Player:
+		If you have more than 7 ResourceCards in your Hand:
+			DiscardHalfOfHand
+	Move the Robber to a new HexTile
+	StealResource
+
+StealResource: Verb
+	Choose a Player with a Settlement or City on an Intersection of the HexTile with the Robber
+	Take a ResourceCard at random from their Hand
+
+DiscardHalfOfHand: Verb
+	Return half (rounded down) of the cards in your Hand to the Bank
+
+ProduceResources: Verb
+	For each HexTile with a NumberToken that matches the rolled result:
+		For each Player:
+			If you have a Settlement on an Intersection of this HexTile:
+				ClaimResource
+			If you have a City on an Intersection of this HexTile:
+				ClaimResource x2
+	! Players may not claim resources from the HexTile with the Robber
+
+TradeAndBuild: Verb
+	Perform the following actions as many times as you wish:
+		DomesticTrade
+		MaritimeTrade
+		BuildRoad
+		BuildSettlement
+		BuildCity
+		BuyDevelopmentCard
+	Once during your turn, you may PlayDevelopmentCard
+
+DomesticTrade: Verb
+	You may trade ResourceCards with any other Player
+		// Players may propose trades, and then make counter offers
+	! All trades made during your turn must include you - other Players may not trade amongst themselves during this time
+
+MaritimeTrade: Verb
+	Select 4 identical ResourceCards from your Hand to discard
+	DiscardResource x4
+	Draw 1 ResourceCard of your choice into your Hand
+	! You only need to discard 3 matching ResourceCards if you have a Settlement or City on a GenericHarbor
+	! You only need to discard 2 ResourceCards if you have a Settlement or City on a SpecialHarbor and the ResourceCards match the Harbor
+
+BuildRoad: Verb
+	Select a BrickCard and LumberCard from your Hand to discard
+	DiscardResource x2
+	PlaceRoadOnMap
+
+PlaceRoadOnMap: Verb
+	Place a Road token from your Supply onto an empty Path that connects to one of your existing Roads, Settlements or Cities
+	If you just created a continuous road of at least 5 Road pieces connected end to end:
+		If this continuous road is longer than that of all other Players:
+			Take the LongestRoadCard and place it in front of you
+	! LimitedByYourSupply
+	! Do not count forks when calculating the continuous road
+
+BuildSettlement: Verb
+	Select a BrickCard, LumberCard, WoolCard and GrainCard from your Hand to discard
+	DiscardResource x4
+	Place one of your Settlement tokens (from your Supply) on an empty Intersection
+	! Settlements must connect to at least one of your Roads
+	! Settlements may not be placed adjacent to any existing Settlement (even yours)
+	! LimitedByYourSupply
+
+BuildCity: Verb
+	Select 3 OreCards and 2 GrainCards from your Hand to discard
+	DiscardResource x5
+	Replace one of your Settlements on the map with a City token from your Supply
+	Add the removed Settlement token back into your Supply
+	! LimitedByYourSupply
+
+LimitedByYourSupply: Constraint
+	You may only perform the action if you have the required piece in your Supply
+
+BuyDevelopmentCard: Verb
+	Select an OreCard, WoolCard and a GrainCard from your Hand to discard
+	DiscardResource x3
+	Draw a DevelopmentCard from the DevelopmentDeck into your Hand
+	! CannotPlayNewlyPurchasedDevelopmentCards
+
+PlayDevelopmentCard: Verb
+	Based on the DevelopmentCard you select from your Hand to play:
+		KnightCard: PlayKnightCard
+		ProgressCard: PlayProgressCard
+	! CannotPlayNewlyPurchasedDevelopmentCards
+	! You cannot play VictoryPointCards unless you are revealing them to win the game
+
+CannotPlayNewlyPurchasedDevelopmentCards: Constraint
+	You may not play a DevelopmentCard that you purchased this turn
+
+PlayKnightCard: Verb
+	ActivateRobber
+	Place KnightCard face up in front of you
+	If you have at least 3 KnightCards in front of you:
+		If you have more KnightCards in front you than all other Players:
+			Take the LargestArmyCard and place it in front of you
+
+PlayProgressCard: Verb
+	Based on the ProgressCard:
+		MonopolyCard: HandleMonopoly
+		RoadBuildingCard: PlaceRoadOnMap x2
+		YearOfPlentyCard: HandleYearOfPlenty
+
+HandleMonopoly: Verb
+	Announce 1 type of ResourceCard
+	For each other Player:
+		They must give you all of the matching ResourceCards from their Hand
+
+HandleYearOfPlenty: Verb
+	Choose any 2 ResourceCards
+	DrawResource x2
+	// The chosen ResourceCards may the same or different
+
+DiscardResource: Verb
+	Return the ResourceCard to the matching ResourcePile in the Bank
+
+CheckVictoryPoints: Verb
+	Count your total VictoryPoints by adding:
+		1 VictoryPoint for each Settlement you have on the Map
+		2 VictoryPoints for each City you have on the Map
+		2 VictoryPoints for each SpecialCard that you own
+		VictoryPoints from any VictoryPointCards in your Hand
+	If you have 10 or more VictoryPoints:
+		Game ends and you win
