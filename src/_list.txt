@@ -1,3 +1,4 @@
+# gameid ; title ; [subtitle] ; [parent] ; export-csv ; bgg-weight ; vocab ; complexity
 1830;1830;;;y;4.16;88;346
 1830-noprivates;1830;w/o Privates;;n;-;77;281
 1830-starter;1830;Starter Game;;y;-;42;133
@@ -9,6 +10,7 @@ crazy-eights-52;Crazy Eights;52-card;;y;1.07;10;39
 deep-sea-adventure;Deep Sea Adventure;;;y;1.17;23;63
 dominion-first;Dominion;10 starter cards;;y;2.35;24;79
 dominion-base;Dominion;Rest of base set;dominion-first;n;-;2;41
+# innovation;Innovation;;;y;2.76;0;0
 jaipur;Jaipur;;;y;1.48;15;47
 just-one;Just One;;;y;1.05;10;48
 kingdomino;Kingdomino;;;y;1.21;15;50
@@ -18,6 +20,7 @@ no-thanks;No Thanks!;;;y;1.14;5;22
 regicide;Regicide;;;y;1.91;13;74
 risk;Risk;;;y;2.07;16;67
 roads-and-boats;Roads & Boats;;;y;4.19;104;312
+# scout;Scout;;;y;1.31;0;0
 shinjuku;Shinjuku;;;y;2.0;33;106
 splendor;Splendor;;;y;1.79;16;61
 tic-tac-toe;Tic Tac Toe;;;y;1.19;3;10
