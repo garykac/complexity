@@ -1,0 +1,275 @@
+NAME: Shinjuku
+
+// Year: 2019
+// Designer: Gary Kacmarcik
+// Players: 2-4
+// Time: 60-75m
+
+SECTION: Assumptions
+
+IMPORT: Gameboard, PlaceBoard, Token
+IMPORT: Card, Deck, DiscardPile, Hand
+IMPORT: Player, ChoosePlayerComponents, PlayerWithHighestScore
+IMPORT: ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
+
+SECTION: Vocabulary
+
+Map: Gameboard
+Ward: Part of Map
+	// The 23 wards in Tokyo
+Station: Part of Map
+	Train stations where Stores can be built
+Upgradeable: Attribute of Station
+	Can SpecialtyStores on this Station be upgraded to DepartmentStores
+Connection: Part of Map
+	A possible link (once Track is laid) between 2 Stations
+
+CustomerQueue: Gameboard
+QueueSpace: Part of CustomerQueue
+Id: Attribute of QueueSpace
+	Range from 4 down to 1
+
+Store: Token
+SpecialtyStore: Store
+GoodsSold: Attribute of SpecialtyStore
+	One of "Food", "Clothing", "Books", "Electronics"
+DepartmentStore: Store
+	A Store that can provide any kind of good to a Customer
+
+Track: Token
+
+TrackConnection: Noun
+	A Connection that contains a Track token
+
+WardCard: Card
+	A Card that identifies one of the Wards on the Map
+Location: Attribute of WardCard
+Count: Attribute of WardCard
+	Number of copies (2-5) of this Location in the WardDeck
+
+WardDeck: Deck
+	Deck of WardCards
+
+Wildcard: Card
+	A WardCard whose Location matches a Ward where you have a Store
+
+Customer: Token
+GoodsDesired: Attribute of Customer
+	One of "Food", "Clothing", "Books", "Electronics"
+Double: Attribute of Customer
+	Counts as 2 separate Customers during scoring; indicated by a "2"
+
+CustomerBag: Noun
+	A bag that holds all the Customers that have not yet been revealed
+
+StoreThatMatchesCustomer: Noun
+	Any of:
+		A DepartmentStore
+		A SpecialtyStore whose GoodsSold matches a Customer's GoodsDesired
+	
+UpgradeBonusBoard: Gameboard
+	Where the UpgradeBonus tokens are stored
+UpgradeBonusSpace: Part of UpgradeBonusBoard
+
+UpgradeBonus: Token
+	A bonus token granted when you upgrade a SpecialtyStore to a DepartmentStore
+UpgradeBonusStack: Noun
+	A stack of 1 or more UpgradeBonus tokens
+
+FirstPlayerToken: Token
+	To identify the Player who took the first turn.
+	
+EquipmentPool: Noun
+	A Player's collection of Stores and Track
+CustomerPool: Noun
+	A Player's collection Customers and UpgradeBonus tokens that they've gained, hidden behind the Player's Screen
+
+Screen: Noun
+	Used to hide a Player's CustomerPool from the other Players
+
+SECTION: Setup
+
+Setup: Verb
+	PlaceBoard
+	ChoosePlayerComponents
+		// SpecialtyStores, DepartmentStores and Track of the same color
+	CreateWardDeck
+	InitCustomerQueue
+	InitUpgradeBonusBoard
+	For each Player:
+		DrawInitialHand
+	SeedInitialCustomers
+	
+CreateWardDeck: Verb
+	Shuffle all of the WardCards to create the WardDeck
+
+InitCustomerQueue: Verb
+	For each QueueSpace:
+		DrawWardCard and place it in the QueueSpace
+	AddNewCustomerToQueue x2
+
+AddNewCustomerToQueue: Verb
+	DrawCustomer
+	AddCustomerToQueue
+
+DrawCustomer: Verb
+	Draw a Customer from the CustomerBag
+	// Note: Game doesn't end when the last Customer is drawn from the bag
+
+AddCustomerToQueue: Verb
+	If it matches any Customer already in the CustomerQueue:
+		Place the Customer on the QueueSpace with the matching Customer
+	Otherwise:
+		Place it on the lowest numbered QueueSpace that doesn't have any Customers
+
+InitUpgradeBonusBoard: Verb
+	Initialize the UpgradeBonusBoard with UpgradeBonusStacks as follows:
+		* "2" - leave empty
+		* "3" - stack of 3 UpgradeBonus tokens
+		* "4", "5", "6" - stack of 2 UpgradeBonus tokens
+		* "7", "8" - stack with 1 UpgradeBonus token
+	
+DrawInitialHand: Verb
+	DrawWardCard x4
+	
+DrawWardCard: Verb
+	Draw a WardCard from the WardDeck
+	! Reshuffle the DiscardPile to recreate the WardDeck if it runs out. 
+
+SeedInitialCustomers: Verb
+	Repeat 4 times:
+		DrawWardCard
+		DrawCustomer x2
+		Place Customers in Location indicated by the WardCard
+		Discard the WardCard
+	! If you draw multiple cards with the same Ward:
+		Discard the duplicate and draw a replacement
+		
+SECTION: Gameplay
+
+PlayGame: Verb
+	ChooseFirstPlayer
+	Give FirstPlayerToken to the FirstPlayer
+	Repeat until there are no more Customers in the CustomerQueue:
+		AllPlayerTurns
+
+AllPlayerTurns: Verb
+	For each Player, starting with the FirstPlayer:
+		PlayerTurn
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	AddCustomersToMap
+	RefreshCustomerQueue
+	Choose 2 different actions:
+		OpenStore
+		ExpandTrack
+		EarnIncome
+		MoveCustomers
+		UpgradeToDepartmentStore
+	! If you take EarnIncome as your first action:
+		Your turn ends immediately
+
+AddCustomersToMap: Verb
+	Take the Customers from the QueueSpace whose Id is 1
+	Place those Customers in the Ward that matches the WardCard in QueueSpace 1
+	Draw the WardCard from QueueSpace 1 into your Hand
+
+RefreshCustomerQueue: Verb
+	For each QueueSpace 2 through 4:
+		Slide the WardCard and any Customers in the QueueSpace down to the next lowest QueueSpace
+		// Slide 2 down to 1, then 3 down to 2, then 4 down to 3
+	DrawWardCard and place it in QueueSpace 4
+	For each Customer that you just placed on the Map:
+		AddNewCustomerToQueue
+
+Discard_WardCard_That_Matches_Station: Verb
+	Discard_WardCard_That_Matches_Ward that contains the Station
+			
+Discard_WardCard_That_Matches_Ward: Verb
+	Discard (into the DiscardPile) any of:
+		A WardCard whose Location matches the Ward
+		Any three WardCards
+		A Wildcard
+
+OpenStore: Verb
+	Choose an empty Station on the Map
+	Discard_WardCard_That_Matches_Station
+	Place one of your SpecialtyStores on the Station
+	! SpecialtyStore can come from your EquipmentPool or you can move a SpecialtyStore you've already placed on the Map
+
+ExpandTrack: Verb
+	Choose an empty Connection on the Map
+	Place one of your Track onto the Connection
+	OptionalDoubleTrack
+	! TrackMustComeFromPool
+
+OptionalDoubleTrack: Verb
+	You may Discard_WardCard_That_Matches_Station of either of the 2 Stations you just connected with Track
+	If you do:
+		Place a Track on a Connection that shares one of the Stations connected by your first Track
+		! TrackMustComeFromPool
+		! If one of the Stations connected by the first Track is "Shinjuku" or "Yoyogi":
+			Your second Track may connect through the "Shinjuku"-"Yoyogi" connection.
+			// Example: Track placed between "Nakano" and "Shinjuku" can be extended out through "Yoyogi"
+
+TrackMustComeFromPool: Constraint
+	Track must come from your EquipmentPool - you may not move Track already on the Map
+	
+EarnIncome|EarnsIncome: Verb
+	Repeat until you have 4 cards in your Hand:
+		DrawWardCard
+	! If you already had 4 or more WardCards in your Hand before earning income:
+		DrawWardCard
+
+MoveCustomers: Verb
+	Choose a Ward that contains the Customers you wish to move
+	Discard_WardCard_That_Matches_Ward
+	Pick up all of the Customers in that Ward
+	Choose a starting Station within that Ward
+	VisitStation
+	Repeat until you feel like stopping:
+		Follow a TrackConnection that leads out from the Station to another Station
+		VisitStation
+		! You may not visit a Station more than once during this action
+	Place any remaining Customers in the Ward that contains the last Station visited
+	If you used any Track owned by another Player:
+		That Player EarnsIncome
+		// Note: Only 1 EarnIncome per player, regardless of how many segments of Track were used
+
+VisitStation: Verb
+	If the Station has a StoreThatMatchesCustomer:
+		Give one of the matching Customers to the Player that owns the Store
+		// Note: You only give 1 even if there are multiple matching Customers
+
+UpgradeToDepartmentStore: Verb
+	Choose a Station that:
+		Is Upgradeable
+		Contains one of your SpecialtyStores
+	Discard_WardCard_That_Matches_Station
+	Choose a Customer from your CustomerPool whose GoodsDesired matches the GoodsSold of the SpecialtyStore being upgraded
+		// Note: UpgradeTokens are not Customers and may not be used for upgrading.
+	AddCustomerToQueue
+	Reclaim the SpecialtyStore and add it back into your EquipmentPool
+	Place one of your DepartmentStore tokens on the Station
+	ClaimNextUpgradeBonus
+	! If the CustomerQueue has no Customers (because it's the end of the game):
+		Remove the Customer from the game rather than adding it to the CustomerQueue
+
+ClaimNextUpgradeBonus: Verb
+	Take the UpgradeBonusStack from the lowest numbered non-empty UpgradeBonusSpace
+
+SECTION: Endgame Scoring
+
+CalculateScore: Verb
+	Score points based on your sets of Customers as follows:
+		4 different Customers = 10 points
+		3 different Customers = 6 points
+		2 different Customers = 3 points
+	Remaining individual Customers are each worth 1 point
+	! Double Customers count as if they were 2 separate Customers
+
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	If tied:
+		Player (amongst the tied Players) who first claimed a UpgradeBonus token

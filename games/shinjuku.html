@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Shinjuku</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0.4rem 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-column {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-section-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-column {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-column {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Shinjuku</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
+<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
+<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
+<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">33</td><td class="summary-column">31.1%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">15</td><td class="summary-column">14.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">50</td><td class="summary-column">47.2%</td></tr>
+<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">8</td><td class="summary-column">7.5%</td></tr>
+<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>106</b></td><td class="summary-column"></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Year: 2019</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Designer: Gary Kacmarcik</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Players: 2-4</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Time: 60-75m</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gameboard, PlaceBoard, Token</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Card, Deck, DiscardPile, Hand</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, ChoosePlayerComponents, PlayerWithHighestScore</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Map">Map</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Connection">Connection</a><a href="#ExpandTrack">ExpandTrack</a><a href="#OpenStore">OpenStore</a><a href="#RefreshCustomerQueue">RefreshCustomerQueue</a><a href="#Station">Station</a><a href="#TrackMustComeFromPool">TrackMustComeFromPool</a><a href="#Ward">Ward</a><a href="#WardCard">WardCard</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Ward">Ward</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCustomersToMap">AddCustomersToMap</a><a href="#Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a><a href="#MoveCustomers">MoveCustomers</a><a href="#SeedInitialCustomers">SeedInitialCustomers</a><a href="#WardCard">WardCard</a><a href="#Wildcard">Wildcard</a></div></div>: Part of <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">The 23 wards in Tokyo</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Station">Station</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Connection">Connection</a><a href="#Discard_WardCard_That_Matches_Station">Discard_WardCard_That_Matches_Station</a><a href="#MoveCustomers">MoveCustomers</a><a href="#OpenStore">OpenStore</a><a href="#OptionalDoubleTrack">OptionalDoubleTrack</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a><a href="#Upgradeable">Upgradeable</a><a href="#VisitStation">VisitStation</a></div></div>: Part of <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Train stations where <a class="keyword" href="#Store">Stores</a> can be built</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Upgradeable">Upgradeable</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Attribute of <a class="keyword" href="#Station">Station</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Can <a class="keyword" href="#SpecialtyStore">SpecialtyStores</a> on this <a class="keyword" href="#Station">Station</a> be upgraded to <a class="keyword" href="#DepartmentStore">DepartmentStores</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Connection">Connection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExpandTrack">ExpandTrack</a><a href="#OptionalDoubleTrack">OptionalDoubleTrack</a><a href="#TrackConnection">TrackConnection</a></div></div>: Part of <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A possible link (once <a class="keyword" href="#Track">Track</a> is laid) between 2 <a class="keyword" href="#Station">Stations</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CustomerQueue">CustomerQueue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCustomerToQueue">AddCustomerToQueue</a><a href="#PlayGame">PlayGame</a><a href="#QueueSpace">QueueSpace</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="QueueSpace">QueueSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCustomerToQueue">AddCustomerToQueue</a><a href="#AddCustomersToMap">AddCustomersToMap</a><a href="#Id">Id</a><a href="#InitCustomerQueue">InitCustomerQueue</a><a href="#RefreshCustomerQueue">RefreshCustomerQueue</a></div></div>: Part of <a class="keyword" href="#CustomerQueue">CustomerQueue</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Id">Id</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCustomersToMap">AddCustomersToMap</a></div></div>: Attribute of <a class="keyword" href="#QueueSpace">QueueSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Range from 4 down to 1</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Store">Store</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DepartmentStore">DepartmentStore</a><a href="#EquipmentPool">EquipmentPool</a><a href="#SpecialtyStore">SpecialtyStore</a><a href="#Station">Station</a><a href="#VisitStation">VisitStation</a><a href="#Wildcard">Wildcard</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SpecialtyStore">SpecialtyStore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GoodsSold">GoodsSold</a><a href="#OpenStore">OpenStore</a><a href="#StoreThatMatchesCustomer">StoreThatMatchesCustomer</a><a href="#UpgradeBonus">UpgradeBonus</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a><a href="#Upgradeable">Upgradeable</a></div></div>: <a class="keyword" href="#Store">Store</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GoodsSold">GoodsSold</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StoreThatMatchesCustomer">StoreThatMatchesCustomer</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Attribute of <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>One of "Food" , "Clothing" , "Books" , "Electronics"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DepartmentStore">DepartmentStore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StoreThatMatchesCustomer">StoreThatMatchesCustomer</a><a href="#UpgradeBonus">UpgradeBonus</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a><a href="#Upgradeable">Upgradeable</a></div></div>: <a class="keyword" href="#Store">Store</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#Store">Store</a> that can provide any kind of good to a <a class="keyword" href="#Customer">Customer</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Track">Track</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Connection">Connection</a><a href="#EquipmentPool">EquipmentPool</a><a href="#ExpandTrack">ExpandTrack</a><a href="#MoveCustomers">MoveCustomers</a><a href="#OptionalDoubleTrack">OptionalDoubleTrack</a><a href="#TrackConnection">TrackConnection</a><a href="#TrackMustComeFromPool">TrackMustComeFromPool</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrackConnection">TrackConnection</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveCustomers">MoveCustomers</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#Connection">Connection</a> that contains a <a class="keyword" href="#Track">Track</a> token</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WardCard">WardCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCustomersToMap">AddCustomersToMap</a><a href="#Count">Count</a><a href="#CreateWardDeck">CreateWardDeck</a><a href="#Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a><a href="#DrawWardCard">DrawWardCard</a><a href="#EarnIncome">EarnIncome</a><a href="#Location">Location</a><a href="#RefreshCustomerQueue">RefreshCustomerQueue</a><a href="#SeedInitialCustomers">SeedInitialCustomers</a><a href="#WardDeck">WardDeck</a><a href="#Wildcard">Wildcard</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Card</abbr> that identifies one of the <a class="keyword" href="#Ward">Wards</a> on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Location">Location</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Count">Count</a><a href="#Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a><a href="#SeedInitialCustomers">SeedInitialCustomers</a><a href="#Wildcard">Wildcard</a></div></div>: Attribute of <a class="keyword" href="#WardCard">WardCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Count">Count</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Double">Double</a></div></div>: Attribute of <a class="keyword" href="#WardCard">WardCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Number of copies (2-5) of this <a class="keyword" href="#Location">Location</a> in the <a class="keyword" href="#WardDeck">WardDeck</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="WardDeck">WardDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Count">Count</a><a href="#CreateWardDeck">CreateWardDeck</a><a href="#DrawWardCard">DrawWardCard</a></div></div>: <abbr title="Imported term">Deck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Deck</abbr> of <a class="keyword" href="#WardCard">WardCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Wildcard">Wildcard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <a class="keyword" href="#WardCard">WardCard</a> whose <a class="keyword" href="#Location">Location</a> matches a <a class="keyword" href="#Ward">Ward</a> where you have a <a class="keyword" href="#Store">Store</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Customer">Customer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddCustomerToQueue">AddCustomerToQueue</a><a href="#AddCustomersToMap">AddCustomersToMap</a><a href="#CalculateScore">CalculateScore</a><a href="#CustomerBag">CustomerBag</a><a href="#CustomerPool">CustomerPool</a><a href="#DepartmentStore">DepartmentStore</a><a href="#Double">Double</a><a href="#DrawCustomer">DrawCustomer</a><a href="#GoodsDesired">GoodsDesired</a><a href="#MoveCustomers">MoveCustomers</a><a href="#PlayGame">PlayGame</a><a href="#RefreshCustomerQueue">RefreshCustomerQueue</a><a href="#SeedInitialCustomers">SeedInitialCustomers</a><a href="#StoreThatMatchesCustomer">StoreThatMatchesCustomer</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a><a href="#VisitStation">VisitStation</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GoodsDesired">GoodsDesired</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StoreThatMatchesCustomer">StoreThatMatchesCustomer</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Attribute of <a class="keyword" href="#Customer">Customer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>One of "Food" , "Clothing" , "Books" , "Electronics"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Double">Double</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Attribute of <a class="keyword" href="#Customer">Customer</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Count">Counts</a> as 2 separate <a class="keyword" href="#Customer">Customers</a> during scoring; indicated by a "2"</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CustomerBag">CustomerBag</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawCustomer">DrawCustomer</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A bag that holds all the <a class="keyword" href="#Customer">Customers</a> that have not yet been revealed</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StoreThatMatchesCustomer">StoreThatMatchesCustomer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#VisitStation">VisitStation</a></div></div>: Noun</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A <a class="keyword" href="#DepartmentStore">DepartmentStore</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a> whose <a class="keyword" href="#GoodsSold">GoodsSold</a> matches a <a class="keyword" href="#Customer">Customer</a>'s <a class="keyword" href="#GoodsDesired">GoodsDesired</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeBonusBoard">UpgradeBonusBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitUpgradeBonusBoard">InitUpgradeBonusBoard</a><a href="#UpgradeBonusSpace">UpgradeBonusSpace</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Where the <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> tokens are stored</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeBonusSpace">UpgradeBonusSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimNextUpgradeBonus">ClaimNextUpgradeBonus</a></div></div>: Part of <a class="keyword" href="#UpgradeBonusBoard">UpgradeBonusBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeBonus">UpgradeBonus</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CustomerPool">CustomerPool</a><a href="#DetermineWinner">DetermineWinner</a><a href="#InitUpgradeBonusBoard">InitUpgradeBonusBoard</a><a href="#UpgradeBonusBoard">UpgradeBonusBoard</a><a href="#UpgradeBonusStack">UpgradeBonusStack</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A bonus token granted when you upgrade a <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a> to a <a class="keyword" href="#DepartmentStore">DepartmentStore</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeBonusStack">UpgradeBonusStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimNextUpgradeBonus">ClaimNextUpgradeBonus</a><a href="#InitUpgradeBonusBoard">InitUpgradeBonusBoard</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A stack of 1 or more <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> tokens</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="FirstPlayerToken">FirstPlayerToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>To identify the <abbr title="Imported term">Player</abbr> who took the first turn.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EquipmentPool">EquipmentPool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OpenStore">OpenStore</a><a href="#TrackMustComeFromPool">TrackMustComeFromPool</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Player</abbr>'s collection of <a class="keyword" href="#Store">Stores</a> and <a class="keyword" href="#Track">Track</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CustomerPool">CustomerPool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Screen">Screen</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Player</abbr>'s collection <a class="keyword" href="#Customer">Customers</a> and <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> tokens that they've gained, hidden behind the <abbr title="Imported term">Player</abbr>'s <a class="keyword" href="#Screen">Screen</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Screen">Screen</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CustomerPool">CustomerPool</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Used to hide a <abbr title="Imported term">Player</abbr>'s <a class="keyword" href="#CustomerPool">CustomerPool</a> from the other <abbr title="Imported term">Players</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlaceBoard</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">SpecialtyStores, DepartmentStores and Track of the same color</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateWardDeck">CreateWardDeck</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#InitCustomerQueue">InitCustomerQueue</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#InitUpgradeBonusBoard">InitUpgradeBonusBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawInitialHand">DrawInitialHand</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SeedInitialCustomers">SeedInitialCustomers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CreateWardDeck">CreateWardDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle all of the <a class="keyword" href="#WardCard">WardCards</a> to create the <a class="keyword" href="#WardDeck">WardDeck</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InitCustomerQueue">InitCustomerQueue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#QueueSpace">QueueSpace</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawWardCard">DrawWardCard</a> and place it in the <a class="keyword" href="#QueueSpace">QueueSpace</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AddNewCustomerToQueue">AddNewCustomerToQueue</a> x2</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AddNewCustomerToQueue">AddNewCustomerToQueue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitCustomerQueue">InitCustomerQueue</a><a href="#RefreshCustomerQueue">RefreshCustomerQueue</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawCustomer">DrawCustomer</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AddCustomerToQueue">AddCustomerToQueue</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawCustomer">DrawCustomer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddNewCustomerToQueue">AddNewCustomerToQueue</a><a href="#SeedInitialCustomers">SeedInitialCustomers</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Draw a <a class="keyword" href="#Customer">Customer</a> from the <a class="keyword" href="#CustomerBag">CustomerBag</a></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">Note: Game doesn't end when the last Customer is drawn from the bag</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AddCustomerToQueue">AddCustomerToQueue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AddNewCustomerToQueue">AddNewCustomerToQueue</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If it matches any <a class="keyword" href="#Customer">Customer</a> already in the <a class="keyword" href="#CustomerQueue">CustomerQueue</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#Customer">Customer</a> on the <a class="keyword" href="#QueueSpace">QueueSpace</a> with the matching <a class="keyword" href="#Customer">Customer</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place it on the lowest numbered <a class="keyword" href="#QueueSpace">QueueSpace</a> that doesn't have any <a class="keyword" href="#Customer">Customers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="InitUpgradeBonusBoard">InitUpgradeBonusBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Initialize the <a class="keyword" href="#UpgradeBonusBoard">UpgradeBonusBoard</a> with <a class="keyword" href="#UpgradeBonusStack">UpgradeBonusStacks</a> as follows:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* "2" - leave empty</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* "3" - stack of 3 <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> tokens</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* "4" , "5" , "6" - stack of 2 <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> tokens</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* "7" , "8" - stack with 1 <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> token</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawInitialHand">DrawInitialHand</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawWardCard">DrawWardCard</a> x4</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawWardCard">DrawWardCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawInitialHand">DrawInitialHand</a><a href="#EarnIncome">EarnIncome</a><a href="#InitCustomerQueue">InitCustomerQueue</a><a href="#RefreshCustomerQueue">RefreshCustomerQueue</a><a href="#SeedInitialCustomers">SeedInitialCustomers</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Draw a <a class="keyword" href="#WardCard">WardCard</a> from the <a class="keyword" href="#WardDeck">WardDeck</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Reshuffle the <abbr title="Imported term">DiscardPile</abbr> to recreate the <a class="keyword" href="#WardDeck">WardDeck</a> if it runs out.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SeedInitialCustomers">SeedInitialCustomers</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat 4 times:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawWardCard">DrawWardCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawCustomer">DrawCustomer</a> x2</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place <a class="keyword" href="#Customer">Customers</a> in <a class="keyword" href="#Location">Location</a> indicated by the <a class="keyword" href="#WardCard">WardCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Discard the <a class="keyword" href="#WardCard">WardCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you draw multiple cards with the same <a class="keyword" href="#Ward">Ward</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Discard the duplicate and draw a replacement</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Give <a class="keyword" href="#FirstPlayerToken">FirstPlayerToken</a> to the <abbr title="Imported term">FirstPlayer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until there are no more <a class="keyword" href="#Customer">Customers</a> in the <a class="keyword" href="#CustomerQueue">CustomerQueue</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AllPlayerTurns">AllPlayerTurns</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AllPlayerTurns">AllPlayerTurns</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>, starting with the <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AllPlayerTurns">AllPlayerTurns</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AddCustomersToMap">AddCustomersToMap</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#RefreshCustomerQueue">RefreshCustomerQueue</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose 2 different actions:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#OpenStore">OpenStore</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ExpandTrack">ExpandTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#EarnIncome">EarnIncome</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#MoveCustomers">MoveCustomers</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you take <a class="keyword" href="#EarnIncome">EarnIncome</a> as your first action:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Your turn ends immediately</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="AddCustomersToMap">AddCustomersToMap</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take the <a class="keyword" href="#Customer">Customers</a> from the <a class="keyword" href="#QueueSpace">QueueSpace</a> whose <a class="keyword" href="#Id">Id</a> is 1</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place those <a class="keyword" href="#Customer">Customers</a> in the <a class="keyword" href="#Ward">Ward</a> that matches the <a class="keyword" href="#WardCard">WardCard</a> in <a class="keyword" href="#QueueSpace">QueueSpace</a> 1</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Draw the <a class="keyword" href="#WardCard">WardCard</a> from <a class="keyword" href="#QueueSpace">QueueSpace</a> 1 into your <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RefreshCustomerQueue">RefreshCustomerQueue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#QueueSpace">QueueSpace</a> 2 through 4:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Slide the <a class="keyword" href="#WardCard">WardCard</a> and any <a class="keyword" href="#Customer">Customers</a> in the <a class="keyword" href="#QueueSpace">QueueSpace</a> down to the next lowest <a class="keyword" href="#QueueSpace">QueueSpace</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Slide 2 down to 1, then 3 down to 2, then 4 down to 3</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawWardCard">DrawWardCard</a> and place it in <a class="keyword" href="#QueueSpace">QueueSpace</a> 4</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Customer">Customer</a> that you just placed on the <a class="keyword" href="#Map">Map</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#AddNewCustomerToQueue">AddNewCustomerToQueue</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Discard_WardCard_That_Matches_Station">Discard_WardCard_That_Matches_Station</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#OpenStore">OpenStore</a><a href="#OptionalDoubleTrack">OptionalDoubleTrack</a><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a> that contains the <a class="keyword" href="#Station">Station</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Discard_WardCard_That_Matches_Station">Discard_WardCard_That_Matches_Station</a><a href="#MoveCustomers">MoveCustomers</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Discard (into the <abbr title="Imported term">DiscardPile</abbr>) any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A <a class="keyword" href="#WardCard">WardCard</a> whose <a class="keyword" href="#Location">Location</a> matches the <a class="keyword" href="#Ward">Ward</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Any three <a class="keyword" href="#WardCard">WardCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A <a class="keyword" href="#Wildcard">Wildcard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="OpenStore">OpenStore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose an empty <a class="keyword" href="#Station">Station</a> on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Discard_WardCard_That_Matches_Station">Discard_WardCard_That_Matches_Station</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place one of your <a class="keyword" href="#SpecialtyStore">SpecialtyStores</a> on the <a class="keyword" href="#Station">Station</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a> can come from your <a class="keyword" href="#EquipmentPool">EquipmentPool</a> or you can move a <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a> you've already placed on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExpandTrack">ExpandTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose an empty <a class="keyword" href="#Connection">Connection</a> on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place one of your <a class="keyword" href="#Track">Track</a> onto the <a class="keyword" href="#Connection">Connection</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#OptionalDoubleTrack">OptionalDoubleTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#TrackMustComeFromPool">TrackMustComeFromPool</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="OptionalDoubleTrack">OptionalDoubleTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExpandTrack">ExpandTrack</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may <a class="keyword" href="#Discard_WardCard_That_Matches_Station">Discard_WardCard_That_Matches_Station</a> of either of the 2 <a class="keyword" href="#Station">Stations</a> you just connected with <a class="keyword" href="#Track">Track</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>If you do:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place a <a class="keyword" href="#Track">Track</a> on a <a class="keyword" href="#Connection">Connection</a> that shares one of the <a class="keyword" href="#Station">Stations</a> connected by your first <a class="keyword" href="#Track">Track</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#TrackMustComeFromPool">TrackMustComeFromPool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; If one of the <a class="keyword" href="#Station">Stations</a> connected by the first <a class="keyword" href="#Track">Track</a> is "Shinjuku" or "Yoyogi" :</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Your second <a class="keyword" href="#Track">Track</a> may connect through the "Shinjuku" - "Yoyogi" connection.</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td></td><td class="desc"><span class="comment">Example: Track placed between "Nakano" and "Shinjuku" can be extended out through "Yoyogi"</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TrackMustComeFromPool">TrackMustComeFromPool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExpandTrack">ExpandTrack</a><a href="#OptionalDoubleTrack">OptionalDoubleTrack</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Track">Track</a> must come from your <a class="keyword" href="#EquipmentPool">EquipmentPool</a> - you may not move <a class="keyword" href="#Track">Track</a> already on the <a class="keyword" href="#Map">Map</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EarnIncome">EarnIncome</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveCustomers">MoveCustomers</a><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you have 4 cards in your <abbr title="Imported term">Hand</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawWardCard">DrawWardCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you already had 4 or more <a class="keyword" href="#WardCard">WardCards</a> in your <abbr title="Imported term">Hand</abbr> before earning income:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#DrawWardCard">DrawWardCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveCustomers">MoveCustomers</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#Ward">Ward</a> that contains the <a class="keyword" href="#Customer">Customers</a> you wish to move</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Discard_WardCard_That_Matches_Ward">Discard_WardCard_That_Matches_Ward</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Pick up all of the <a class="keyword" href="#Customer">Customers</a> in that <a class="keyword" href="#Ward">Ward</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a starting <a class="keyword" href="#Station">Station</a> within that <a class="keyword" href="#Ward">Ward</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#VisitStation">VisitStation</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you feel like stopping:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Follow a <a class="keyword" href="#TrackConnection">TrackConnection</a> that leads out from the <a class="keyword" href="#Station">Station</a> to another <a class="keyword" href="#Station">Station</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#VisitStation">VisitStation</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; You may not visit a <a class="keyword" href="#Station">Station</a> more than once during this action</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place any remaining <a class="keyword" href="#Customer">Customers</a> in the <a class="keyword" href="#Ward">Ward</a> that contains the last <a class="keyword" href="#Station">Station</a> visited</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you used any <a class="keyword" href="#Track">Track</a> owned by another <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>That <abbr title="Imported term">Player</abbr> <a class="keyword" href="#EarnIncome">EarnsIncome</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: Only 1 EarnIncome per player, regardless of how many segments of Track were used</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="VisitStation">VisitStation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveCustomers">MoveCustomers</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#Station">Station</a> has a <a class="keyword" href="#StoreThatMatchesCustomer">StoreThatMatchesCustomer</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Give one of the matching <a class="keyword" href="#Customer">Customers</a> to the <abbr title="Imported term">Player</abbr> that owns the <a class="keyword" href="#Store">Store</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: You only give 1 even if there are multiple matching Customers</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UpgradeToDepartmentStore">UpgradeToDepartmentStore</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#Station">Station</a> that:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Is <a class="keyword" href="#Upgradeable">Upgradeable</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Contains one of your <a class="keyword" href="#SpecialtyStore">SpecialtyStores</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#Discard_WardCard_That_Matches_Station">Discard_WardCard_That_Matches_Station</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#Customer">Customer</a> from your <a class="keyword" href="#CustomerPool">CustomerPool</a> whose <a class="keyword" href="#GoodsDesired">GoodsDesired</a> matches the <a class="keyword" href="#GoodsSold">GoodsSold</a> of the <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a> being upgraded</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: UpgradeTokens are not Customers and may not be used for upgrading.</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#AddCustomerToQueue">AddCustomerToQueue</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Reclaim the <a class="keyword" href="#SpecialtyStore">SpecialtyStore</a> and add it back into your <a class="keyword" href="#EquipmentPool">EquipmentPool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place one of your <a class="keyword" href="#DepartmentStore">DepartmentStore</a> tokens on the <a class="keyword" href="#Station">Station</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ClaimNextUpgradeBonus">ClaimNextUpgradeBonus</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If the <a class="keyword" href="#CustomerQueue">CustomerQueue</a> has no <a class="keyword" href="#Customer">Customers</a> (because it's the end of the game):</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Remove the <a class="keyword" href="#Customer">Customer</a> from the game rather than adding it to the <a class="keyword" href="#CustomerQueue">CustomerQueue</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClaimNextUpgradeBonus">ClaimNextUpgradeBonus</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeToDepartmentStore">UpgradeToDepartmentStore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take the <a class="keyword" href="#UpgradeBonusStack">UpgradeBonusStack</a> from the lowest numbered non-empty <a class="keyword" href="#UpgradeBonusSpace">UpgradeBonusSpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Score points based on your sets of <a class="keyword" href="#Customer">Customers</a> as follows:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>4 different <a class="keyword" href="#Customer">Customers</a> = 10 points</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>3 different <a class="keyword" href="#Customer">Customers</a> = 6 points</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>2 different <a class="keyword" href="#Customer">Customers</a> = 3 points</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remaining individual <a class="keyword" href="#Customer">Customers</a> are each worth 1 point</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#Double">Double</a> <a class="keyword" href="#Customer">Customers</a> count as if they were 2 separate <a class="keyword" href="#Customer">Customers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If tied:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">Player</abbr> (amongst the tied <abbr title="Imported term">Players</abbr>) who first claimed a <a class="keyword" href="#UpgradeBonus">UpgradeBonus</a> token</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>
