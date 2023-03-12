@@ -321,9 +321,10 @@ ProductionPhase: Verb
 	! SimultaneousPlay
 
 ProduceResearch: Verb
-	If you have 2 Geese and 1 Paper on the same HexTile as one of your Transporters:
+	If there are 2 Geese and 1 Paper on the same HexTile:
 		ConsumeMaterials
-		AllocateResearch
+		If one of your Transporters is in this HexTile:
+			AllocateResearch
 	
 AllocateResearch: Verb
 	Immediately remove a ResearchToken from one of the Research spaces on the ResearchTable
