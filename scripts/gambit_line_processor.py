@@ -26,7 +26,7 @@ class GambitLineProcessor:
 		m = re.match("( +)", str)
 		if m:
 			numSpaces = len(m.group(1))
-			if numSpaces % 4 == 0:
+			if numSpaces % TAB_SIZE == 0:
 				return int(numSpaces / TAB_SIZE)
 			else:
 				raise Exception("Invalid leading whitespace. Use tabs or {0:d} spaces.".format(TAB_SIZE))
