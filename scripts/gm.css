@@ -37,23 +37,28 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-section-column {
+.summary-section-name {
 	width: 50%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-section-indent {
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
 	width: 5%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-subsection-column {
+.summary-subsection-name {
 	width: 45%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-column {
-	width: 25%;
+.summary-subdata {
+	width: 12.5%;
 	text-align: center;
 	padding: 0 5px;
 }
