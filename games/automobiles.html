@@ -48,23 +48,28 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-section-column {
+.summary-section-name {
 	width: 50%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-section-indent {
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
 	width: 5%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-subsection-column {
+.summary-subsection-name {
 	width: 45%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-column {
-	width: 25%;
+.summary-subdata {
+	width: 12.5%;
 	text-align: center;
 	padding: 0 5px;
 }
@@ -164,14 +169,14 @@ a.keyword:hover {
 <div class="title">Automobiles</div>
 
 <table class="summary">
-<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
-<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
-<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">45</td><td class="summary-column">41.7%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">15</td><td class="summary-column">13.9%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">47</td><td class="summary-column">43.5%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">1</td><td class="summary-column">0.9%</td></tr>
-<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>108</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Assumptions</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">45</td><td class="summary-data">41.7%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">15</td><td class="summary-data">13.9%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">47</td><td class="summary-data">43.5%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">1</td><td class="summary-data">0.9%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>108</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
@@ -251,86 +256,10 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Gear6Cube">Gear6Cube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Black</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EngineCube">EngineCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#EngineAction">EngineAction</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Blue</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Engine Cards</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Diesel Engine - $5 - $$$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 2 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to as many dark gray spaces as you have dark gray cubes in your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Hybrid Engine - $5 - $$$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">If you have more blue cubes on your player board than in any other player's discard pile, move up to 2 spaces on any 1 color.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Rotary Engine - $4 - $$$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to as many white spaces as you have unique colors in your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Super-Charged - $6 - $$$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place up to 2 cubes from your discard pile into your active pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GarageCube">GarageCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Yellow</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Garage</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Car Chief - $2 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove 1 gear cube from your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 gear cube of 1 gear higher.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Engineer - $2 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place up to 3 cubes from your active pile into your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then remove the same number of cubes from your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Mechanic - $2 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place 1 cube from your active pile into your used pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then remove up to 2 cubes from your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Manager - $2 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">May remove 1 cube from your active pile. AND/OR</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Put 1 cube from your active pile of discard pile back into your bag.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandlingCube">HandlingCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Red</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Handling Cards</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Aero-Dynammics - $1 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">During your Decline Phase this turn, you are considered drafting and will not gain any wear during that phase.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Suspension - $3 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move 1 space matching 1 gear in your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Tires - $2 - $$$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Select 1 gear cube in your active pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move 1 space on any color lower than the selected gear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Steering - $3 - $$$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Discard 1 gear cube from your active pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to 3 spaces of the color 1 lower than the discarded gear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformanceCube">PerformanceCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Green</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Performance Cards</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gearbox - $3 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 Wear</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to as many light gray spaces as your current position in the race.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">If in last position, you may move 1 additional light gray space.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Boost - $4 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Draw up to 3 cubes.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 1 wear for each cube drawn.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">All other players may draw 1 cube.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Turbo - $4 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Gain 2 wear.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Move up to 2 light gray spaces.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then move up to 1 additional light gray space for each green cube that every player collectively has in their discard piles.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Nitro - $4 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Draw 2 cubes.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Place 1 in your active pile and the other in your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PitCube">PitCube</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#Cube">Cube</a> &nbsp;&nbsp;&nbsp;&mdash; <span class="comment">Purple</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Cards</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Crew - $2 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Either remove all wear from your discard pile, OR</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove any 2 cubes from your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Team - $1 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove up to 3 cubes from your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then gain 1 new cube costing less than, or equal to, the total cost of the removed cubes.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Crew Chief - $4 - $</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Draw cubes until you draw 1 non-wear cube.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Then remove all wear from your discard pile.</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Pit Captain - $2 - $$</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Remove up to 6 cubes from your discard pile.</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartPlayerCard">StartPlayerCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a><a href="#StartPlayer">StartPlayer</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StartPlayer">StartPlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Player</abbr></td></tr>

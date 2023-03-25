@@ -73,86 +73,10 @@ Gear5Cube: GearCube	// Dark Gray
 Gear6Cube: Cube	// Black
 
 EngineCube: Cube	// Blue
-
-// Engine Cards
-// Diesel Engine - $5 - $$$
-//	Gain 2 wear.
-//	Move up to as many dark gray spaces as you have dark gray cubes in your discard pile.
-// Hybrid Engine - $5 - $$$
-//	Gain 1 wear.
-//	If you have more blue cubes on your player board than in any other player's discard pile, move up to 2 spaces on any 1 color.
-// Rotary Engine - $4 - $$$
-//	Gain 1 wear.
-//	Move up to as many white spaces as you have unique colors in your discard pile.
-// Super-Charged - $6 - $$$
-//	Gain 1 wear.
-//	Place up to 2 cubes from your discard pile into your active pile.
-
 GarageCube: Cube	// Yellow
-
-// Garage
-// Car Chief - $2 - $$
-//	Remove 1 gear cube from your discard pile.
-//	Gain 1 gear cube of 1 gear higher.
-// Engineer - $2 - $$
-//	Place up to 3 cubes from your active pile into your discard pile.
-//	Then remove the same number of cubes from your discard pile.
-// Mechanic - $2 - $$
-//	Place 1 cube from your active pile into your used pile.
-//	Then remove up to 2 cubes from your discard pile.
-// Manager - $2 - $$
-//	May remove 1 cube from your active pile. AND/OR
-//	Put 1 cube from your active pile of discard pile back into your bag.
-
 HandlingCube: Cube	// Red
-
-// Handling Cards
-// Aero-Dynammics - $1 - $$
-//	During your Decline Phase this turn, you are considered drafting and will not gain any wear during that phase.
-// Suspension - $3 - $$
-//	Gain 1 wear.
-//	Move 1 space matching 1 gear in your discard pile.
-// Tires - $2 - $$$
-//	Select 1 gear cube in your active pile.
-//	Move 1 space on any color lower than the selected gear.
-// Steering - $3 - $$$
-//	Gain 1 wear.
-//	Discard 1 gear cube from your active pile.
-//	Move up to 3 spaces of the color 1 lower than the discarded gear.
-
 PerformanceCube: Cube	// Green
-
-// Performance Cards
-// Gearbox - $3 - $$
-//	Gain 1 Wear
-//	Move up to as many light gray spaces as your current position in the race.
-//	If in last position, you may move 1 additional light gray space.
-// Boost - $4 - $$
-//	Draw up to 3 cubes.
-//	Gain 1 wear for each cube drawn.
-//	All other players may draw 1 cube.
-// Turbo - $4 - $$
-//	Gain 2 wear.
-//	Move up to 2 light gray spaces.
-//	Then move up to 1 additional light gray space for each green cube that every player collectively has in their discard piles.
-// Nitro - $4 - $$
-//	Draw 2 cubes.
-//	Place 1 in your active pile and the other in your discard pile.
-
 PitCube: Cube	// Purple
-
-// Pit Cards
-// Pit Crew - $2 - $$
-//	Either remove all wear from your discard pile, OR
-//	Remove any 2 cubes from your discard pile.
-// Pit Team - $1 - $$
-//	Remove up to 3 cubes from your discard pile.
-//	Then gain 1 new cube costing less than, or equal to, the total cost of the removed cubes.
-// Crew Chief - $4 - $
-//	Draw cubes until you draw 1 non-wear cube.
-//	Then remove all wear from your discard pile.
-// Pit Captain - $2 - $$
-//	Remove up to 6 cubes from your discard pile.
 
 StartPlayerCard: Card
 StartPlayer: Player
