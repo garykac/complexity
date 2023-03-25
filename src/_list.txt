@@ -17,9 +17,11 @@ kingdomino;Kingdomino;;;y;1.21;15;50
 leaving-earth;Leaving Earth;;;y;3.72;97;323
 mancala;Mancala;Kalah;;y;1.62;5;21
 no-thanks;No Thanks!;;;y;1.14;5;22
+# race-for-the-galaxy;Race for the Galaxy;;;n;2.99;0;0
 regicide;Regicide;;;y;1.91;13;74
 risk;Risk;;;y;2.07;16;67
-roads-and-boats;Roads & Boats;;;y;4.19;104;312
+roads-and-boats;Roads & Boats;;;y;4.19;104;313
+# san-juan;San Juan;;;n;2.29;0;0
 # scout;Scout;;;y;1.31;0;0
 shinjuku;Shinjuku;;;y;2.0;33;106
 splendor;Splendor;;;y;1.79;16;61
