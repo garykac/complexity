@@ -98,7 +98,7 @@ Stock: Good
 Building: Noun
 
 PrimaryProducer: Building
-	A square tile with an encircled Produce symbol
+	A square tile with an encircled symbol
 
 Woodcutter: PrimaryProducer
 	Produces TreeTrunks
@@ -116,7 +116,7 @@ MineBag: Noun
 MineNumber: Attribute of MineBag
 
 SecondaryProducer: Building
-	A square tile with a Produce symbol
+	A square tile with a symbol
 
 Sawmill: SecondaryProducer
 	Produces Boards
