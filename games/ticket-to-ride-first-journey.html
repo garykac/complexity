@@ -48,23 +48,28 @@ table.summary {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
-.summary-section-column {
+.summary-section-name {
 	width: 50%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-section-indent {
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
 	width: 5%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-subsection-column {
+.summary-subsection-name {
 	width: 45%;
 	text-align: left;
 	padding: 0 5px;
 }
-.summary-column {
-	width: 25%;
+.summary-subdata {
+	width: 12.5%;
 	text-align: center;
 	padding: 0 5px;
 }
@@ -164,14 +169,14 @@ a.keyword:hover {
 <div class="title">Ticket to Ride - First Journey</div>
 
 <table class="summary">
-<colgroup><col class="summary-section-indent"><col class="summary-subsection-column"><col class="summary-column"><col class="summary-column"></colgroup>
-<tr><td colspan="4"><b>Rule Complexity</b></td></tr>
-<tr><td colspan=2 class="summary-section-column">Assumptions</td><td class="summary-column">-</td><td class="summary-column">-</td></tr>
-<tr><td colspan=2 class="summary-section-column">Vocabulary</td><td class="summary-column">17</td><td class="summary-column">42.5%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Setup</td><td class="summary-column">3</td><td class="summary-column">7.5%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Gameplay</td><td class="summary-column">14</td><td class="summary-column">35.0%</td></tr>
-<tr><td colspan=2 class="summary-section-column">Endgame Scoring</td><td class="summary-column">6</td><td class="summary-column">15.0%</td></tr>
-<tr><td colspan=2 class="summary-first-column"><b>Total</b></td><td class="summary-column"><b>40</b></td><td class="summary-column"></td></tr>
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Assumptions</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">17</td><td class="summary-data">42.5%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">3</td><td class="summary-data">7.5%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">14</td><td class="summary-data">35.0%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">6</td><td class="summary-data">15.0%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>40</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
