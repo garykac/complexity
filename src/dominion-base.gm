@@ -12,7 +12,7 @@ SECTION: Assumptions
 
 IMPORT: Card, Hand, Deck, DiscardPile, Shuffle
 
-IMPORT-GAME: DominionFirst
+GAME-IMPORT: DominionFirst
 
 SECTION: Vocabulary
 
