@@ -10,6 +10,7 @@ TAB_SIZE = 4
 
 NAME_KEYWORD = "NAME"
 IMPORT_KEYWORD = "IMPORT"
+IMPORT_GAME_KEYWORD = "IMPORT-GAME"
 SECTION_KEYWORD = "SECTION"
 SUBSECTION_KEYWORD = "SUBSECTION"
 
@@ -205,20 +206,13 @@ class GambitLineProcessor:
 		comment = ""
 
 		# Import base definitions from another file.
-		if line.startswith("#import"):
-			return GambitLineProcessor.addOldImport(line[8:].strip())
+		if line.startswith(IMPORT_GAME_KEYWORD + ':'):
+			return GambitLineProcessor.addOldImport(line[len(IMPORT_GAME_KEYWORD)+1:].strip())
 
 		# Declare imported terms.
 		if line.startswith(IMPORT_KEYWORD + ':'):
 			return GambitLineProcessor.addImport(line[len(IMPORT_KEYWORD)+1:].strip())
 
-		if line.startswith("// " + NAME_KEYWORD):
-			raise Exception(f"Bad name: {line}")
-		if line.startswith("// " + SECTION_KEYWORD):
-			raise Exception(f"Bad section: {line}")
-		if line.startswith("// " + SUBSECTION_KEYWORD):
-			raise Exception(f"Bad subsection: {line}")
-		
 		if line.startswith(NAME_KEYWORD + ':'):
 			return GambitLineProcessor.addName(line[len(NAME_KEYWORD)+1:].strip())
 		if line.startswith(SECTION_KEYWORD + ':'):
