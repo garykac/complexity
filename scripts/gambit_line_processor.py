@@ -3,8 +3,9 @@
 
 import re
 
-from gambit import (CONSTRAINT_PREFIX,
-	NAME_KEYWORD, IMPORT_KEYWORD, IMPORT_GAME_KEYWORD, SECTION_KEYWORD, SUBSECTION_KEYWORD)
+from gambit import CONSTRAINT_PREFIX
+from gambit import (NAME_KEYWORD, IMPORT_KEYWORD, IMPORT_GAME_KEYWORD, SECTION_KEYWORD,
+					SUBSECTION_KEYWORD)
 from gambit_line_info import GambitLineInfo
 
 KEYWORD = "[A-Z][A-Za-z0-9_]*"

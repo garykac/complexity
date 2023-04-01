@@ -6,6 +6,9 @@ import re
 import sys
 import traceback
 
+from gambit import (LT_COMMENT, LT_BLANK,
+					LT_NAME, LT_IMPORT, LT_IMPORT_GAME, LT_SECTION, LT_SUBSECTION,
+					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
 
@@ -103,7 +106,7 @@ class GambitParser:
 					self.errorLine(str(ex))
 
 				if lineinfo:
-					if lineinfo.lineType == "DEF":
+					if lineinfo.lineType == LT_DEF:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
 						self.importable[keyword] = plural
@@ -204,12 +207,12 @@ class GambitParser:
 			r = self.lineInfo[i]
 			type = r.lineType
 
-			if type == "SECTION":
+			if type == LT_SECTION:
 				isVocabSection = False
 				if r.lineComment == "Vocabulary":
 					isVocabSection = True
 
-			elif type == "DEF" or type == "TEMPLATE":
+			elif type == LT_DEF or type == LT_TEMPLATE:
 				# DEF must alwyas cost at least one.
 				if currDef != -1 and isVocabSection and currDefCost == 0:
 					self.lineInfo[currDef].cost = 1
@@ -224,7 +227,7 @@ class GambitParser:
 					# Set to None instead of 0 so that the cost column is left blank.
 					r.cost = None
 
-			elif type in ["DESC", "CONSTRAINT"]:
+			elif type in [LT_DESC, LT_CONSTRAINT]:
 				zeroCost = False
 				line = r.line
 
@@ -271,13 +274,13 @@ class GambitParser:
 				else:
 					currDefCost += 1
 			
-			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SUBSECTION', 'BLANK']:
+			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
 	def defHasDesc(self, iDef):
-		if not self.lineInfo[iDef].lineType in ["DEF", "TEMPLATE"]:
+		if not self.lineInfo[iDef].lineType in [LT_DEF, LT_TEMPLATE]:
 			self.error("Not a DEF on line {0:d}: {1:s}".format(iDef, self.lineInfo[iDef].lineType))
 		maxLines = len(self.lineInfo)
 		i = iDef + 1
@@ -285,11 +288,11 @@ class GambitParser:
 		while i < maxLines:
 			r = self.lineInfo[i]
 			type = r.lineType
-			if type in ['DEF', 'BLANK', 'TEMPLATE']:
+			if type in [LT_DEF, LT_BLANK, LT_TEMPLATE]:
 				return False
-			if type == 'DESC' and r.indent == 1:
+			if type == LT_DESC and r.indent == 1:
 				return True
-			if not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'CONSTRAINT']:
+			if not type in [LT_COMMENT, LT_SECTION, LT_SUBSECTION, LT_CONSTRAINT]:
 				self.error("Unhandled type in defHasDesc: {0:s}".format(type))
 			i += 1
 		return False
@@ -304,11 +307,11 @@ class GambitParser:
 		cost = 0
 		for r in self.lineInfo:
 			type = r.lineType
-			if type in ["DEF", "TEMPLATE", "DESC", "CONSTRAINT"]:
+			if type in [LT_DEF, LT_TEMPLATE, LT_DESC, LT_CONSTRAINT]:
 				if r.cost:
 					self.costTotal += r.cost
 					cost += r.cost
-			elif type == "SECTION":
+			elif type == LT_SECTION:
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				elif currentSection:
@@ -316,7 +319,7 @@ class GambitParser:
 				currentSection = r.lineComment
 				currentSubsection = None
 				cost = 0
-			elif type == "SUBSECTION":
+			elif type == LT_SUBSECTION:
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				else:
@@ -325,7 +328,7 @@ class GambitParser:
 				if not currentSection in self.subsectionCosts:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
-			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		
 		# Record cost for last section.
@@ -372,11 +375,11 @@ class GambitParser:
 		# plus additional values depending on the |lineType|.
 		self.lineInfo.append(lineinfo)
 		type = lineinfo.lineType
-		if type == "OLDIMPORT":
+		if type == LT_IMPORT_GAME:
 			self.oldImportFile(lineinfo.data)
-		elif type == "IMPORT":
+		elif type == LT_IMPORT:
 			self.importTerms(lineinfo.data)
-		elif type == "DEF":
+		elif type == LT_DEF:
 			parent = lineinfo.parent
 			if parent and not parent in self.vocab:
 				self.errorLine(f"Unknown parent: {parent}")
@@ -388,14 +391,14 @@ class GambitParser:
 			if parent:
 				info.append(parent)
 			self.addVocab(lineinfo.keyword, lineinfo.altKeyword, info)
-		elif type == "TEMPLATE":
+		elif type == LT_TEMPLATE:
 			info = ["LOCAL", "Verb", lineinfo.param]
 			self.addVocab(lineinfo.keyword, None, info)
-		elif type == "NAME":
+		elif type == LT_NAME:
 			self.gameTitle = lineinfo.lineComment
 		elif type == "ERROR":
 			self.errorLine(lineinfo.lineComment)
-		elif not type in ['COMMENT', 'CONSTRAINT', 'DESC', 'SECTION', 'SUBSECTION', 'BLANK']:
+		elif not type in [LT_COMMENT, 'CONSTRAINT', 'DESC', LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 			self.error(f"Unhandled type in processLine: {type}")
 
 		# Record the max indent level so that we can format the HTML table correctly.
@@ -408,7 +411,7 @@ class GambitParser:
 				self.errorLine(f"Unknown term for import: {t}")
 			keyword = t
 			plural = self.importable[t]
-			info = ["IMPORT", "_import.gm"]
+			info = [LT_IMPORT, "_import.gm"]
 			self.addVocab(keyword, plural, info)
 			self.addImportTerm(keyword)
 
@@ -425,10 +428,10 @@ class GambitParser:
 
 				if lineinfo:
 					type = lineinfo.lineType
-					if type == "DEF":
+					if type == LT_DEF:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
-						info = ["OLDIMPORT", name]
+						info = [LT_IMPORT_GAME, name]
 						self.addVocab(keyword, plural, info)
 						self.addOldImportTerm(keyword)
 	
@@ -453,7 +456,7 @@ class GambitParser:
 		for i in range(len(self.lineInfo)):
 			r = self.lineInfo[i]
 			type = r.lineType
-			if type == "DEF":
+			if type == LT_DEF:
 				currDef = r.keyword
 				for t in r.types:
 					self.addRef(t, currDef)
@@ -463,18 +466,18 @@ class GambitParser:
 				else:
 					r.setTokens(self.extractReference(i, ', '.join(r.types), currDef))
 				self.extractReference(i, r.lineComment, currDef, True)
-			elif type == "TEMPLATE":
+			elif type == LT_TEMPLATE:
 				currDef = r.keyword
 				self.addRef("Verb", currDef)
 				r.setTokens(["Verb"])
 				self.extractReference(i, r.lineComment, currDef, True)
-			elif type == "DESC":
+			elif type == LT_DESC:
 				r.setTokens(self.extractReference(i, r.line, currDef))
 				self.extractReference(i, r.lineComment, currDef, True)
-			elif type == "CONSTRAINT":
+			elif type == LT_CONSTRAINT:
 				r.setTokens(self.extractReference(i, r.line, currDef))
 				self.extractReference(i, r.lineComment, currDef, True)
-			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
+			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	# Record that |refTerm| is referenced by |refBy|.
@@ -503,7 +506,7 @@ class GambitParser:
 				if not k in self.old_imports:
 					msg = "Term is defined but never referenced: {0:s}".format(k)
 					self.warning(msg) if self.useWarnings else self.error(msg)
-			if self.vocab[k][0] == "IMPORT" and len(v) == 0:
+			if self.vocab[k][0] == LT_IMPORT and len(v) == 0:
 				msg = f"Term is imported but never referenced: {k}"
 				self.warning(msg) if self.useWarnings else self.error(msg)
 	
