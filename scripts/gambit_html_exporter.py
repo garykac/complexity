@@ -5,6 +5,9 @@ import os
 import re
 import traceback
 
+from gambit import (LT_COMMENT, LT_BLANK, LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION,
+					LT_SUBSECTION, LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
+from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
 from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
@@ -229,34 +232,34 @@ class GambitHtmlExporter:
 			tokens = r.tokens
 			rowclass = None
 
-			if type == "DEF":
+			if type == LT_DEF:
 				defn = self.calcDefinitionHtml(r.keyword)
 				prefix = "{0:s}: ".format(defn)
 				if r.parent != None:
 					line = '{0:s} of {1:s}'.format(r.types[0], r.parent)
 				else:
 					line = ', '.join(r.types)
-			elif type == "TEMPLATE":
+			elif type == LT_TEMPLATE:
 				defn = self.calcTemplateHtml(r.keyword, r.param)
 				prefix = "{0:s}: ".format(defn)
 				line = "Verb"
-			elif type == "CONSTRAINT":
+			elif type == LT_CONSTRAINT:
 				# &roplus;&bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
 				prefix = "&#9888; " # "!" in triangle
-			elif type == "BLANK":
+			elif type == LT_BLANK:
 				prefix = "&nbsp;"
-			elif type == "OLDIMPORT":
+			elif type == LT_GAME_IMPORT:
 				#comment = "#import {0:s}".format(comment)
 				continue
-			elif type == "IMPORT":
+			elif type == LT_IMPORT:
 				comment = ', '.join(data)
-			elif type == "SECTION":
+			elif type == LT_SECTION:
 				rowclass = "section"
-			elif type == "SUBSECTION":
+			elif type == LT_SUBSECTION:
 				rowclass = "subsection"
-			elif type == "NAME":
+			elif type == LT_NAME:
 				continue
-			elif not type in ["COMMENT", "CONSTRAINT", "DESC"]:
+			elif not type in [LT_COMMENT, LT_CONSTRAINT, LT_DESC]:
 				raise Exception("Unrecognized type in writeTableRows: {0:s}".format(type))
 
 			if rowclass:
@@ -347,14 +350,13 @@ class GambitHtmlExporter:
 					(ttype, canonicalForm, prefix, word, postfix) = t
 					info = self.parser.vocab.lookup(canonicalForm)
 					scope = info[0]
-					if scope == "BASE":
+					if scope == V_BASE:
 						newWords.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
-					elif scope == "OLDIMPORT":
+					elif scope == V_GAME_IMPORT:
 						newWords.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
 								.format(prefix, info[1], word, postfix))
-					elif scope == "IMPORT":
+					elif scope == V_IMPORT:
 						newWords.append(f'{prefix}<abbr title="Imported term">{word}</abbr>{postfix}')
-								
 					else:
 						newWords.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'
 								.format(prefix, canonicalForm, word, postfix))

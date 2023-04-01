@@ -6,8 +6,7 @@ import re
 import sys
 import traceback
 
-from gambit import (LT_NAME, LT_IMPORT, LT_IMPORT_GAME, LT_SECTION, LT_SUBSECTION,
-					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
+from gambit import LT_DEF
 from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
 from gambit_line_processor import GambitLineProcessor
 

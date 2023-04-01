@@ -6,8 +6,9 @@ import re
 import sys
 import traceback
 
+from gambit import LOOKUP_TABLE_PREFIX
 from gambit import (LT_COMMENT, LT_BLANK,
-					LT_NAME, LT_IMPORT, LT_IMPORT_GAME, LT_SECTION, LT_SUBSECTION,
+					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit_line_processor import GambitLineProcessor
 from gambit_vocab import GambitVocab
@@ -190,7 +191,7 @@ class GambitParser:
 				else:
 					currDefCost += 1
 			
-			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SUBSECTION, LT_BLANK]:
+			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
@@ -244,7 +245,7 @@ class GambitParser:
 				if not currentSection in self.subsectionCosts:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
-			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
+			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		
 		# Record cost for last section.
@@ -291,8 +292,8 @@ class GambitParser:
 		# plus additional values depending on the |lineType|.
 		self.lineInfo.append(lineinfo)
 		type = lineinfo.lineType
-		if type == LT_IMPORT_GAME:
-			self.oldImportFile(lineinfo.data)
+		if type == LT_GAME_IMPORT:
+			self.importGameFile(lineinfo.data)
 		elif type == LT_IMPORT:
 			self.vocab.importTerms(lineinfo.data)
 		elif type == LT_DEF:
@@ -317,7 +318,7 @@ class GambitParser:
 		if lineinfo.indent > self.maxIndent:
 			self.maxIndent = lineinfo.indent
 
-	def oldImportFile(self, name):
+	def importGameFile(self, name):
 		basename = os.path.basename(name)
 		dirname = os.path.dirname(name)
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
@@ -377,7 +378,7 @@ class GambitParser:
 			elif type == LT_CONSTRAINT:
 				r.setTokens(self.extractReference(i, r.line, currDef))
 				self.extractReference(i, r.lineComment, currDef, True)
-			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
+			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
 	def lookupCanonicalForm(self, word):
@@ -396,8 +397,8 @@ class GambitParser:
 		firstWord = True
 		for word in Tokenizer.tokenize(line):
 			# Skip over special initial characters.
-			if firstWord and word == '*':
-				newWords.append('*')
+			if firstWord and word == LOOKUP_TABLE_PREFIX:
+				newWords.append(LOOKUP_TABLE_PREFIX)
 				# Don't update firstWord since the next word might be capitalized.
 				continue
 				

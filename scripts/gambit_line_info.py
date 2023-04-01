@@ -7,7 +7,7 @@ import re
 
 from gambit import CONSTRAINT_PREFIX, LOOKUP_TABLE_PREFIX
 from gambit import (LT_COMMENT, LT_BLANK,
-					LT_NAME, LT_IMPORT, LT_IMPORT_GAME, LT_SECTION, LT_SUBSECTION,
+					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit import KEYWORD
 from typing import List
@@ -49,7 +49,7 @@ class GambitLineInfo:
 
 	@staticmethod
 	def importGame(name: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(LT_IMPORT_GAME)
+		info: GambitLineInfo = GambitLineInfo(LT_GAME_IMPORT)
 		info.data = name
 		return info
 

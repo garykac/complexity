@@ -4,7 +4,7 @@
 import re
 
 from gambit import CONSTRAINT_PREFIX
-from gambit import (NAME_KEYWORD, IMPORT_KEYWORD, IMPORT_GAME_KEYWORD, SECTION_KEYWORD,
+from gambit import (NAME_KEYWORD, IMPORT_KEYWORD, GAME_IMPORT_KEYWORD, SECTION_KEYWORD,
 					SUBSECTION_KEYWORD)
 from gambit_line_info import GambitLineInfo
 
@@ -55,8 +55,8 @@ class GambitLineProcessor:
 		comment = ""
 
 		# Import base definitions from another file.
-		if line.startswith(IMPORT_GAME_KEYWORD + ':'):
-			return GambitLineInfo.importGame(line[len(IMPORT_GAME_KEYWORD)+1:].strip())
+		if line.startswith(GAME_IMPORT_KEYWORD + ':'):
+			return GambitLineInfo.importGame(line[len(GAME_IMPORT_KEYWORD)+1:].strip())
 
 		# Declare imported terms.
 		if line.startswith(IMPORT_KEYWORD + ':'):
