@@ -44,11 +44,15 @@ class GambitParser:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self, options):
 		self.debug: bool = False
+		self.verbose: bool = False
 		self.useWarnings: bool = False
 		self.warnOnTodo: bool = False
+		self.quitOnError: bool = True
 
 		if 'warnings' in options:
 			self.useWarnings = options['warnings']
+		if 'verbose' in options:
+			self.verbose = options['verbose']
 
 		self.vocab: dict[str, list] = {}
 		self.vocabPlural: dict[str, str] = {}
@@ -121,7 +125,8 @@ class GambitParser:
 		print("ERROR: {0:s}".format(msg))
 		#traceback.print_exc()
 		#raise Exception(msg)
-		exit(0)
+		if self.quitOnError:
+			exit(0)
 
 	def warning(self, msg: str) -> None:
 		print("WARNING: {0:s}".format(msg))
@@ -139,7 +144,10 @@ class GambitParser:
 
 		# Simple default plurals.
 		if keyPlural is None:
-			if key[-1] == 's':
+			# Bonus
+			if key[-2:] == 'us':
+				keyPlural = key + "es"
+			elif key[-1] == 's':
 				keyPlural = key
 			# Factory, Quarry, City, but not Donkey
 			elif key[-2:] == 'ry' or key[-2:] == 'ty':
@@ -525,7 +533,7 @@ class GambitParser:
 				newWords.append(word)
 				continue
 
-			# Look for template references.
+			# Look for template references like "Produce<Stone>".
 			template = GambitLineProcessor.isTemplate(word)
 			if template:
 				(keyword, param) = template
