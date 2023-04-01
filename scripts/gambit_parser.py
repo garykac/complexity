@@ -65,7 +65,8 @@ class GambitParser:
 		# Term that are declared as imports.
 		self.importable = {}
 		
-		self.lines = []
+		self.lines: List[str] = []
+		self.lineInfo: List[GambitLineInfo] = []
 		self.lineNum: int = 0
 		self.maxIndent: int = 0
 
@@ -102,10 +103,9 @@ class GambitParser:
 					self.errorLine(str(ex))
 
 				if lineinfo:
-					type = lineinfo['type']
-					if type == "DEF":
-						keyword = lineinfo['keyword']
-						plural = lineinfo['alt-keyword']
+					if lineinfo.lineType == "DEF":
+						keyword = lineinfo.keyword
+						plural = lineinfo.altKeyword
 						self.importable[keyword] = plural
 
 	# Provide a warning if there are TODO comments left in the source file.
@@ -117,9 +117,9 @@ class GambitParser:
 		if lineNum != -1:
 			num = lineNum
 		elif self.lineNum > 0:
-			num = self.lineNum - 2
+			num = self.lineNum
 		if num > 0:
-			print("LINE {0:d}: {1:s}".format(num, self.lines[num]['line']))
+			print(f"LINE {num}: {self.lines[num-1]}")
 		self.error(msg)
 
 	def error(self, msg: str) -> None:
@@ -196,23 +196,23 @@ class GambitParser:
 	
 	# Update the costs of the individual lines.
 	def updateCosts(self):
-		maxLines = len(self.lines)
+		maxLines = len(self.lineInfo)
 		isVocabSection = False
 		currDef = -1
 		currDefCost = 0
 		for i in range(0, maxLines):
-			r = self.lines[i]
-			type = r['type']
+			r = self.lineInfo[i]
+			type = r.lineType
 
 			if type == "SECTION":
 				isVocabSection = False
-				if r['comment'] == "Vocabulary":
+				if r.lineComment == "Vocabulary":
 					isVocabSection = True
 
 			elif type == "DEF" or type == "TEMPLATE":
 				# DEF must alwyas cost at least one.
 				if currDef != -1 and isVocabSection and currDefCost == 0:
-					self.lines[currDef]['cost'] = 1
+					self.lineInfo[currDef].cost = 1
 
 				currDef = i
 				currDefCost = 0
@@ -222,11 +222,11 @@ class GambitParser:
 				# Otherwise (with no DESCs) the cost of the DEF is 1.
 				if self.defHasDesc(i):
 					# Set to None instead of 0 so that the cost column is left blank.
-					r['cost'] = None
+					r.cost = None
 
 			elif type in ["DESC", "CONSTRAINT"]:
 				zeroCost = False
-				line = r['line']
+				line = r.line
 
 				# Free actions are free.
 				if line in self.freeActions:
@@ -267,7 +267,7 @@ class GambitParser:
 						zeroCost = True
 				
 				if zeroCost:
-					r['cost'] = 0
+					r.cost = 0
 				else:
 					currDefCost += 1
 			
@@ -277,17 +277,17 @@ class GambitParser:
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
 	def defHasDesc(self, iDef):
-		if not self.lines[iDef]['type'] in ["DEF", "TEMPLATE"]:
-			self.error("Not a DEF on line {0:d}: {1:s}".format(iDef, self.lines[iDef]['type']))
-		maxLines = len(self.lines)
+		if not self.lineInfo[iDef].lineType in ["DEF", "TEMPLATE"]:
+			self.error("Not a DEF on line {0:d}: {1:s}".format(iDef, self.lineInfo[iDef].lineType))
+		maxLines = len(self.lineInfo)
 		i = iDef + 1
 		# Look ahead to search for DESC lines that follow the DEF.
 		while i < maxLines:
-			r = self.lines[i]
-			type = r['type']
+			r = self.lineInfo[i]
+			type = r.lineType
 			if type in ['DEF', 'BLANK', 'TEMPLATE']:
 				return False
-			if type == 'DESC' and r['indent'] == 1:
+			if type == 'DESC' and r.indent == 1:
 				return True
 			if not type in ['COMMENT', 'SECTION', 'SUBSECTION', 'CONSTRAINT']:
 				self.error("Unhandled type in defHasDesc: {0:s}".format(type))
@@ -302,18 +302,18 @@ class GambitParser:
 		currentSection = None
 		currentSubsection = None
 		cost = 0
-		for r in self.lines:
-			type = r['type']
+		for r in self.lineInfo:
+			type = r.lineType
 			if type in ["DEF", "TEMPLATE", "DESC", "CONSTRAINT"]:
-				if r['cost']:
-					self.costTotal += r['cost']
-					cost += r['cost']
+				if r.cost:
+					self.costTotal += r.cost
+					cost += r.cost
 			elif type == "SECTION":
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				elif currentSection:
 					self.sectionCosts.append([currentSection, cost])
-				currentSection = r['comment']
+				currentSection = r.lineComment
 				currentSubsection = None
 				cost = 0
 			elif type == "SUBSECTION":
@@ -321,7 +321,7 @@ class GambitParser:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				else:
 					self.sectionCosts.append([currentSection, cost])
-				currentSubsection = r['comment']
+				currentSubsection = r.lineComment
 				if not currentSection in self.subsectionCosts:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
@@ -360,54 +360,47 @@ class GambitParser:
 		self.calcTotalCost()
 		
 	def processLine(self, line):
-		self.currentLine = line
 		self.lineNum += 1
+		self.lines.append(line.rstrip())
+
 		try:
 			lineinfo = GambitLineProcessor.processLine(line)
 		except Exception as ex:
 			self.errorLine(str(ex))
 		
-		# |lineinfo| is a dict with:
-		#   'type'
-		#   'cost'
-		#   'indent'
-		#   'line'
-		#   'comment'
-		# plus additional values depending on the |type|.
-		if lineinfo:
-			self.lines.append(lineinfo)
-			type = lineinfo['type']
-			if type == "OLDIMPORT":
-				self.oldImportFile(lineinfo['comment'])
-			elif type == "IMPORT":
-				self.importTerms(lineinfo['comment'])
-			elif type == "DEF":
-				parent = lineinfo['parent']
-				if parent and not parent in self.vocab:
-					self.errorLine(f"Unknown parent: {parent}")
-				for t in lineinfo['types']:
-					if not t in self.vocab:
-						self.errorLine(f"Unknown term: {t}")
+		# |lineinfo| is GambitLineInfo
+		# plus additional values depending on the |lineType|.
+		self.lineInfo.append(lineinfo)
+		type = lineinfo.lineType
+		if type == "OLDIMPORT":
+			self.oldImportFile(lineinfo.data)
+		elif type == "IMPORT":
+			self.importTerms(lineinfo.data)
+		elif type == "DEF":
+			parent = lineinfo.parent
+			if parent and not parent in self.vocab:
+				self.errorLine(f"Unknown parent: {parent}")
+			for t in lineinfo.types:
+				if not t in self.vocab:
+					self.errorLine(f"Unknown term: {t}")
 
-				info = ["LOCAL", lineinfo['types']]
-				if parent:
-					info.append(parent)
-				self.addVocab(lineinfo['keyword'], lineinfo['alt-keyword'], info)
-			elif type == "TEMPLATE":
-				info = ["LOCAL", "Verb", lineinfo['param']]
-				self.addVocab(lineinfo['keyword'], None, info)
-			elif type == "NAME":
-				self.gameTitle = lineinfo['comment']
-			elif type == "ERROR":
-				self.errorLine(lineinfo['comment'])
-			elif not type in ['COMMENT', 'CONSTRAINT', 'DESC', 'SECTION', 'SUBSECTION', 'BLANK']:
-				self.error(f"Unhandled type in processLine: {type}")
+			info = ["LOCAL", lineinfo.types]
+			if parent:
+				info.append(parent)
+			self.addVocab(lineinfo.keyword, lineinfo.altKeyword, info)
+		elif type == "TEMPLATE":
+			info = ["LOCAL", "Verb", lineinfo.param]
+			self.addVocab(lineinfo.keyword, None, info)
+		elif type == "NAME":
+			self.gameTitle = lineinfo.lineComment
+		elif type == "ERROR":
+			self.errorLine(lineinfo.lineComment)
+		elif not type in ['COMMENT', 'CONSTRAINT', 'DESC', 'SECTION', 'SUBSECTION', 'BLANK']:
+			self.error(f"Unhandled type in processLine: {type}")
 
-			# Record the max indent level so that we can format the HTML table correctly.
-			if lineinfo['indent'] > self.maxIndent:
-				self.maxIndent = lineinfo['indent']
-
-		return lineinfo
+		# Record the max indent level so that we can format the HTML table correctly.
+		if lineinfo.indent > self.maxIndent:
+			self.maxIndent = lineinfo.indent
 
 	def importTerms(self, terms):
 		for t in terms:
@@ -426,15 +419,15 @@ class GambitParser:
 		with open(os.path.join(self.currentDir, dirname, basename), 'r') as file:
 			for line in file:
 				try:
-					lineinfo = GambitLineProcessor.processLine(line)
+					lineinfo: GambitLineInfo = GambitLineProcessor.processLine(line)
 				except Exception as ex:
 					self.errorLine(str(ex))
 
 				if lineinfo:
-					type = lineinfo['type']
+					type = lineinfo.lineType
 					if type == "DEF":
-						keyword = lineinfo['keyword']
-						plural = lineinfo['alt-keyword']
+						keyword = lineinfo.keyword
+						plural = lineinfo.altKeyword
 						info = ["OLDIMPORT", name]
 						self.addVocab(keyword, plural, info)
 						self.addOldImportTerm(keyword)
@@ -457,33 +450,30 @@ class GambitParser:
 		
 	def extractAllReferences(self):
 		currDef = None
-		for i in range(len(self.lines)):
-		#for r in self.lines:
-			r = self.lines[i]
-			type = r['type']
+		for i in range(len(self.lineInfo)):
+			r = self.lineInfo[i]
+			type = r.lineType
 			if type == "DEF":
-				currDef = r['keyword']
-				for t in r['types']:
+				currDef = r.keyword
+				for t in r.types:
 					self.addRef(t, currDef)
-				if r['parent']:
-					self.addRef(r['parent'], currDef)
-					r['tokens'] = self.extractReference(i,
-						"{0:s} of {1:s}".format(r['types'][0], r['parent']), currDef)
+				if r.parent:
+					self.addRef(r.parent, currDef)
+					r.setTokens(self.extractReference(i, f"{r.types[0]} of {r.parent}", currDef))
 				else:
-					r['tokens'] = self.extractReference(i, ', '.join(r['types']), currDef)
-				self.extractReference(i, r['comment'], currDef, True)
+					r.setTokens(self.extractReference(i, ', '.join(r.types), currDef))
+				self.extractReference(i, r.lineComment, currDef, True)
 			elif type == "TEMPLATE":
-				currDef = r['keyword']
+				currDef = r.keyword
 				self.addRef("Verb", currDef)
-				r['tokens'] = ["Verb"]
-				self.extractReference(i, r['comment'], currDef, True)
+				r.setTokens(["Verb"])
+				self.extractReference(i, r.lineComment, currDef, True)
 			elif type == "DESC":
-				r['tokens'] = self.extractReference(i, r['line'], currDef)
-				self.extractReference(i, r['comment'], currDef, True)
+				r.setTokens(self.extractReference(i, r.line, currDef))
+				self.extractReference(i, r.lineComment, currDef, True)
 			elif type == "CONSTRAINT":
-				(type, cost, indent, line, comment) = r
-				r['tokens'] = self.extractReference(i, r['line'], currDef)
-				self.extractReference(i, r['comment'], currDef, True)
+				r.setTokens(self.extractReference(i, r.line, currDef))
+				self.extractReference(i, r.lineComment, currDef, True)
 			elif not type in ['COMMENT', 'IMPORT', 'OLDIMPORT', 'NAME', 'SECTION', 'SUBSECTION', 'BLANK']:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	

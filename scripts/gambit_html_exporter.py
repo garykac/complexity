@@ -5,6 +5,7 @@ import os
 import re
 import traceback
 
+from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
 
@@ -219,25 +220,24 @@ class GambitHtmlExporter:
 		out.write('</table>\n')
 
 	def writeTableRows(self, out):
-		for r in self.parser.lines:
-			type = r['type']
+		for r in self.parser.lineInfo:
+			type = r.lineType
 			prefix = ""
-			line = r['line']
-			comment = r['comment']
-			tokens = None
-			if 'tokens' in r:
-				tokens = r['tokens']
+			line = r.line
+			comment = r.lineComment
+			data = r.data
+			tokens = r.tokens
 			rowclass = None
 
 			if type == "DEF":
-				defn = self.calcDefinitionHtml(r['keyword'])
+				defn = self.calcDefinitionHtml(r.keyword)
 				prefix = "{0:s}: ".format(defn)
-				if r['parent'] != None:
-					line = '{0:s} of {1:s}'.format(r['types'][0], r['parent'])
+				if r.parent != None:
+					line = '{0:s} of {1:s}'.format(r.types[0], r.parent)
 				else:
-					line = ', '.join(r['types'])
+					line = ', '.join(r.types)
 			elif type == "TEMPLATE":
-				defn = self.calcTemplateHtml(r['keyword'], r['param'])
+				defn = self.calcTemplateHtml(r.keyword, r.param)
 				prefix = "{0:s}: ".format(defn)
 				line = "Verb"
 			elif type == "CONSTRAINT":
@@ -249,7 +249,7 @@ class GambitHtmlExporter:
 				#comment = "#import {0:s}".format(comment)
 				continue
 			elif type == "IMPORT":
-				comment = ', '.join(comment)
+				comment = ', '.join(data)
 			elif type == "SECTION":
 				rowclass = "section"
 			elif type == "SUBSECTION":
@@ -264,12 +264,12 @@ class GambitHtmlExporter:
 			else:
 				row = '<tr>'
 
-			row += self.calcTableRowCostColumn(r['cost'])
+			row += self.calcTableRowCostColumn(r.cost)
 
 			if rowclass:
 				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, comment)
 			else:
-				row += self.calcTableRowDescColumn(r['indent'], line, tokens, comment, prefix)
+				row += self.calcTableRowDescColumn(r.indent, line, tokens, comment, prefix)
 
 			row += '</tr>\n'
 
