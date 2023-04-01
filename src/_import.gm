@@ -68,6 +68,10 @@ ChoosePlayerComponents: Verb
 	Choose one of the available Players
 	Take all the components for that Player
 
+VictoryPoint: Noun
+
+VP: Noun
+	Abbreviation for VictoryPoint
 
 // =========
 // Card Game
