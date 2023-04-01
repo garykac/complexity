@@ -300,17 +300,15 @@ class GambitHtmlExporter:
 		return row
 	
 	def calcTemplateHtml(self, keyword, param):
-		refs = []
-		if keyword in self.parser.referencedBy:
-			refs = sorted(self.parser.referencedBy[keyword])
+		refs = self.parser.vocab.getReferencesTo(keyword)
 		defn = '<div class="def-container">'
-		defn += '<a class="def" id="{0:s}">{0:s}&lt;{1:s}&gt;</a>'.format(keyword, param)
+		defn += f'<a class="def" id="{keyword}">{keyword}&lt;{param}&gt;</a>'
 
 		defn += '<div class="def-menu">'
 		if len(refs) != 0:
 			defn += '<div class="def-menu-title">Referenced&nbsp;by:</div>'
 			for ref in refs:
-				defn += '<a href="#{0:s}">{0:s}</a>'.format(ref)
+				defn += f'<a href="#{ref}">{ref}</a>'
 		else:
 			defn += '<div class="def-menu-title">No&nbsp;references</div>'
 		defn += '</div>'
@@ -318,17 +316,15 @@ class GambitHtmlExporter:
 		return defn
 
 	def calcDefinitionHtml(self, keyword):
-		refs = []
-		if keyword in self.parser.referencedBy:
-			refs = sorted(self.parser.referencedBy[keyword])
+		refs = self.parser.vocab.getReferencesTo(keyword)
 		defn = '<div class="def-container">'
-		defn += '<a class="def" id="{0:s}">{0:s}</a>'.format(keyword)
+		defn += f'<a class="def" id="{keyword}">{keyword}</a>'
 
 		defn += '<div class="def-menu">'
 		if len(refs) != 0:
 			defn += '<div class="def-menu-title">Referenced&nbsp;by:</div>'
 			for ref in refs:
-				defn += '<a href="#{0:s}">{0:s}</a>'.format(ref)
+				defn += f'<a href="#{ref}">{ref}</a>'
 		else:
 			defn += '<div class="def-menu-title">No&nbsp;references</div>'
 		defn += '</div>'
@@ -349,7 +345,7 @@ class GambitHtmlExporter:
 							.format(keyword, param))
 				elif ttype == "REF":
 					(ttype, canonicalForm, prefix, word, postfix) = t
-					info = self.parser.vocab[canonicalForm]
+					info = self.parser.vocab.lookup(canonicalForm)
 					scope = info[0]
 					if scope == "BASE":
 						newWords.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))

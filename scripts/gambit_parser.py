@@ -10,6 +10,7 @@ from gambit import (LT_COMMENT, LT_BLANK,
 					LT_NAME, LT_IMPORT, LT_IMPORT_GAME, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit_line_processor import GambitLineProcessor
+from gambit_vocab import GambitVocab
 from tokenizer import Tokenizer
 
 from typing import Optional, List, Union
@@ -36,10 +37,6 @@ FREE_SUFFIX_WORDS = [
 	"them",
 ]
 
-BASE_TYPES = [
-	"Noun", "Verb", "Attribute", "Part", "Condition", "Constraint", "Exit",
-]
-
 STANDARD_TERMS = [
 	"Setup", "PlayGame", "CalculateScore", "DetermineWinner"
 ]
@@ -58,16 +55,6 @@ class GambitParser:
 		if 'verbose' in options:
 			self.verbose = options['verbose']
 
-		self.vocab: dict[str, list] = {}
-		self.vocabPlural: dict[str, str] = {}
-		
-		# Definitions that were imported (and possibly overwritten).
-		self.old_imports = {}
-		self.imports = {}
-		
-		# Term that are declared as imports.
-		self.importable = {}
-		
 		self.lines: List[str] = []
 		self.lineInfo: List[GambitLineInfo] = []
 		self.lineNum: int = 0
@@ -80,10 +67,7 @@ class GambitParser:
 
 		self.currentDir: Optional[str] = None
 	
-		# Dict of defs that reference this def.
-		self.referencedBy = {}
-
-		self.initVocab()
+		self.vocab = GambitVocab(self)
 
 		# Special actions with 0 cost.
 		self.freeActions = {}
@@ -93,23 +77,8 @@ class GambitParser:
 		for a in FREE_ACTIONS:
 			self.freeActions[a] = True
 	
-	def initVocab(self) -> None:
-		for key in BASE_TYPES:
-			self.addVocab(key, None, ["BASE"])
-	
-	def loadImportableTerms(self, import_file) -> None:
-		with open(import_file, 'r') as file:
-			for line in file:
-				try:
-					lineinfo = GambitLineProcessor.processLine(line)
-				except Exception as ex:
-					self.errorLine(str(ex))
-
-				if lineinfo:
-					if lineinfo.lineType == LT_DEF:
-						keyword = lineinfo.keyword
-						plural = lineinfo.altKeyword
-						self.importable[keyword] = plural
+	def loadImportableTerms(self, importFile) -> None:
+		self.vocab.loadImportableTerms(importFile)
 
 	# Provide a warning if there are TODO comments left in the source file.
 	def setWarnOnTodo(self) -> None:
@@ -133,66 +102,13 @@ class GambitParser:
 		raise Exception(msg)
 
 	def warning(self, msg: str) -> None:
+		if not self.useWarnings:
+			self.error(msg)
 		print("WARNING: {0:s}".format(msg))
 
 	def warningLine(self, msg: str) -> None:
 		print("WARNING {0:d}: {1:s}".format(self.lineNum, msg))
 
-	# ==========
-	# Vocabulary and Cross-reference
-	# ==========
-	
-	def addVocab(self, key: str, keyPlural: Optional[str], info: list) -> None:
-		self.vocab[key] = info
-		self.referencedBy[key] = set()
-
-		# Simple default plurals.
-		if keyPlural is None:
-			# "Bonus"
-			if key[-2:] == 'us':
-				keyPlural = key + "es"
-			elif key[-1] == 's':
-				keyPlural = key
-			# "Factory", "Quarry", "City", but not "Donkey"
-			elif key[-2:] == 'ry' or key[-2:] == 'ty':
-				keyPlural = key[0:-1] + "ies"
-			# "Domino"
-			elif key[-1:] == 'o':
-				keyPlural = key + "es"
-			else:
-				keyPlural = key + "s"
-
-		# Mapping from plural to canonical form.
-		self.vocabPlural[keyPlural] = key
-		if self.debug:
-			print("addVocab", key, keyPlural, info)
-		
-	def isVocab(self, word: str) -> bool:
-		# Normalize plural forms.
-		canonicalForm: str = word
-		if word in self.vocabPlural:
-			canonicalForm = self.vocabPlural[word]
-
-		return canonicalForm in self.vocab
-	
-	def isDefinedTerm(self, term: str) -> bool:
-		if self.isVocab(term):
-			return True
-
-		# Check for templates.
-		template = GambitLineProcessor.isTemplate(term)
-		if template:
-			(keyword, param) = template
-			return self.isVocab(keyword) and self.isVocab(param)
-
-		return False
-
-	def addOldImportTerm(self, key: str) -> None:
-		self.old_imports[key] = True
-	
-	def addImportTerm(self, key: str) -> None:
-		self.imports[key] = True
-	
 	# ==========
 	# Calculating costs.
 	# ==========
@@ -237,12 +153,12 @@ class GambitParser:
 
 				# Lines that consist entirely of a single defined term are free.
 				# The cost comes from the definition.
-				if self.isDefinedTerm(line):
+				if self.vocab.isDefinedTerm(line):
 					zeroCost = True
 
 				# TODO: Better detection of possible missing imports.
 				# This will only catch it if the import is the only thing on the line.
-				if (not zeroCost) and (line in self.importable):
+				if (not zeroCost) and self.vocab.isImportable(line):
 					self.warning(f"Possibly missing import for {line}")
 
 				# Handle special cases with Vocab
@@ -251,13 +167,13 @@ class GambitParser:
 				# Lines that consist entirely of a defined terms are free.
 				allDefined = True
 				for w in words:
-					if not self.isDefinedTerm(w):
+					if not self.vocab.isDefinedTerm(w):
 						allDefined = False
 				if allDefined:
 					zeroCost = True
 
 				# Handle "Discard xxx"
-				if len(words) == 2 and self.isDefinedTerm(words[0]):
+				if len(words) == 2 and self.vocab.isDefinedTerm(words[0]):
 					# Handle: "Discard it"
 					if words[1] in FREE_SUFFIX_WORDS:
 						zeroCost = True
@@ -265,8 +181,8 @@ class GambitParser:
 					if re.match(r'x\d+$', words[1]):
 						zeroCost = True
 				# Handle "Success:" and "Success: DrawCard"
-				if words[0][-1] == ':' and self.isDefinedTerm(words[0][0:-1]):
-					if len(words) == 1 or  self.isDefinedTerm(words[1]):
+				if words[0][-1] == ':' and self.vocab.isDefinedTerm(words[0][0:-1]):
+					if len(words) == 1 or  self.vocab.isDefinedTerm(words[1]):
 						zeroCost = True
 				
 				if zeroCost:
@@ -378,42 +294,28 @@ class GambitParser:
 		if type == LT_IMPORT_GAME:
 			self.oldImportFile(lineinfo.data)
 		elif type == LT_IMPORT:
-			self.importTerms(lineinfo.data)
+			self.vocab.importTerms(lineinfo.data)
 		elif type == LT_DEF:
 			parent = lineinfo.parent
-			if parent and not parent in self.vocab:
+			if parent and not self.vocab.contains(parent):
 				self.errorLine(f"Unknown parent: {parent}")
 			for t in lineinfo.types:
-				if not t in self.vocab:
+				if not self.vocab.contains(t):
 					self.errorLine(f"Unknown term: {t}")
 
-			info = ["LOCAL", lineinfo.types]
-			if parent:
-				info.append(parent)
-			self.addVocab(lineinfo.keyword, lineinfo.altKeyword, info)
+			self.vocab.addDef(lineinfo.keyword, lineinfo.altKeyword, lineinfo.types, parent)
 		elif type == LT_TEMPLATE:
-			info = ["LOCAL", "Verb", lineinfo.param]
-			self.addVocab(lineinfo.keyword, None, info)
+			self.vocab.addTemplate(lineinfo.keyword, lineinfo.param)
 		elif type == LT_NAME:
 			self.gameTitle = lineinfo.lineComment
 		elif type == "ERROR":
 			self.errorLine(lineinfo.lineComment)
-		elif not type in [LT_COMMENT, 'CONSTRAINT', 'DESC', LT_SECTION, LT_SUBSECTION, LT_BLANK]:
+		elif not type in [LT_COMMENT, LT_CONSTRAINT, LT_DESC, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 			self.error(f"Unhandled type in processLine: {type}")
 
 		# Record the max indent level so that we can format the HTML table correctly.
 		if lineinfo.indent > self.maxIndent:
 			self.maxIndent = lineinfo.indent
-
-	def importTerms(self, terms):
-		for t in terms:
-			if not t in self.importable:
-				self.errorLine(f"Unknown term for import: {t}")
-			keyword = t
-			plural = self.importable[t]
-			info = [LT_IMPORT, "_import.gm"]
-			self.addVocab(keyword, plural, info)
-			self.addImportTerm(keyword)
 
 	def oldImportFile(self, name):
 		basename = os.path.basename(name)
@@ -431,9 +333,7 @@ class GambitParser:
 					if type == LT_DEF:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
-						info = [LT_IMPORT_GAME, name]
-						self.addVocab(keyword, plural, info)
-						self.addOldImportTerm(keyword)
+						self.vocab.addGameImport(keyword, plural, name)
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]
@@ -459,16 +359,16 @@ class GambitParser:
 			if type == LT_DEF:
 				currDef = r.keyword
 				for t in r.types:
-					self.addRef(t, currDef)
+					self.vocab.addReference(t, currDef)
 				if r.parent:
-					self.addRef(r.parent, currDef)
+					self.vocab.addReference(r.parent, currDef)
 					r.setTokens(self.extractReference(i, f"{r.types[0]} of {r.parent}", currDef))
 				else:
 					r.setTokens(self.extractReference(i, ', '.join(r.types), currDef))
 				self.extractReference(i, r.lineComment, currDef, True)
 			elif type == LT_TEMPLATE:
 				currDef = r.keyword
-				self.addRef("Verb", currDef)
+				self.vocab.addReference("Verb", currDef)
 				r.setTokens(["Verb"])
 				self.extractReference(i, r.lineComment, currDef, True)
 			elif type == LT_DESC:
@@ -480,15 +380,6 @@ class GambitParser:
 			elif not type in [LT_COMMENT, LT_IMPORT, LT_IMPORT_GAME, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 	
-	# Record that |refTerm| is referenced by |refBy|.
-	# |refBy| makes a reference to |refTerm|.
-	def addRef(self, refTerm, refBy):
-		if refTerm == refBy:
-			return
-		#if not refTerm in self.referencedBy:
-		#	self.referencedBy[refTerm] = set()
-		self.referencedBy[refTerm].add(refBy)
-
 	def lookupCanonicalForm(self, word):
 		# Strip non-alphanumeric from beginning/end of token.
 		(prefix, word, postfix) = GambitLineProcessor.extractKeyword(word)
@@ -496,19 +387,7 @@ class GambitParser:
 			return self.vocabPlural[word]
 	
 	def checkReferences(self):
-		for k,v in self.referencedBy.items():
-			# Ignore standard terms (entry points like "Setup").
-			if k in STANDARD_TERMS:
-				continue
-			# If defined locally but no references.
-			if self.vocab[k][0] == "LOCAL" and len(v) == 0:
-				# Allow local definitions to overwrite imported defs.
-				if not k in self.old_imports:
-					msg = "Term is defined but never referenced: {0:s}".format(k)
-					self.warning(msg) if self.useWarnings else self.error(msg)
-			if self.vocab[k][0] == LT_IMPORT and len(v) == 0:
-				msg = f"Term is imported but never referenced: {k}"
-				self.warning(msg) if self.useWarnings else self.error(msg)
+		self.vocab.checkReferences()
 	
 	def extractReference(self, lineNum: int, line: str, currDef: str, inComment=False):
 		if line == "":
@@ -531,8 +410,8 @@ class GambitParser:
 			template = GambitLineProcessor.isTemplate(word)
 			if template:
 				(keyword, param) = template
-				self.addRef(keyword, currDef)
-				self.addRef(param, currDef)
+				self.vocab.addReference(keyword, currDef)
+				self.vocab.addReference(param, currDef)
 				newWords.append(["TREF", keyword, param])
 				continue
 
@@ -541,12 +420,10 @@ class GambitParser:
 			(prefix, word0, postfix) = GambitLineProcessor.extractKeyword(word)
 
 			# Normalize plural forms.
-			canonicalForm = word0
-			if word0 in self.vocabPlural:
-				canonicalForm = self.vocabPlural[word0]
+			canonicalForm = self.vocab.normalize(word0)
 			
-			if canonicalForm in self.vocab:
-				self.addRef(canonicalForm, currDef)
+			if self.vocab.contains(canonicalForm):
+				self.vocab.addReference(canonicalForm, currDef)
 				newWords.append(["REF", canonicalForm, prefix, word0, postfix])
 			elif inComment:
 				newWords.append(word)

@@ -21,6 +21,12 @@ KEYWORD = "[A-Z][A-Za-z0-9_]*"
 MULTI_KEYWORDS = "[A-Z][A-Za-z0-9\|_]*"
 TEMPLATE_KEYWORD = "(" + KEYWORD + ")\<(" + KEYWORD + ")\>"
 
+# Vocabulary types.
+V_BASE = "BASE"
+V_LOCAL = "LOCAL"
+V_IMPORT = "IMPORT"
+V_GAME_IMPORT = "OLDIMPORT"
+
 # Parser line types.
 LT_COMMENT = "COMMENT"
 LT_BLANK = "BLANK"
