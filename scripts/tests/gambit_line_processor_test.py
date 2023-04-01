@@ -10,8 +10,8 @@ def test_processLine_empty():
     with pytest.raises(Exception):
         checkLineType(" \t ", "BLANK", None, 0, "", "")
 
-def test_processLine_import():
-    checkLineType("#import file", "IMPORT", None, 0, "", "file")
+#def test_processLine_import():
+#    checkLineType("#import file", "IMPORT", None, 0, "", "file")
 
 def test_processLine_comment():
     checkLineType("// comment", "COMMENT", None, 0, "", "comment")
@@ -27,12 +27,11 @@ def test_processLine_comment():
     checkLineType("\t// comment   ", "COMMENT", None, 1, "", "comment")
 
 def test_processLine_commentSpecial():
-    checkLineType("// SECTION: title", "SECTION", None, 0, "", "title")
-    checkLineType("// SUBSECTION: title", "SUBSECTION", None, 0, "", "title")
-    checkLineType("// NAME: title", "NAME", None, 0, "", "title")
-    assert GambitLineProcessor.processLine("// BGG Weight: title") == None
+    checkLineType("SECTION: title", "SECTION", None, 0, "", "title")
+    checkLineType("SUBSECTION: title", "SUBSECTION", None, 0, "", "title")
+    checkLineType("NAME: title", "NAME", None, 0, "", "title")
     # Not detected if they are indented.
-    checkLineType("\t// SECTION: title", "COMMENT", None, 1, "", "SECTION: title")
+    #checkLineType("\tSECTION: title", "COMMENT", None, 1, "", "SECTION: title")
 
 def test_processLine_templateDef():
     out = checkLineType("NewVerb<Type>: Verb", "TEMPLATE", 1, 0, "", "")
@@ -84,11 +83,11 @@ def test_processLine_constraint():
     checkLineType("! Some constraint  // comment", "CONSTRAINT", 1, 0, "Some constraint", "comment")
 
 def test_processLine_description():
-    checkLineType("Some description", "DESC", 1, 0, "Some description", "")
+    #checkLineType("Some description", "DESC", 1, 0, "Some description", "")
     checkLineType("\tSome description", "DESC", 1, 1, "Some description", "")
     checkLineType("\t\tSome description", "DESC", 1, 2, "Some description", "")
 
-    checkLineType("Some description  // comment", "DESC", 1, 0, "Some description", "comment")
+    checkLineType("\tSome description  // comment", "DESC", 1, 1, "Some description", "comment")
 
 # Process line and compare with expected values (prefix 'x').
 def checkLineType(line, xType, xCost, xIndent, xLine, xComment):

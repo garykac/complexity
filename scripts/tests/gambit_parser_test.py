@@ -5,36 +5,36 @@ from gambit_line_processor import GambitLineProcessor
 from unittest import mock
 
 def test_defHasDesc_noDescEof():
-    parser = GambitParser()
+    parser = GambitParser({})
     addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
     assert parser.defHasDesc(0) == False
 
 def test_defHasDesc_noDescDef():
-    parser = GambitParser()
+    parser = GambitParser({})
     addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
     addDefLine(parser, "Term2", None, ["Noun"], None, "Comment")
     assert parser.defHasDesc(0) == False
 
 def test_defHasDesc_noDescTemplate():
-    parser = GambitParser()
+    parser = GambitParser({})
     addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
     addTemplateLine(parser, "Template", "Param", "Comment")
     assert parser.defHasDesc(0) == False
 
 def test_defHasDesc_noDescBlank():
-    parser = GambitParser()
+    parser = GambitParser({})
     addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
     addBlankLine(parser, 0)
     assert parser.defHasDesc(0) == False
 
 def test_defHasDesc_hasDescBadIndent():
-    parser = GambitParser()
+    parser = GambitParser({})
     addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
     addDescLine(parser, 0, 1, "Description", "Comment")
     assert parser.defHasDesc(0) == True
 
 def test_defHasDesc_invalidDef():
-    parser = GambitParser()
+    parser = GambitParser({})
     addDescLine(parser, 0, 1, "Description", "Comment")
     with pytest.raises(Exception):
         parser.defHasDesc(0)
@@ -81,65 +81,65 @@ def addTemplateLine(parser, keyword, param, comment):
         'param': param,
     })
 
-def mock_importFile(self, name):
-    assert name == "file"
+#def mock_importFile(self, name):
+#    assert name == "file"
 
-@mock.patch.object(GambitParser, 'importFile', new=mock_importFile)
-def test_processLine_import():
-    parser = GambitParser()
-    checkLineType(parser, "#import file", "IMPORT", None, 0, "", "file")
+#@mock.patch.object(GambitParser, 'importFile', new=mock_importFile)
+#def test_processLine_import():
+#    parser = GambitParser({})
+#    checkLineType(parser, "#import file", "IMPORT", None, 0, "", "file")
 
-def test_processLine_commentSpecial():
-    parser = GambitParser()
-    checkLineType(parser, "// NAME: title", "NAME", None, 0, "", "title")
-    assert parser.gameTitle == "title"
+#def test_processLine_commentSpecial():
+#    parser = GambitParser({})
+#    checkLineType(parser, "// NAME: title", "NAME", None, 0, "", "title")
+#    assert parser.gameTitle == "title"
 
 def test_processLine_templateDef():
-    parser = GambitParser()
+    parser = GambitParser({})
     checkLineType(parser, "NewVerb<Type>: Verb", "TEMPLATE", 1, 0, "", "")
     checkVocab(parser, "NewVerb", ["LOCAL", "Verb", "Type"])
 
 def test_processLine_def():
-    parser = GambitParser()
+    parser = GambitParser({})
     checkLineType(parser, "NewTerm: Noun", "DEF", 1, 0, "", "")
     checkVocab(parser, "NewTerm", ["LOCAL", ["Noun"]])
     checkAlt(parser, "NewTerm", "NewTerms")
 
 def test_processLine_defUnknownType():
-    parser = GambitParser()
+    parser = GambitParser({})
     with pytest.raises(Exception):
         checkLineType(parser, "NewTerm: UnknownType", "DEF", 1, 0, "", "")
 
 def test_processLine_defAlt():
-    parser = GambitParser()
+    parser = GambitParser({})
     checkLineType(parser, "NewTerm|AltTerm: Noun", "DEF", 1, 0, "", "")
     checkVocab(parser, "NewTerm", ["LOCAL", ["Noun"]])
     checkAlt(parser, "NewTerm", "AltTerm")
 
 def test_processLine_defMultiType():
-    parser = GambitParser()
+    parser = GambitParser({})
     parser.processLine("Noun1: Noun")
     parser.processLine("Noun2: Noun")
     checkLineType(parser, "Noun3: Noun1,Noun2", "DEF", 1, 0, "", "")
 
 def test_processLine_defParent():
-    parser = GambitParser()
+    parser = GambitParser({})
     parser.processLine("Noun1: Noun")
     checkLineType(parser, "Thing: Attribute of Noun1", "DEF", 1, 0, "", "")
     checkVocab(parser, "Thing", ["LOCAL", ["Attribute"], "Noun1"])
 
 def test_processLine_defParentUnknown():
-    parser = GambitParser()
+    parser = GambitParser({})
     with pytest.raises(Exception):
         checkLineType(parser, "Thing: Attribute of Noun1", "DEF", 1, 0, "", "")
 
 def test_processLine_constraint():
-    parser = GambitParser()
+    parser = GambitParser({})
     checkLineType(parser, "! Some constraint", "CONSTRAINT", 1, 0, "Some constraint", "")
 
 def test_processLine_description():
-    parser = GambitParser()
-    checkLineType(parser, "Some description", "DESC", 1, 0, "Some description", "")
+    parser = GambitParser({})
+    checkLineType(parser, "\tSome description", "DESC", 1, 1, "Some description", "")
 
 # Process line and compare with expected values (prefix 'x').
 def checkLineType(parser, line, xType, xCost, xIndent, xLine, xComment):

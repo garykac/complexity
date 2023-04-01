@@ -3,6 +3,7 @@
 
 import os
 import re
+import sys
 import traceback
 
 from gambit_line_processor import GambitLineProcessor
@@ -47,7 +48,7 @@ class GambitParser:
 		self.verbose: bool = False
 		self.useWarnings: bool = False
 		self.warnOnTodo: bool = False
-		self.quitOnError: bool = True
+		self.quitOnError: bool = False
 
 		if 'warnings' in options:
 			self.useWarnings = options['warnings']
@@ -124,9 +125,9 @@ class GambitParser:
 	def error(self, msg: str) -> None:
 		print("ERROR: {0:s}".format(msg))
 		#traceback.print_exc()
-		#raise Exception(msg)
 		if self.quitOnError:
-			exit(0)
+			sys.exit(0)
+		raise Exception(msg)
 
 	def warning(self, msg: str) -> None:
 		print("WARNING: {0:s}".format(msg))
@@ -144,15 +145,15 @@ class GambitParser:
 
 		# Simple default plurals.
 		if keyPlural is None:
-			# Bonus
+			# "Bonus"
 			if key[-2:] == 'us':
 				keyPlural = key + "es"
 			elif key[-1] == 's':
 				keyPlural = key
-			# Factory, Quarry, City, but not Donkey
+			# "Factory", "Quarry", "City", but not "Donkey"
 			elif key[-2:] == 'ry' or key[-2:] == 'ty':
 				keyPlural = key[0:-1] + "ies"
-			# Domino
+			# "Domino"
 			elif key[-1:] == 'o':
 				keyPlural = key + "es"
 			else:
