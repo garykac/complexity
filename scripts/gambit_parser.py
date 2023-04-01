@@ -355,31 +355,7 @@ class GambitParser:
 	def extractAllReferences(self):
 		currDef = None
 		for i in range(len(self.lineInfo)):
-			r = self.lineInfo[i]
-			type = r.lineType
-			if type == LT_DEF:
-				currDef = r.keyword
-				for t in r.types:
-					self.vocab.addReference(t, currDef)
-				if r.parent:
-					self.vocab.addReference(r.parent, currDef)
-					r.setTokens(self.extractReference(i, f"{r.types[0]} of {r.parent}", currDef))
-				else:
-					r.setTokens(self.extractReference(i, ', '.join(r.types), currDef))
-				self.extractReference(i, r.lineComment, currDef, True)
-			elif type == LT_TEMPLATE:
-				currDef = r.keyword
-				self.vocab.addReference("Verb", currDef)
-				r.setTokens(["Verb"])
-				self.extractReference(i, r.lineComment, currDef, True)
-			elif type == LT_DESC:
-				r.setTokens(self.extractReference(i, r.line, currDef))
-				self.extractReference(i, r.lineComment, currDef, True)
-			elif type == LT_CONSTRAINT:
-				r.setTokens(self.extractReference(i, r.line, currDef))
-				self.extractReference(i, r.lineComment, currDef, True)
-			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
-				self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
+			currDef = self.vocab.extractReferences(i, currDef, self.lineInfo[i])
 	
 	def lookupCanonicalForm(self, word):
 		# Strip non-alphanumeric from beginning/end of token.
@@ -390,56 +366,3 @@ class GambitParser:
 	def checkReferences(self):
 		self.vocab.checkReferences()
 	
-	def extractReference(self, lineNum: int, line: str, currDef: str, inComment=False):
-		if line == "":
-			return
-		newWords: List[Union[str, List[str]]] = []
-		firstWord = True
-		for word in Tokenizer.tokenize(line):
-			# Skip over special initial characters.
-			if firstWord and word == LOOKUP_TABLE_PREFIX:
-				newWords.append(LOOKUP_TABLE_PREFIX)
-				# Don't update firstWord since the next word might be capitalized.
-				continue
-				
-			# Ignore strings.
-			if word[0] == '"' and word[-1] == '"':
-				newWords.append(word)
-				continue
-
-			# Look for template references like "Produce<Stone>".
-			template = GambitLineProcessor.isTemplate(word)
-			if template:
-				(keyword, param) = template
-				self.vocab.addReference(keyword, currDef)
-				self.vocab.addReference(param, currDef)
-				newWords.append(["TREF", keyword, param])
-				continue
-
-			# Strip non-alphanumeric from beginning/end of token.
-			# Also remove contraction endings like "'s".
-			(prefix, word0, postfix) = GambitLineProcessor.extractKeyword(word)
-
-			# Normalize plural forms.
-			canonicalForm = self.vocab.normalize(word0)
-			
-			if self.vocab.contains(canonicalForm):
-				self.vocab.addReference(canonicalForm, currDef)
-				newWords.append(["REF", canonicalForm, prefix, word0, postfix])
-			elif inComment:
-				newWords.append(word)
-			else:
-				# Verify capitalized words.
-				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
-					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
-					self.errorLine(f"Unable to find definition for '{word0}'", lineNum)
-				elif not firstWord and word0[0].isupper():
-					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
-					self.errorLine(f"Unable to find definition for '{word0}'", lineNum)
-				newWords.append(word)
-
-			firstWord = False
-			if (word0 != "" and word0[-1] in ['.',':']) or (postfix != "" and postfix[-1] in ['.',':']):
-				firstWord = True
-
-		return newWords
