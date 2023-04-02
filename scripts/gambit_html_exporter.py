@@ -11,7 +11,7 @@ from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
 from gambit import T_REF, T_TEMPLATE_REF
 from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
-from tokenizer import Tokenizer
+from gambit_tokenizer import GambitTokenizer
 
 GM_CSS_PATH = "gm.css"
 
@@ -344,7 +344,7 @@ class GambitHtmlExporter:
 		tokens = lineInfo.tokens
 		
 		if not tokens:
-			return Tokenizer.untokenize(line.split())
+			return GambitTokenizer.untokenize(line.split())
 		
 		newWords = []
 		for t in tokens:
@@ -373,4 +373,4 @@ class GambitHtmlExporter:
 			else:
 				newWords.append(t)
 
-		return Tokenizer.untokenize(newWords)
+		return GambitTokenizer.untokenize(newWords)

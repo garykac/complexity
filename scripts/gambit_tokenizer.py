@@ -5,7 +5,7 @@ import re
 
 from gambit import KEYWORD, MULTI_KEYWORDS, TEMPLATE_KEYWORD
 
-class Tokenizer:
+class GambitTokenizer:
 	"""Simple tokenizer."""
 	def __init__(self):
 		pass

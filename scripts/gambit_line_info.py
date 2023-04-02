@@ -11,7 +11,7 @@ from gambit import (LT_COMMENT, LT_BLANK,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit import T_REF, T_TEMPLATE_REF
 from gambit import KEYWORD
-from tokenizer import Tokenizer
+from gambit_tokenizer import GambitTokenizer
 
 from typing import List
 from typing import Optional
@@ -177,7 +177,7 @@ class GambitLineInfo:
 			return
 		newWords: List[Union[str, List[str]]] = []
 		firstWord = True
-		for word in Tokenizer.tokenize(line):
+		for word in GambitTokenizer.tokenize(line):
 			# Skip over special initial characters.
 			if firstWord and word == LOOKUP_TABLE_PREFIX:
 				newWords.append(LOOKUP_TABLE_PREFIX)
@@ -190,7 +190,7 @@ class GambitLineInfo:
 				continue
 
 			# Look for template references like "Produce<Stone>".
-			template = Tokenizer.isTemplate(word)
+			template = GambitTokenizer.isTemplate(word)
 			if template:
 				(keyword, param) = template
 				vocab.addReference(keyword, currDef)
@@ -200,7 +200,7 @@ class GambitLineInfo:
 
 			# Strip non-alphanumeric from beginning/end of token.
 			# Also remove contraction endings like "'s".
-			(prefix, word0, postfix) = Tokenizer.extractKeyword(word)
+			(prefix, word0, postfix) = GambitTokenizer.extractKeyword(word)
 
 			# Normalize plural forms.
 			canonicalForm = vocab.normalize(word0)

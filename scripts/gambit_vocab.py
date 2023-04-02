@@ -12,7 +12,7 @@ from gambit import (LT_COMMENT, LT_BLANK,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit import V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT
 from gambit_line_processor import GambitLineProcessor
-from tokenizer import Tokenizer
+from gambit_tokenizer import GambitTokenizer
 
 from typing import Optional, List, Union
 
@@ -128,7 +128,7 @@ class GambitVocab:
 			return True
 
 		# Check for templates.
-		template = Tokenizer.isTemplate(term)
+		template = GambitTokenizer.isTemplate(term)
 		if template:
 			(keyword, param) = template
 			return self.isVocab(keyword) and self.isVocab(param)

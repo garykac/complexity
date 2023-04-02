@@ -10,8 +10,8 @@ from gambit import (LT_COMMENT, LT_BLANK,
 					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit_line_processor import GambitLineProcessor
+from gambit_tokenizer import GambitTokenizer
 from gambit_vocab import GambitVocab
-from tokenizer import Tokenizer
 
 from typing import Optional, List, Union
 
@@ -108,7 +108,7 @@ class GambitCalc:
 					self.warning(f"Possibly missing import for {line}")
 
 				# Handle special cases with Vocab
-				words = Tokenizer.tokenize(line)
+				words = GambitTokenizer.tokenize(line)
 
 				# Lines that consist entirely of a defined terms are free.
 				allDefined = True
