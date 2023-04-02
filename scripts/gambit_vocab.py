@@ -10,7 +10,8 @@ from gambit import LOOKUP_TABLE_PREFIX
 from gambit import (LT_COMMENT, LT_BLANK,
 					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
-from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
+from gambit import V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT
+from gambit import T_REF, T_TEMPLATE_REF
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
 
@@ -231,7 +232,7 @@ class GambitVocab:
 				(keyword, param) = template
 				self.addReference(keyword, currDef)
 				self.addReference(param, currDef)
-				newWords.append(["TREF", keyword, param])
+				newWords.append([T_TEMPLATE_REF, keyword, param])
 				continue
 
 			# Strip non-alphanumeric from beginning/end of token.
@@ -243,7 +244,7 @@ class GambitVocab:
 			
 			if self.contains(canonicalForm):
 				self.addReference(canonicalForm, currDef)
-				newWords.append(["REF", canonicalForm, prefix, word0, postfix])
+				newWords.append([T_REF, canonicalForm, prefix, word0, postfix])
 			elif inComment:
 				newWords.append(word)
 			else:

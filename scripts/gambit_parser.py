@@ -12,7 +12,6 @@ from gambit import (LT_COMMENT, LT_BLANK,
 from gambit_calc import GambitCalc
 from gambit_line_processor import GambitLineProcessor
 from gambit_vocab import GambitVocab
-from tokenizer import Tokenizer
 
 from typing import Optional, List, Union
 

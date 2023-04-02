@@ -76,8 +76,9 @@ class GambitCalc:
 					isVocabSection = True
 
 			elif type == LT_DEF or type == LT_TEMPLATE:
-				# DEF must alwyas cost at least one.
+				# DEF must always cost at least one in the Vocabulary section.
 				if currDef != -1 and isVocabSection and currDefCost == 0:
+					# Update previous Vocab def if doesn't have any cost.
 					lineInfo[currDef].cost = 1
 
 				currDef = i
@@ -85,7 +86,7 @@ class GambitCalc:
 
 				# If a DEF has DESC indented under it, then the cost is
 				# determined by the associated DESCs and the DEF itself is 0.
-				# Otherwise (with no DESCs) the cost of the DEF is 1.
+				# Otherwise (with no indented DESCs) the cost of the DEF is 1.
 				if self.defHasDesc(lineInfo, i):
 					# Set to None instead of 0 so that the cost column is left blank.
 					r.cost = None
@@ -127,6 +128,7 @@ class GambitCalc:
 					# Handle: "Discard x2"
 					if re.match(r'x\d+$', words[1]):
 						zeroCost = True
+
 				# Handle "Success:" and "Success: DrawCard"
 				if words[0][-1] == ':' and self.vocab.isDefinedTerm(words[0][0:-1]):
 					if len(words) == 1 or  self.vocab.isDefinedTerm(words[1]):
