@@ -12,6 +12,8 @@ SUBSECTION_KEYWORD = "SUBSECTION"
 CONSTRAINT_PREFIX = "!"
 LOOKUP_TABLE_PREFIX = "*"
 
+TAB_SIZE = 4
+
 # ==================
 # Internal constants
 # ==================

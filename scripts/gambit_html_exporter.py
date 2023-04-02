@@ -231,9 +231,6 @@ class GambitHtmlExporter:
 			prefix = ""
 			line = r.line
 			comment = r.lineComment
-			name = r.name
-			data = r.data
-			tokens = r.tokens
 			rowclass = None
 
 			if type == LT_DEF:
@@ -256,7 +253,7 @@ class GambitHtmlExporter:
 				#comment = "#import {0:s}".format(comment)
 				continue
 			elif type == LT_IMPORT:
-				comment = ', '.join(data)
+				comment = ', '.join(r.data)
 			elif type == LT_SECTION:
 				rowclass = "section"
 			elif type == LT_SUBSECTION:
@@ -274,9 +271,9 @@ class GambitHtmlExporter:
 			row += self.calcTableRowCostColumn(r.cost)
 
 			if rowclass:
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, name)
+				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, r.name)
 			else:
-				row += self.calcTableRowDescColumn(r.indent, line, tokens, comment, prefix)
+				row += self.calcTableRowDescColumn(r, comment, prefix)
 
 			row += '</tr>\n'
 
@@ -287,7 +284,11 @@ class GambitHtmlExporter:
 			return '<td class="cost">{0:d}</td>'.format(cost)
 		return '<td class="cost"></td>'
 	
-	def calcTableRowDescColumn(self, indent, line, tokens, comment, descPrefix = ""):
+	def calcTableRowDescColumn(self, lineInfo, comment, descPrefix):
+		indent = lineInfo.indent
+		line = lineInfo.line
+		tokens = lineInfo.tokens
+		
 		row = '<td></td>' * indent
 
 		colspan = self.maxIndent + 1 - indent
@@ -298,7 +299,7 @@ class GambitHtmlExporter:
 			
 		if line != "" or descPrefix != "":
 			row += descPrefix
-			row += self.calcKeywordLinks(line, tokens)
+			row += self.calcKeywordLinks(lineInfo)
 			if comment != "":
 				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
 		if comment != "":
@@ -338,7 +339,10 @@ class GambitHtmlExporter:
 		defn += '</div>'
 		return defn
 
-	def calcKeywordLinks(self, line, tokens):
+	def calcKeywordLinks(self, lineInfo):
+		line = lineInfo.line
+		tokens = lineInfo.tokens
+		
 		if not tokens:
 			return Tokenizer.untokenize(line.split())
 		

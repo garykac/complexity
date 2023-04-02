@@ -11,7 +11,6 @@ from gambit import (LT_COMMENT, LT_BLANK,
 					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit import V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT
-from gambit import T_REF, T_TEMPLATE_REF
 from gambit_line_processor import GambitLineProcessor
 from tokenizer import Tokenizer
 
@@ -58,7 +57,7 @@ class GambitVocab:
 		with open(import_file, 'r') as file:
 			for line in file:
 				try:
-					lineinfo = GambitLineProcessor.processLine(line)
+					lineinfo = GambitLineProcessor.processLine(0, line)
 				except Exception as ex:
 					self.parser.errorLine(str(ex))
 
@@ -129,7 +128,7 @@ class GambitVocab:
 			return True
 
 		# Check for templates.
-		template = GambitLineProcessor.isTemplate(term)
+		template = Tokenizer.isTemplate(term)
 		if template:
 			(keyword, param) = template
 			return self.isVocab(keyword) and self.isVocab(param)
@@ -180,85 +179,3 @@ class GambitVocab:
 			if self.vocab[k][0] == V_IMPORT and len(v) == 0:
 				msg = f"Term is imported but never referenced: {k}"
 				self.parser.warning(msg)
-
-	def extractReferences(self, lineNum, currDef, lineInfo):
-		type = lineInfo.lineType
-		if type == LT_DEF:
-			currDef = lineInfo.keyword
-			for t in lineInfo.types:
-				self.addReference(t, currDef)
-			if lineInfo.parent:
-				self.addReference(lineInfo.parent, currDef)
-				typeInfo = f"{lineInfo.types[0]} of {lineInfo.parent}"
-				lineInfo.setTokens(self.extractReference(lineNum, typeInfo, currDef))
-			else:
-				lineInfo.setTokens(self.extractReference(lineNum, ', '.join(lineInfo.types), currDef))
-			self.extractReference(lineNum, lineInfo.lineComment, currDef, True)
-		elif type == LT_TEMPLATE:
-			currDef = lineInfo.keyword
-			self.addReference("Verb", currDef)
-			lineInfo.setTokens(["Verb"])
-			self.extractReference(lineNum, lineInfo.lineComment, currDef, True)
-		elif type == LT_DESC:
-			lineInfo.setTokens(self.extractReference(lineNum, lineInfo.line, currDef))
-			self.extractReference(lineNum, lineInfo.lineComment, currDef, True)
-		elif type == LT_CONSTRAINT:
-			lineInfo.setTokens(self.extractReference(lineNum, lineInfo.line, currDef))
-			self.extractReference(lineNum, lineInfo.lineComment, currDef, True)
-		elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
-			self.error("Unhandled type in extractAllReferences: {0:s}".format(type))
-		return currDef
-	
-	def extractReference(self, lineNum: int, line: str, currDef: str, inComment=False):
-		if line == "":
-			return
-		newWords: List[Union[str, List[str]]] = []
-		firstWord = True
-		for word in Tokenizer.tokenize(line):
-			# Skip over special initial characters.
-			if firstWord and word == LOOKUP_TABLE_PREFIX:
-				newWords.append(LOOKUP_TABLE_PREFIX)
-				# Don't update firstWord since the next word might be capitalized.
-				continue
-				
-			# Ignore strings.
-			if word[0] == '"' and word[-1] == '"':
-				newWords.append(word)
-				continue
-
-			# Look for template references like "Produce<Stone>".
-			template = GambitLineProcessor.isTemplate(word)
-			if template:
-				(keyword, param) = template
-				self.addReference(keyword, currDef)
-				self.addReference(param, currDef)
-				newWords.append([T_TEMPLATE_REF, keyword, param])
-				continue
-
-			# Strip non-alphanumeric from beginning/end of token.
-			# Also remove contraction endings like "'s".
-			(prefix, word0, postfix) = GambitLineProcessor.extractKeyword(word)
-
-			# Normalize plural forms.
-			canonicalForm = self.normalize(word0)
-			
-			if self.contains(canonicalForm):
-				self.addReference(canonicalForm, currDef)
-				newWords.append([T_REF, canonicalForm, prefix, word0, postfix])
-			elif inComment:
-				newWords.append(word)
-			else:
-				# Verify capitalized words.
-				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
-					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
-					self.errorLine(f"Unable to find definition for '{word0}'", lineNum)
-				elif not firstWord and word0[0].isupper():
-					#raise Exception('Unable to find definition for "{0:s}"'.format(word0))
-					self.errorLine(f"Unable to find definition for '{word0}'", lineNum)
-				newWords.append(word)
-
-			firstWord = False
-			if (word0 != "" and word0[-1] in ['.',':']) or (postfix != "" and postfix[-1] in ['.',':']):
-				firstWord = True
-
-		return newWords

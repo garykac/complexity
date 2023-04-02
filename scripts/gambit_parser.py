@@ -120,12 +120,11 @@ class GambitParser:
 		self.lines.append(line.rstrip())
 
 		try:
-			lineinfo = GambitLineProcessor.processLine(line)
+			lineinfo = GambitLineProcessor.processLine(self.lineNum, line)
 		except Exception as ex:
 			self.errorLine(str(ex))
 		
-		# |lineinfo| is GambitLineInfo
-		# plus additional values depending on the |lineType|.
+		# |lineinfo| is GambitLineInfo.
 		self.lineInfo.append(lineinfo)
 		type = lineinfo.lineType
 		if type == LT_GAME_IMPORT:
@@ -161,7 +160,7 @@ class GambitParser:
 		with open(os.path.join(self.currentDir, dirname, basename), 'r') as file:
 			for line in file:
 				try:
-					lineinfo: GambitLineInfo = GambitLineProcessor.processLine(line)
+					lineinfo: GambitLineInfo = GambitLineProcessor.processLine(self.lineNum, line)
 				except Exception as ex:
 					self.errorLine(str(ex))
 
@@ -190,8 +189,8 @@ class GambitParser:
 		
 	def extractAllReferences(self):
 		currDef = None
-		for i in range(len(self.lineInfo)):
-			currDef = self.vocab.extractReferences(i, currDef, self.lineInfo[i])
+		for lineInfo in self.lineInfo:
+			currDef = lineInfo.extractReferences(currDef, self.vocab)
 	
 	def checkReferences(self):
 		self.vocab.checkReferences()
