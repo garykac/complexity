@@ -19,8 +19,10 @@ class GambitHtmlExporter:
 	def __init__(self, parser):
 		self.parser = parser
 		self.gameTitle = parser.gameTitle
-		self.costTotal = parser.costTotal
 		self.maxIndent = parser.maxIndent
+
+		self.calc = parser.calc
+		self.costTotal = parser.calc.costTotal
 
 	def htmlify(self, str):
 		str = str.replace("&", "&amp;")
@@ -29,7 +31,7 @@ class GambitHtmlExporter:
 	def writeHtml(self, outpath):
 		with open(outpath, 'w') as out:
 			self.writeHtmlHeader(out, self.gameTitle, self.costTotal)
-			self.writeHtmlCostSummary(out, self.parser)
+			self.writeHtmlCostSummary(out, self.calc)
 			self.writeTableHeader(out)
 			self.writeTableRows(out)
 			self.writeTableFooter(out)
@@ -58,9 +60,9 @@ class GambitHtmlExporter:
 		out.write('<div class="container">\n')
 		out.write('<div class="title">{0:s}</div>\n\n'.format(title))
 
-	def writeHtmlCostSummary(self, out, parser):
-		sectionCosts = parser.sectionCosts
-		subsectionCosts = parser.subsectionCosts
+	def writeHtmlCostSummary(self, out, calc):
+		sectionCosts = calc.sectionCosts
+		subsectionCosts = calc.subsectionCosts
 
 		hasSubsections = (len(subsectionCosts) != 0)
 
@@ -92,11 +94,11 @@ class GambitHtmlExporter:
 				out.write('</td><td class="summary-data">')
 				self.writeHtmlCost(out, cost)
 				out.write('</td><td class="summary-data">')
-				self.writeHtmlCostPercentage(out, cost, self.parser.costTotal)
+				self.writeHtmlCostPercentage(out, cost, self.costTotal)
 				out.write('</td></tr>\n')
 		
 			out.write('<tr><td class="summary-section-name"><b>Total</b></td>')
-			out.write('<td class="summary-data"><b>{0:d}</b></td>'.format(self.parser.costTotal))
+			out.write('<td class="summary-data"><b>{0:d}</b></td>'.format(self.costTotal))
 			out.write('<td class="summary-data"><b>100%</b></td></tr>\n')
 
 		# For games with subsections:
@@ -148,7 +150,7 @@ class GambitHtmlExporter:
 					self.writeHtmlCostSection(out, name, cost)
 
 			out.write('<tr><td colspan=2 class="summary-section-name"><b>Total</b></td>')
-			out.write('<td class="summary-subdata"><b>{0:d}</b></td>'.format(self.parser.costTotal))
+			out.write('<td class="summary-subdata"><b>{0:d}</b></td>'.format(self.costTotal))
 			out.write('<td class="summary-subdata"></td>')
 			out.write('<td class="summary-subdata"><b>100%</b></td>')
 			out.write('<td class="summary-subdata"></td>')
@@ -166,7 +168,7 @@ class GambitHtmlExporter:
 		out.write('</td>')
 		out.write('<td class="summary-subdata"></td>')
 		out.write('<td class="summary-subdata">')
-		self.writeHtmlCostPercentage(out, cost, self.parser.costTotal)
+		self.writeHtmlCostPercentage(out, cost, self.costTotal)
 		out.write('</td>')
 		out.write('<td class="summary-subdata"></td>')
 		out.write('</tr>\n')
@@ -183,7 +185,7 @@ class GambitHtmlExporter:
 		out.write('</td>')
 		out.write('<td class="summary-subdata"></td>')
 		out.write('<td class="summary-subdata">')
-		self.writeHtmlCostPercentage(out, cost, self.parser.costTotal)
+		self.writeHtmlCostPercentage(out, cost, self.costTotal)
 		out.write('</td>')
 		out.write('</tr>\n')
 
@@ -228,6 +230,7 @@ class GambitHtmlExporter:
 			prefix = ""
 			line = r.line
 			comment = r.lineComment
+			name = r.name
 			data = r.data
 			tokens = r.tokens
 			rowclass = None
@@ -270,7 +273,7 @@ class GambitHtmlExporter:
 			row += self.calcTableRowCostColumn(r.cost)
 
 			if rowclass:
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, comment)
+				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, name)
 			else:
 				row += self.calcTableRowDescColumn(r.indent, line, tokens, comment, prefix)
 

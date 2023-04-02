@@ -22,6 +22,7 @@ class GambitLineInfo:
 		self.line: str  = ""
 		self.lineComment: str = ""
 		
+		self.name: str = ""
 		self.data: Any = None
 		
 		# Keyword for definitions and templates.
@@ -44,7 +45,7 @@ class GambitLineInfo:
 	@staticmethod
 	def name(name: str) -> GambitLineInfo:
 		info: GambitLineInfo = GambitLineInfo(LT_NAME)
-		info.lineComment = name
+		info.name = name
 		return info
 
 	@staticmethod
@@ -62,13 +63,13 @@ class GambitLineInfo:
 	@staticmethod
 	def section(name: str) -> GambitLineInfo:
 		info: GambitLineInfo = GambitLineInfo(LT_SECTION)
-		info.lineComment = name.strip()
+		info.name = name.strip()
 		return info
 
 	@staticmethod
 	def subsection(name: str) -> GambitLineInfo:
 		info: GambitLineInfo = GambitLineInfo(LT_SUBSECTION)
-		info.lineComment = name.strip()
+		info.name = name.strip()
 		return info
 
 	@staticmethod

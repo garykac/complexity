@@ -77,7 +77,7 @@ class Analyzer:
 		filepath = os.path.join(SRC_DIR, filename)
 		parser.process(SRC_DIR, filepath)
 
-		cost = parser.costTotal
+		cost = parser.calc.costTotal
 		vocab = parser.getVocabCost()
 		self.updateGameList(id, cost, vocab)
 		if self.showCost:
