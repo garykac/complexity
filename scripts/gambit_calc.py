@@ -108,7 +108,7 @@ class GambitCalc:
 					self.warning(f"Possibly missing import for {line}")
 
 				# Handle special cases with Vocab
-				words = GambitTokenizer.tokenize(line)
+				words = GambitTokenizer.split(line)
 
 				# Lines that consist entirely of a defined terms are free.
 				allDefined = True
@@ -170,10 +170,12 @@ class GambitCalc:
 		cost = 0
 		for r in lineInfo:
 			type = r.lineType
+
 			if type in [LT_DEF, LT_TEMPLATE, LT_DESC, LT_CONSTRAINT]:
 				if r.cost:
 					self.costTotal += r.cost
 					cost += r.cost
+
 			elif type == LT_SECTION:
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
@@ -182,6 +184,7 @@ class GambitCalc:
 				currentSection = r.name
 				currentSubsection = None
 				cost = 0
+
 			elif type == LT_SUBSECTION:
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
@@ -191,6 +194,7 @@ class GambitCalc:
 				if not currentSection in self.subsectionCosts:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
+
 			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 				self.parser.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		

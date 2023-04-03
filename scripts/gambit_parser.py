@@ -85,11 +85,6 @@ class GambitParser:
 	def updateCosts(self):
 		self.calc.updateCosts(self.lineInfo)
 
-	# Return true if the DEF at the given index has at least one DESC
-	# associated with it.
-	def defHasDesc(self, iDef):
-		return False
-	
 	# Calculate the total cost for the game.
 	def calcTotalCost(self):
 		self.calc.calcTotalCost(self.lineInfo)

@@ -7,15 +7,28 @@ from gambit import KEYWORD, MULTI_KEYWORDS, TEMPLATE_KEYWORD
 
 class GambitTokenizer:
 	"""Simple tokenizer."""
-	def __init__(self):
-		pass
+	def __init__(self, vocab):
+		self.vocab = vocab
+
+	def tokenize(self, line: str):
+		out = []
+		substrings = line.split('"')
+		for i in range(0, len(substrings)):
+			# Extract "strings" from line.
+			if i % 2:
+				out.append(GambitToken(T_STRING, f'"{substrings[i]}"'))
+				continue
+
+			for w in substrings[i].split():
+				out.append(GambitToken(T_WORD, w))
+		return out
 
 	# ==========
 	# Parsing and Tokenizing
 	# ==========
 	
 	@staticmethod
-	def tokenize(str):
+	def split(str):
 		out = []
 		substrings = str.split('"')
 		for i in range(0, len(substrings)):
@@ -24,10 +37,6 @@ class GambitTokenizer:
 			else:
 				out.extend(substrings[i].split())
 		return out
-
-	@staticmethod
-	def untokenize(tokens):
-		return ' '.join(tokens)
 
 	@staticmethod
 	def isTemplate(term):

@@ -8,10 +8,9 @@ import traceback
 from gambit import (LT_COMMENT, LT_BLANK, LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION,
 					LT_SUBSECTION, LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
-from gambit import T_REF, T_TEMPLATE_REF
 from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
-from gambit_tokenizer import GambitTokenizer
+from gambit_token import T_REF, T_TEMPLATE_REF
 
 GM_CSS_PATH = "gm.css"
 
@@ -343,17 +342,18 @@ class GambitHtmlExporter:
 		line = lineInfo.line
 		tokens = lineInfo.tokens
 		
-		if not tokens:
-			return GambitTokenizer.untokenize(line.split())
-		
 		newWords = []
 		for t in tokens:
 			if isinstance(t, list):
 				ttype = t[0]
-				if ttype == T_TEMPLATE_REF:
+
+				if ttype in [T_WORD, T_STRING]:
+					newWords.append(t.value)
+				elif ttype == T_TEMPLATE_REF:
 					(ttype, keyword, param) = t
 					newWords.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
 							.format(keyword, param))
+
 				elif ttype == T_REF:
 					(ttype, canonicalForm, prefix, word, postfix) = t
 					info = self.parser.vocab.lookup(canonicalForm)
@@ -373,4 +373,4 @@ class GambitHtmlExporter:
 			else:
 				newWords.append(t)
 
-		return GambitTokenizer.untokenize(newWords)
+		return ' '.join(newWords)

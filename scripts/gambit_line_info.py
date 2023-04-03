@@ -9,8 +9,8 @@ from gambit import CONSTRAINT_PREFIX, LOOKUP_TABLE_PREFIX
 from gambit import (LT_COMMENT, LT_BLANK,
 					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
-from gambit import T_REF, T_TEMPLATE_REF
 from gambit import KEYWORD
+from gambit_token import T_REF, T_TEMPLATE_REF
 from gambit_tokenizer import GambitTokenizer
 
 from typing import List
@@ -41,7 +41,7 @@ class GambitLineInfo:
 		# Parameter for templates.
 		self.param: Optional[str] = None
 		
-		self.tokens = None
+		self.tokens = []
 	
 	@staticmethod
 	def name(lineNum: int, name: str) -> GambitLineInfo:
@@ -157,17 +157,21 @@ class GambitLineInfo:
 			else:
 				self.tokens = self.extractReference(', '.join(self.types), currDef, vocab)
 			self.extractReference(self.lineComment, currDef, vocab, True)
+
 		elif type == LT_TEMPLATE:
 			currDef = self.keyword
 			vocab.addReference("Verb", currDef)
 			self.tokens = ["Verb"]
 			self.extractReference(self.lineComment, currDef, vocab, True)
+
 		elif type in [LT_DESC, LT_CONSTRAINT]:
 			self.tokens = self.extractReference(self.line, currDef, vocab)
 			self.extractReference(self.lineComment, currDef, vocab, True)
+
 		elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
 			#self.vocab.parser.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 			raise Exception(f"Unhandled type in extractAllReferences: {type}")
+
 		return currDef
 	
 	def extractReference(self, line: str, currDef: str, vocab, inComment=False):
@@ -177,7 +181,7 @@ class GambitLineInfo:
 			return
 		newWords: List[Union[str, List[str]]] = []
 		firstWord = True
-		for word in GambitTokenizer.tokenize(line):
+		for word in GambitTokenizer.split(line):
 			# Skip over special initial characters.
 			if firstWord and word == LOOKUP_TABLE_PREFIX:
 				newWords.append(LOOKUP_TABLE_PREFIX)
