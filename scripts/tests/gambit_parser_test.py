@@ -4,83 +4,6 @@ from gambit_parser import GambitParser
 from gambit_line_processor import GambitLineProcessor
 from unittest import mock
 
-def test_defHasDesc_noDescEof():
-    parser = GambitParser({})
-    addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
-    assert parser.defHasDesc(0) == False
-
-def test_defHasDesc_noDescDef():
-    parser = GambitParser({})
-    addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
-    addDefLine(parser, "Term2", None, ["Noun"], None, "Comment")
-    assert parser.defHasDesc(0) == False
-
-def test_defHasDesc_noDescTemplate():
-    parser = GambitParser({})
-    addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
-    addTemplateLine(parser, "Template", "Param", "Comment")
-    assert parser.defHasDesc(0) == False
-
-def test_defHasDesc_noDescBlank():
-    parser = GambitParser({})
-    addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
-    addBlankLine(parser, 0)
-    assert parser.defHasDesc(0) == False
-
-def test_defHasDesc_hasDescBadIndent():
-    parser = GambitParser({})
-    addDefLine(parser, "Term1", None, ["Noun"], None, "Comment")
-    addDescLine(parser, 0, 1, "Description", "Comment")
-    assert parser.defHasDesc(0) == True
-
-def test_defHasDesc_invalidDef():
-    parser = GambitParser({})
-    addDescLine(parser, 0, 1, "Description", "Comment")
-    with pytest.raises(Exception):
-        parser.defHasDesc(0)
-
-def addBlankLine(parser, indent):
-    parser.lines.append({
-        'type': "BLANK",
-        'cost': None,
-        'indent': indent,
-        'line': "",
-        'comment': "",
-    })
-
-def addDefLine(parser, keyword, keywordPlural, types, parent, comment):
-    parser.lines.append({
-        'type': "DEF",
-        'cost': 1,
-        'indent': 0,
-        'line': "",
-        'comment': comment,
-        'keyword': keyword,
-        'keyword-alt': keywordPlural,
-        'types': types,
-        'parent': parent,
-    })
-
-def addDescLine(parser, cost, indent, line, comment):
-    parser.lines.append({
-        'type': "DESC",
-        'cost': cost,
-        'indent': indent,
-        'line': line,
-        'comment': comment,
-    })
-
-def addTemplateLine(parser, keyword, param, comment):
-    parser.lines.append({
-        'type': "TEMPLATE",
-        'cost': 1,
-        'indent': 0,
-        'line': "",
-        'comment': comment,
-        'keyword': keyword,
-        'param': param,
-    })
-
 #def mock_importFile(self, name):
 #    assert name == "file"
 
@@ -153,7 +76,7 @@ def checkLineType(parser, line, xType, xCost, xIndent, xLine, xComment):
     return out
 
 def checkVocab(parser, term, info):
-    assert parser.vocab[term] == info
+    assert parser.vocab.vocab[term] == info
 
 def checkAlt(parser, term, plural):
-    assert parser.vocabPlural[plural] == term
+    assert parser.vocab.vocabPlural[plural] == term
