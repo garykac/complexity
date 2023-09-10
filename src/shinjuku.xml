@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>shinjuku</id>
+<name>
+	<title>Shinjuku</title>
+</name>
+<designers>
+	<designer>Gary Kacmarcik</designer>
+</designers>
+<year>2019</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>60</min>
+	<max>75</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>2.0</weight>
+</bgg>
+<complexity>
+	<vocab>33</vocab>
+	<score>106</score>
+</complexity>
+</game>

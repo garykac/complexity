@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>mancala</id>
+<name>
+	<title>Mancala</title>
+	<subtitle>Kalah</subtitle>
+</name>
+<designers>
+	<designer>William Julius Champion Jr.</designer>
+</designers>
+<year>1940</year>
+<players>
+	<min>2</min>
+	<max>2</max>
+</players>
+<time>
+	<min>10</min>
+	<max>10</max>
+</time>
+<notes>
+	<p>Kalah is a member of the mancala family of games that is popular in Europe and North America.</p>
+	<p>Variants of mancala games have been around since 700.</p>
+</notes>
+<export>y</export>
+<bgg>
+	<weight>1.62</weight>
+</bgg>
+<complexity>
+	<vocab>5</vocab>
+	<score>21</score>
+</complexity>
+</game>

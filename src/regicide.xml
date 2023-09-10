@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>regicide</id>
+<name>
+	<title>Regicide</title>
+</name>
+<designers>
+	<designer>Paul Abrahams</designer>
+	<designer>Luke Badger</designer>
+	<designer>Andy Richdale</designer>
+</designers>
+<year>2020</year>
+<players>
+	<min>1</min>
+	<max>4</max>
+</players>
+<time>
+	<min>15</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.91</weight>
+</bgg>
+<complexity>
+	<vocab>13</vocab>
+	<score>74</score>
+</complexity>
+</game>

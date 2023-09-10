@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>checkers</id>
+<name>
+	<title>Checkers</title>
+</name>
+<players>
+	<min>2</min>
+	<max>2</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.75</weight>
+</bgg>
+<complexity>
+	<vocab>7</vocab>
+	<score>25</score>
+</complexity>
+</game>

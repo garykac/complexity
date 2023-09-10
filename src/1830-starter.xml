@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>1830-starter</id>
+<name>
+	<title>1830</title>
+	<subtitle>Starter Game</subtitle>
+</name>
+<designers>
+	<designer>Francis Tresham</designer>
+</designers>
+<year>2011</year>
+<players>
+	<min>2</min>
+	<max>6</max>
+</players>
+<time>
+	<min>60</min>
+	<max>90</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>-</weight>
+</bgg>
+<complexity>
+	<vocab>42</vocab>
+	<score>133</score>
+</complexity>
+</game>

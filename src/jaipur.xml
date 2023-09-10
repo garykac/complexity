@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>jaipur</id>
+<name>
+	<title>Jaipur</title>
+</name>
+<designers>
+	<designer>Sébastien Pauchon</designer>
+</designers>
+<year>2009</year>
+<players>
+	<min>2</min>
+	<max>2</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.48</weight>
+</bgg>
+<complexity>
+	<vocab>15</vocab>
+	<score>47</score>
+</complexity>
+</game>

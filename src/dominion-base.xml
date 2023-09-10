@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>dominion-base</id>
+<name>
+	<title>Dominion</title>
+	<subtitle>Rest of base set</subtitle>
+	<parent>dominion-first</parent>
+</name>
+<designers>
+	<designer>Donald X. Vaccarino</designer>
+</designers>
+<year>2008</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>n</export>
+<bgg>
+	<weight>2.35</weight>
+</bgg>
+<complexity>
+	<vocab>2</vocab>
+	<score>41</score>
+</complexity>
+</game>

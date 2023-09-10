@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>splendor</id>
+<name>
+	<title>Splendor</title>
+</name>
+<designers>
+	<designer>Marc André</designer>
+</designers>
+<year>2014</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.79</weight>
+</bgg>
+<complexity>
+	<vocab>16</vocab>
+	<score>61</score>
+</complexity>
+</game>

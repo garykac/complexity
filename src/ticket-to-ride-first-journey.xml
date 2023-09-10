@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>ticket-to-ride-first-journey</id>
+<name>
+	<title>Ticket to Ride</title>
+	<subtitle>First Journey (US)</subtitle>
+</name>
+<designers>
+	<designer>Alan R. Moon</designer>
+</designers>
+<year>2016</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>15</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.42</weight>
+</bgg>
+<complexity>
+	<vocab>17</vocab>
+	<score>40</score>
+</complexity>
+</game>

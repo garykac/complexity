@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>crazy-eights-28</id>
+<name>
+	<title>Crazy Eights</title>
+	<subtitle>28-card</subtitle>
+</name>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>15</min>
+	<max>15</max>
+</time>
+<export>n</export>
+<bgg>
+	<weight>1.07</weight>
+</bgg>
+<complexity>
+	<vocab>8</vocab>
+	<score>26</score>
+</complexity>
+</game>

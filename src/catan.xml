@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>catan</id>
+<name>
+	<title>Catan</title>
+</name>
+<designers>
+	<designer>Klaus Teuber</designer>
+</designers>
+<year>1995</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>60</min>
+	<max>120</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>2.31</weight>
+</bgg>
+<complexity>
+	<vocab>41</vocab>
+	<score>111</score>
+</complexity>
+</game>

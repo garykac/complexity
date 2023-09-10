@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>dominion-first</id>
+<name>
+	<title>Dominion</title>
+	<subtitle>10 starter cards</subtitle>
+</name>
+<designers>
+	<designer>Donald X. Vaccarino</designer>
+</designers>
+<year>2008</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>2.35</weight>
+</bgg>
+<complexity>
+	<vocab>24</vocab>
+	<score>79</score>
+</complexity>
+</game>

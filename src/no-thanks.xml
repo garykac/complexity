@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>no-thanks</id>
+<name>
+	<title>No Thanks!</title>
+</name>
+<designers>
+	<designer>Thorsten Gimmler</designer>
+</designers>
+<year>2004</year>
+<players>
+	<min>3</min>
+	<max>5</max>
+</players>
+<time>
+	<min>20</min>
+	<max>20</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.14</weight>
+</bgg>
+<complexity>
+	<vocab>5</vocab>
+	<score>22</score>
+</complexity>
+</game>

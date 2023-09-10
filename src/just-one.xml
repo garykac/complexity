@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>just-one</id>
+<name>
+	<title>Just One</title>
+</name>
+<designers>
+	<designer>Ludovic Roudy</designer>
+	<designer>Bruno Sautter</designer>
+</designers>
+<year>2018</year>
+<players>
+	<min>3</min>
+	<max>7</max>
+</players>
+<time>
+	<min>20</min>
+	<max>20</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.05</weight>
+</bgg>
+<complexity>
+	<vocab>10</vocab>
+	<score>48</score>
+</complexity>
+</game>

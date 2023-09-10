@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>automobiles</id>
+<name>
+	<title>Automobiles</title>
+</name>
+<designers>
+	<designer>David Short</designer>
+</designers>
+<year>2016</year>
+<players>
+	<min>2</min>
+	<max>5</max>
+</players>
+<time>
+	<min>45</min>
+	<max>45</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>2.20</weight>
+</bgg>
+<complexity>
+	<vocab>45</vocab>
+	<score>108</score>
+</complexity>
+</game>

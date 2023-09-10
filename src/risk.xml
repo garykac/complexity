@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>risk</id>
+<name>
+	<title>Risk</title>
+</name>
+<designers>
+	<designer>Albert Lamorisse</designer>
+</designers>
+<year>1959</year>
+<players>
+	<min>3</min>
+	<max>6</max>
+</players>
+<time>
+	<min>120</min>
+	<max>240</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>2.07</weight>
+</bgg>
+<complexity>
+	<vocab>16</vocab>
+	<score>67</score>
+</complexity>
+</game>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>leaving-earth</id>
+<name>
+	<title>Leaving Earth</title>
+</name>
+<designers>
+	<designer>Joseph Fatula</designer>
+</designers>
+<year>2015</year>
+<players>
+	<min>1</min>
+	<max>5</max>
+</players>
+<time>
+	<min>60</min>
+	<max>180</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>3.72</weight>
+</bgg>
+<complexity>
+	<vocab>97</vocab>
+	<score>323</score>
+</complexity>
+</game>

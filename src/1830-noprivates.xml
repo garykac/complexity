@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>1830-noprivates</id>
+<name>
+	<title>1830</title>
+	<subtitle>w/o Privates</subtitle>
+</name>
+<designers>
+	<designer>Francis Tresham</designer>
+</designers>
+<year>1986</year>
+<export>n</export>
+<bgg>
+	<weight>-</weight>
+</bgg>
+<complexity>
+	<vocab>77</vocab>
+	<score>281</score>
+</complexity>
+</game>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>deep-sea-adventure</id>
+<name>
+	<title>Deep Sea Adventure</title>
+</name>
+<designers>
+	<designer>Jun Sasaki</designer>
+	<designer>Goro Sasaki</designer>
+</designers>
+<year>2014</year>
+<players>
+	<min>2</min>
+	<max>6</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.17</weight>
+</bgg>
+<complexity>
+	<vocab>23</vocab>
+	<score>63</score>
+</complexity>
+</game>

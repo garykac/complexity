@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>welcome-to-the-dungeon</id>
+<name>
+	<title>Welcome to the Dungeon</title>
+</name>
+<designers>
+	<designer>Hisanori Hiraoka</designer>
+	<designer>Masato Uesugi</designer>
+</designers>
+<year>2013</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>30</min>
+	<max>30</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.23</weight>
+</bgg>
+<complexity>
+	<vocab>13</vocab>
+	<score>42</score>
+</complexity>
+</game>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>1830</id>
+<name>
+	<title>1830</title>
+</name>
+<designers>
+	<designer>Francis Tresham</designer>
+</designers>
+<year>1986</year>
+<players>
+	<min>2</min>
+	<max>6</max>
+</players>
+<time>
+	<min>180</min>
+	<max>360</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>4.16</weight>
+</bgg>
+<complexity>
+	<vocab>88</vocab>
+	<score>346</score>
+</complexity>
+</game>

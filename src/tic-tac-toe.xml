@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>tic-tac-toe</id>
+<name>
+	<title>Tic Tac Toe</title>
+</name>
+<players>
+	<min>2</min>
+	<max>2</max>
+</players>
+<time>
+	<min>1</min>
+	<max>2</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.19</weight>
+</bgg>
+<complexity>
+	<vocab>3</vocab>
+	<score>10</score>
+</complexity>
+</game>

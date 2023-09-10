@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>roads-and-boats</id>
+<name>
+	<title>Roads &amp; Boats</title>
+</name>
+<designers>
+	<designer>Jeroen Doumen</designer>
+	<designer>Joris Wiersinga</designer>
+</designers>
+<year>1999</year>
+<players>
+	<min>1</min>
+	<max>4</max>
+</players>
+<time>
+	<min>180</min>
+	<max>240</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>4.19</weight>
+</bgg>
+<complexity>
+	<vocab>104</vocab>
+	<score>313</score>
+</complexity>
+</game>

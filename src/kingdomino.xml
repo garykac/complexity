@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id>kingdomino</id>
+<name>
+	<title>Kingdomino</title>
+</name>
+<designers>
+	<designer>Bruno Cathala</designer>
+</designers>
+<year>2016</year>
+<players>
+	<min>2</min>
+	<max>4</max>
+</players>
+<time>
+	<min>15</min>
+	<max>25</max>
+</time>
+<export>y</export>
+<bgg>
+	<weight>1.21</weight>
+</bgg>
+<complexity>
+	<vocab>15</vocab>
+	<score>50</score>
+</complexity>
+</game>
