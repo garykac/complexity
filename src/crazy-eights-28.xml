@@ -13,12 +13,12 @@
 	<min>15</min>
 	<max>15</max>
 </time>
-<export>n</export>
 <bgg>
 	<weight>1.07</weight>
 </bgg>
 <complexity>
 	<vocab>8</vocab>
 	<score>26</score>
+	<export>false</export>
 </complexity>
 </game>

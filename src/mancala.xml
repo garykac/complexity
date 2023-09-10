@@ -21,12 +21,12 @@
 	<p>Kalah is a member of the mancala family of games that is popular in Europe and North America.</p>
 	<p>Variants of mancala games have been around since 700.</p>
 </notes>
-<export>y</export>
 <bgg>
 	<weight>1.62</weight>
 </bgg>
 <complexity>
 	<vocab>5</vocab>
 	<score>21</score>
+	<export>true</export>
 </complexity>
 </game>

@@ -16,12 +16,12 @@
 	<min>20</min>
 	<max>20</max>
 </time>
-<export>y</export>
 <bgg>
 	<weight>1.14</weight>
 </bgg>
 <complexity>
 	<vocab>5</vocab>
 	<score>22</score>
+	<export>true</export>
 </complexity>
 </game>
