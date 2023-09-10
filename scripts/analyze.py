@@ -82,9 +82,9 @@ class Analyzer:
 		self.updateGameList(id, cost, vocab)
 		if self.showCost:
 			print("   = {0:d}".format(cost))
-			for s in parser.sectionCosts:
+			for s in parser.calc.sectionCosts:
 				print(s)
-			for s in parser.subsectionCosts:
+			for s in parser.calc.subsectionCosts:
 				print(s, parser.subsectionCosts[s])
 
 		parser.checkReferences()

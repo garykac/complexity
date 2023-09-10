@@ -10,7 +10,7 @@ from gambit import (LT_COMMENT, LT_BLANK, LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT
 from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
 from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
-from gambit_token import T_REF, T_TEMPLATE_REF
+from gambit_token import T_WORD, T_STRING, T_REF, T_TEMPLATE_REF
 
 GM_CSS_PATH = "gm.css"
 
