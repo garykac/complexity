@@ -10,7 +10,7 @@ SECTION: Assumptions
 IMPORT: Player, NextPlayerClockwise
 IMPORT: Card, DiscardPile, Dealer, Deal, Hand
 IMPORT: FrenchSuitDeck, Suit, Rank
-	
+
 SECTION: Vocabulary
 
 Crazy8Deck: FrenchSuitDeck

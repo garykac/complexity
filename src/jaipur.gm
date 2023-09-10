@@ -52,7 +52,7 @@ Setup: Verb
 	Draw 2 Cards from the DrawDeck and add them to the Market
 	For each Player:
 		Take any CamelCards from your Hand and add them to your Herd
-				
+
 SECTION: Gameplay
 
 PlayGame: Verb
@@ -96,7 +96,7 @@ TakeSingleGood: Verb
 	Take a single GoodsCard from the Market into your Hand
 	ReplenishMarket
 	! NeverMoreThanSevenCardsInHand
-	
+
 TakeAllCamels: Verb
 	Take all the CamelCards from the Market and place them in your Herd
 	ReplenishMarket
