@@ -9,6 +9,14 @@
 	<designer>Francis Tresham</designer>
 </designers>
 <year>1986</year>
+<players>
+	<min>2</min>
+	<max>6</max>
+</players>
+<time>
+	<min>60</min>
+	<max>90</max>
+</time>
 <export>n</export>
 <bgg>
 	<weight>-</weight>
