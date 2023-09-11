@@ -17,6 +17,10 @@
 	<min>60</min>
 	<max>90</max>
 </time>
+<notes>
+	<p>This is a variant of 1830 without any of the rules relating to Privates.</p>
+	<p>It is not intended as a playable variant, but rather as a way to quantify the cost of the rules for Privates.</p>
+</notes>
 <bgg>
 	<weight>-</weight>
 </bgg>

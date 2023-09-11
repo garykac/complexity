@@ -13,6 +13,9 @@
 	<min>15</min>
 	<max>15</max>
 </time>
+<notes>
+	<p>Historically, this game was played with a 28-card deck, but as it gained in popularity it was more comonly played with a full 52-card deck.</p>
+</notes>
 <bgg>
 	<weight>1.07</weight>
 </bgg>

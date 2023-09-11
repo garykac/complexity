@@ -13,6 +13,10 @@
 	<min>15</min>
 	<max>15</max>
 </time>
+<notes>
+	<p>Historically, this game was played by children with the leftover deck once the cards for Euchre (9,10,J,Q,K,A) were removed from a standard 52-card deck.</p>
+	<p>Higher player counts can be supported by using multiple decks.</p>
+</notes>
 <bgg>
 	<weight>1.07</weight>
 </bgg>

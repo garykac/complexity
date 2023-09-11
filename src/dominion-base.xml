@@ -18,6 +18,11 @@
 	<min>30</min>
 	<max>30</max>
 </time>
+<notes>
+	<p>This summarizes the rules associated with the additional 16 cards in the Base Set beyond the 10 recommended starter cards.</p>
+	<p>Since you only use a random set of 10 cards for each game, you can't simply add these rules to the starter 10 cards and get a sensible number.</p>
+	<p>However this does provide an upper bound answering the question: What if the rules for all 26 cards were used in a game?</p>
+</notes>
 <bgg>
 	<weight>2.35</weight>
 </bgg>

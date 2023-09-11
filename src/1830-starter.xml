@@ -17,6 +17,11 @@
 	<min>60</min>
 	<max>90</max>
 </time>
+<notes>
+	<p>This is a simplified version of 1830 that eliminates the stock investment portion.</p>
+	<p>It was included in the 2011 Mayfair release of 1830.</p>
+	<p>It is intended as an introductory game to learn the train-related rules before tackling the full game.</p>
+</notes>
 <bgg>
 	<weight>-</weight>
 </bgg>

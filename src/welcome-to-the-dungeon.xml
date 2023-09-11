@@ -17,6 +17,9 @@
 	<min>30</min>
 	<max>30</max>
 </time>
+<notes>
+	<p>This covers only the first game which uses only the Warrior.</p>
+</notes>
 <bgg>
 	<weight>1.23</weight>
 </bgg>

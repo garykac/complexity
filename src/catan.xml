@@ -16,6 +16,9 @@
 	<min>60</min>
 	<max>120</max>
 </time>
+<notes>
+	<p>The game formerly known as The Settlers of Catan.</p>
+</notes>
 <bgg>
 	<weight>2.31</weight>
 </bgg>

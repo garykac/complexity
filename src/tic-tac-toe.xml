@@ -12,6 +12,9 @@
 	<min>1</min>
 	<max>2</max>
 </time>
+<notes>
+	<p>These rules assume that you are playing with a physical board and pieces.</p>
+</notes>
 <bgg>
 	<weight>1.19</weight>
 </bgg>

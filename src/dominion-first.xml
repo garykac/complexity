@@ -17,6 +17,9 @@
 	<min>30</min>
 	<max>30</max>
 </time>
+<notes>
+	<p>Just the rules necessary for the first game with the 10 suggested starter cards.</p>
+</notes>
 <bgg>
 	<weight>2.35</weight>
 </bgg>
