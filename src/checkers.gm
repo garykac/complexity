@@ -1,9 +1,4 @@
 NAME: Checkers
-// Played on an 8x8 board with dark and light squares.
-// Only the 32 dark squares are used in the game.
-
-// Players: 2
-// Time: 30m
 
 SECTION: Assumptions
 

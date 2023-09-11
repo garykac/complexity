@@ -1,10 +1,4 @@
 NAME: Dominion
-// Just the rules necessary for the first game with the 10 suggested starter cards.
-
-// Year: 2008
-// Designer: Donald X. Vaccarino
-// Players: 2-4
-// Time: 30m
 
 SECTION: Assumptions
 
@@ -80,8 +74,8 @@ Setup: Verb
 SetupSupply: Verb
 	Create stacks for the TreasureCards (Copper, Silver, Gold) 
 	Adjust card counts for VictoryCards (Estate, Duchy, Province):
-		* 2p: 8x
-		* 3-4p: 10x
+		* 2p: 8 of each
+		* 3-4p: 10 of each
 	ChooseKingdomCards
 	For each chosen KingdomCard:
 		Create a Pile of 10 cards

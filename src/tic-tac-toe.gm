@@ -1,8 +1,4 @@
 NAME: Tic-tac-toe
-// These rules assume that you are playing with a physical board and pieces.
-
-// Players: 2
-// Time: 1m
 
 SECTION: Assumptions
 

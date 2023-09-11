@@ -1,9 +1,4 @@
 NAME: Crazy Eights (28-card)
-// Historically, this game was played by children with the leftover deck once the cards for Euchre (9,10,J,Q,K,A) were removed from a standard 52-card deck.
-// Higher player counts can be supported by using multiple decks.
-
-// Players: 2-4
-// Time: 15m
 
 SECTION: Assumptions
 

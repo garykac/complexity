@@ -1,12 +1,4 @@
 NAME: Dominion
-// This summarizes the rules associated with the additional 16 cards in the Base Set beyond the 10 recommended starter cards.
-// Since you only use a random set of 10 cards for each game, you can't simply add these rules to the starter 10 cards and get a sensible number.
-// But this does provide an upper bound answering: What if all 26 cards were used in a game?
-
-// Year: 2008
-// Designer: Donald X. Vaccarino
-// Players: 2-4
-// Time: 30m
 
 SECTION: Assumptions
 
@@ -41,7 +33,7 @@ GainCardToDeck: Verb
 RevealAndAddToDeck: Verb
 	Reveal a Card from your Hand
 	Add Card to top of your Deck
-						
+
 TrashTreasure: Verb
 	Reveal the top Card of your Deck
 	If revealed Card is non-Copper TreasureCard:

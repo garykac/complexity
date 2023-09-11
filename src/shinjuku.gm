@@ -1,10 +1,5 @@
 NAME: Shinjuku
 
-// Year: 2019
-// Designer: Gary Kacmarcik
-// Players: 2-4
-// Time: 60-75m
-
 SECTION: Assumptions
 
 IMPORT: Gameboard, PlaceBoard, Token
