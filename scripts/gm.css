@@ -19,9 +19,33 @@ body {
 	display: block;
 	margin: auto;
 	text-align: center;
-	margin: 1rem 0 0.4rem 0;
+	margin: 1rem 0 0 0;
 	font-weight: 700;
 	font-size: 2rem;
+}
+.subtitle {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+.designer {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.year {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 2rem 0;
+	font-weight: 400;
+	font-size: 0.9rem;
 }
 .footer {
 	display: block;

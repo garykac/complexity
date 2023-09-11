@@ -16,8 +16,9 @@ GM_CSS_PATH = "gm.css"
 
 class GambitHtmlExporter:
 	"""HTML exporter for Gambit (.gm) files."""
-	def __init__(self, parser):
+	def __init__(self, parser, gameInfo):
 		self.parser = parser
+		self.gameInfo = gameInfo
 		self.gameTitle = parser.gameTitle
 		self.maxIndent = parser.maxIndent
 
@@ -58,7 +59,16 @@ class GambitHtmlExporter:
 		out.write('</head>\n')
 		out.write('<body>\n')
 		out.write('<div class="container">\n')
-		out.write('<div class="title">{0:s}</div>\n\n'.format(title))
+		out.write(f'<div class="title">{self.gameInfo.title}</div>\n')
+		subtitle = self.gameInfo.subtitle
+		if subtitle:
+			out.write(f'<div class="subtitle">{self.gameInfo.subtitle}</div>\n')
+		designers = ', '.join(self.gameInfo.designers)
+		out.write(f'<div class="designer">{designers}</div>\n')
+		year = self.gameInfo.year
+		if year == 0:
+			year = ""
+		out.write(f'<div class="year">{year}</div>\n\n')
 
 	def writeHtmlCostSummary(self, out, calc):
 		sectionCosts = calc.sectionCosts
@@ -219,8 +229,22 @@ class GambitHtmlExporter:
 		thead = '<thead><tr><th class="cost">Cost</th>'
 		thead += '<th colspan={0:d}>Description</th>'.format(self.maxIndent+1)
 		thead += '</tr></thead>\n'
+		
+		if len(self.gameInfo.notes) != 0:
+			thead += self.calcNotes()
+		
 		out.write(thead)
 
+	def calcNotes(self):
+		notes = ''
+		lineInfo = GambitLineInfo(-1, LT_COMMENT)
+		for n in self.gameInfo.notes:
+			notes += '<tr>'
+			notes += self.calcTableRowCostColumn(None)
+			notes += self.calcTableRowDescColumn(lineInfo, n, "")
+			notes += '</tr>\n'
+		return notes
+	
 	def writeTableFooter(self, out):
 		out.write('</table>\n')
 
@@ -286,7 +310,6 @@ class GambitHtmlExporter:
 	def calcTableRowDescColumn(self, lineInfo, comment, descPrefix):
 		indent = lineInfo.indent
 		line = lineInfo.line
-		tokens = lineInfo.tokens
 		
 		row = '<td></td>' * indent
 

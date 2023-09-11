@@ -85,11 +85,11 @@ class Analyzer:
 			for s in parser.calc.sectionCosts:
 				print(s)
 			for s in parser.calc.subsectionCosts:
-				print(s, parser.subsectionCosts[s])
+				print(s, parser.calc.subsectionCosts[s])
 
 		parser.checkReferences()
 
-		htmlExporter = GambitHtmlExporter(parser)
+		htmlExporter = GambitHtmlExporter(parser, self.games[id])
 		outfile = "{0:s}.html".format(id)
 		outpath = os.path.join(OUTPUT_DIR, outfile)
 		htmlExporter.writeHtml(outpath)
