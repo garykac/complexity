@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <game>
-<id>dominion-base</id>
+<id>dominion-baseset</id>
 <name>
 	<title>Dominion</title>
-	<subtitle>Rest of base set</subtitle>
-	<parent>dominion-first</parent>
+	<subtitle>Complete base set</subtitle>
+	<parent>dominion-first10</parent>
 </name>
 <designers>
 	<designer>Donald X. Vaccarino</designer>

@@ -7,8 +7,8 @@ checkers
 crazy-eights-28
 crazy-eights-52
 deep-sea-adventure
-dominion-first
-dominion-base
+dominion-baseset
+dominion-first10
 # innovation;Innovation;;;y;2.76;0;0
 jaipur
 just-one
