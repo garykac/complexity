@@ -152,7 +152,7 @@ class GambitParser:
 		basename = os.path.basename(name)
 		dirname = os.path.dirname(name)
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
-		with open(os.path.join(self.currentDir, dirname, basename), 'r') as file:
+		with open(os.path.join(self.currentDir, dirname, basename[0], basename), 'r') as file:
 			for line in file:
 				try:
 					lineinfo: GambitLineInfo = GambitLineProcessor.processLine(self.lineNum, line)

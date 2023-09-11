@@ -79,7 +79,8 @@ class GameInfo:
 		self.vocab = 0
 		self.score = 0
 
-		self.filepath = os.path.join(SRC_DIR, self.id)
+		self.basepath = os.path.join(self.id[0], self.id)
+		self.filepath = os.path.join(SRC_DIR, self.basepath)
 		self.infopath = self.filepath + ".xml"
 
 		self.load()
@@ -248,9 +249,9 @@ class GameInfo:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
 				case Tag.VOCAB:
-					self.vocab = el.text
+					self.vocab = int(el.text)
 				case Tag.SCORE:
-					self.score = el.text
+					self.score = int(el.text)
 				case Tag.EXPORT:
 					self.export_csv = el.text
 				case _:

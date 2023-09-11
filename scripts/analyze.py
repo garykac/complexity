@@ -11,7 +11,6 @@ from gambit_parser import GambitParser
 
 SRC_DIR = "../src"
 OUTPUT_DIR = "../games"
-LIST_FILE = "_list.txt"
 
 def warning(msg):
 	print("WARNING: {0:s}".format(msg))
@@ -23,65 +22,48 @@ class Analyzer:
 		self.showCost = False
 		self.useWarnings = True
 
-		self.games = None
 		self.gameMgr = GameListManager()
 	
 	# ==========
 	# Game list
 	# ==========
 	
-	def loadGameList(self):
-		if self.games:
-			return
-
-		if not os.path.isdir(OUTPUT_DIR):
-			os.makedirs(OUTPUT_DIR)
-		listfile = os.path.join(SRC_DIR, LIST_FILE)
-
-		self.games = {}
-		for (gameId, d) in self.gameMgr.nextGame():
-			self.games[gameId] = d
-
-	def updateGameList(self, id, newScore, newVocab):
-		if not id in self.games:
-			warning("Unable to update score for {0:s}".format(id))
-			return
-		oldScore = self.gameMgr.getScore(id)
-		oldVocab = self.gameMgr.getVocab(id)
+	def updateGameInfo(self, gameInfo, newScore, newVocab):
+		oldScore = gameInfo.score
+		oldVocab = gameInfo.vocab
 		if oldScore != newScore or oldVocab != newVocab:
-			self.gameMgr.updateVocab(id, newVocab)
-			self.gameMgr.updateScore(id, newScore)
-			self.gameMgr.save()
+			gameInfo.setVocab(newVocab)
+			gameInfo.setScore(newScore)
+			gameInfo.save()
 			
 	# ==========
 	# Process .GM files
 	# ==========
 	
 	def processAll(self, options):
-		self.loadGameList()
-		for id in self.games:
+		for (id, gameInfo) in self.gameMgr.nextGame():
 			self.processOne(id, options)
 
 	def processOne(self, id, options):
 		print("Analyzing {0:s}...".format(id))
-		self.loadGameList()
-		if not id in self.games:
-			warning('Unable to find "{0:s}" in game list'.format(id))
+		if not os.path.isdir(OUTPUT_DIR):
+			os.makedirs(OUTPUT_DIR)
+		gameInfo = self.gameMgr.getGame(id)
 
 		parser = GambitParser(options)
 		parser.setWarnOnTodo()
 
 		parser.loadImportableTerms(os.path.join(SRC_DIR, "_import.gm"))
 
-		filename = "{0:s}.gm".format(id)
+		filename = f"{gameInfo.basepath}.gm"
 		filepath = os.path.join(SRC_DIR, filename)
 		parser.process(SRC_DIR, filepath)
 
 		cost = parser.calc.costTotal
 		vocab = parser.getVocabCost()
-		self.updateGameList(id, cost, vocab)
+		self.updateGameInfo(gameInfo, cost, vocab)
 		if self.showCost:
-			print("   = {0:d}".format(cost))
+			print(f"   = {cost:d}")
 			for s in parser.calc.sectionCosts:
 				print(s)
 			for s in parser.calc.subsectionCosts:
@@ -89,9 +71,12 @@ class Analyzer:
 
 		parser.checkReferences()
 
-		htmlExporter = GambitHtmlExporter(parser, self.games[id])
-		outfile = "{0:s}.html".format(id)
+		htmlExporter = GambitHtmlExporter(parser, gameInfo)
+		outfile = f"{gameInfo.basepath}.html"
 		outpath = os.path.join(OUTPUT_DIR, outfile)
+		dir = os.path.dirname(outpath)
+		if not os.path.isdir(dir):
+			os.makedirs(dir)
 		htmlExporter.writeHtml(outpath)
 
 def usage():

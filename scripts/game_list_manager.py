@@ -16,25 +16,18 @@ class GameListManager:
 		self.gameOrder = []
 
 		self.listfile = os.path.join(SRC_DIR, LIST_FILE)
-		self.load()
-		
+		self.loadList()
+	
+	def getGame(self, id):
+		if not self.games[id]:
+			self.games[id] = GameInfo(id)
+		return self.games[id]
+
 	def nextGame(self):
 		for id in self.gameOrder:
-			yield (id, self.games[id])
+			yield (id, self.getGame(id))
 
-	def getVocab(self, id):
-		return self.games[id].vocab
-
-	def updateVocab(self, id, vocab):
-		self.games[id].setVocab(vocab)
-	
-	def getScore(self, id):
-		return self.games[id].score
-
-	def updateScore(self, id, score):
-		self.games[id].setScore(score)
-	
-	def load(self):
+	def loadList(self):
 		with open(self.listfile, 'r') as fp:
 			for line in fp:
 				# Ignore comment lines.
@@ -42,8 +35,4 @@ class GameListManager:
 					continue
 				id = line.strip()
 				self.gameOrder.append(id)
-				self.games[id] = GameInfo(id)
-
-	def save(self):
-		for gameId in self.gameOrder:
-			self.games[gameId].save()
+				self.games[id] = None

@@ -30,21 +30,21 @@ class IndexBuilder:
 		self.gameData = {}
 		for (gameId, d) in self.gameMgr.nextGame():
 			self.games[gameId] = d
-			parentId = d['parent-id']
+			parentId = d.parent
 			if parentId:
 				self.children[parentId] = [ gameId ]
 
 	def writeCsvData(self):
 		with open(CSV_OUTPUT_FILE, 'w') as fp:
 			for id, d in self.games.items():
-				if d['export-csv'] == "y":
-					title = d['title']
-					if d['subtitle'] != "":
-						title += " " + d['subtitle']
-					bgg = str(d['bgg-weight'])
+				if d.export_csv == "true":
+					title = d.title
+					if d.subtitle:
+						title += " " + d.subtitle
+					bgg = str(d.bgg_weight)
 					if bgg == "-":
 						bgg = ""
-					out = [title, bgg, str(d['vocab']), str(d['score'])]
+					out = [title, bgg, str(d.vocab), str(d.score)]
 					fp.write(','.join(out))
 					fp.write('\n')
 
@@ -64,8 +64,8 @@ class IndexBuilder:
 		# Find games in range.
 		gameGroups = {}
 		for id, info in self.games.items():
-			parent = info['parent-id']
-			score = info['score']
+			parent = info.parent
+			score = info.score
 			if parent:
 				continue
 			if score >= bucketMin and (not bucketMax or score <= bucketMax):
@@ -78,18 +78,18 @@ class IndexBuilder:
 		for scoreGroup in sorted(gameGroups.keys()):
 			for id in sorted(gameGroups[scoreGroup]):
 				info = self.games[id]
-				title = info['title']
-				subtitle = info['subtitle']
-				parent = info['parent-id']
-				score = info['score']
+				title = info.title
+				subtitle = info.subtitle
+				parent = info.parent
+				score = info.score
 				self.writeListEntry(out, id, title, subtitle, score)
 				if id in self.children:
 					for idChild in self.children[id]:
 						infoChild = self.games[idChild]
-						title = infoChild['title']
-						subtitle = infoChild['subtitle']
-						parent = infoChild['parent-id']
-						scoreChild = infoChild['score']
+						title = infoChild.title
+						subtitle = infoChild.subtitle
+						parent = infoChild.parent
+						scoreChild = infoChild.score
 						self.writeListEntry(out, idChild, title, subtitle, scoreChild, parentScore=score)
 
 		self.writeListFooter(out)
@@ -126,16 +126,16 @@ class IndexBuilder:
 
 	def writeListEntry(self, out, id, title, subtitle, score, parentScore=None):
 		out.write('<div class="entry">')
-		out.write('<a href="games/{0:s}.html">'.format(id))
-		out.write('<span class="title">{0:s}</span>'.format(self.htmlify(title)))
+		out.write(f'<a href="games/{id[0]}/{id}.html">')
+		out.write(f'<span class="title">{self.htmlify(title)}</span>')
 		if subtitle:
 			out.write('<br/>')
-			out.write('<span class="subtitle">{0:s}</span>'.format(self.htmlify(subtitle)))
+			out.write(f'<span class="subtitle">{self.htmlify(subtitle)}</span>')
 		out.write('<br/>')
 		if parentScore:
-			out.write('<span class="score">({0:d})+{1:d}</span>'.format(parentScore, score))
+			out.write(f'<span class="score">({parentScore:d})+{score:d}</span>')
 		else:
-			out.write('<span class="score">{0:d}</span>'.format(score))
+			out.write(f'<span class="score">{score:d}</span>')
 		out.write('</a></div>\n')
 	
 	def writeListFooter(self, out):
