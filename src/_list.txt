@@ -9,19 +9,19 @@ crazy-eights-52
 deep-sea-adventure
 dominion-baseset
 dominion-first10
-# innovation;Innovation;;;y;2.76;0;0
+# innovation
 jaipur
 just-one
 kingdomino
 leaving-earth
 mancala
 no-thanks
-# race-for-the-galaxy;Race for the Galaxy;;;n;2.99;0;0
+# race-for-the-galaxy
 regicide
 risk
 roads-and-boats
-# san-juan;San Juan;;;n;2.29;0;0
-# scout;Scout;;;y;1.31;0;0
+# san-juan
+# scout
 shinjuku
 splendor
 tic-tac-toe
