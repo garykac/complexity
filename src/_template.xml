@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+<id></id>
+<name>
+	<title></title>
+	<subtitle></subtitle>
+	<parent></parent>
+</name>
+<designers>
+	<designer></designer>
+</designers>
+<year></year>
+<players>
+	<min></min>
+	<max></max>
+</players>
+<time>
+	<min></min>
+	<max></max>
+</time>
+<notes>
+	<p></p>
+</notes>
+<bgg>
+	<weight></weight>
+</bgg>
+<complexity>
+	<vocab></vocab>
+	<score></score>
+	<export></export>
+</complexity>
+</game>
