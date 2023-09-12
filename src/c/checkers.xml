@@ -4,6 +4,7 @@
 <name>
 	<title>Checkers</title>
 </name>
+<year>1000</year>
 <players>
 	<min>2</min>
 	<max>2</max>
@@ -13,7 +14,8 @@
 	<max>30</max>
 </time>
 <bgg>
-	<weight>1.75</weight>
+	<id>2083</id>
+	<weight date="2022-10-11">1.75</weight>
 </bgg>
 <complexity>
 	<vocab>7</vocab>

@@ -4,6 +4,7 @@
 <name>
 	<title>Tic Tac Toe</title>
 </name>
+<year>-1300</year>
 <players>
 	<min>2</min>
 	<max>2</max>
@@ -16,7 +17,8 @@
 	<p>These rules assume that you are playing with a physical board and pieces.</p>
 </notes>
 <bgg>
-	<weight>1.19</weight>
+	<id>11901</id>
+	<weight date="2022-10-11">1.19</weight>
 </bgg>
 <complexity>
 	<vocab>3</vocab>

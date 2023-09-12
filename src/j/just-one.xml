@@ -15,10 +15,11 @@
 </players>
 <time>
 	<min>20</min>
-	<max>20</max>
+	<max>60</max>
 </time>
 <bgg>
-	<weight>1.05</weight>
+	<id>254640</id>
+	<weight date="2022-10-11">1.05</weight>
 </bgg>
 <complexity>
 	<vocab>10</vocab>

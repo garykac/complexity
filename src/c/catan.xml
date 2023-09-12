@@ -20,7 +20,8 @@
 	<p>The game formerly known as The Settlers of Catan.</p>
 </notes>
 <bgg>
-	<weight>2.31</weight>
+	<id>13</id>
+	<weight date="2022-10-12">2.31</weight>
 </bgg>
 <complexity>
 	<vocab>41</vocab>

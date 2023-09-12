@@ -24,7 +24,8 @@
 	<p>However this does provide an upper bound answering the question: What if the rules for all 26 cards were used in a game?</p>
 </notes>
 <bgg>
-	<weight>2.35</weight>
+	<id>36218</id>
+	<weight date="2022-10-11">2.35</weight>
 </bgg>
 <complexity>
 	<vocab>2</vocab>

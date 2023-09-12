@@ -17,7 +17,8 @@
 	<max>30</max>
 </time>
 <bgg>
-	<weight>1.48</weight>
+	<id>54043</id>
+	<weight date="2022-10-11">1.48</weight>
 </bgg>
 <complexity>
 	<vocab>15</vocab>

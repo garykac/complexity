@@ -3,6 +3,7 @@
 <id>1830</id>
 <name>
 	<title>1830</title>
+	<subtitle>Railways &amp; Robber Barons</subtitle>
 </name>
 <designers>
 	<designer>Francis Tresham</designer>
@@ -17,7 +18,8 @@
 	<max>360</max>
 </time>
 <bgg>
-	<weight>4.16</weight>
+	<id>421</id>
+	<weight date="2022-10-11">4.16</weight>
 </bgg>
 <complexity>
 	<vocab>88</vocab>

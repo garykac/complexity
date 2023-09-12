@@ -18,7 +18,8 @@
 	<p>Higher player counts can be supported by using multiple decks.</p>
 </notes>
 <bgg>
-	<weight>1.07</weight>
+	<id>11017</id>
+	<weight date="2022-10-11">1.07</weight>
 </bgg>
 <complexity>
 	<vocab>8</vocab>

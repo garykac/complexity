@@ -22,7 +22,8 @@
 	<p>Variants of mancala games have been around since 700.</p>
 </notes>
 <bgg>
-	<weight>1.62</weight>
+	<id>2448</id>
+	<weight date="2022-10-11">1.62</weight>
 </bgg>
 <complexity>
 	<vocab>5</vocab>

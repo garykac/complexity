@@ -41,6 +41,7 @@ class Tag:
 	
 	# BGG
 	WEIGHT = "weight"
+	#ID
 	
 	# Complexity
 	VOCAB = "vocab"
@@ -73,6 +74,7 @@ class GameInfo:
 		self.export_csv = False
 		
 		# BoardGameGeek stats
+		self.bgg_id = 0
 		self.bgg_weight = 0
 		
 		# Complexity
@@ -137,6 +139,7 @@ class GameInfo:
 				fp.write(f"</{Tag.NOTES}>\n")
 
 			fp.write(f"<{Tag.BGG}>\n")
+			fp.write(f"\t<{Tag.ID}>{self.bgg_id}</{Tag.ID}>\n")
 			fp.write(f"\t<{Tag.WEIGHT}>{self.bgg_weight}</{Tag.WEIGHT}>\n")
 			fp.write(f"</{Tag.BGG}>\n")
 
@@ -239,6 +242,8 @@ class GameInfo:
 		for el in elRoot:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
+				case Tag.ID:
+					self.bgg_id = el.text
 				case Tag.WEIGHT:
 					self.bgg_weight = el.text
 				case _:
