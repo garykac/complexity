@@ -176,7 +176,7 @@ class GameInfo:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
 				case Tag.ID:
-					if self.id != el.text:
+					if self.id != el.text and self.id != f"{el.text}_":
 						raise Exception(f"Game id doesn't match: {self.id} != {el.text} in {self.infopath}")
 				case Tag.NAME:
 					self.load_name(el)

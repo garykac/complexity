@@ -34,5 +34,8 @@ class GameListManager:
 				if line[0] == '#':
 					continue
 				id = line.strip()
+				# Ignore "in progress" games.
+				if id[-1] == '_':
+					continue
 				self.gameOrder.append(id)
 				self.games[id] = None
