@@ -44,14 +44,17 @@ class Tag:
 	P = "p"
 	
 	# BGG
-	WEIGHT = "weight"
-	#ID
+	#ID = "id"
+	WEIGHT = "weight"  # ATTR = "date"
 	
 	# Complexity
 	VOCAB = "vocab"
 	SCORE = "score"
 	EXPORT = "export"
 
+class Attr:
+	DATE = "date"
+	
 class GameInfo:
 	"""Info for each game."""
 	def __init__(self, id):
@@ -81,6 +84,7 @@ class GameInfo:
 		# BoardGameGeek stats
 		self.bgg_id = 0
 		self.bgg_weight = 0
+		self.bgg_weight_date = None
 		
 		# Complexity
 		self.vocab = 0
@@ -152,7 +156,7 @@ class GameInfo:
 
 			fp.write(f"<{Tag.BGG}>\n")
 			fp.write(f"\t<{Tag.ID}>{self.bgg_id}</{Tag.ID}>\n")
-			fp.write(f"\t<{Tag.WEIGHT}>{self.bgg_weight}</{Tag.WEIGHT}>\n")
+			fp.write(f'\t<{Tag.WEIGHT} {Attr.DATE}="{self.bgg_weight_date}">{self.bgg_weight}</{Tag.WEIGHT}>\n')
 			fp.write(f"</{Tag.BGG}>\n")
 
 			fp.write(f"<{Tag.COMPLEXITY}>\n")
@@ -269,6 +273,7 @@ class GameInfo:
 					self.bgg_id = el.text
 				case Tag.WEIGHT:
 					self.bgg_weight = el.text
+					self.bgg_weight_date = el.attrib[Attr.DATE]
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.BGG}>")
 
