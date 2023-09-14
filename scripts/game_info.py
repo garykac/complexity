@@ -48,6 +48,7 @@ class Tag:
 	WEIGHT = "weight"  # ATTR = "date"
 	
 	# Complexity
+	RULEBOOK = "rulebook"
 	VOCAB = "vocab"
 	SCORE = "score"
 	EXPORT = "export"
@@ -78,8 +79,6 @@ class GameInfo:
 		self.time_max = 0
 		
 		self.notes = []
-
-		self.export_csv = False
 		
 		# BoardGameGeek stats
 		self.bgg_id = 0
@@ -87,8 +86,10 @@ class GameInfo:
 		self.bgg_weight_date = None
 		
 		# Complexity
+		self.rulebook = None
 		self.vocab = 0
 		self.score = 0
+		self.export_csv = False
 
 		self.basepath = os.path.join(self.id[0], self.id)
 		self.filepath = os.path.join(SRC_DIR, self.basepath)
@@ -160,6 +161,8 @@ class GameInfo:
 			fp.write(f"</{Tag.BGG}>\n")
 
 			fp.write(f"<{Tag.COMPLEXITY}>\n")
+			if self.rulebook:
+				fp.write(f"\t<{Tag.RULEBOOK}>{self.rulebook}</{Tag.RULEBOOK}>\n")
 			fp.write(f"\t<{Tag.VOCAB}>{self.vocab}</{Tag.VOCAB}>\n")
 			fp.write(f"\t<{Tag.SCORE}>{self.score}</{Tag.SCORE}>\n")
 			export = self.export_csv
@@ -281,6 +284,8 @@ class GameInfo:
 		for el in elRoot:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
+				case Tag.RULEBOOK:
+					self.rulebook = el.text
 				case Tag.VOCAB:
 					self.vocab = int(el.text)
 				case Tag.SCORE:
