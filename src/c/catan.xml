@@ -7,15 +7,18 @@
 <designers>
 	<designer>Klaus Teuber</designer>
 </designers>
-<year>1995</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>60</min>
-	<max>120</max>
-</time>
+<general>
+	<year>1995</year>
+	<age>10</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>60</min>
+		<max>120</max>
+	</time>
+</general>
 <notes>
 	<p>The game formerly known as The Settlers of Catan.</p>
 </notes>

@@ -8,15 +8,18 @@
 <designers>
 	<designer>William Julius Champion Jr.</designer>
 </designers>
-<year>1940</year>
-<players>
-	<min>2</min>
-	<max>2</max>
-</players>
-<time>
-	<min>10</min>
-	<max>10</max>
-</time>
+<general>
+	<year>1940</year>
+	<age>6</age>
+	<players>
+		<min>2</min>
+		<max>2</max>
+	</players>
+	<time>
+		<min>10</min>
+		<max>10</max>
+	</time>
+</general>
 <notes>
 	<p>Kalah is a member of the mancala family of games that is popular in Europe and North America.</p>
 	<p>Variants of mancala games have been around since 700.</p>

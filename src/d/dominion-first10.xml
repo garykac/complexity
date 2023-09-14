@@ -8,15 +8,18 @@
 <designers>
 	<designer>Donald X. Vaccarino</designer>
 </designers>
-<year>2008</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>30</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2008</year>
+	<age>13</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>30</min>
+		<max>30</max>
+	</time>
+</general>
 <notes>
 	<p>Just the rules necessary for the first game with the 10 suggested starter cards.</p>
 </notes>

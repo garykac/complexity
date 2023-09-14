@@ -4,15 +4,18 @@
 <name>
 	<title>Tic Tac Toe</title>
 </name>
-<year>-1300</year>
-<players>
-	<min>2</min>
-	<max>2</max>
-</players>
-<time>
-	<min>1</min>
-	<max>2</max>
-</time>
+<general>
+	<year>-1300</year>
+	<age>4</age>
+	<players>
+		<min>2</min>
+		<max>2</max>
+	</players>
+	<time>
+		<min>1</min>
+		<max>2</max>
+	</time>
+</general>
 <notes>
 	<p>These rules assume that you are playing with a physical board and pieces.</p>
 </notes>

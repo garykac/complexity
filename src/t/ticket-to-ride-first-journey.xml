@@ -8,15 +8,18 @@
 <designers>
 	<designer>Alan R. Moon</designer>
 </designers>
-<year>2016</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>15</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2016</year>
+	<age>6</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>15</min>
+		<max>30</max>
+	</time>
+</general>
 <bgg>
 	<id>205125</id>
 	<weight date="2023-09-10">1.42</weight>

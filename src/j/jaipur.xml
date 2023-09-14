@@ -7,15 +7,18 @@
 <designers>
 	<designer>Sébastien Pauchon</designer>
 </designers>
-<year>2009</year>
-<players>
-	<min>2</min>
-	<max>2</max>
-</players>
-<time>
-	<min>30</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2009</year>
+	<age>12</age>
+	<players>
+		<min>2</min>
+		<max>2</max>
+	</players>
+	<time>
+		<min>30</min>
+		<max>30</max>
+	</time>
+</general>
 <bgg>
 	<id>54043</id>
 	<weight date="2022-10-11">1.48</weight>

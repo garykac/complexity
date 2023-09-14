@@ -7,15 +7,18 @@
 <designers>
 	<designer>Thorsten Gimmler</designer>
 </designers>
-<year>2004</year>
-<players>
-	<min>3</min>
-	<max>5</max>
-</players>
-<time>
-	<min>20</min>
-	<max>20</max>
-</time>
+<general>
+	<year>2004</year>
+	<age>8</age>
+	<players>
+		<min>3</min>
+		<max>5</max>
+	</players>
+	<time>
+		<min>20</min>
+		<max>20</max>
+	</time>
+</general>
 <bgg>
 	<id>12942</id>
 	<weight date="2022-10-11">1.14</weight>

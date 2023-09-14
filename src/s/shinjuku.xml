@@ -7,15 +7,18 @@
 <designers>
 	<designer>Gary Kacmarcik</designer>
 </designers>
-<year>2019</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>60</min>
-	<max>75</max>
-</time>
+<general>
+	<year>2019</year>
+	<age>10</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>60</min>
+		<max>75</max>
+	</time>
+</general>
 <bgg>
 	<id>286690</id>
 	<weight date="2022-10-14">2.0</weight>

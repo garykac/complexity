@@ -7,15 +7,18 @@
 <designers>
 	<designer>Joseph Fatula</designer>
 </designers>
-<year>2015</year>
-<players>
-	<min>1</min>
-	<max>5</max>
-</players>
-<time>
-	<min>60</min>
-	<max>180</max>
-</time>
+<general>
+	<year>2015</year>
+	<age>15</age>
+	<players>
+		<min>1</min>
+		<max>5</max>
+	</players>
+	<time>
+		<min>60</min>
+		<max>180</max>
+	</time>
+</general>
 <bgg>
 	<id>173064</id>
 	<weight date="2022-10-11">3.72</weight>

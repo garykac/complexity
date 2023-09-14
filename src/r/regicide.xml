@@ -9,15 +9,18 @@
 	<designer>Luke Badger</designer>
 	<designer>Andy Richdale</designer>
 </designers>
-<year>2020</year>
-<players>
-	<min>1</min>
-	<max>4</max>
-</players>
-<time>
-	<min>15</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2020</year>
+	<age>10</age>
+	<players>
+		<min>1</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>15</min>
+		<max>30</max>
+	</time>
+</general>
 <bgg>
 	<id>307002</id>
 	<weight date="2022-10-11">1.91</weight>

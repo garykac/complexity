@@ -8,15 +8,18 @@
 	<designer>Jun Sasaki</designer>
 	<designer>Goro Sasaki</designer>
 </designers>
-<year>2014</year>
-<players>
-	<min>2</min>
-	<max>6</max>
-</players>
-<time>
-	<min>30</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2014</year>
+	<age>8</age>
+	<players>
+		<min>2</min>
+		<max>6</max>
+	</players>
+	<time>
+		<min>30</min>
+		<max>30</max>
+	</time>
+</general>
 <bgg>
 	<id>169654</id>
 	<weight date="2022-10-11">1.17</weight>

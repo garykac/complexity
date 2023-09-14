@@ -7,15 +7,18 @@
 <designers>
 	<designer>Bruno Cathala</designer>
 </designers>
-<year>2016</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>15</min>
-	<max>25</max>
-</time>
+<general>
+	<year>2016</year>
+	<age>8</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>15</min>
+		<max>25</max>
+	</time>
+</general>
 <bgg>
 	<id>204583</id>
 	<weight date="2022-10-11">1.21</weight>

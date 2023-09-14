@@ -7,15 +7,18 @@
 <designers>
 	<designer>Marc André</designer>
 </designers>
-<year>2014</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>30</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2014</year>
+	<age>10</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>30</min>
+		<max>30</max>
+	</time>
+</general>
 <bgg>
 	<id>148228</id>
 	<weight date="2022-10-11">1.79</weight>

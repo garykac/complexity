@@ -8,15 +8,18 @@
 	<designer>Hisanori Hiraoka</designer>
 	<designer>Masato Uesugi</designer>
 </designers>
-<year>2013</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>30</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2013</year>
+	<age>10</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>30</min>
+		<max>30</max>
+	</time>
+</general>
 <notes>
 	<p>This covers only the first game which uses only the Warrior.</p>
 </notes>

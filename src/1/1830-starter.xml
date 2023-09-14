@@ -8,15 +8,18 @@
 <designers>
 	<designer>Francis Tresham</designer>
 </designers>
-<year>2011</year>
-<players>
-	<min>2</min>
-	<max>6</max>
-</players>
-<time>
-	<min>60</min>
-	<max>90</max>
-</time>
+<general>
+	<year>2011</year>
+	<age>14</age>
+	<players>
+		<min>2</min>
+		<max>6</max>
+	</players>
+	<time>
+		<min>60</min>
+		<max>90</max>
+	</time>
+</general>
 <notes>
 	<p>This is a simplified version of 1830 that eliminates the stock investment portion.</p>
 	<p>It was included in the 2011 Mayfair release of 1830.</p>

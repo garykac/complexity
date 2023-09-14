@@ -7,15 +7,18 @@
 <designers>
 	<designer>Albert Lamorisse</designer>
 </designers>
-<year>1959</year>
-<players>
-	<min>3</min>
-	<max>6</max>
-</players>
-<time>
-	<min>120</min>
-	<max>240</max>
-</time>
+<general>
+	<year>1959</year>
+	<age>10</age>
+	<players>
+		<min>3</min>
+		<max>6</max>
+	</players>
+	<time>
+		<min>120</min>
+		<max>240</max>
+	</time>
+</general>
 <bgg>
 	<id>181</id>
 	<weight date="2022-10-11">2.07</weight>

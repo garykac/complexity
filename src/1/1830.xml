@@ -8,15 +8,18 @@
 <designers>
 	<designer>Francis Tresham</designer>
 </designers>
-<year>1986</year>
-<players>
-	<min>2</min>
-	<max>6</max>
-</players>
-<time>
-	<min>180</min>
-	<max>360</max>
-</time>
+<general>
+	<year>1986</year>
+	<age>14</age>
+	<players>
+		<min>2</min>
+		<max>6</max>
+	</players>
+	<time>
+		<min>180</min>
+		<max>360</max>
+	</time>
+</general>
 <bgg>
 	<id>421</id>
 	<weight date="2022-10-11">4.16</weight>

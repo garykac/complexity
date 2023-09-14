@@ -66,7 +66,7 @@ class GambitHtmlExporter:
 		designers = ', '.join(self.gameInfo.designers)
 		out.write(f'<div class="designer">{designers}</div>\n')
 		year = self.gameInfo.year
-		if year == 0:
+		if not year:
 			year = ""
 		out.write(f'<div class="year">{year}</div>\n\n')
 

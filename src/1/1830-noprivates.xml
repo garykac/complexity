@@ -8,15 +8,18 @@
 <designers>
 	<designer>Francis Tresham</designer>
 </designers>
-<year>1986</year>
-<players>
-	<min>2</min>
-	<max>6</max>
-</players>
-<time>
-	<min>60</min>
-	<max>90</max>
-</time>
+<general>
+	<year>1986</year>
+	<age>14</age>
+	<players>
+		<min>2</min>
+		<max>6</max>
+	</players>
+	<time>
+		<min>60</min>
+		<max>90</max>
+	</time>
+</general>
 <notes>
 	<p>This is a variant of 1830 without any of the rules relating to Privates.</p>
 	<p>It is not intended as a playable variant, but rather as a way to quantify the cost of the rules for Privates.</p>

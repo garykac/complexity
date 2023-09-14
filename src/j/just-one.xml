@@ -8,15 +8,18 @@
 	<designer>Ludovic Roudy</designer>
 	<designer>Bruno Sautter</designer>
 </designers>
-<year>2018</year>
-<players>
-	<min>3</min>
-	<max>7</max>
-</players>
-<time>
-	<min>20</min>
-	<max>60</max>
-</time>
+<general>
+	<year>2018</year>
+	<age>8</age>
+	<players>
+		<min>3</min>
+		<max>7</max>
+	</players>
+	<time>
+		<min>20</min>
+		<max>60</max>
+	</time>
+</general>
 <bgg>
 	<id>254640</id>
 	<weight date="2022-10-11">1.05</weight>

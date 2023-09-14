@@ -8,15 +8,18 @@
 	<designer>Jeroen Doumen</designer>
 	<designer>Joris Wiersinga</designer>
 </designers>
-<year>1999</year>
-<players>
-	<min>1</min>
-	<max>4</max>
-</players>
-<time>
-	<min>180</min>
-	<max>240</max>
-</time>
+<general>
+	<year>1999</year>
+	<age>14</age>
+	<players>
+		<min>1</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>180</min>
+		<max>240</max>
+	</time>
+</general>
 <bgg>
 	<id>875</id>
 	<weight date="2022-10-11">4.19</weight>

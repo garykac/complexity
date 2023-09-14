@@ -7,15 +7,18 @@
 <designers>
 	<designer>David Short</designer>
 </designers>
-<year>2016</year>
-<players>
-	<min>2</min>
-	<max>5</max>
-</players>
-<time>
-	<min>45</min>
-	<max>45</max>
-</time>
+<general>
+	<year>2016</year>
+	<age>10</age>
+	<players>
+		<min>2</min>
+		<max>5</max>
+	</players>
+	<time>
+		<min>45</min>
+		<max>45</max>
+	</time>
+</general>
 <bgg>
 	<id>180680</id>
 	<weight date="2022-10-11">2.20</weight>

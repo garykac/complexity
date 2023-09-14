@@ -9,15 +9,18 @@
 <designers>
 	<designer>Donald X. Vaccarino</designer>
 </designers>
-<year>2008</year>
-<players>
-	<min>2</min>
-	<max>4</max>
-</players>
-<time>
-	<min>30</min>
-	<max>30</max>
-</time>
+<general>
+	<year>2008</year>
+	<age>13</age>
+	<players>
+		<min>2</min>
+		<max>4</max>
+	</players>
+	<time>
+		<min>30</min>
+		<max>30</max>
+	</time>
+</general>
 <notes>
 	<p>This summarizes the rules associated with the additional 16 cards in the Base Set beyond the 10 recommended starter cards.</p>
 	<p>Since you only use a random set of 10 cards for each game, you can't simply add these rules to the starter 10 cards and get a sensible number.</p>

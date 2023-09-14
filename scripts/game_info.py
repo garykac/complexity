@@ -17,9 +17,7 @@ class Tag:
 	ID = "id"
 	NAME = "name"
 	DESIGNERS = "designers"
-	YEAR = "year"
-	PLAYERS = "players"
-	TIME = "time"
+	GENERAL = "general"
 	NOTES = "notes"
 	BGG = "bgg"
 	COMPLEXITY = "complexity"
@@ -31,7 +29,13 @@ class Tag:
 	
 	# Designers
 	DESIGNER = "designer"
-	
+
+	# General info
+	YEAR = "year"
+	AGE = "age"
+	PLAYERS = "players"
+	TIME = "time"
+
 	# Players and Time
 	MIN = "min"
 	MAX = "max"
@@ -59,7 +63,8 @@ class GameInfo:
 		self.parent = None
 
 		self.designers = []
-		self.year = 0
+		self.year = None
+		self.age = None
 		
 		# Players
 		self.players_min = 1
@@ -119,18 +124,25 @@ class GameInfo:
 					fp.write(f"\t<{Tag.DESIGNER}>{d}</{Tag.DESIGNER}>\n")
 				fp.write(f"</{Tag.DESIGNERS}>\n")
 
-			if self.year != 0:
-				fp.write(f"<{Tag.YEAR}>{self.year}</{Tag.YEAR}>\n")
+			fp.write(f"<{Tag.GENERAL}>\n")
 
-			fp.write(f"<{Tag.PLAYERS}>\n")
-			fp.write(f"\t<{Tag.MIN}>{self.players_min}</{Tag.MIN}>\n")
-			fp.write(f"\t<{Tag.MAX}>{self.players_max}</{Tag.MAX}>\n")
-			fp.write(f"</{Tag.PLAYERS}>\n")
+			if self.year:
+				fp.write(f"\t<{Tag.YEAR}>{self.year}</{Tag.YEAR}>\n")
 
-			fp.write(f"<{Tag.TIME}>\n")
-			fp.write(f"\t<{Tag.MIN}>{self.time_min}</{Tag.MIN}>\n")
-			fp.write(f"\t<{Tag.MAX}>{self.time_max}</{Tag.MAX}>\n")
-			fp.write(f"</{Tag.TIME}>\n")
+			if self.age:
+				fp.write(f"\t<{Tag.AGE}>{self.age}</{Tag.AGE}>\n")
+
+			fp.write(f"\t<{Tag.PLAYERS}>\n")
+			fp.write(f"\t\t<{Tag.MIN}>{self.players_min}</{Tag.MIN}>\n")
+			fp.write(f"\t\t<{Tag.MAX}>{self.players_max}</{Tag.MAX}>\n")
+			fp.write(f"\t</{Tag.PLAYERS}>\n")
+
+			fp.write(f"\t<{Tag.TIME}>\n")
+			fp.write(f"\t\t<{Tag.MIN}>{self.time_min}</{Tag.MIN}>\n")
+			fp.write(f"\t\t<{Tag.MAX}>{self.time_max}</{Tag.MAX}>\n")
+			fp.write(f"\t</{Tag.TIME}>\n")
+
+			fp.write(f"</{Tag.GENERAL}>\n")
 
 			if len(self.notes) != 0:
 				fp.write(f"<{Tag.NOTES}>\n")
@@ -166,16 +178,12 @@ class GameInfo:
 				case Tag.ID:
 					if self.id != el.text:
 						raise Exception(f"Game id doesn't match: {self.id} != {el.text} in {self.infopath}")
-				case Tag.YEAR:
-					self.year = el.text
 				case Tag.NAME:
 					self.load_name(el)
 				case Tag.DESIGNERS:
 					self.load_designers(el)
-				case Tag.PLAYERS:
-					self.load_players(el)
-				case Tag.TIME:
-					self.load_time(el)
+				case Tag.GENERAL:
+					self.load_general(el)
 				case Tag.NOTES:
 					self.load_notes(el)
 				case Tag.BGG:
@@ -206,6 +214,21 @@ class GameInfo:
 					self.designers.append(el.text)
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.DESIGNERS}>")
+
+	def load_general(self, elRoot):
+		for el in elRoot:
+			(ns, tag) = splitTag(el.tag)
+			match tag:
+				case Tag.YEAR:
+					self.year = el.text
+				case Tag.AGE:
+					self.age = el.text
+				case Tag.PLAYERS:
+					self.load_players(el)
+				case Tag.TIME:
+					self.load_time(el)
+				case _:
+					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.GENERAL}>")
 
 	def load_players(self, elRoot):
 		for el in elRoot:
