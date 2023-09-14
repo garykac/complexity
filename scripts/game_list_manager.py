@@ -19,7 +19,7 @@ class GameListManager:
 		self.loadList()
 	
 	def getGame(self, id):
-		if not self.games[id]:
+		if not id in self.games or not self.games[id]:
 			self.games[id] = GameInfo(id)
 		return self.games[id]
 
