@@ -4,7 +4,7 @@
 	<title>Tic Tac Toe</title>
 </name>
 <general>
-	<year>-1300</year>
+	<published year="-1300" />
 	<age min="4" />
 	<players min="2" max="2" />
 	<time min="1" max="2" />

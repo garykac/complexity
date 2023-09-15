@@ -8,7 +8,7 @@
 	<designer>Francis Tresham</designer>
 </designers>
 <general>
-	<year>2011</year>
+	<published year="2011" />
 	<age min="14" />
 	<players min="2" max="6" />
 	<time min="60" max="90" />

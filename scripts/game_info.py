@@ -30,15 +30,11 @@ class Tag:
 	DESIGNER = "designer"
 
 	# General info
-	YEAR = "year"
+	PUBLISHED = "published"
 	AGE = "age"
 	PLAYERS = "players"
 	TIME = "time"
 
-	# Players and Time
-	MIN = "min"
-	MAX = "max"
-	
 	# Notes
 	P = "p"
 	
@@ -55,11 +51,14 @@ class Attr:
 	# <game>,<bgg>
 	ID = "id"
 
-	# <general> <age>,<players>,<time>
+	# <general> : <published>
+	YEAR = "year"
+	
+	# <general> : <age>,<players>,<time>
 	MIN = "min"
 	MAX = "max"
 	
-	# <bgg> <weight>
+	# <bgg> : <weight>
 	DATE = "date"
 	
 class GameInfo:
@@ -108,11 +107,13 @@ class GameInfo:
 		if vocab != self.vocab:
 			self.vocab = vocab
 			self.hasChanges = True
+		self.hasChanges = True
 	
 	def updateScore(self, score):
 		if score != self.score:
 			self.score = score
 			self.hasChanges = True
+		self.hasChanges = True
 	
 	def save(self):
 		if not self.hasChanges:
@@ -151,7 +152,7 @@ class GameInfo:
 		fp.write(f"<{Tag.GENERAL}>\n")
 
 		if self.year:
-			fp.write(f"\t<{Tag.YEAR}>{self.year}</{Tag.YEAR}>\n")
+			fp.write(f'\t<{Tag.PUBLISHED} {Attr.YEAR}="{self.year}" />\n')
 
 		if self.age:
 			fp.write(f'\t<{Tag.AGE} {Attr.MIN}="{self.age}" />\n')
@@ -250,8 +251,8 @@ class GameInfo:
 		for el in elRoot:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
-				case Tag.YEAR:
-					self.year = el.text
+				case Tag.PUBLISHED:
+					self.load_published(el)
 				case Tag.AGE:
 					self.load_age(el)
 				case Tag.PLAYERS:
@@ -260,6 +261,14 @@ class GameInfo:
 					self.load_time(el)
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.GENERAL}>")
+
+	def load_published(self, elPublished):
+		for attrName, attrValue in elPublished.attrib.items():
+			match attrName:
+				case Attr.YEAR:
+					self.year = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.PUBLISHED}>")
 
 	def load_age(self, elAge):
 		for attrName, attrValue in elAge.attrib.items():

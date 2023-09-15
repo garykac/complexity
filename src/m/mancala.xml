@@ -8,7 +8,7 @@
 	<designer>William Julius Champion Jr.</designer>
 </designers>
 <general>
-	<year>1940</year>
+	<published year="1940" />
 	<age min="6" />
 	<players min="2" max="2" />
 	<time min="10" max="10" />

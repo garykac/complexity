@@ -7,7 +7,7 @@
 	<designer>Albert Lamorisse</designer>
 </designers>
 <general>
-	<year>1959</year>
+	<published year="1959" />
 	<age min="10" />
 	<players min="3" max="6" />
 	<time min="120" max="240" />

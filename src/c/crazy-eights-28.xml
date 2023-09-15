@@ -5,7 +5,7 @@
 	<subtitle>28-card</subtitle>
 </name>
 <general>
-	<year>1930</year>
+	<published year="1930" />
 	<age min="4" />
 	<players min="2" max="4" />
 	<time min="15" max="15" />

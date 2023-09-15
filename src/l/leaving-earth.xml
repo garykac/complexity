@@ -7,7 +7,7 @@
 	<designer>Joseph Fatula</designer>
 </designers>
 <general>
-	<year>2015</year>
+	<published year="2015" />
 	<age min="15" />
 	<players min="1" max="5" />
 	<time min="60" max="180" />

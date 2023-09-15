@@ -4,7 +4,7 @@
 	<title>Checkers</title>
 </name>
 <general>
-	<year>1000</year>
+	<published year="1000" />
 	<age min="6" />
 	<players min="2" max="2" />
 	<time min="30" max="30" />

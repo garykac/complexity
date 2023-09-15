@@ -8,7 +8,7 @@
 	<designer>Bruno Sautter</designer>
 </designers>
 <general>
-	<year>2018</year>
+	<published year="2018" />
 	<age min="8" />
 	<players min="3" max="7" />
 	<time min="20" max="60" />

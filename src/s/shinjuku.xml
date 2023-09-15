@@ -7,7 +7,7 @@
 	<designer>Gary Kacmarcik</designer>
 </designers>
 <general>
-	<year>2019</year>
+	<published year="2019" />
 	<age min="10" />
 	<players min="2" max="4" />
 	<time min="60" max="75" />

@@ -7,7 +7,7 @@
 	<designer>Klaus Teuber</designer>
 </designers>
 <general>
-	<year>1995</year>
+	<published year="1995" />
 	<age min="10" />
 	<players min="2" max="4" />
 	<time min="60" max="120" />

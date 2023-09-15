@@ -7,7 +7,7 @@
 	<designer>Thorsten Gimmler</designer>
 </designers>
 <general>
-	<year>2004</year>
+	<published year="2004" />
 	<age min="8" />
 	<players min="3" max="5" />
 	<time min="20" max="20" />

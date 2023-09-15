@@ -7,7 +7,7 @@
 	<designer>David Short</designer>
 </designers>
 <general>
-	<year>2016</year>
+	<published year="2016" />
 	<age min="10" />
 	<players min="2" max="5" />
 	<time min="45" max="45" />

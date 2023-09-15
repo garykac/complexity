@@ -8,7 +8,7 @@
 	<designer>Donald X. Vaccarino</designer>
 </designers>
 <general>
-	<year>2008</year>
+	<published year="2008" />
 	<age min="13" />
 	<players min="2" max="4" />
 	<time min="30" max="30" />
