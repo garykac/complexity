@@ -59,10 +59,10 @@ class GambitHtmlExporter:
 		out.write('</head>\n')
 		out.write('<body>\n')
 		out.write('<div class="container">\n')
-		out.write(f'<div class="title">{self.gameInfo.title}</div>\n')
+		out.write(f'<div class="title">{self.htmlify(self.gameInfo.title)}</div>\n')
 		subtitle = self.gameInfo.subtitle
 		if subtitle:
-			out.write(f'<div class="subtitle">{self.gameInfo.subtitle}</div>\n')
+			out.write(f'<div class="subtitle">{self.htmlify(self.gameInfo.subtitle)}</div>\n')
 		designers = ', '.join(self.gameInfo.designers)
 		out.write(f'<div class="designer">{designers}</div>\n')
 		year = self.gameInfo.year
