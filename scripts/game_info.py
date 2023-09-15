@@ -11,14 +11,14 @@ from xml.etree.ElementTree import ElementTree
 SRC_DIR = "../src"
 
 class Tag:
-	GAME = "game"
+	GAME = "game"              # ATTR = "id"
 	
 	# Game
 	NAME = "name"
 	DESIGNERS = "designers"
 	GENERAL = "general"
 	NOTES = "notes"
-	BGG = "bgg"
+	BGG = "bgg"                # ATTR = "id"
 	COMPLEXITY = "complexity"
 	
 	# Name
@@ -30,16 +30,16 @@ class Tag:
 	DESIGNER = "designer"
 
 	# General info
-	PUBLISHED = "published"
-	AGE = "age"
-	PLAYERS = "players"
-	TIME = "time"
+	PUBLISHED = "published"    # ATTR = "year"
+	AGE = "age"                # ATTR = "min"
+	PLAYERS = "players"        # ATTR = "min", "max"
+	TIME = "time"              # ATTR = "min", "max"
 
 	# Notes
 	P = "p"
 	
 	# BGG
-	WEIGHT = "weight"  # ATTR = "date"
+	WEIGHT = "weight"          # ATTR = "date", "avg"
 	
 	# Complexity
 	RULEBOOK = "rulebook"
@@ -60,6 +60,7 @@ class Attr:
 	
 	# <bgg> : <weight>
 	DATE = "date"
+	AVG = "avg"
 	
 class GameInfo:
 	"""Info for each game."""
@@ -181,11 +182,14 @@ class GameInfo:
 			fp.write(f'<{Tag.BGG} {Attr.ID}="{self.bgg_id}">\n')
 		else:
 			fp.write(f'<{Tag.BGG}>\n')
+
+		fp.write(f'\t<{Tag.WEIGHT}')
 		if self.bgg_weight_date:
-			fp.write(f'\t<{Tag.WEIGHT} {Attr.DATE}="{self.bgg_weight_date}">{self.bgg_weight}</{Tag.WEIGHT}>\n')
-		else:
-			fp.write(f'\t<{Tag.WEIGHT}>{self.bgg_weight}</{Tag.WEIGHT}>\n')
-		fp.write(f"</{Tag.BGG}>\n")
+			fp.write(f' {Attr.DATE}="{self.bgg_weight_date}"')
+		fp.write(f' {Attr.AVG}="{self.bgg_weight}"')
+		fp.write(f' />\n')
+
+		fp.write(f'</{Tag.BGG}>\n')
 
 	def save_complexity(self, fp):
 		fp.write(f"<{Tag.COMPLEXITY}>\n")
@@ -319,7 +323,8 @@ class GameInfo:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
 				case Tag.WEIGHT:
-					self.bgg_weight = el.text
+					if Attr.AVG in el.attrib:
+						self.bgg_weight = el.attrib[Attr.AVG]
 					if Attr.DATE in el.attrib:
 						self.bgg_weight_date = el.attrib[Attr.DATE]
 				case _:

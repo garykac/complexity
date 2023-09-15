@@ -18,7 +18,7 @@
 	<p>It is not intended as a playable variant, but rather as a way to quantify the cost of the rules for Privates.</p>
 </notes>
 <bgg>
-	<weight>-</weight>
+	<weight avg="-" />
 </bgg>
 <complexity>
 	<vocab>77</vocab>

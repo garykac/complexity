@@ -17,7 +17,7 @@
 	<p>This covers only the first game which uses only the Warrior.</p>
 </notes>
 <bgg id="150312">
-	<weight date="2022-10-11">1.23</weight>
+	<weight date="2022-10-11" avg="1.23" />
 </bgg>
 <complexity>
 	<vocab>13</vocab>

@@ -20,7 +20,7 @@
 	<p>However this does provide an upper bound answering the question: What if the rules for all 26 cards were used in a game?</p>
 </notes>
 <bgg id="36218">
-	<weight date="2022-10-11">2.35</weight>
+	<weight date="2022-10-11" avg="2.35" />
 </bgg>
 <complexity>
 	<vocab>2</vocab>

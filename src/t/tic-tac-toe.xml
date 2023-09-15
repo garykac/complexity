@@ -13,7 +13,7 @@
 	<p>These rules assume that you are playing with a physical board and pieces.</p>
 </notes>
 <bgg id="11901">
-	<weight date="2022-10-11">1.19</weight>
+	<weight date="2022-10-11" avg="1.19" />
 </bgg>
 <complexity>
 	<vocab>3</vocab>

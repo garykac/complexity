@@ -14,7 +14,7 @@
 	<time min="30" max="30" />
 </general>
 <bgg id="169654">
-	<weight date="2022-10-11">1.17</weight>
+	<weight date="2022-10-11" avg="1.17" />
 </bgg>
 <complexity>
 	<vocab>23</vocab>
