@@ -22,7 +22,7 @@
 </bgg>
 <complexity>
 	<vocab>77</vocab>
-	<score>281</score>
+	<score cost="281" />
 	<export>false</export>
 </complexity>
 </game>

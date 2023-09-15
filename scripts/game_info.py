@@ -62,6 +62,10 @@ class Attr:
 	DATE = "date"
 	AVG = "avg"
 	
+	# <complexity> : <score>
+	NAME = "name"
+	COST = "cost"
+	
 class GameInfo:
 	"""Info for each game."""
 	def __init__(self, id):
@@ -121,8 +125,13 @@ class GameInfo:
 			return
 		
 		with open(self.infopath, 'w') as fp:
+			# Strip off in-progress marker, if present.
+			id = self.id
+			if id[-1] == '_':
+				id = id[:-1]
+
 			fp.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-			fp.write(f'<{Tag.GAME} id="{self.id}">\n')
+			fp.write(f'<{Tag.GAME} id="{id}">\n')
 
 			self.save_name(fp)
 			self.save_designers(fp)
@@ -196,7 +205,11 @@ class GameInfo:
 		if self.rulebook:
 			fp.write(f"\t<{Tag.RULEBOOK}>{self.rulebook}</{Tag.RULEBOOK}>\n")
 		fp.write(f"\t<{Tag.VOCAB}>{self.vocab}</{Tag.VOCAB}>\n")
-		fp.write(f"\t<{Tag.SCORE}>{self.score}</{Tag.SCORE}>\n")
+
+		fp.write(f'\t<{Tag.SCORE}')
+		fp.write(f' {Attr.COST}="{self.score}"')
+		fp.write(f' />\n')
+
 		fp.write(f"\t<{Tag.EXPORT}>{self.export_csv}</{Tag.EXPORT}>\n")
 		fp.write(f"</{Tag.COMPLEXITY}>\n")
 
@@ -339,7 +352,8 @@ class GameInfo:
 				case Tag.VOCAB:
 					self.vocab = int(el.text)
 				case Tag.SCORE:
-					self.score = int(el.text)
+					if Attr.COST in el.attrib:
+						self.score = el.attrib[Attr.COST]
 				case Tag.EXPORT:
 					self.export_csv = el.text
 				case _:
