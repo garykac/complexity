@@ -14,7 +14,6 @@ class Tag:
 	GAME = "game"
 	
 	# Game
-	ID = "id"
 	NAME = "name"
 	DESIGNERS = "designers"
 	GENERAL = "general"
@@ -44,7 +43,6 @@ class Tag:
 	P = "p"
 	
 	# BGG
-	#ID = "id"
 	WEIGHT = "weight"  # ATTR = "date"
 	
 	# Complexity
@@ -54,6 +52,14 @@ class Tag:
 	EXPORT = "export"
 
 class Attr:
+	# <game>,<bgg>
+	ID = "id"
+
+	# <general> <age>,<players>,<time>
+	MIN = "min"
+	MAX = "max"
+	
+	# <bgg> <weight>
 	DATE = "date"
 	
 class GameInfo:
@@ -98,13 +104,15 @@ class GameInfo:
 		self.load()
 		self.hasChanges = False
 
-	def setVocab(self, vocab):
-		self.vocab = vocab
-		self.hasChanges = True
+	def updateVocab(self, vocab):
+		if vocab != self.vocab:
+			self.vocab = vocab
+			self.hasChanges = True
 	
-	def setScore(self, score):
-		self.score = score
-		self.hasChanges = True
+	def updateScore(self, score):
+		if score != self.score:
+			self.score = score
+			self.hasChanges = True
 	
 	def save(self):
 		if not self.hasChanges:
@@ -112,79 +120,95 @@ class GameInfo:
 		
 		with open(self.infopath, 'w') as fp:
 			fp.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-			fp.write(f"<{Tag.GAME}>\n")
-			fp.write(f"<{Tag.ID}>{self.id}</{Tag.ID}>\n")
+			fp.write(f'<{Tag.GAME} id="{self.id}">\n')
 
-			fp.write(f"<{Tag.NAME}>\n")
-			fp.write(f"\t<{Tag.TITLE}>{escapeXmlEntities(self.title)}</{Tag.TITLE}>\n")
-			if self.subtitle:
-				fp.write(f"\t<{Tag.SUBTITLE}>{escapeXmlEntities(self.subtitle)}</{Tag.SUBTITLE}>\n")
-			if self.parent:
-				fp.write(f"\t<{Tag.PARENT}>{self.parent}</{Tag.PARENT}>\n")
-			fp.write(f"</{Tag.NAME}>\n")
-
-			if len(self.designers) != 0:
-				fp.write(f"<{Tag.DESIGNERS}>\n")
-				for d in self.designers:
-					fp.write(f"\t<{Tag.DESIGNER}>{d}</{Tag.DESIGNER}>\n")
-				fp.write(f"</{Tag.DESIGNERS}>\n")
-
-			fp.write(f"<{Tag.GENERAL}>\n")
-
-			if self.year:
-				fp.write(f"\t<{Tag.YEAR}>{self.year}</{Tag.YEAR}>\n")
-
-			if self.age:
-				fp.write(f"\t<{Tag.AGE}>{self.age}</{Tag.AGE}>\n")
-
-			fp.write(f"\t<{Tag.PLAYERS}>\n")
-			fp.write(f"\t\t<{Tag.MIN}>{self.players_min}</{Tag.MIN}>\n")
-			fp.write(f"\t\t<{Tag.MAX}>{self.players_max}</{Tag.MAX}>\n")
-			fp.write(f"\t</{Tag.PLAYERS}>\n")
-
-			fp.write(f"\t<{Tag.TIME}>\n")
-			fp.write(f"\t\t<{Tag.MIN}>{self.time_min}</{Tag.MIN}>\n")
-			fp.write(f"\t\t<{Tag.MAX}>{self.time_max}</{Tag.MAX}>\n")
-			fp.write(f"\t</{Tag.TIME}>\n")
-
-			fp.write(f"</{Tag.GENERAL}>\n")
-
-			if len(self.notes) != 0:
-				fp.write(f"<{Tag.NOTES}>\n")
-				for p in self.notes:
-					fp.write(f"\t<{Tag.P}>{escapeXmlEntities(p)}</{Tag.P}>\n")
-				fp.write(f"</{Tag.NOTES}>\n")
-
-			fp.write(f"<{Tag.BGG}>\n")
-			fp.write(f"\t<{Tag.ID}>{self.bgg_id}</{Tag.ID}>\n")
-			fp.write(f'\t<{Tag.WEIGHT} {Attr.DATE}="{self.bgg_weight_date}">{self.bgg_weight}</{Tag.WEIGHT}>\n')
-			fp.write(f"</{Tag.BGG}>\n")
-
-			fp.write(f"<{Tag.COMPLEXITY}>\n")
-			if self.rulebook:
-				fp.write(f"\t<{Tag.RULEBOOK}>{self.rulebook}</{Tag.RULEBOOK}>\n")
-			fp.write(f"\t<{Tag.VOCAB}>{self.vocab}</{Tag.VOCAB}>\n")
-			fp.write(f"\t<{Tag.SCORE}>{self.score}</{Tag.SCORE}>\n")
-			export = self.export_csv
-			if export == "y":
-				export = "true"
-			elif export == "n":
-				export = "false"
-			fp.write(f"\t<{Tag.EXPORT}>{export}</{Tag.EXPORT}>\n")
-			fp.write(f"</{Tag.COMPLEXITY}>\n")
+			self.save_name(fp)
+			self.save_designers(fp)
+			self.save_general(fp)
+			self.save_notes(fp)
+			self.save_bgg(fp)
+			self.save_complexity(fp)
 
 			fp.write(f"</{Tag.GAME}>\n")
+
+	def save_name(self, fp):
+		fp.write(f"<{Tag.NAME}>\n")
+		fp.write(f"\t<{Tag.TITLE}>{escapeXmlEntities(self.title)}</{Tag.TITLE}>\n")
+		if self.subtitle:
+			fp.write(f"\t<{Tag.SUBTITLE}>{escapeXmlEntities(self.subtitle)}</{Tag.SUBTITLE}>\n")
+		if self.parent:
+			fp.write(f"\t<{Tag.PARENT}>{self.parent}</{Tag.PARENT}>\n")
+		fp.write(f"</{Tag.NAME}>\n")
+
+	def save_designers(self, fp):
+		if len(self.designers) != 0:
+			fp.write(f"<{Tag.DESIGNERS}>\n")
+			for d in self.designers:
+				fp.write(f"\t<{Tag.DESIGNER}>{d}</{Tag.DESIGNER}>\n")
+			fp.write(f"</{Tag.DESIGNERS}>\n")
+
+	def save_general(self, fp):
+		fp.write(f"<{Tag.GENERAL}>\n")
+
+		if self.year:
+			fp.write(f"\t<{Tag.YEAR}>{self.year}</{Tag.YEAR}>\n")
+
+		if self.age:
+			fp.write(f'\t<{Tag.AGE} {Attr.MIN}="{self.age}" />\n')
+
+		fp.write(f'\t<{Tag.PLAYERS}')
+		fp.write(f' {Attr.MIN}="{self.players_min}"')
+		fp.write(f' {Attr.MAX}="{self.players_max}"')
+		fp.write(f' />\n')
+
+		fp.write(f'\t<{Tag.TIME}')
+		fp.write(f' {Attr.MIN}="{self.time_min}"')
+		fp.write(f' {Attr.MAX}="{self.time_max}"')
+		fp.write(f' />\n')
+
+		fp.write(f"</{Tag.GENERAL}>\n")
+
+	def save_notes(self, fp):
+		if len(self.notes) != 0:
+			fp.write(f"<{Tag.NOTES}>\n")
+			for p in self.notes:
+				fp.write(f"\t<{Tag.P}>{escapeXmlEntities(p)}</{Tag.P}>\n")
+			fp.write(f"</{Tag.NOTES}>\n")
+
+	def save_bgg(self, fp):
+		if self.bgg_id and self.bgg_id != 0:
+			fp.write(f'<{Tag.BGG} {Attr.ID}="{self.bgg_id}">\n')
+		else:
+			fp.write(f'<{Tag.BGG}>\n')
+		if self.bgg_weight_date:
+			fp.write(f'\t<{Tag.WEIGHT} {Attr.DATE}="{self.bgg_weight_date}">{self.bgg_weight}</{Tag.WEIGHT}>\n')
+		else:
+			fp.write(f'\t<{Tag.WEIGHT}>{self.bgg_weight}</{Tag.WEIGHT}>\n')
+		fp.write(f"</{Tag.BGG}>\n")
+
+	def save_complexity(self, fp):
+		fp.write(f"<{Tag.COMPLEXITY}>\n")
+		if self.rulebook:
+			fp.write(f"\t<{Tag.RULEBOOK}>{self.rulebook}</{Tag.RULEBOOK}>\n")
+		fp.write(f"\t<{Tag.VOCAB}>{self.vocab}</{Tag.VOCAB}>\n")
+		fp.write(f"\t<{Tag.SCORE}>{self.score}</{Tag.SCORE}>\n")
+		fp.write(f"\t<{Tag.EXPORT}>{self.export_csv}</{Tag.EXPORT}>\n")
+		fp.write(f"</{Tag.COMPLEXITY}>\n")
 
 	def load(self):
 		tree = ElementTree()
 		tree.parse(self.infopath)
 		root = tree.getroot()
+		
+		#if not Attr.ID in root.attrib:
+		#	raise Exception(f"Missing game id in {self.infopath}")
+		#id = root.attrib[Attr.ID]
+		#if self.id != id and self.id != f"{id}_":
+		#	raise Exception(f"Game id doesn't match: {self.id} != {id} in {self.infopath}")
+				
 		for el in root:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
-				case Tag.ID:
-					if self.id != el.text and self.id != f"{el.text}_":
-						raise Exception(f"Game id doesn't match: {self.id} != {el.text} in {self.infopath}")
 				case Tag.NAME:
 					self.load_name(el)
 				case Tag.DESIGNERS:
@@ -229,7 +253,7 @@ class GameInfo:
 				case Tag.YEAR:
 					self.year = el.text
 				case Tag.AGE:
-					self.age = el.text
+					self.load_age(el)
 				case Tag.PLAYERS:
 					self.load_players(el)
 				case Tag.TIME:
@@ -237,27 +261,33 @@ class GameInfo:
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.GENERAL}>")
 
-	def load_players(self, elRoot):
-		for el in elRoot:
-			(ns, tag) = splitTag(el.tag)
-			match tag:
-				case Tag.MIN:
-					self.players_min = el.text
-				case Tag.MAX:
-					self.players_max = el.text
+	def load_age(self, elAge):
+		for attrName, attrValue in elAge.attrib.items():
+			match attrName:
+				case Attr.MIN:
+					self.age = attrValue
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.PLAYERS}>")
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.AGE}>")
 
-	def load_time(self, elRoot):
-		for el in elRoot:
-			(ns, tag) = splitTag(el.tag)
-			match tag:
-				case Tag.MIN:
-					self.time_min = el.text
-				case Tag.MAX:
-					self.time_max = el.text
+	def load_players(self, elPlayers):
+		for attrName, attrValue in elPlayers.attrib.items():
+			match attrName:
+				case Attr.MIN:
+					self.players_min = attrValue
+				case Attr.MAX:
+					self.players_max = attrValue
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.TIME}>")
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.PLAYERS}>")
+
+	def load_time(self, elTime):
+		for attrName, attrValue in elTime.attrib.items():
+			match attrName:
+				case Attr.MIN:
+					self.time_min = attrValue
+				case Attr.MAX:
+					self.time_max = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.TIME}>")
 
 	def load_notes(self, elRoot):
 		for el in elRoot:
@@ -268,15 +298,21 @@ class GameInfo:
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.NOTES}>")
 
-	def load_bgg(self, elRoot):
-		for el in elRoot:
+	def load_bgg(self, bggRoot):
+		for attrName, attrValue in bggRoot.attrib.items():
+			match attrName:
+				case Attr.ID:
+					self.bgg_id = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.BGG}>")
+
+		for el in bggRoot:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
-				case Tag.ID:
-					self.bgg_id = el.text
 				case Tag.WEIGHT:
 					self.bgg_weight = el.text
-					self.bgg_weight_date = el.attrib[Attr.DATE]
+					if Attr.DATE in el.attrib:
+						self.bgg_weight_date = el.attrib[Attr.DATE]
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.BGG}>")
 

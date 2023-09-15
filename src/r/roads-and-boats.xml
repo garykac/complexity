@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>roads-and-boats</id>
+<game id="roads-and-boats">
 <name>
 	<title>Roads &amp; Boats</title>
 </name>
@@ -10,18 +9,11 @@
 </designers>
 <general>
 	<year>1999</year>
-	<age>14</age>
-	<players>
-		<min>1</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>180</min>
-		<max>240</max>
-	</time>
+	<age min="14" />
+	<players min="1" max="4" />
+	<time min="180" max="240" />
 </general>
-<bgg>
-	<id>875</id>
+<bgg id="875">
 	<weight date="2022-10-11">4.19</weight>
 </bgg>
 <complexity>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>dominion-first10</id>
+<game id="dominion-first10">
 <name>
 	<title>Dominion</title>
 	<subtitle>10 starter cards</subtitle>
@@ -10,21 +9,14 @@
 </designers>
 <general>
 	<year>2008</year>
-	<age>13</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="13" />
+	<players min="2" max="4" />
+	<time min="30" max="30" />
 </general>
 <notes>
 	<p>Just the rules necessary for the first game with the 10 suggested starter cards.</p>
 </notes>
-<bgg>
-	<id>36218</id>
+<bgg id="36218">
 	<weight date="2022-10-11">2.35</weight>
 </bgg>
 <complexity>

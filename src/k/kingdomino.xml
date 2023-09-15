@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>kingdomino</id>
+<game id="kingdomino">
 <name>
 	<title>Kingdomino</title>
 </name>
@@ -9,18 +8,11 @@
 </designers>
 <general>
 	<year>2016</year>
-	<age>8</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>15</min>
-		<max>25</max>
-	</time>
+	<age min="8" />
+	<players min="2" max="4" />
+	<time min="15" max="25" />
 </general>
-<bgg>
-	<id>204583</id>
+<bgg id="204583">
 	<weight date="2022-10-11">1.21</weight>
 </bgg>
 <complexity>

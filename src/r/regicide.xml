@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>regicide</id>
+<game id="regicide">
 <name>
 	<title>Regicide</title>
 </name>
@@ -11,18 +10,11 @@
 </designers>
 <general>
 	<year>2020</year>
-	<age>10</age>
-	<players>
-		<min>1</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>15</min>
-		<max>30</max>
-	</time>
+	<age min="10" />
+	<players min="1" max="4" />
+	<time min="15" max="30" />
 </general>
-<bgg>
-	<id>307002</id>
+<bgg id="307002">
 	<weight date="2022-10-11">1.91</weight>
 </bgg>
 <complexity>

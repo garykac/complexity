@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>welcome-to-the-dungeon</id>
+<game id="welcome-to-the-dungeon">
 <name>
 	<title>Welcome to the Dungeon</title>
 </name>
@@ -10,21 +9,14 @@
 </designers>
 <general>
 	<year>2013</year>
-	<age>10</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="10" />
+	<players min="2" max="4" />
+	<time min="30" max="30" />
 </general>
 <notes>
 	<p>This covers only the first game which uses only the Warrior.</p>
 </notes>
-<bgg>
-	<id>150312</id>
+<bgg id="150312">
 	<weight date="2022-10-11">1.23</weight>
 </bgg>
 <complexity>

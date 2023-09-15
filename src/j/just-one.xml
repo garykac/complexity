@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>just-one</id>
+<game id="just-one">
 <name>
 	<title>Just One</title>
 </name>
@@ -10,18 +9,11 @@
 </designers>
 <general>
 	<year>2018</year>
-	<age>8</age>
-	<players>
-		<min>3</min>
-		<max>7</max>
-	</players>
-	<time>
-		<min>20</min>
-		<max>60</max>
-	</time>
+	<age min="8" />
+	<players min="3" max="7" />
+	<time min="20" max="60" />
 </general>
-<bgg>
-	<id>254640</id>
+<bgg id="254640">
 	<weight date="2022-10-11">1.05</weight>
 </bgg>
 <complexity>

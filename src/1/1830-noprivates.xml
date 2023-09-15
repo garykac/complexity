@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>1830-noprivates</id>
+<game id="1830-noprivates">
 <name>
 	<title>1830</title>
 	<subtitle>w/o Privates</subtitle>
@@ -10,15 +9,9 @@
 </designers>
 <general>
 	<year>1986</year>
-	<age>14</age>
-	<players>
-		<min>2</min>
-		<max>6</max>
-	</players>
-	<time>
-		<min>60</min>
-		<max>90</max>
-	</time>
+	<age min="14" />
+	<players min="2" max="6" />
+	<time min="60" max="90" />
 </general>
 <notes>
 	<p>This is a variant of 1830 without any of the rules relating to Privates.</p>

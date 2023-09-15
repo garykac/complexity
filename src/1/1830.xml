@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>1830</id>
+<game id="1830">
 <name>
 	<title>1830</title>
 	<subtitle>Railways &amp; Robber Barons</subtitle>
@@ -10,18 +9,11 @@
 </designers>
 <general>
 	<year>1986</year>
-	<age>14</age>
-	<players>
-		<min>2</min>
-		<max>6</max>
-	</players>
-	<time>
-		<min>180</min>
-		<max>360</max>
-	</time>
+	<age min="14" />
+	<players min="2" max="6" />
+	<time min="180" max="360" />
 </general>
-<bgg>
-	<id>421</id>
+<bgg id="421">
 	<weight date="2022-10-11">4.16</weight>
 </bgg>
 <complexity>

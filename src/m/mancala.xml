@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>mancala</id>
+<game id="mancala">
 <name>
 	<title>Mancala</title>
 	<subtitle>Kalah</subtitle>
@@ -10,22 +9,15 @@
 </designers>
 <general>
 	<year>1940</year>
-	<age>6</age>
-	<players>
-		<min>2</min>
-		<max>2</max>
-	</players>
-	<time>
-		<min>10</min>
-		<max>10</max>
-	</time>
+	<age min="6" />
+	<players min="2" max="2" />
+	<time min="10" max="10" />
 </general>
 <notes>
 	<p>Kalah is a member of the mancala family of games that is popular in Europe and North America.</p>
 	<p>Variants of mancala games have been around since 700.</p>
 </notes>
-<bgg>
-	<id>2448</id>
+<bgg id="2448">
 	<weight date="2022-10-11">1.62</weight>
 </bgg>
 <complexity>

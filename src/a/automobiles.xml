@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>automobiles</id>
+<game id="automobiles">
 <name>
 	<title>Automobiles</title>
 </name>
@@ -9,18 +8,11 @@
 </designers>
 <general>
 	<year>2016</year>
-	<age>10</age>
-	<players>
-		<min>2</min>
-		<max>5</max>
-	</players>
-	<time>
-		<min>45</min>
-		<max>45</max>
-	</time>
+	<age min="10" />
+	<players min="2" max="5" />
+	<time min="45" max="45" />
 </general>
-<bgg>
-	<id>180680</id>
+<bgg id="180680">
 	<weight date="2022-10-11">2.20</weight>
 </bgg>
 <complexity>

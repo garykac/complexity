@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>crazy-eights-28</id>
+<game id="crazy-eights-28">
 <name>
 	<title>Crazy Eights</title>
 	<subtitle>28-card</subtitle>
 </name>
 <general>
 	<year>1930</year>
-	<age>4</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>15</min>
-		<max>15</max>
-	</time>
+	<age min="4" />
+	<players min="2" max="4" />
+	<time min="15" max="15" />
 </general>
 <notes>
 	<p>Historically, this game was played by children with the leftover deck once the cards for Euchre (9,10,J,Q,K,A) were removed from a standard 52-card deck.</p>
 	<p>Higher player counts can be supported by using multiple decks.</p>
 </notes>
-<bgg>
-	<id>11017</id>
+<bgg id="11017">
 	<weight date="2022-10-11">1.07</weight>
 </bgg>
 <complexity>

@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>crazy-eights-52</id>
+<game id="crazy-eights-52">
 <name>
 	<title>Crazy Eights</title>
 	<subtitle>52-card</subtitle>
 </name>
 <general>
 	<year>1930</year>
-	<age>4</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>15</min>
-		<max>15</max>
-	</time>
+	<age min="4" />
+	<players min="2" max="4" />
+	<time min="15" max="15" />
 </general>
 <notes>
 	<p>Historically, this game was played with a 28-card deck, but as it gained in popularity it was more comonly played with a full 52-card deck.</p>
 </notes>
-<bgg>
-	<id>11017</id>
+<bgg id="11017">
 	<weight date="2022-10-11">1.07</weight>
 </bgg>
 <complexity>

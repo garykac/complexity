@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>tic-tac-toe</id>
+<game id="tic-tac-toe">
 <name>
 	<title>Tic Tac Toe</title>
 </name>
 <general>
 	<year>-1300</year>
-	<age>4</age>
-	<players>
-		<min>2</min>
-		<max>2</max>
-	</players>
-	<time>
-		<min>1</min>
-		<max>2</max>
-	</time>
+	<age min="4" />
+	<players min="2" max="2" />
+	<time min="1" max="2" />
 </general>
 <notes>
 	<p>These rules assume that you are playing with a physical board and pieces.</p>
 </notes>
-<bgg>
-	<id>11901</id>
+<bgg id="11901">
 	<weight date="2022-10-11">1.19</weight>
 </bgg>
 <complexity>

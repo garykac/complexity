@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>dominion-baseset</id>
+<game id="dominion-baseset">
 <name>
 	<title>Dominion</title>
 	<subtitle>Complete base set</subtitle>
@@ -11,23 +10,16 @@
 </designers>
 <general>
 	<year>2008</year>
-	<age>13</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="13" />
+	<players min="2" max="4" />
+	<time min="30" max="30" />
 </general>
 <notes>
 	<p>This summarizes the rules associated with the additional 16 cards in the Base Set beyond the 10 recommended starter cards.</p>
 	<p>Since you only use a random set of 10 cards for each game, you can't simply add these rules to the starter 10 cards and get a sensible number.</p>
 	<p>However this does provide an upper bound answering the question: What if the rules for all 26 cards were used in a game?</p>
 </notes>
-<bgg>
-	<id>36218</id>
+<bgg id="36218">
 	<weight date="2022-10-11">2.35</weight>
 </bgg>
 <complexity>

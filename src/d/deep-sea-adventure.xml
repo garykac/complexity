@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>deep-sea-adventure</id>
+<game id="deep-sea-adventure">
 <name>
 	<title>Deep Sea Adventure</title>
 </name>
@@ -10,18 +9,11 @@
 </designers>
 <general>
 	<year>2014</year>
-	<age>8</age>
-	<players>
-		<min>2</min>
-		<max>6</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="8" />
+	<players min="2" max="6" />
+	<time min="30" max="30" />
 </general>
-<bgg>
-	<id>169654</id>
+<bgg id="169654">
 	<weight date="2022-10-11">1.17</weight>
 </bgg>
 <complexity>

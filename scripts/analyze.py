@@ -29,12 +29,9 @@ class Analyzer:
 	# ==========
 	
 	def updateGameInfo(self, gameInfo, newScore, newVocab):
-		oldScore = gameInfo.score
-		oldVocab = gameInfo.vocab
-		if oldScore != newScore or oldVocab != newVocab:
-			gameInfo.setVocab(newVocab)
-			gameInfo.setScore(newScore)
-			gameInfo.save()
+		gameInfo.updateVocab(newVocab)
+		gameInfo.updateScore(newScore)
+		gameInfo.save()
 			
 	# ==========
 	# Process .GM files
@@ -60,7 +57,7 @@ class Analyzer:
 		parser.process(SRC_DIR, filepath)
 
 		cost = parser.calc.costTotal
-		vocab = parser.getVocabCost()
+		vocab = parser.calc.getVocabCost()
 		self.updateGameInfo(gameInfo, cost, vocab)
 		if self.showCost:
 			print(f"   = {cost:d}")

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>ticket-to-ride-first-journey</id>
+<game id="ticket-to-ride-first-journey">
 <name>
 	<title>Ticket to Ride</title>
 	<subtitle>First Journey (US)</subtitle>
@@ -10,18 +9,11 @@
 </designers>
 <general>
 	<year>2016</year>
-	<age>6</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>15</min>
-		<max>30</max>
-	</time>
+	<age min="6" />
+	<players min="2" max="4" />
+	<time min="15" max="30" />
 </general>
-<bgg>
-	<id>205125</id>
+<bgg id="205125">
 	<weight date="2023-09-10">1.42</weight>
 </bgg>
 <complexity>

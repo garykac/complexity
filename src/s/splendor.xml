@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>splendor</id>
+<game id="splendor">
 <name>
 	<title>Splendor</title>
 </name>
@@ -9,18 +8,11 @@
 </designers>
 <general>
 	<year>2014</year>
-	<age>10</age>
-	<players>
-		<min>2</min>
-		<max>4</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="10" />
+	<players min="2" max="4" />
+	<time min="30" max="30" />
 </general>
-<bgg>
-	<id>148228</id>
+<bgg id="148228">
 	<weight date="2022-10-11">1.79</weight>
 </bgg>
 <complexity>

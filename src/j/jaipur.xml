@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>jaipur</id>
+<game id="jaipur">
 <name>
 	<title>Jaipur</title>
 </name>
@@ -9,18 +8,11 @@
 </designers>
 <general>
 	<year>2009</year>
-	<age>12</age>
-	<players>
-		<min>2</min>
-		<max>2</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="12" />
+	<players min="2" max="2" />
+	<time min="30" max="30" />
 </general>
-<bgg>
-	<id>54043</id>
+<bgg id="54043">
 	<weight date="2022-10-11">1.48</weight>
 </bgg>
 <complexity>

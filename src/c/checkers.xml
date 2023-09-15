@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id>checkers</id>
+<game id="checkers">
 <name>
 	<title>Checkers</title>
 </name>
 <general>
 	<year>1000</year>
-	<age>6</age>
-	<players>
-		<min>2</min>
-		<max>2</max>
-	</players>
-	<time>
-		<min>30</min>
-		<max>30</max>
-	</time>
+	<age min="6" />
+	<players min="2" max="2" />
+	<time min="30" max="30" />
 </general>
-<bgg>
-	<id>2083</id>
+<bgg id="2083">
 	<weight date="2022-10-11">1.75</weight>
 </bgg>
 <complexity>

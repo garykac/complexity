@@ -81,16 +81,12 @@ class GambitParser:
 	# Calculating costs.
 	# ==========
 	
-	# Update the costs of the individual lines.
 	def updateCosts(self):
+		# Update the costs of the individual lines.
 		self.calc.updateCosts(self.lineInfo)
 
-	# Calculate the total cost for the game.
-	def calcTotalCost(self):
+		# Calculate the total cost for the game.
 		self.calc.calcTotalCost(self.lineInfo)
-	
-	def getVocabCost(self):
-		return self.calc.getVocabCost()
 
 	# ==========
 	# Process a Gambit file to calculate cost and generate HTML.
@@ -108,7 +104,6 @@ class GambitParser:
 		self.extractAllReferences()
 
 		self.updateCosts()
-		self.calcTotalCost()
 		
 	def processLine(self, line):
 		self.lineNum += 1
