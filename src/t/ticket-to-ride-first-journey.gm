@@ -59,6 +59,8 @@ SECTION: Setup
 Setup: Verb
 	ChoosePlayerComponents
 		* Claim 20 Train tokens of your color
+	Shuffle all the TrainCards to create the TrainDeck
+	Shuffle all the CityConnectionTickets to create the TicketDeck
 	For each Player:
 		DrawTrainCard x4
 		DrawTicket x2
