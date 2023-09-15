@@ -60,11 +60,15 @@ class Analyzer:
 		vocab = parser.calc.getVocabCost()
 		self.updateGameInfo(gameInfo, cost, vocab)
 		if self.showCost:
-			print(f"   = {cost:d}")
-			for s in parser.calc.sectionCosts:
-				print(s)
-			for s in parser.calc.subsectionCosts:
-				print(s, parser.calc.subsectionCosts[s])
+			name, score, sections = parser.calc.getSummary()
+			print(f"Score = {score}")
+			for s in sections:
+				name, cost, subs = s
+				print(f"  {name} {cost}")
+				if len(subs) != 0:
+					for sub in subs:
+						name, cost = sub
+						print(f"    {name} {cost}")
 
 		parser.checkReferences()
 

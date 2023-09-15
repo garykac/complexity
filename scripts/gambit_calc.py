@@ -205,6 +205,26 @@ class GambitCalc:
 			else:
 				self.sectionCosts.append([currentSection, cost])
 	
+	def getSummary(self):
+		summary = []
+		total = 0
+		for s in self.sectionCosts:
+			name, cost = s
+			subs = []
+			if name in self.subsectionCosts:
+				# If there is a top-level cost for a section with subsections, then this
+				# is the cost not associated with any of the subsections. We need to track
+				# it in an unnamed subsection.
+				if cost != 0:
+					subs.append(['-', cost])
+				for sub in self.subsectionCosts[name]:
+					subName, subCost = sub
+					cost += subCost
+					subs.append([subName, subCost])
+			total += cost
+			summary.append([name, cost, subs])
+		return ['Total', total, summary]
+	
 	def getVocabCost(self):
 		for s in self.sectionCosts:
 			if s[0] == "Vocabulary":
