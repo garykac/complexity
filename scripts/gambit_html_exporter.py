@@ -25,10 +25,6 @@ class GambitHtmlExporter:
 		self.calc = parser.calc
 		self.costTotal = parser.calc.costTotal
 
-	def htmlify(self, str):
-		str = str.replace("&", "&amp;")
-		return str
-	
 	def writeHtml(self, outpath):
 		with open(outpath, 'w') as out:
 			self.writeHtmlHeader(out, self.gameTitle, self.costTotal)
@@ -45,7 +41,7 @@ class GambitHtmlExporter:
 		out.write('	<meta charset="utf-8" />\n')
 		out.write('	<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n')
 		out.write('	<meta name="viewport" content="width=device-width, initial-scale=1" />\n')
-		out.write('	<title>{0:s}</title>\n'.format(self.htmlify(title)))
+		out.write('	<title>{0:s}</title>\n'.format(htmlify(title)))
 		out.write('	<link rel="preconnect" href="https://fonts.googleapis.com">\n')
 		out.write('	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n')
 		out.write('	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">\n')
@@ -59,10 +55,10 @@ class GambitHtmlExporter:
 		out.write('</head>\n')
 		out.write('<body>\n')
 		out.write('<div class="container">\n')
-		out.write(f'<div class="title">{self.htmlify(self.gameInfo.title)}</div>\n')
+		out.write(f'<div class="title">{htmlify(self.gameInfo.title)}</div>\n')
 		subtitle = self.gameInfo.subtitle
 		if subtitle:
-			out.write(f'<div class="subtitle">{self.htmlify(self.gameInfo.subtitle)}</div>\n')
+			out.write(f'<div class="subtitle">{htmlify(self.gameInfo.subtitle)}</div>\n')
 		designers = ', '.join(self.gameInfo.designers)
 		out.write(f'<div class="designer">{designers}</div>\n')
 		year = self.gameInfo.year
@@ -325,7 +321,7 @@ class GambitHtmlExporter:
 			if comment != "":
 				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
 		if comment != "":
-			row += '<span class="comment">{0:s}</span>'.format(self.htmlify(comment))
+			row += '<span class="comment">{0:s}</span>'.format(htmlify(comment))
 		row += '</td>'
 		return row
 	
@@ -397,3 +393,7 @@ class GambitHtmlExporter:
 				newWords.append(t)
 
 		return ' '.join(newWords)
+
+def htmlify(str):
+	str = str.replace("&", "&amp;")
+	return str
