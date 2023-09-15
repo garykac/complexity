@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game>
-<id></id>
+<game id="">
 <name>
 	<title></title>
 	<subtitle></subtitle>
@@ -9,20 +8,17 @@
 <designers>
 	<designer></designer>
 </designers>
-<year></year>
-<players>
-	<min></min>
-	<max></max>
-</players>
-<time>
-	<min></min>
-	<max></max>
-</time>
+<general>
+	<pubished year="" />
+	<age min="" />
+	<players min="" max="" />
+	<time min="" max="" />
+</general>
 <notes>
 	<p></p>
 </notes>
-<bgg>
-	<weight></weight>
+<bgg id="">
+	<weight date="" avg="" />
 </bgg>
 <complexity>
 	<vocab></vocab>
