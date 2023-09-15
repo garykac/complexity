@@ -105,7 +105,7 @@ class GambitCalc:
 				# TODO: Better detection of possible missing imports.
 				# This will only catch it if the import is the only thing on the line.
 				if (not zeroCost) and self.vocab.isImportable(line):
-					self.warning(f"Possibly missing import for {line}")
+					self.parser.warning(f"Possibly missing import for {line}")
 
 				# Handle special cases with Vocab
 				words = GambitTokenizer.split(line)
