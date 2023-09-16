@@ -6,7 +6,8 @@ import re
 import sys
 import traceback
 
-from gambit import (LT_COMMENT, LT_BLANK,
+from gambit import (SectionName,
+					LT_COMMENT, LT_BLANK,
 					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
 					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
 from gambit_line_processor import GambitLineProcessor
@@ -223,8 +224,6 @@ class GambitCalc:
 					subs.append([subName, subCost])
 			total += cost
 			
-			# Don't include sections that have a cost of 0.
-			# In practice, this should only apply to the "Assumptions" section.
-			if cost != 0:
+			if name != SectionName.ASSUMPTIONS:
 				summary.append([name, cost, subs])
 		return [total, summary]

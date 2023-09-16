@@ -41,7 +41,7 @@ class GambitHtmlExporter:
 		out.write('	<meta charset="utf-8" />\n')
 		out.write('	<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n')
 		out.write('	<meta name="viewport" content="width=device-width, initial-scale=1" />\n')
-		out.write('	<title>{0:s}</title>\n'.format(htmlify(title)))
+		out.write(f'	<title>{htmlify(title)}</title>\n')
 		out.write('	<link rel="preconnect" href="https://fonts.googleapis.com">\n')
 		out.write('	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n')
 		out.write('	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">\n')
@@ -67,10 +67,9 @@ class GambitHtmlExporter:
 		out.write(f'<div class="year">{year}</div>\n\n')
 
 	def writeHtmlCostSummary(self, out, calc):
-		sectionCosts = calc.sectionCosts
-		subsectionCosts = calc.subsectionCosts
+		(costTotal, sections) = calc.getSummary()
 
-		hasSubsections = (len(subsectionCosts) != 0)
+		hasSubsections = (len(calc.subsectionCosts) != 0)
 
 		out.write('<table class="summary">\n')
 
@@ -92,8 +91,8 @@ class GambitHtmlExporter:
 			out.write('</colgroup>\n')
 
 			out.write('<tr><td colspan="3"><b>Rule Complexity</b></td></tr>\n')
-			for s in sectionCosts:
-				(name, cost) = s
+			for s in sections:
+				(name, cost, subs) = s
 				out.write('<tr>')
 				out.write('<td class="summary-section-name">')
 				out.write(name)
@@ -134,26 +133,12 @@ class GambitHtmlExporter:
 			out.write('</colgroup>\n')
 
 			out.write('<tr><td colspan="6"><b>Rule Complexity</b></td></tr>\n')
-			for s in sectionCosts:
-				(name, cost) = s
-				if name in subsectionCosts:
-					# Sum all subsection costs for this section.
-					totalSubCost = cost
-					for sub in subsectionCosts[name]:
-						(subname, subcost) = sub
-						totalSubCost += subcost
-
-					self.writeHtmlCostSection(out, name, totalSubCost)
-
-					# Show section costs not associated with any subsection (if any).
-					if cost:
-						self.writeHtmlCostSubsection(out, "-", cost)
-
-					for sub in subsectionCosts[name]:
-						(subname, subcost) = sub
-						self.writeHtmlCostSubsection(out, subname, subcost)
-				else:
-					self.writeHtmlCostSection(out, name, cost)
+			for s in sections:
+				(name, cost, subs) = s
+				self.writeHtmlCostSection(out, name, cost)
+				for sub in subs:
+					(subname, subcost) = sub
+					self.writeHtmlCostSubsection(out, subname, subcost)
 
 			out.write('<tr><td colspan=2 class="summary-section-name"><b>Total</b></td>')
 			out.write('<td class="summary-subdata"><b>{0:d}</b></td>'.format(self.costTotal))

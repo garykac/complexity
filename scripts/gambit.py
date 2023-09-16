@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Special section names.
+class SectionName:
+	ASSUMPTIONS = "Assumptions"
+	VOCABULARY = "Vocabulary"
+
 # Special Gambit keywords.
 NAME_KEYWORD = "NAME"
 IMPORT_KEYWORD = "IMPORT"

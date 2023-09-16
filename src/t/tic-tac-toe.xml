@@ -18,6 +18,7 @@
 <complexity>
 	<score cost="10">
 		<section name="Vocabulary" cost="3" />
+		<section name="Setup" cost="0" />
 		<section name="Gameplay" cost="6" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
