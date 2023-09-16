@@ -13,7 +13,7 @@ SRC_DIR = "../src"
 OUTPUT_DIR = "../games"
 
 def warning(msg):
-	print("WARNING: {0:s}".format(msg))
+	print(f"WARNING: {msg}")
 
 class Analyzer:
 	"""Analyze Gambit (.gm) files."""
@@ -33,7 +33,7 @@ class Analyzer:
 			self.processOne(id, options)
 
 	def processOne(self, id, options):
-		print("Analyzing {0:s}...".format(id))
+		print(f"Analyzing {id}...")
 		if not os.path.isdir(OUTPUT_DIR):
 			os.makedirs(OUTPUT_DIR)
 		gameInfo = self.gameMgr.getGame(id)

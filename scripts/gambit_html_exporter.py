@@ -101,7 +101,7 @@ class GambitHtmlExporter:
 				out.write('</td></tr>\n')
 		
 			out.write('<tr><td class="summary-section-name"><b>Total</b></td>')
-			out.write('<td class="summary-data"><b>{0:d}</b></td>'.format(self.costTotal))
+			out.write(f'<td class="summary-data"><b>{self.costTotal}</b></td>')
 			out.write('<td class="summary-data"><b>100%</b></td></tr>\n')
 
 		# For games with subsections:
@@ -139,7 +139,7 @@ class GambitHtmlExporter:
 					self.writeHtmlCostSubsection(out, subname, subcost)
 
 			out.write('<tr><td colspan=2 class="summary-section-name"><b>Total</b></td>')
-			out.write('<td class="summary-subdata"><b>{0:d}</b></td>'.format(self.costTotal))
+			out.write(f'<td class="summary-subdata"><b>{self.costTotal}</b></td>')
 			out.write('<td class="summary-subdata"></td>')
 			out.write('<td class="summary-subdata"><b>100%</b></td>')
 			out.write('<td class="summary-subdata"></td>')
@@ -186,7 +186,8 @@ class GambitHtmlExporter:
 
 	def writeHtmlCostPercentage(self, out, cost, total):
 		if cost:
-			out.write("{0:.1f}%".format(100 * cost / total))
+			percent = 100 * cost / total
+			out.write(f"{percent:.1f}%")
 		else:
 			out.write("-")		
 
@@ -206,7 +207,7 @@ class GambitHtmlExporter:
 		out.write(colgroup)
 
 		thead = '<thead><tr><th class="cost">Cost</th>'
-		thead += '<th colspan={0:d}>Description</th>'.format(self.maxIndent+1)
+		thead += f'<th colspan={self.maxIndent+1}>Description</th>'
 		thead += '</tr></thead>\n'
 		
 		if len(self.gameInfo.notes) != 0:
@@ -237,14 +238,14 @@ class GambitHtmlExporter:
 
 			if type == LineType.DEF:
 				defn = self.calcDefinitionHtml(r.keyword)
-				prefix = "{0:s}: ".format(defn)
+				prefix = f"{defn}: "
 				if r.parent != None:
-					line = '{0:s} of {1:s}'.format(r.types[0], r.parent)
+					line = f'{r.types[0]} of {r.parent}'
 				else:
 					line = ', '.join(r.types)
 			elif type == LineType.TEMPLATE:
 				defn = self.calcTemplateHtml(r.keyword, r.param)
-				prefix = "{0:s}: ".format(defn)
+				prefix = f"{defn}: "
 				line = "Verb"
 			elif type == LineType.CONSTRAINT:
 				# &roplus;&bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
@@ -252,7 +253,7 @@ class GambitHtmlExporter:
 			elif type == LineType.BLANK:
 				prefix = "&nbsp;"
 			elif type == LineType.GAME_IMPORT:
-				#comment = "#import {0:s}".format(comment)
+				#comment = f"#import {comment}"
 				continue
 			elif type == LineType.IMPORT:
 				comment = ', '.join(r.data)
@@ -263,17 +264,17 @@ class GambitHtmlExporter:
 			elif type == LineType.NAME:
 				continue
 			elif not type in [LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC]:
-				raise Exception("Unrecognized type in writeTableRows: {0:s}".format(type))
+				raise Exception(f"Unrecognized type in writeTableRows: {type}")
 
 			if rowclass:
-				row = '<tr class="{0:s}">'.format(rowclass)
+				row = f'<tr class="{rowclass}">'
 			else:
 				row = '<tr>'
 
 			row += self.calcTableRowCostColumn(r.cost)
 
 			if rowclass:
-				row += '<td colspan={0:d}>{1:s}</td>'.format(self.maxIndent+1, r.name)
+				row += f'<td colspan={self.maxIndent+1}>{r.name}</td>'
 			else:
 				row += self.calcTableRowDescColumn(r, comment, prefix)
 
@@ -283,7 +284,7 @@ class GambitHtmlExporter:
 
 	def calcTableRowCostColumn(self, cost):
 		if cost != None:
-			return '<td class="cost">{0:d}</td>'.format(cost)
+			return f'<td class="cost">{cost}</td>'
 		return '<td class="cost"></td>'
 	
 	def calcTableRowDescColumn(self, lineInfo, comment, descPrefix):
@@ -296,7 +297,7 @@ class GambitHtmlExporter:
 		if colspan == 1:
 			row += '<td class="desc">'
 		else:
-			row += '<td class="desc" colspan={0:d}>'.format(colspan)
+			row += f'<td class="desc" colspan={colspan}>'
 			
 		if line != "" or descPrefix != "":
 			row += descPrefix
@@ -304,7 +305,7 @@ class GambitHtmlExporter:
 			if comment != "":
 				row += ' &nbsp;&nbsp;&nbsp;&mdash; '
 		if comment != "":
-			row += '<span class="comment">{0:s}</span>'.format(htmlify(comment))
+			row += f'<span class="comment">{htmlify(comment)}</span>'
 		row += '</td>'
 		return row
 	
@@ -353,25 +354,24 @@ class GambitHtmlExporter:
 					newWords.append(t.value)
 				elif ttype == TokenType.TEMPLATE_REF:
 					(ttype, keyword, param) = t
-					newWords.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
-							.format(keyword, param))
+					link = f'<a class="keyword" href="#{keyword}">{keyword}</a>'
+					link += f'&lt;<a class="keyword" href="#{param}">{param}</a>&gt;'
+					newWords.append(link)
 
 				elif ttype == TokenType.REF:
 					(ttype, canonicalForm, prefix, word, postfix) = t
 					info = self.parser.vocab.lookup(canonicalForm)
 					scope = info[0]
 					if scope == VocabType.BASE:
-						newWords.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
+						newWords.append(f'{prefix}{word}{postfix}')
 					elif scope == VocabType.GAME_IMPORT:
-						newWords.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
-								.format(prefix, info[1], word, postfix))
+						newWords.append(f'{prefix}<abbr title="Imported from {info[1]}">{word}</abbr>{postfix}')
 					elif scope == VocabType.IMPORT:
 						newWords.append(f'{prefix}<abbr title="Imported term">{word}</abbr>{postfix}')
 					else:
-						newWords.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'
-								.format(prefix, canonicalForm, word, postfix))
+						newWords.append(f'{prefix}<a class="keyword" href="#{canonicalForm}">{word}</a>{postfix}')
 				else:
-					raise Exception('Unknown token type: {0:s}'.format(ttype))
+					raise Exception(f'Unknown token type: {ttype}')
 			else:
 				newWords.append(t)
 

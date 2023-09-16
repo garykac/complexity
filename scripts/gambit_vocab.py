@@ -170,7 +170,7 @@ class GambitVocab:
 			if self.vocab[k][0] == VocabType.LOCAL and len(v) == 0:
 				# Allow local definitions to overwrite imported defs.
 				if not k in self.old_imports:
-					msg = "Term is defined but never referenced: {0:s}".format(k)
+					msg = f"Term is defined but never referenced: {k}"
 					self.parser.warning(msg)
 			if self.vocab[k][0] == VocabType.IMPORT and len(v) == 0:
 				msg = f"Term is imported but never referenced: {k}"

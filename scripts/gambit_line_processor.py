@@ -22,7 +22,7 @@ class GambitLineProcessor:
 			if numSpaces % TAB_SIZE == 0:
 				return int(numSpaces / TAB_SIZE)
 			else:
-				raise Exception("Invalid leading whitespace. Use tabs or {0:d} spaces.".format(TAB_SIZE))
+				raise Exception(f"Invalid leading whitespace. Use tabs or {TAB_SIZE} spaces.")
 		return 0
 
 	@staticmethod

@@ -136,13 +136,13 @@ class GambitCalc:
 					currDefCost += 1
 			
 			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SUBSECTION, LineType.BLANK]:
-				self.parser.error("Unhandled type in updateCosts: {0:s}".format(type))
+				self.parser.error(f"Unhandled type in updateCosts: {type}")
 
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
 	def defHasDesc(self, lineInfo, iDef):
 		if not lineInfo[iDef].lineType in [LineType.DEF, LineType.TEMPLATE]:
-			self.parser.error("Not a DEF on line {0:d}: {1:s}".format(iDef, lineInfo[iDef].lineType))
+			self.parser.error(f"Not a DEF on line {iDef}: {lineInfo[iDef].lineType}")
 		maxLines = len(lineInfo)
 		i = iDef + 1
 		# Look ahead to search for DESC lines that follow the DEF.
@@ -154,7 +154,7 @@ class GambitCalc:
 			if type == LineType.DESC and r.indent == 1:
 				return True
 			if not type in [LineType.COMMENT, LineType.SECTION, LineType.SUBSECTION, LineType.CONSTRAINT]:
-				self.parser.error("Unhandled type in defHasDesc: {0:s}".format(type))
+				self.parser.error(f"Unhandled type in defHasDesc: {type}")
 			i += 1
 		return False
 	
@@ -194,7 +194,7 @@ class GambitCalc:
 				cost = 0
 
 			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
-				self.parser.error("Unhandled type in calcTotalCost: {0:s}".format(type))
+				self.parser.error(f"Unhandled type in calcTotalCost: {type}")
 		
 		# Record cost for last section.
 		if currentSection:

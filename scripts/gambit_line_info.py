@@ -100,7 +100,7 @@ class GambitLineInfo:
 		if len(keywords) == 2:
 			info.altKeyword = keywords[1]
 		elif len(keywords) > 2:
-			raise Exception("Unexpected keyword group {0:s}".format('|'.join(keywords)))
+			raise Exception(f"Unexpected keyword group {'|'.join(keywords)}")
 
 		info.parent = None
 		info.types = [defType]
@@ -213,10 +213,10 @@ class GambitLineInfo:
 			else:
 				# Verify capitalized words.
 				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
-					raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+					raise Exception(f'Unable to find definition for "{word0}"')
 					#vocab.parser.errorLine(f"Unable to find definition for '{word0}'", lineNum)
 				elif not firstWord and word0[0].isupper():
-					raise Exception('Unable to find definition for "{0:s}"'.format(word0))
+					raise Exception(f'Unable to find definition for "{word0}"')
 					#vocab.parser.errorLine(f"Unable to find definition for '{word0}'", lineNum)
 				newWords.append(word)
 

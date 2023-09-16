@@ -13,7 +13,7 @@ HTML_OUTPUT_FILE = "../index.html"
 CSV_OUTPUT_FILE = "../data.csv"
 
 def error(msg):
-	print("ERROR: {0:s}".format(msg))
+	print(f"ERROR: {msg}")
 	exit()
 
 class IndexBuilder:
@@ -56,9 +56,9 @@ class IndexBuilder:
 	def writeBucket(self, out, bucketMin, bucketMax):
 		print("bucket", bucketMin, bucketMax)
 		if bucketMax:
-			out.write('<div class="section">{0:d}-{1:d}</div>\n'.format(bucketMin, bucketMax))
+			out.write(f'<div class="section">{bucketMin}-{bucketMax}</div>\n')
 		else:
-			out.write('<div class="section">{0:d}+</div>\n'.format(bucketMin))
+			out.write(f'<div class="section">{bucketMin}+</div>\n')
 		self.writeListHeader(out)
 		
 		# Find games in range.

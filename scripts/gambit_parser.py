@@ -61,7 +61,7 @@ class GambitParser:
 		self.error(msg)
 
 	def error(self, msg: str) -> None:
-		print("ERROR: {0:s}".format(msg))
+		print(f"ERROR: {msg}")
 		#traceback.print_exc()
 		if self.quitOnError:
 			sys.exit(0)
@@ -70,10 +70,10 @@ class GambitParser:
 	def warning(self, msg: str) -> None:
 		if not self.useWarnings:
 			self.error(msg)
-		print("WARNING: {0:s}".format(msg))
+		print(f"WARNING: {msg}")
 
 	def warningLine(self, msg: str) -> None:
-		print("WARNING {0:d}: {1:s}".format(self.lineNum, msg))
+		print(f"WARNING {self.lineNum}: {msg}")
 
 	# ==========
 	# Calculating costs.
@@ -97,7 +97,7 @@ class GambitParser:
 			for line in file:
 				self.processLine(line)
 				if self.warnOnTodo and line.find("TODO") != -1:
-					self.warningLine("Unresolved TODO {0:s}".format(line.strip()))
+					self.warningLine(f"Unresolved TODO {line.strip()}")
 		
 		self.extractAllReferences()
 
