@@ -21,8 +21,16 @@
 	<weight avg="-" />
 </bgg>
 <complexity>
-	<vocab>77</vocab>
-	<score cost="281" />
+	<score cost="281">
+		<section name="Vocabulary" cost="77" />
+		<section name="Setup" cost="13" />
+		<section name="Gameplay" cost="188">
+			<section name="-" cost="8" />
+			<section name="Stock Round" cost="62" />
+			<section name="Operating Round" cost="118" />
+		</section>
+		<section name="Endgame Scoring" cost="3" />
+	</score>
 	<export>false</export>
 </complexity>
 </game>

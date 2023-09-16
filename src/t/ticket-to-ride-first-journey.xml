@@ -17,8 +17,12 @@
 	<weight date="2023-09-10" avg="1.42" />
 </bgg>
 <complexity>
-	<vocab>17</vocab>
-	<score cost="42" />
+	<score cost="42">
+		<section name="Vocabulary" cost="17" />
+		<section name="Setup" cost="5" />
+		<section name="Gameplay" cost="14" />
+		<section name="Endgame Scoring" cost="6" />
+	</score>
 	<export>true</export>
 </complexity>
 </game>

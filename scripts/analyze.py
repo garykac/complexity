@@ -25,15 +25,6 @@ class Analyzer:
 		self.gameMgr = GameListManager()
 	
 	# ==========
-	# Game list
-	# ==========
-	
-	def updateGameInfo(self, gameInfo, newScore, newVocab):
-		gameInfo.updateVocab(newVocab)
-		gameInfo.updateScore(newScore)
-		gameInfo.save()
-			
-	# ==========
 	# Process .GM files
 	# ==========
 	
@@ -56,19 +47,19 @@ class Analyzer:
 		filepath = os.path.join(SRC_DIR, filename)
 		parser.process(SRC_DIR, filepath)
 
-		cost = parser.calc.costTotal
-		vocab = parser.calc.getVocabCost()
-		self.updateGameInfo(gameInfo, cost, vocab)
+		summary = parser.calc.getSummary()
+		gameInfo.updateScore(summary)
+		gameInfo.save()
+
 		if self.showCost:
-			name, score, sections = parser.calc.getSummary()
+			score, sections = summary
 			print(f"Score = {score}")
 			for s in sections:
 				name, cost, subs = s
 				print(f"  {name} {cost}")
-				if len(subs) != 0:
-					for sub in subs:
-						name, cost = sub
-						print(f"    {name} {cost}")
+				for sub in subs:
+					name, cost = sub
+					print(f"    {name} {cost}")
 
 		parser.checkReferences()
 

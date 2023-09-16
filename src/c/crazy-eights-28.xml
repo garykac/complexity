@@ -18,8 +18,12 @@
 	<weight date="2022-10-11" avg="1.07" />
 </bgg>
 <complexity>
-	<vocab>8</vocab>
-	<score cost="26" />
+	<score cost="26">
+		<section name="Vocabulary" cost="8" />
+		<section name="Setup" cost="8" />
+		<section name="Gameplay" cost="9" />
+		<section name="Endgame Scoring" cost="1" />
+	</score>
 	<export>false</export>
 </complexity>
 </game>

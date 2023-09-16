@@ -43,10 +43,12 @@ class Tag:
 	
 	# Complexity
 	RULEBOOK = "rulebook"
-	VOCAB = "vocab"
 	SCORE = "score"
 	EXPORT = "export"
 
+	# Score
+	SECTION = "section"
+	
 class Attr:
 	# <game>,<bgg>
 	ID = "id"
@@ -97,8 +99,8 @@ class GameInfo:
 		
 		# Complexity
 		self.rulebook = None
-		self.vocab = 0
 		self.score = 0
+		self.score_data = None
 		self.export_csv = False
 
 		self.basepath = os.path.join(self.id[0], self.id)
@@ -108,16 +110,44 @@ class GameInfo:
 		self.load()
 		self.hasChanges = False
 
-	def updateVocab(self, vocab):
-		if vocab != self.vocab:
-			self.vocab = vocab
+	def scoresDiffer(self, oldScores, newScores):
+		if not oldScores:
+			return True
+		
+		oScore, oSections = oldScores
+		nScore, nSections = newScores
+		if oScore != nScore:
+			return True
+		
+		if len(oSections) != len(nSections):
+			return True
+		numSections = len(oSections)
+		
+		for iSection in range(numSections):
+			oName, oCost, oSubs = oSections[iSection]
+			nName, nCost, nSubs = nSections[iSection]
+			if oName != nName or oCost != nCost:
+				return True
+
+			if len(oSubs) != len(nSubs):
+				return True
+			numSubsections = len(oSubs)
+
+			if numSubsections != 0:
+				for iSub in range(numSubsections):
+					oName, oCost = oSubs[iSub]
+					nName, nCost = nSubs[iSub]
+					if oName != nName or oCost != nCost:
+						return True
+		return False
+		
+	def updateScore(self, summary):
+		if self.scoresDiffer(self.score_data, summary):
+			self.score = summary[0]
+			self.score_data = summary
 			self.hasChanges = True
-		self.hasChanges = True
-	
-	def updateScore(self, score):
-		if score != self.score:
-			self.score = score
-			self.hasChanges = True
+		
+		# Force save.
 		self.hasChanges = True
 	
 	def save(self):
@@ -204,11 +234,21 @@ class GameInfo:
 		fp.write(f"<{Tag.COMPLEXITY}>\n")
 		if self.rulebook:
 			fp.write(f"\t<{Tag.RULEBOOK}>{self.rulebook}</{Tag.RULEBOOK}>\n")
-		fp.write(f"\t<{Tag.VOCAB}>{self.vocab}</{Tag.VOCAB}>\n")
 
-		fp.write(f'\t<{Tag.SCORE}')
-		fp.write(f' {Attr.COST}="{self.score}"')
-		fp.write(f' />\n')
+		score, sections = self.score_data
+		fp.write(f'\t<{Tag.SCORE} {Attr.COST}="{score}">\n')
+		for s in sections:
+			name, cost, subs = s
+			if len(subs) == 0:
+				fp.write(f'\t\t<{Tag.SECTION} {Attr.NAME}="{name}" {Attr.COST}="{cost}" />\n')
+			else:
+				fp.write(f'\t\t<{Tag.SECTION} {Attr.NAME}="{name}" {Attr.COST}="{cost}">\n')
+				for sub in subs:
+					name, cost = sub
+					fp.write(f'\t\t\t<{Tag.SECTION} {Attr.NAME}="{name}" {Attr.COST}="{cost}" />\n')
+				fp.write(f'\t\t</{Tag.SECTION}>\n')
+		
+		fp.write(f'\t</{Tag.SCORE}>\n')
 
 		fp.write(f"\t<{Tag.EXPORT}>{self.export_csv}</{Tag.EXPORT}>\n")
 		fp.write(f"</{Tag.COMPLEXITY}>\n")
@@ -349,15 +389,67 @@ class GameInfo:
 			match tag:
 				case Tag.RULEBOOK:
 					self.rulebook = el.text
-				case Tag.VOCAB:
-					self.vocab = int(el.text)
 				case Tag.SCORE:
-					if Attr.COST in el.attrib:
-						self.score = el.attrib[Attr.COST]
+					self.load_score(el)
 				case Tag.EXPORT:
 					self.export_csv = el.text
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.COMPLEXITY}>")
+
+	def load_score(self, elRoot):
+		score = None
+		for attrName, attrValue in elRoot.attrib.items():
+			match attrName:
+				case Attr.COST:
+					score = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SCORE}>")
+		
+		sections = []
+		for el in elRoot:
+			(ns, tag) = splitTag(el.tag)
+			match tag:
+				case Tag.SECTION:
+					sections.append(self.load_section(el))					
+				case _:
+					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.SCORE}>")
+
+		self.score_data = [score, sections]
+
+	def load_section(self, elRoot):
+		name = None
+		cost = None
+		for attrName, attrValue in elRoot.attrib.items():
+			match attrName:
+				case Attr.NAME:
+					name = attrValue
+				case Attr.COST:
+					cost = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SECTION}>")
+
+		subs = []
+		for el in elRoot:
+			(ns, tag) = splitTag(el.tag)
+			match tag:
+				case Tag.SECTION:
+					subs.append(self.load_subsection(el))
+				case _:
+					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.SECTION}>")
+		return [name, cost, subs]
+
+	def load_subsection(self, elRoot):
+		name = None
+		cost = None
+		for attrName, attrValue in elRoot.attrib.items():
+			match attrName:
+				case Attr.NAME:
+					name = attrValue
+				case Attr.COST:
+					cost = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SECTION}>")
+		return [name, cost]
 
 def escapeXmlEntities(s):
 	s = s.replace("&", "&amp;")

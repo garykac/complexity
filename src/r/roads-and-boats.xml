@@ -17,8 +17,18 @@
 	<weight date="2022-10-11" avg="4.19" />
 </bgg>
 <complexity>
-	<vocab>104</vocab>
-	<score cost="313" />
+	<score cost="313">
+		<section name="Vocabulary" cost="104" />
+		<section name="Setup" cost="16" />
+		<section name="Gameplay" cost="193">
+			<section name="-" cost="13" />
+			<section name="Production Phase" cost="57" />
+			<section name="Movement Phase" cost="31" />
+			<section name="Building Phase" cost="73" />
+			<section name="Construct Wonder Phase" cost="11" />
+			<section name="Endgame Scoring" cost="8" />
+		</section>
+	</score>
 	<export>true</export>
 </complexity>
 </game>

@@ -222,11 +222,9 @@ class GambitCalc:
 					cost += subCost
 					subs.append([subName, subCost])
 			total += cost
-			summary.append([name, cost, subs])
-		return ['Total', total, summary]
-	
-	def getVocabCost(self):
-		for s in self.sectionCosts:
-			if s[0] == "Vocabulary":
-				return s[1]
-		return 0
+			
+			# Don't include sections that have a cost of 0.
+			# In practice, this should only apply to the "Assumptions" section.
+			if cost != 0:
+				summary.append([name, cost, subs])
+		return [total, summary]
