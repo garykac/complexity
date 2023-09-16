@@ -5,12 +5,10 @@ import os
 import re
 import traceback
 
-from gambit import (LT_COMMENT, LT_BLANK, LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION,
-					LT_SUBSECTION, LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
-from gambit import (V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT)
+from gambit import LineType, VocabType
 from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
-from gambit_token import T_WORD, T_STRING, T_REF, T_TEMPLATE_REF
+from gambit_token import TokenType
 
 GM_CSS_PATH = "gm.css"
 
@@ -218,7 +216,7 @@ class GambitHtmlExporter:
 
 	def calcNotes(self):
 		notes = ''
-		lineInfo = GambitLineInfo(-1, LT_COMMENT)
+		lineInfo = GambitLineInfo(-1, LineType.COMMENT)
 		for n in self.gameInfo.notes:
 			notes += '<tr>'
 			notes += self.calcTableRowCostColumn(None)
@@ -237,34 +235,34 @@ class GambitHtmlExporter:
 			comment = r.lineComment
 			rowclass = None
 
-			if type == LT_DEF:
+			if type == LineType.DEF:
 				defn = self.calcDefinitionHtml(r.keyword)
 				prefix = "{0:s}: ".format(defn)
 				if r.parent != None:
 					line = '{0:s} of {1:s}'.format(r.types[0], r.parent)
 				else:
 					line = ', '.join(r.types)
-			elif type == LT_TEMPLATE:
+			elif type == LineType.TEMPLATE:
 				defn = self.calcTemplateHtml(r.keyword, r.param)
 				prefix = "{0:s}: ".format(defn)
 				line = "Verb"
-			elif type == LT_CONSTRAINT:
+			elif type == LineType.CONSTRAINT:
 				# &roplus;&bull;&ddagger;&rArr;&oplus;&oast;&star;&starf;&diams;&xoplus;&Otimes;
 				prefix = "&#9888; " # "!" in triangle
-			elif type == LT_BLANK:
+			elif type == LineType.BLANK:
 				prefix = "&nbsp;"
-			elif type == LT_GAME_IMPORT:
+			elif type == LineType.GAME_IMPORT:
 				#comment = "#import {0:s}".format(comment)
 				continue
-			elif type == LT_IMPORT:
+			elif type == LineType.IMPORT:
 				comment = ', '.join(r.data)
-			elif type == LT_SECTION:
+			elif type == LineType.SECTION:
 				rowclass = "section"
-			elif type == LT_SUBSECTION:
+			elif type == LineType.SUBSECTION:
 				rowclass = "subsection"
-			elif type == LT_NAME:
+			elif type == LineType.NAME:
 				continue
-			elif not type in [LT_COMMENT, LT_CONSTRAINT, LT_DESC]:
+			elif not type in [LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC]:
 				raise Exception("Unrecognized type in writeTableRows: {0:s}".format(type))
 
 			if rowclass:
@@ -351,23 +349,23 @@ class GambitHtmlExporter:
 			if isinstance(t, list):
 				ttype = t[0]
 
-				if ttype in [T_WORD, T_STRING]:
+				if ttype in [TokenType.WORD, TokenType.STRING]:
 					newWords.append(t.value)
-				elif ttype == T_TEMPLATE_REF:
+				elif ttype == TokenType.TEMPLATE_REF:
 					(ttype, keyword, param) = t
 					newWords.append('<a class="keyword" href="#{0:s}">{0:s}</a>&lt;<a class="keyword" href="#{1:s}">{1:s}</a>&gt;'
 							.format(keyword, param))
 
-				elif ttype == T_REF:
+				elif ttype == TokenType.REF:
 					(ttype, canonicalForm, prefix, word, postfix) = t
 					info = self.parser.vocab.lookup(canonicalForm)
 					scope = info[0]
-					if scope == V_BASE:
+					if scope == VocabType.BASE:
 						newWords.append('{0:s}{1:s}{2:s}'.format(prefix, word, postfix))
-					elif scope == V_GAME_IMPORT:
+					elif scope == VocabType.GAME_IMPORT:
 						newWords.append('{0:s}<abbr title="Imported from {1:s}">{2:s}</abbr>{3:s}'
 								.format(prefix, info[1], word, postfix))
-					elif scope == V_IMPORT:
+					elif scope == VocabType.IMPORT:
 						newWords.append(f'{prefix}<abbr title="Imported term">{word}</abbr>{postfix}')
 					else:
 						newWords.append('{0:s}<a class="keyword" href="#{1:s}">{2:s}</a>{3:s}'

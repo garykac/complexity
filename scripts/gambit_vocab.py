@@ -6,11 +6,7 @@ import re
 import sys
 import traceback
 
-from gambit import LOOKUP_TABLE_PREFIX
-from gambit import (LT_COMMENT, LT_BLANK,
-					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
-					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
-from gambit import V_BASE, V_LOCAL, V_IMPORT, V_GAME_IMPORT
+from gambit import LineType, VocabType
 from gambit_line_processor import GambitLineProcessor
 from gambit_tokenizer import GambitTokenizer
 
@@ -45,7 +41,7 @@ class GambitVocab:
 		self.referencedBy = {}
 
 		for key in BASE_TYPES:
-			self._addVocab(key, None, [V_BASE])
+			self._addVocab(key, None, [VocabType.BASE])
 
 	def contains(self, term) -> bool:
 		return term in self.vocab
@@ -62,7 +58,7 @@ class GambitVocab:
 					self.parser.errorLine(str(ex))
 
 				if lineinfo:
-					if lineinfo.lineType == LT_DEF:
+					if lineinfo.lineType == LineType.DEF:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
 						self.importable[keyword] = plural
@@ -81,22 +77,22 @@ class GambitVocab:
 		return self.normalize(word) in self.vocab
 	
 	def addDef(self, key, keyPlural, types, parent):
-		info = [V_LOCAL, types]
+		info = [VocabType.LOCAL, types]
 		if parent:
 			info.append(parent)
 		self._addVocab(key, keyPlural, info)
 	
 	def addTemplate(self, key, param):
-		info = [V_LOCAL, "Verb", param]
+		info = [VocabType.LOCAL, "Verb", param]
 		self._addVocab(key, None, info)
 
 	def addImport(self, key, plural):
-		info = [V_IMPORT, "_import.gm"]
+		info = [VocabType.IMPORT, "_import.gm"]
 		self._addVocab(key, plural, info)
 		self.imports[key] = True
 
 	def addGameImport(self, key, plural, filename):
-		info = [V_GAME_IMPORT, filename]
+		info = [VocabType.GAME_IMPORT, filename]
 		self._addVocab(key, plural, info)
 		self.old_imports[key] = True
 
@@ -171,11 +167,11 @@ class GambitVocab:
 			if k in STANDARD_TERMS:
 				continue
 			# If defined locally but no references.
-			if self.vocab[k][0] == V_LOCAL and len(v) == 0:
+			if self.vocab[k][0] == VocabType.LOCAL and len(v) == 0:
 				# Allow local definitions to overwrite imported defs.
 				if not k in self.old_imports:
 					msg = "Term is defined but never referenced: {0:s}".format(k)
 					self.parser.warning(msg)
-			if self.vocab[k][0] == V_IMPORT and len(v) == 0:
+			if self.vocab[k][0] == VocabType.IMPORT and len(v) == 0:
 				msg = f"Term is imported but never referenced: {k}"
 				self.parser.warning(msg)

@@ -6,10 +6,7 @@ import re
 import sys
 import traceback
 
-from gambit import (SectionName,
-					LT_COMMENT, LT_BLANK,
-					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
-					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
+from gambit import LineType, SectionName
 from gambit_line_processor import GambitLineProcessor
 from gambit_tokenizer import GambitTokenizer
 from gambit_vocab import GambitVocab
@@ -69,12 +66,12 @@ class GambitCalc:
 		for r in lineInfo:
 			type = r.lineType
 
-			if type == LT_SECTION:
+			if type == LineType.SECTION:
 				isVocabSection = False
 				if r.name == "Vocabulary":
 					isVocabSection = True
 
-			elif type == LT_DEF or type == LT_TEMPLATE:
+			elif type == LineType.DEF or type == LineType.TEMPLATE:
 				# DEF must always cost at least one in the Vocabulary section.
 				if currDef != -1 and isVocabSection and currDefCost == 0:
 					# Update previous Vocab def if doesn't have any cost.
@@ -90,7 +87,7 @@ class GambitCalc:
 					# Set to None instead of 0 so that the cost column is left blank.
 					r.cost = None
 
-			elif type in [LT_DESC, LT_CONSTRAINT]:
+			elif type in [LineType.DESC, LineType.CONSTRAINT]:
 				zeroCost = False
 				line = r.line
 
@@ -138,13 +135,13 @@ class GambitCalc:
 				else:
 					currDefCost += 1
 			
-			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SUBSECTION, LT_BLANK]:
+			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SUBSECTION, LineType.BLANK]:
 				self.parser.error("Unhandled type in updateCosts: {0:s}".format(type))
 
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
 	def defHasDesc(self, lineInfo, iDef):
-		if not lineInfo[iDef].lineType in [LT_DEF, LT_TEMPLATE]:
+		if not lineInfo[iDef].lineType in [LineType.DEF, LineType.TEMPLATE]:
 			self.parser.error("Not a DEF on line {0:d}: {1:s}".format(iDef, lineInfo[iDef].lineType))
 		maxLines = len(lineInfo)
 		i = iDef + 1
@@ -152,11 +149,11 @@ class GambitCalc:
 		while i < maxLines:
 			r = lineInfo[i]
 			type = r.lineType
-			if type in [LT_DEF, LT_BLANK, LT_TEMPLATE]:
+			if type in [LineType.DEF, LineType.BLANK, LineType.TEMPLATE]:
 				return False
-			if type == LT_DESC and r.indent == 1:
+			if type == LineType.DESC and r.indent == 1:
 				return True
-			if not type in [LT_COMMENT, LT_SECTION, LT_SUBSECTION, LT_CONSTRAINT]:
+			if not type in [LineType.COMMENT, LineType.SECTION, LineType.SUBSECTION, LineType.CONSTRAINT]:
 				self.parser.error("Unhandled type in defHasDesc: {0:s}".format(type))
 			i += 1
 		return False
@@ -172,12 +169,12 @@ class GambitCalc:
 		for r in lineInfo:
 			type = r.lineType
 
-			if type in [LT_DEF, LT_TEMPLATE, LT_DESC, LT_CONSTRAINT]:
+			if type in [LineType.DEF, LineType.TEMPLATE, LineType.DESC, LineType.CONSTRAINT]:
 				if r.cost:
 					self.costTotal += r.cost
 					cost += r.cost
 
-			elif type == LT_SECTION:
+			elif type == LineType.SECTION:
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				elif currentSection:
@@ -186,7 +183,7 @@ class GambitCalc:
 				currentSubsection = None
 				cost = 0
 
-			elif type == LT_SUBSECTION:
+			elif type == LineType.SUBSECTION:
 				if currentSubsection:
 					self.subsectionCosts[currentSection].append([currentSubsection, cost])
 				else:
@@ -196,7 +193,7 @@ class GambitCalc:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
 
-			elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
+			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
 				self.parser.error("Unhandled type in calcTotalCost: {0:s}".format(type))
 		
 		# Record cost for last section.

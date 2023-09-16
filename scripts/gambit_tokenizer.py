@@ -3,25 +3,12 @@
 
 import re
 
-from gambit import KEYWORD, MULTI_KEYWORDS, TEMPLATE_KEYWORD
+from gambit import RegEx
 
 class GambitTokenizer:
 	"""Simple tokenizer."""
 	def __init__(self, vocab):
 		self.vocab = vocab
-
-	def tokenize(self, line: str):
-		out = []
-		substrings = line.split('"')
-		for i in range(0, len(substrings)):
-			# Extract "strings" from line.
-			if i % 2:
-				out.append(GambitToken(T_STRING, f'"{substrings[i]}"'))
-				continue
-
-			for w in substrings[i].split():
-				out.append(GambitToken(T_WORD, w))
-		return out
 
 	# ==========
 	# Parsing and Tokenizing
@@ -40,7 +27,7 @@ class GambitTokenizer:
 
 	@staticmethod
 	def isTemplate(term):
-		m = re.match(TEMPLATE_KEYWORD, term)
+		m = re.match(RegEx.TEMPLATE_KEYWORD, term)
 		if m:
 			keyword = m.group(1)
 			param = m.group(2)
@@ -51,7 +38,7 @@ class GambitTokenizer:
 	# Also remove contraction endings like "'s".
 	@staticmethod
 	def extractKeyword(word):
-		m = re.match("([^A-Za-z0-9_]*)(" + KEYWORD + ")([^A-Za-z0-9_]*.*)", word)
+		m = re.match("([^A-Za-z0-9_]*)(" + RegEx.KEYWORD + ")([^A-Za-z0-9_]*.*)", word)
 		if m:
 			return (m.group(1), m.group(2), m.group(3))
 		return ("", word, "")

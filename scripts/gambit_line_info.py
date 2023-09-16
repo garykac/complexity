@@ -5,12 +5,8 @@ from __future__ import annotations
 
 import re
 
-from gambit import CONSTRAINT_PREFIX, LOOKUP_TABLE_PREFIX
-from gambit import (LT_COMMENT, LT_BLANK,
-					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
-					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
-from gambit import KEYWORD
-from gambit_token import T_REF, T_TEMPLATE_REF
+from gambit import LinePrefix, LineType, RegEx
+from gambit_token import TokenType
 from gambit_tokenizer import GambitTokenizer
 
 from typing import List
@@ -45,39 +41,39 @@ class GambitLineInfo:
 	
 	@staticmethod
 	def name(lineNum: int, name: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_NAME)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.NAME)
 		info.name = name
 		return info
 
 	@staticmethod
 	def importGame(lineNum: int, name: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_GAME_IMPORT)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.GAME_IMPORT)
 		info.data = name
 		return info
 
 	@staticmethod
 	def importTerm(lineNum: int, comment: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_IMPORT)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.IMPORT)
 		info.data = [x.strip() for x in comment.split(',')]
 		return info
 
 	@staticmethod
 	def section(lineNum: int, name: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_SECTION)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.SECTION)
 		info.name = name.strip()
 		return info
 
 	@staticmethod
 	def subsection(lineNum: int, name: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_SUBSECTION)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.SUBSECTION)
 		info.name = name.strip()
 		return info
 
 	@staticmethod
 	def comment(lineNum: int, indent: int, comment: str) -> GambitLineInfo:
-		type: str = LT_COMMENT
+		type: str = LineType.COMMENT
 		if comment == "":
-			type = LT_BLANK
+			type = LineType.BLANK
 			indent = 0
 		info: GambitLineInfo = GambitLineInfo(lineNum, type)
 		info.indent = indent
@@ -86,7 +82,7 @@ class GambitLineInfo:
 
 	@staticmethod
 	def templateDefinition(lineNum: int, keyword: str, param: str, comment: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_TEMPLATE)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.TEMPLATE)
 		info.cost = 1
 		info.lineComment = comment
 		info.keyword = keyword
@@ -95,7 +91,7 @@ class GambitLineInfo:
 
 	@staticmethod
 	def definition(lineNum: int, keywords: List[str], defType: str, comment: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_DEF)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.DEF)
 		info.cost = 1
 		info.lineComment = comment
 
@@ -111,7 +107,7 @@ class GambitLineInfo:
 		if defType.find(',') != -1:
 			info.types = [x.strip() for x in defType.split(',')]
 		else:
-			m = re.match("(" + KEYWORD + ")\s+of\s+(" + KEYWORD + ")", defType)
+			m = re.match("(" + RegEx.KEYWORD + ")\s+of\s+(" + RegEx.KEYWORD + ")", defType)
 			if m:
 				info.types = [ m.group(1) ]
 				info.parent = m.group(2)
@@ -119,7 +115,7 @@ class GambitLineInfo:
 
 	@staticmethod
 	def constraintDescription(lineNum: int, indent: int, line: str, comment: str) -> GambitLineInfo:
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_CONSTRAINT)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.CONSTRAINT)
 		info.cost = 1
 		info.indent = indent
 		info.line = line[1:].strip()  # Remove the leading '!'
@@ -130,13 +126,13 @@ class GambitLineInfo:
 	def description(lineNum: int, indent: int, line: str, comment: str) -> GambitLineInfo:
 		cost = 1
 		# Entries in a lookup table.
-		if line[0] == LOOKUP_TABLE_PREFIX:
+		if line[0] == LinePrefix.LOOKUP_TABLE:
 			cost = 0
 
 		if indent == 0:
 			raise Exception(f"Invalid line: {line}")
 
-		info: GambitLineInfo = GambitLineInfo(lineNum, LT_DESC)
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.DESC)
 		info.cost = cost
 		info.indent = indent
 		info.line = line
@@ -146,7 +142,7 @@ class GambitLineInfo:
 	def extractReferences(self, currDef, vocab):
 		type = self.lineType
 
-		if type == LT_DEF:
+		if type == LineType.DEF:
 			currDef = self.keyword
 			for t in self.types:
 				vocab.addReference(t, currDef)
@@ -158,17 +154,17 @@ class GambitLineInfo:
 				self.tokens = self.extractReference(', '.join(self.types), currDef, vocab)
 			self.extractReference(self.lineComment, currDef, vocab, True)
 
-		elif type == LT_TEMPLATE:
+		elif type == LineType.TEMPLATE:
 			currDef = self.keyword
 			vocab.addReference("Verb", currDef)
 			self.tokens = ["Verb"]
 			self.extractReference(self.lineComment, currDef, vocab, True)
 
-		elif type in [LT_DESC, LT_CONSTRAINT]:
+		elif type in [LineType.DESC, LineType.CONSTRAINT]:
 			self.tokens = self.extractReference(self.line, currDef, vocab)
 			self.extractReference(self.lineComment, currDef, vocab, True)
 
-		elif not type in [LT_COMMENT, LT_IMPORT, LT_GAME_IMPORT, LT_NAME, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
+		elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
 			#self.vocab.parser.error("Unhandled type in extractAllReferences: {0:s}".format(type))
 			raise Exception(f"Unhandled type in extractAllReferences: {type}")
 
@@ -183,8 +179,8 @@ class GambitLineInfo:
 		firstWord = True
 		for word in GambitTokenizer.split(line):
 			# Skip over special initial characters.
-			if firstWord and word == LOOKUP_TABLE_PREFIX:
-				newWords.append(LOOKUP_TABLE_PREFIX)
+			if firstWord and word == LinePrefix.LOOKUP_TABLE:
+				newWords.append(LinePrefix.LOOKUP_TABLE)
 				# Don't update firstWord since the next word might be capitalized.
 				continue
 				
@@ -199,7 +195,7 @@ class GambitLineInfo:
 				(keyword, param) = template
 				vocab.addReference(keyword, currDef)
 				vocab.addReference(param, currDef)
-				newWords.append([T_TEMPLATE_REF, keyword, param])
+				newWords.append([TokenType.TEMPLATE_REF, keyword, param])
 				continue
 
 			# Strip non-alphanumeric from beginning/end of token.
@@ -211,7 +207,7 @@ class GambitLineInfo:
 			
 			if vocab.contains(canonicalForm):
 				vocab.addReference(canonicalForm, currDef)
-				newWords.append([T_REF, canonicalForm, prefix, word0, postfix])
+				newWords.append([TokenType.REF, canonicalForm, prefix, word0, postfix])
 			elif inComment:
 				newWords.append(word)
 			else:

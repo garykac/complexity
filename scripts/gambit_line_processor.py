@@ -3,11 +3,7 @@
 
 import re
 
-from gambit import CONSTRAINT_PREFIX
-from gambit import (NAME_KEYWORD, IMPORT_KEYWORD, GAME_IMPORT_KEYWORD, SECTION_KEYWORD,
-					SUBSECTION_KEYWORD)
-from gambit import KEYWORD, MULTI_KEYWORDS, TEMPLATE_KEYWORD
-from gambit import TAB_SIZE
+from gambit import Keyword, LinePrefix, RegEx, TAB_SIZE
 from gambit_line_info import GambitLineInfo
 
 class GambitLineProcessor:
@@ -34,19 +30,19 @@ class GambitLineProcessor:
 		comment = ""
 
 		# Import base definitions from another file.
-		if line.startswith(GAME_IMPORT_KEYWORD + ':'):
-			return GambitLineInfo.importGame(lineNum, line[len(GAME_IMPORT_KEYWORD)+1:].strip())
+		if line.startswith(Keyword.GAME_IMPORT + ':'):
+			return GambitLineInfo.importGame(lineNum, line[len(Keyword.GAME_IMPORT)+1:].strip())
 
 		# Declare imported terms.
-		if line.startswith(IMPORT_KEYWORD + ':'):
-			return GambitLineInfo.importTerm(lineNum, line[len(IMPORT_KEYWORD)+1:].strip())
+		if line.startswith(Keyword.IMPORT + ':'):
+			return GambitLineInfo.importTerm(lineNum, line[len(Keyword.IMPORT)+1:].strip())
 
-		if line.startswith(NAME_KEYWORD + ':'):
-			return GambitLineInfo.name(lineNum, line[len(NAME_KEYWORD)+1:].strip())
-		if line.startswith(SECTION_KEYWORD + ':'):
-			return GambitLineInfo.section(lineNum, line[len(SECTION_KEYWORD)+1:].strip())
-		if line.startswith(SUBSECTION_KEYWORD + ':'):
-			return GambitLineInfo.subsection(lineNum, line[len(SUBSECTION_KEYWORD)+1:].strip())
+		if line.startswith(Keyword.NAME + ':'):
+			return GambitLineInfo.name(lineNum, line[len(Keyword.NAME)+1:].strip())
+		if line.startswith(Keyword.SECTION + ':'):
+			return GambitLineInfo.section(lineNum, line[len(Keyword.SECTION)+1:].strip())
+		if line.startswith(Keyword.SUBSECTION + ':'):
+			return GambitLineInfo.subsection(lineNum, line[len(Keyword.SUBSECTION)+1:].strip())
 
 		# Separate out comments and handle empty lines.
 		m = re.match("(.*?)//(.*)", line)
@@ -60,7 +56,7 @@ class GambitLineProcessor:
 		line = line.rstrip()
 
 		# TEMPLATE_TYPE: Verb
-		m = re.match(TEMPLATE_KEYWORD + ":\s*Verb", line)
+		m = re.match(RegEx.TEMPLATE_KEYWORD + ":\s*Verb", line)
 		if m:
 			keyword = m.group(1)
 			param = m.group(2)
@@ -70,7 +66,7 @@ class GambitLineProcessor:
 		# NEW_TYPE|PLURAL: TYPE
 		# NEW_ATTRIBUTE: Attribute of TYPE
 		# NEW_TYPE: TYPE1, TYPE2
-		m = re.match("(" + MULTI_KEYWORDS + "):\s*(.*)", line)
+		m = re.match("(" + RegEx.MULTI_KEYWORDS + "):\s*(.*)", line)
 		if m:
 			keyword = m.group(1)
 			type = m.group(2)
@@ -80,7 +76,7 @@ class GambitLineProcessor:
 		indent = GambitLineProcessor.calcIndent(line)
 		line = line.strip()
 
-		if line.startswith(CONSTRAINT_PREFIX):
+		if line.startswith(LinePrefix.CONSTRAINT):
 			return GambitLineInfo.constraintDescription(lineNum, indent, line, comment)
 			
 		return GambitLineInfo.description(lineNum, indent, line, comment)

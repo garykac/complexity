@@ -6,9 +6,7 @@ import re
 import sys
 import traceback
 
-from gambit import (LT_COMMENT, LT_BLANK,
-					LT_NAME, LT_IMPORT, LT_GAME_IMPORT, LT_SECTION, LT_SUBSECTION,
-					LT_DEF, LT_TEMPLATE, LT_CONSTRAINT, LT_DESC)
+from gambit import LineType
 from gambit_calc import GambitCalc
 from gambit_line_processor import GambitLineProcessor
 from gambit_vocab import GambitVocab
@@ -117,11 +115,11 @@ class GambitParser:
 		# |lineinfo| is GambitLineInfo.
 		self.lineInfo.append(lineinfo)
 		type = lineinfo.lineType
-		if type == LT_GAME_IMPORT:
+		if type == LineType.GAME_IMPORT:
 			self.importGameFile(lineinfo.data)
-		elif type == LT_IMPORT:
+		elif type == LineType.IMPORT:
 			self.vocab.importTerms(lineinfo.data)
-		elif type == LT_DEF:
+		elif type == LineType.DEF:
 			parent = lineinfo.parent
 			if parent and not self.vocab.contains(parent):
 				self.errorLine(f"Unknown parent: {parent}")
@@ -130,13 +128,13 @@ class GambitParser:
 					self.errorLine(f"Unknown term: {t}")
 
 			self.vocab.addDef(lineinfo.keyword, lineinfo.altKeyword, lineinfo.types, parent)
-		elif type == LT_TEMPLATE:
+		elif type == LineType.TEMPLATE:
 			self.vocab.addTemplate(lineinfo.keyword, lineinfo.param)
-		elif type == LT_NAME:
+		elif type == LineType.NAME:
 			self.gameTitle = lineinfo.name
 		elif type == "ERROR":
 			self.errorLine(lineinfo.lineComment)
-		elif not type in [LT_COMMENT, LT_CONSTRAINT, LT_DESC, LT_SECTION, LT_SUBSECTION, LT_BLANK]:
+		elif not type in [LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
 			self.error(f"Unhandled type in processLine: {type}")
 
 		# Record the max indent level so that we can format the HTML table correctly.
@@ -156,7 +154,7 @@ class GambitParser:
 
 				if lineinfo:
 					type = lineinfo.lineType
-					if type == LT_DEF:
+					if type == LineType.DEF:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
 						self.vocab.addGameImport(keyword, plural, name)

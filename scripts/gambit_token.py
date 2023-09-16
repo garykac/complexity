@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 # Token types.
-T_WORD = "WORD"
-T_STRING = "STRING"
-T_REF = "REF"
-T_TEMPLATE_REF = "TREF"
+class TokenType:
+	WORD = "WORD"
+	STRING = "STRING"
+	REF = "REF"
+	TEMPLATE_REF = "TREF"
 
 class GambitToken:
 	"""Basic token and metadata."""
