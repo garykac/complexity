@@ -66,12 +66,21 @@ PlaceBoard: Verb
 
 ChoosePlayerComponents: Verb
 	Choose one of the available Players
-	Take all the components for that Player
+	Take all the components for that Player (usually identified by color)
 
 VictoryPoint: Noun
 
 VP: Noun
 	Abbreviation for VictoryPoint
+
+ScoringTrack: Noun
+	A track of sequentially number spaces (often along the outer edge of a Gameboard) that Players can use to keep track of their VictoryPoints using a ScoringMarker.
+
+ScoringMarker: Noun
+	A Token that each Player has to track their VictoryPoints on a ScoringTrack
+	
+RecordPointsOnScoringTrack: Verb
+	Move your ScoringMarker forward or backward along the ScoringTrack to record the gain or loss of VictoryPoints
 
 // =========
 // Card Game
@@ -93,14 +102,20 @@ Deal: Verb
 Dealer: Noun
 	The Player who Deals the Cards to all the Players.
 
+DiscardPile: Noun
+	A face-up pile of Cards that are no longer in play.
+
+Discard: Verb
+	Place a Card face up in the DiscardPile.
+
 DrawDeck: Deck
 	A Deck of Cards that Players will Draw Cards from.
 
+DiscardDeck: Noun
+	A DiscardPile associated with a DrawDeck
+	
 Draw: Verb
 	Draw a Card from a Deck
-
-DiscardPile: Noun
-	A face-up pile of Cards that are no longer in play.
 
 Shuffle: Verb
 	Randomize the Cards in a Deck
@@ -108,12 +123,16 @@ Shuffle: Verb
 Reveal: Verb
 	Turn the Card face up so that all the Players can see
 
-Discard: Verb
-	Place a Card face up in the DiscardPile.
-
 DealCardToEachPlayer: Verb
 	Deal a Card to each Player
-	
+
+ReshuffleDiscardToRecreateDeck: Verb
+	If the DrawDeck runs out of Cards:
+		Reshuffle the corresponding DiscardDeck to recreate the DrawDeck
+
+DrawAsManyAsPossibleIfNotEnough: Verb
+	If there are not enough Cards in the DrawDeck to Draw the specified number of Cards:
+		Draw as many Cards as possible from the DrawDeck
 
 // ====
 // Dice
