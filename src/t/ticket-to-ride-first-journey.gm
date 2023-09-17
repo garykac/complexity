@@ -6,6 +6,8 @@ IMPORT: Player, NextPlayerClockwise
 IMPORT: Gameboard, Token, ChoosePlayerComponents
 IMPORT: Card, Deck, Hand
 
+IMPORT: ReshuffleDiscardToRecreateDeck
+
 SECTION: Vocabulary
 
 City: Part of Gameboard
@@ -19,7 +21,9 @@ WestCoastCity: City
 
 Route: Part of Gameboard
 	A connection between 2 Cities on the Gameboard
-	// Note: Cities may have multiple Routes (of different colors) connecting them.
+
+DoubleRoute: Route
+	A Route that is actually 2 separate Routes of the same length (but different Color) between the same Cities
 
 RouteSpace: Part of Route
 	Each Route is comprised of one or more RouteSpaces (that share a common Color)
@@ -40,13 +44,13 @@ Train: Token
 
 Ticket: Card
 
-CityConnectionTicket: Ticket
+DestinationTicket: Ticket
 	A Ticket that describes a connection between 2 Cities
-DestinationCity: Attribute of CityConnectionTicket
+DestinationCity: Attribute of DestinationTicket
 	The 2 Cities that this Ticket connects
 
 TicketDeck: Deck
-	Deck of CityConnectionTickets
+	Deck of DestinationTickets
 
 BonusTicket: Ticket	// 4 copies
 	A Ticket you earn when you complete a Route from an EastCoastCity to a WestCoastCity (or vice-versa).
@@ -60,17 +64,17 @@ Setup: Verb
 	ChoosePlayerComponents
 		* Claim 20 Train tokens of your color
 	Shuffle all the TrainCards to create the TrainDeck
-	Shuffle all the CityConnectionTickets to create the TicketDeck
+	Shuffle all the DestinationTickets to create the TicketDeck
 	For each Player:
 		DrawTrainCard x4
 		DrawTicket x2
 
 DrawTrainCard: Verb
 	Draw a TrainCard from the TrainDeck
-	! Reshuffle the TrainDiscardDeck to recreate the TrainDeck if it runs out
+	! ReshuffleDiscardToRecreateDeck
 
 DrawTicket: Verb
-	Draw a CityConnectionTicket from the TicketDeck
+	Draw a DestinationTicket from the TicketDeck
 	
 SECTION: Gameplay
 
@@ -93,30 +97,35 @@ PlayerTurn: Verb
 ClaimRoute: Verb
 	Choose an available Route
 	For each RouteSpace in the Route:
-		Discard a TrainCard from your Hand that matches the RouteSpace Color
+		DiscardTrainCard from your Hand that matches the RouteSpace Color
 			! A "Wild" TrainCard can match any color
 		Place one of your Trains on the RouteSpace
 			// Note: Game ends if you place your last Train
 	CheckForCompletedTicket
-	! You may not claim both Routes between a pair of Cities
+	! You may not claim both Routes of a DoubleRoute
+
+DiscardTrainCard: Verb
+	Add TrainCard face-up to the TrainDiscardDeck
 
 DiscardTickets: Verb
-	Discard all of the CityConnectionTickets in your Hand
+	Discard all of the DestinationTickets in your Hand
 	DrawTicket x2
 
 CheckForCompletedTicket: Verb
-	If you have claimed a sequence of Routes that connect the 2 DestinationCities on one of your CityConnectionTickets:
-		Place the completed CityConnectionTicket in front of you
+	If you have claimed a sequence of Routes that connect the 2 DestinationCities on one of your DestinationTickets:
+		Place the completed DestinationTicket in front of you
 		DrawTicket
 	If you have claimed a new sequence of Routes connecting an EastCoastCity to a WestCoastCity:
+		// Loudly exclaim "East to West!"
 		Claim a BonusTicket and place it in front of you
+		! You may only claim one BonusTicket
 	// Game ends if you obtain your 6th Ticket
 	
 SECTION: Endgame Scoring
 
 DetermineWinner: Verb
 	Player with 6 Tickets wins
-	If no Player has 6 Tickets:
+	! If no Player has 6 Tickets:
 		Player with most completed Tickets wins
 		If a tie:
 			Everybody wins!
