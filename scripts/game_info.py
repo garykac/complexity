@@ -99,7 +99,6 @@ class GameInfo:
 		
 		# Complexity
 		self.rulebook = None
-		self.score = 0
 		self.score_data = None
 		self.export_csv = False
 
@@ -110,6 +109,17 @@ class GameInfo:
 		self.load()
 		self.hasChanges = False
 
+	def getScore(self):
+		return int(self.score_data[0])
+
+	def getVocab(self):
+		score, sections = self.score_data
+		for s in sections:
+			name, cost, subs = s
+			if name == "Vocabulary":
+				return int(cost)
+		return 0
+			
 	def scoresDiffer(self, oldScores, newScores):
 		if not oldScores:
 			return True

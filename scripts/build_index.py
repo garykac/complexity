@@ -19,7 +19,6 @@ def error(msg):
 class IndexBuilder:
 	"""Parser for Gambit (.gm) files."""
 	def __init__(self):
-		self.vocab = {}
 		self.games = {}
 		self.children = {}
 		self.buckets = [29, 59, 99, 199, 299]
@@ -44,15 +43,11 @@ class IndexBuilder:
 					bgg = str(d.bgg_weight)
 					if bgg == "-":
 						bgg = ""
-					out = [title, bgg, str(d.vocab), str(d.score)]
+					out = [title, bgg, str(d.getVocab()), str(d.getScore())]
 					fp.write(','.join(out))
 					fp.write('\n')
 
 
-	def htmlify(self, str):
-		str = str.replace("&", "&amp;")
-		return str
-	
 	def writeBucket(self, out, bucketMin, bucketMax):
 		print("bucket", bucketMin, bucketMax)
 		if bucketMax:
@@ -65,7 +60,7 @@ class IndexBuilder:
 		gameGroups = {}
 		for id, info in self.games.items():
 			parent = info.parent
-			score = info.score
+			score = info.getScore()
 			if parent:
 				continue
 			if score >= bucketMin and (not bucketMax or score <= bucketMax):
@@ -81,7 +76,7 @@ class IndexBuilder:
 				title = info.title
 				subtitle = info.subtitle
 				parent = info.parent
-				score = info.score
+				score = info.getScore()
 				self.writeListEntry(out, id, title, subtitle, score)
 				if id in self.children:
 					for idChild in self.children[id]:
@@ -89,7 +84,7 @@ class IndexBuilder:
 						title = infoChild.title
 						subtitle = infoChild.subtitle
 						parent = infoChild.parent
-						scoreChild = infoChild.score
+						scoreChild = infoChild.getScore()
 						self.writeListEntry(out, idChild, title, subtitle, scoreChild, parentScore=score)
 
 		self.writeListFooter(out)
@@ -111,7 +106,7 @@ class IndexBuilder:
 		out.write('	<meta charset="utf-8" />\n')
 		out.write('	<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n')
 		out.write('	<meta name="viewport" content="width=device-width, initial-scale=1" />\n')
-		out.write('	<title>Boardgame Rule Complexity</title>')
+		out.write('	<title>Boardgame Rule Complexity</title>\n')
 		out.write('	<link rel="preconnect" href="https://fonts.googleapis.com">\n')
 		out.write('	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n')
 		out.write('	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">\n')
@@ -127,10 +122,10 @@ class IndexBuilder:
 	def writeListEntry(self, out, id, title, subtitle, score, parentScore=None):
 		out.write('<div class="entry">')
 		out.write(f'<a href="games/{id[0]}/{id}.html">')
-		out.write(f'<span class="title">{self.htmlify(title)}</span>')
+		out.write(f'<span class="title">{htmlify(title)}</span>')
 		if subtitle:
 			out.write('<br/>')
-			out.write(f'<span class="subtitle">{self.htmlify(subtitle)}</span>')
+			out.write(f'<span class="subtitle">{htmlify(subtitle)}</span>')
 		out.write('<br/>')
 		if parentScore:
 			out.write(f'<span class="score">({parentScore:d})+{score:d}</span>')
@@ -152,6 +147,10 @@ class IndexBuilder:
 		self.writeHtml()
 		self.writeCsvData()
 
+def htmlify(str):
+	str = str.replace("&", "&amp;")
+	return str
+	
 def usage():
 	print("Usage: %s <options>" % sys.argv[0])
 	print("where <options> are:")
