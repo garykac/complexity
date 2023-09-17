@@ -17,6 +17,7 @@
 	<weight date="2022-10-11" avg="4.19" />
 </bgg>
 <complexity>
+	<edition>Splotter Spellen 2003 - 3rd edition</edition>
 	<score cost="313">
 		<section name="Vocabulary" cost="104" />
 		<section name="Setup" cost="16" />

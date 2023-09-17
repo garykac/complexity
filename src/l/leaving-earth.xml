@@ -16,6 +16,7 @@
 	<weight date="2022-10-11" avg="3.72" />
 </bgg>
 <complexity>
+	<edition>The Lumenaris Group 2015</edition>
 	<score cost="323">
 		<section name="Vocabulary" cost="97" />
 		<section name="Setup" cost="16" />

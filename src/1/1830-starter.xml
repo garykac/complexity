@@ -22,6 +22,7 @@
 	<weight avg="-" />
 </bgg>
 <complexity>
+	<edition>Mayfair Games 2011</edition>
 	<score cost="133">
 		<section name="Vocabulary" cost="42" />
 		<section name="Setup" cost="12" />

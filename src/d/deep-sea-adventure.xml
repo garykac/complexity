@@ -17,6 +17,7 @@
 	<weight date="2022-10-11" avg="1.17" />
 </bgg>
 <complexity>
+	<edition>Oink Games 2016</edition>
 	<score cost="63">
 		<section name="Vocabulary" cost="23" />
 		<section name="Setup" cost="8" />

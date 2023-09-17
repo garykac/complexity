@@ -20,6 +20,7 @@
 	<weight date="2022-10-11" avg="1.23" />
 </bgg>
 <complexity>
+	<edition>Iello Games 2015</edition>
 	<score cost="42">
 		<section name="Vocabulary" cost="13" />
 		<section name="Setup" cost="7" />

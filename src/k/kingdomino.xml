@@ -10,12 +10,13 @@
 	<published year="2016" />
 	<age min="8" />
 	<players min="2" max="4" />
-	<time min="15" max="25" />
+	<time min="15" max="15" />
 </general>
 <bgg id="204583">
 	<weight date="2022-10-11" avg="1.21" />
 </bgg>
 <complexity>
+	<edition>Blue Orange 2016</edition>
 	<score cost="50">
 		<section name="Vocabulary" cost="15" />
 		<section name="Setup" cost="23" />

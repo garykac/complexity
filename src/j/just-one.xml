@@ -17,6 +17,7 @@
 	<weight date="2022-10-11" avg="1.05" />
 </bgg>
 <complexity>
+	<edition>Sombreros Production 2018</edition>
 	<score cost="48">
 		<section name="Vocabulary" cost="10" />
 		<section name="Setup" cost="4" />

@@ -8,7 +8,7 @@
 </designers>
 <general>
 	<published year="2016" />
-	<age min="10" />
+	<age min="14" />
 	<players min="2" max="5" />
 	<time min="45" max="45" />
 </general>
@@ -16,6 +16,7 @@
 	<weight date="2022-10-11" avg="2.20" />
 </bgg>
 <complexity>
+	<edition>Alderac Entertainment Group 2015</edition>
 	<score cost="108">
 		<section name="Vocabulary" cost="45" />
 		<section name="Setup" cost="15" />

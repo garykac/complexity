@@ -12,12 +12,13 @@
 	<published year="2020" />
 	<age min="10" />
 	<players min="1" max="4" />
-	<time min="15" max="30" />
+	<time min="5" max="20" />
 </general>
 <bgg id="307002">
 	<weight date="2022-10-11" avg="1.91" />
 </bgg>
 <complexity>
+	<edition>Badgers From Mars 2020</edition>
 	<score cost="74">
 		<section name="Vocabulary" cost="13" />
 		<section name="Setup" cost="6" />

@@ -17,6 +17,7 @@
 	<weight date="2023-09-10" avg="1.42" />
 </bgg>
 <complexity>
+	<edition>Days of Wonder 2017</edition>
 	<score cost="44">
 		<section name="Vocabulary" cost="18" />
 		<section name="Setup" cost="4" />

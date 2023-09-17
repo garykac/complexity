@@ -16,6 +16,7 @@
 	<weight date="2022-10-11" avg="1.14" />
 </bgg>
 <complexity>
+	<edition>Z-Man Games 2005</edition>
 	<score cost="22">
 		<section name="Vocabulary" cost="5" />
 		<section name="Setup" cost="4" />
