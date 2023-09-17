@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="ticket-to-ride">
+<name>
+	<title>Ticket to Ride</title>
+</name>
+<designers>
+	<designer>Alan R. Moon</designer>
+</designers>
+<general>
+	<published year="2004" />
+	<age min="8" />
+	<players min="2" max="5" />
+	<time min="30" max="60" />
+</general>
+<bgg id="9209">
+	<weight date="2023-09-10" avg="1.84" />
+</bgg>
+<complexity>
+	<rulebook>Days of Wonder 2015</rulebook>
+	<score cost="62">
+		<section name="Vocabulary" cost="21" />
+		<section name="Setup" cost="10" />
+		<section name="Gameplay" cost="19" />
+		<section name="Endgame Scoring" cost="12" />
+	</score>
+	<export>true</export>
+</complexity>
+</game>

@@ -25,6 +25,6 @@ scout_
 shinjuku
 splendor
 tic-tac-toe
-ticket-to-ride_
+ticket-to-ride
 ticket-to-ride-first-journey
 welcome-to-the-dungeon

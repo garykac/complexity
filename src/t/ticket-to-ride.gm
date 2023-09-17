@@ -1,0 +1,199 @@
+NAME: Ticket to Ride
+
+SECTION: Assumptions
+
+IMPORT: Player, NextPlayerClockwise
+IMPORT: Gameboard, Token, ChoosePlayerComponents
+IMPORT: Card, Deck, Hand, Reveal
+
+IMPORT: ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack
+IMPORT: ReshuffleDiscardToRecreateDeck
+IMPORT: DrawAsManyAsPossibleIfNotEnough
+IMPORT: PlayerWithHighestScore
+
+SECTION: Vocabulary
+
+City: Part of Gameboard
+
+Route: Part of Gameboard
+	A connection between 2 Cities on the Gameboard
+	// Note: Cities may have multiple Routes (of different colors) connecting them.
+
+DoubleRoute: Route
+	A Route that is actually 2 separate Routes of the same length between the same Cities
+
+RouteSpace: Part of Route
+	Each Route is comprised of one or more RouteSpaces (that share a common Color)
+Color: Attribute of RouteSpace
+	Valid colors: "Black", "Blue", "Green", "Orange", "Purple", "Red", "White", "Yellow"
+	
+TrainCard: Card
+Color: Attribute of TrainCard
+	Valid colors: "Black", "Blue", "Green", "Orange", "Purple", "Red", "White", "Yellow", "Wild"
+
+Locomotive: TrainCard
+	A TrainCard whose Color is "wild"
+
+TrainDeck: Deck
+	Deck of TrainCards
+TrainDiscardDeck: Deck
+	Face up pile where TrainCards are discarded.
+
+TrainCardMarket: Noun
+	Set of 5 face-up cards next to the TrainDeck
+	
+Train: Token
+	Valid colors: "Blue", "Green", "Red", "Yellow", "Black"
+
+RouteScoringTable: Noun
+	Table that shows how many points you score when completing Routes of various length:
+		* 1: 1 point
+		* 2: 2 points
+		* 3: 4 points
+		* 4: 7 points
+		* 5: 10 points
+		* 6: 15 points
+
+Ticket: Card
+
+DestinationTicket: Card
+	A Ticket that describes a connection between 2 Cities on the Gameboard
+DestinationCity: Attribute of DestinationTicket
+	The 2 Cities that this Ticket connects
+Points: Attribute of DestinationTicket
+	The number of points earned if you can create a ContinuousPath between the 2 DestinationCities
+
+TicketDeck: Deck
+	Deck of DestinationTickets
+
+ContinuousPath: Noun
+	A ContinuousPath between two Cities is a series of Routes claimed by the same Player that connect the 2 Cities
+	! This path may visit a City multiple times, but each Route may only be used once
+	
+LongestContinuousPath: Card	// 4 copies
+	A bonus card given at the end of the game if you have the longest ContinuousPath.
+
+SECTION: Setup
+
+Setup: Verb
+	ChoosePlayerComponents
+		* Claim 45 Train tokens of your color
+		* Claim ScoringMarker of your color
+	SetupTrainCards
+	Shuffle all the DestinationTickets to create the TicketDeck
+	For each Player:
+		DrawTrainCard x4
+		DrawStartTickets
+		Place ScoringMarker on the start of the ScoringTrack
+	Place the LongestContinuousPath bonus card next to the Gameboard
+
+SetupTrainCards: Verb
+	Shuffle all the TrainCards to create the TrainDeck
+	SetupTrainCardMarket
+
+SetupTrainCardMarket: Verb
+	DrawTrainCard x5 and place them face-up next to the TrainDeck
+
+DrawTrainCard: Verb
+	Draw a TrainCard from the TrainDeck
+	! ReshuffleDiscardToRecreateDeck
+
+DrawStartTickets: Verb
+	DrawTicket x3
+	Optional: DiscardTicket
+	// You must keep at least 2
+
+DrawTicket: Verb
+	Draw a DestinationTicket from the TicketDeck
+	! Keep your DestinationTickets hidden from other Players
+
+DiscardTicket: Verb
+	Place the DestinationTicket on the bottom of the TicketDeck
+	
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until GameOver, starting with most experienced traveler:
+		PlayerTurn
+		NextPlayerClockwise
+	FinalTurn
+	
+GameOver: Condition
+	When a Player has fewer than 3 Train tokens available
+
+FinalTurn: Verb
+	For each Player, starting with the Player after the one who triggered the GameOver condition:
+		PlayerTurn
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	Choose one:
+		DrawNewTrainCard x2
+		ClaimRoute
+		DrawNewTickets
+	! If you draw a Locomotive from the TrainCardMarket:
+		You may only draw one card (the Locomotive) this turn
+	// Note: This means that you cannot draw a Locomotive from the TrainCardMarket as your second card either.
+
+DrawNewTrainCard: Verb
+	Choose one:
+		DrawCardFromMarket
+		DrawTrainCard
+
+DrawCardFromMarket: Verb
+	Take one of the TrainCards from the TrainCardMarket into your Hand
+	RefillMarket
+
+RefillMarket: Verb
+	DrawTrainCard to refill the TrainCardMarket back up to 5 TrainCards
+	! If there are 3 Locomotives in the TrainCardMarket:
+		DiscardTrainCard each card in the TrainCardMarket
+		SetupTrainCardMarket
+
+DiscardTrainCard: Verb
+	Add TrainCard face-up to the TrainDiscardDeck
+	
+ClaimRoute: Verb
+	Choose an available (empty) Route on the Gameboard
+	For each RouteSpace in the Route:
+		DiscardTrainCard from your Hand that matches the RouteSpace Color
+			! A "Wild" TrainCard can match any color
+		Place one of your Trains on the RouteSpace
+	ScoreRoute
+	! You may not claim both Routes in a DoubleRoute
+	! You may not claim the second Route of a DoubleRoute in 2- and 3-player games
+
+ScoreRoute: Verb
+	Using the RouteScoringTable, look up the number of points scored for this Route
+	ScorePoints
+	
+ScorePoints: Verb
+	RecordPointsOnScoringTrack
+
+DrawNewTickets: Verb
+	DrawTicket x3
+	Optional: DiscardTicket one or two times
+	// You must keep at least one.
+	! DrawAsManyAsPossibleIfNotEnough
+
+SECTION: Endgame Scoring
+
+DetermineWinner: Verb
+	For each Player:
+		For each DestinationTicket:
+			Reveal
+			If you have a ContinuousPath between the two DestinationCities on the DestinationTicket:
+				ScorePoints equal to the Points on the DestinationTicket
+			Otherwise:
+				ScorePoints equal to the negative Points on the card
+	The Player with the longest ContinuousPath:
+		Claims the LongestContinuousPath card
+		ScorePoints x10
+		! If multiple Players are tied for the longest ContinuousPath:
+			All tied Players score the 10 points
+	PlayerWithHighestScore
+	! If multiple Players tied for highest score:
+		Winner is the Player who has completed the most DestinationTickets
+		If tied:
+			Winner is Player with the LongestContinuousPath card
+			// Unclear who gets this card when there is a tie for the longest ContinuousPath
