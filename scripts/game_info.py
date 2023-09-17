@@ -42,7 +42,7 @@ class Tag:
 	WEIGHT = "weight"          # ATTR = "date", "avg"
 	
 	# Complexity
-	RULEBOOK = "rulebook"
+	EDITION = "edition"
 	SCORE = "score"
 	EXPORT = "export"
 
@@ -98,7 +98,7 @@ class GameInfo:
 		self.bgg_weight_date = None
 		
 		# Complexity
-		self.rulebook = None
+		self.edition = None
 		self.score_data = None
 		self.export_csv = False
 
@@ -242,8 +242,8 @@ class GameInfo:
 
 	def save_complexity(self, fp):
 		fp.write(f"<{Tag.COMPLEXITY}>\n")
-		if self.rulebook:
-			fp.write(f"\t<{Tag.RULEBOOK}>{self.rulebook}</{Tag.RULEBOOK}>\n")
+		if self.edition:
+			fp.write(f"\t<{Tag.EDITION}>{self.edition}</{Tag.EDITION}>\n")
 
 		score, sections = self.score_data
 		fp.write(f'\t<{Tag.SCORE} {Attr.COST}="{score}">\n')
@@ -397,8 +397,8 @@ class GameInfo:
 		for el in elRoot:
 			(ns, tag) = splitTag(el.tag)
 			match tag:
-				case Tag.RULEBOOK:
-					self.rulebook = el.text
+				case Tag.EDITION:
+					self.edition = el.text
 				case Tag.SCORE:
 					self.load_score(el)
 				case Tag.EXPORT:

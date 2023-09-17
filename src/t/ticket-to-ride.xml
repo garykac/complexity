@@ -16,7 +16,7 @@
 	<weight date="2023-09-10" avg="1.84" />
 </bgg>
 <complexity>
-	<rulebook>Days of Wonder 2015</rulebook>
+	<edition>Days of Wonder 2015</edition>
 	<score cost="62">
 		<section name="Vocabulary" cost="21" />
 		<section name="Setup" cost="10" />
