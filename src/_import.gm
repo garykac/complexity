@@ -29,7 +29,7 @@ Pass: Verb
 	Voluntarily skip your turn or choose not to perform an action
 
 ChooseFirstPlayer: Verb
-	Choose which Player goes first (however you like)
+	Choose the FirstPlayer (however you like)
 
 SwitchPlayer: Verb
 	Switch player (in a 2 Player game)
@@ -40,12 +40,15 @@ NextPlayerClockwise: Verb
 NextPlayerCounterClockwise: Verb
 	Pass control to the new Player, going around counter-clockwise
 
-PlayerWithHighestScore: Noun
+PlayerWithHighestScore: Verb
 	The Player with the highest Score is the winner
 
-PlayerWithLowestScore: Noun
+PlayerWithLowestScore: Verb
 	The Player with the lowest Score is the winner
 
+ShareVictoryIfTieScore: Verb
+	If multiple Players have the same Score:
+		Share the victory
 
 // =========
 // Boardgame
@@ -58,6 +61,11 @@ Piece: Noun
 Token: Noun
 
 Tile: Noun
+
+NotComponentLimited: Verb
+	Assume there are an infinite number of these items
+	If this component runs out:
+		You may use any suitable substitute marker
 
 PlayerAid: Noun
 
