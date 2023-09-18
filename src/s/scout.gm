@@ -1,4 +1,4 @@
-NAME: Scout
+NAME: Scout!
 
 SECTION: Assumptions
 
@@ -52,7 +52,7 @@ SECTION: Gameplay
 
 PlayGame: Verb
 	ChooseFirstPlayer
-	Repeat equal to number of Players:
+	Repeat number of times equal to the number of Players:
 		SetupRound
 		PlayRound
 		ScoreRound
@@ -70,7 +70,7 @@ SetupRound: Verb
 
 RotateHandOrientation: Verb
 	Rotate all the cards in your Hand without changing the order
-	// This changes all the BottomNumbers to be TopNumbers and vice-versa
+	// Note: This changes all the BottomNumbers to be TopNumbers and vice-versa
 	! All the cards must be rotated - you cannot rotate a subset
 	
 PlayRound: Verb
@@ -81,7 +81,7 @@ PlayRound: Verb
 RoundOver: Condition
 	Any of:
 		A Player has run out of cards
-		The PriorSet for your turn was created by you on your last turn
+		The PriorSet at the start of your turn was created by you on your last turn
 			// Which means it went all the way around the table without being replaced
 
 CleanupRound: Verb
@@ -92,27 +92,27 @@ CleanupRound: Verb
 PlayerTurn: Verb
 	Choose one:
 		PlayCards
-		ScoutCard
+		ScoutCardIntoHand
 		DoubleAction
 
 PlayCards: Verb
-	Play a set of adjacent cards from your Hand that is MorePowerful than the PriorSet
-	Claim the cards from the PriorSet to add to your ScorePile
+	Play a set of 1 or more adjacent cards from your Hand that is MorePowerful than the PriorSet
+	Claim the cards from the PriorSet to add them face-down to your ScorePile
 	The set you played is now the PriorSet and you are the PriorSetOwner
 
 MorePowerful: Condition
-	A set of cards is more powerful than the PriorSet if any of:
-		There is no PriorSet (e.g., at the beginning of the round)
-		It contains more cards than the PriorSet
-		If it has the same number of cards:
-			It is a SetOfSameNumberCards vs a PriorSet with SetOfConsecutiveCards
+	A set of ScoutCards is more powerful than the PriorSet if any of:
+		There is no PriorSet (e.g., at the beginning of the round, or if the last card has been scouted)
+		The set contains more cards than the PriorSet
+		If the set has the same number of cards as the PriorSet:
+			The set is a SetOfSameNumberCards vs a PriorSet with SetOfConsecutiveCards
 			If they are both the same type of set:
 				If the lowest card in the set is higher than the lowest card in the PriorSet
 
-ScoutCard: Verb
+ScoutCardIntoHand: Verb
 	Give a VPToken (from the VPPile) to the PriorSetOwner
 		! NotComponentLimited
-	Take 1 card from either end of the PriorSet into your Hand
+	Take 1 ScoutCard from either end of the PriorSet into your Hand
 	! You may not take a card from the middle of the PriorSet
 	! When adding the card to your Hand, you may insert the card anywhere
 	! You may rotate the card before adding it to your Hand
