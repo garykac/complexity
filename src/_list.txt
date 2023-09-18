@@ -21,7 +21,7 @@ regicide
 risk
 roads-and-boats
 san-juan_
-scout_
+scout
 shinjuku
 splendor
 tic-tac-toe

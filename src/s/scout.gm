@@ -1,0 +1,136 @@
+NAME: Scout
+
+SECTION: Assumptions
+
+IMPORT: Player, ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
+IMPORT: Token, Card, Deck, Deal, Shuffle, Hand
+IMPORT: VP, Score, PlayerWithHighestScore, ShareVictoryIfTieScore
+IMPORT: NotComponentLimited
+
+SECTION: Vocabulary
+
+ScoutCard: Card
+TopNumber: Attribute of Card
+	The current card value
+BottomNumber: Attribute of Card
+	The value of this card if it is flipped
+
+ScoutDeck: Deck
+	Deck of ScoutCards
+
+DoubleActionMarker: Token
+
+VPToken: Token
+
+VPPile: Noun
+	Pile of VPTokens
+
+PriorSet: Noun
+	The active set of ScoutCards that the Players are trying to beat
+
+PriorSetOwner: Noun
+	The Player who originally played the current PriorSet
+
+ScorePile: Noun
+	Pile of ScoutCards that you have earned during the round
+	
+SetOfSameNumberCards: Noun
+	A set of cards that all have the same TopNumber
+
+SetOfConsecutiveCards: Noun
+	A set of cards where the TopNumber for a continuous sequence (increasing or decreasing)
+
+SECTION: Setup
+
+Setup: Verb
+	Select the set of ScoutCards based on the number of Players
+		* 3 Players: Remove all ScoutCards with a "10" as the TopNumber or BottomNumber (9 cards total)
+		* 4 Players: Remove all ScoutCards with "9" as one number and "10" as the other (1 card total)
+		* 5 Players: Don't remove any cards
+	
+SECTION: Gameplay
+
+PlayGame: Verb
+	ChooseFirstPlayer
+	Repeat equal to number of Players:
+		SetupRound
+		PlayRound
+		ScoreRound
+		CleanupRound
+		FirstPlayer for the next round is the next Player clockwise from the current FirstPlayer
+
+SetupRound: Verb
+	Gather all VPTokens together to create the VPPile
+	Give a DoubleActionMarker to each Player
+	Shuffle ScoutDeck
+	Deal all the cards in the ScoutDeck to the Players
+		! Players should not look at the cards as they are being dealt
+	Optional: RotateHandOrientation
+	! You many not change the order of ScoutCards in your Hand
+
+RotateHandOrientation: Verb
+	Rotate all the cards in your Hand without changing the order
+	// This changes all the BottomNumbers to be TopNumbers and vice-versa
+	! All the cards must be rotated - you cannot rotate a subset
+	
+PlayRound: Verb
+	Repeat until RoundOver:
+		PlayerTurn
+		NextPlayerClockwise
+
+RoundOver: Condition
+	Any of:
+		A Player has run out of cards
+		The PriorSet for your turn was created by you on your last turn
+			// Which means it went all the way around the table without being replaced
+
+CleanupRound: Verb
+	For each Player:
+		Return any unused DoubleActionMarkers
+		Return all ScoutCards back to the ScoutDeck
+
+PlayerTurn: Verb
+	Choose one:
+		PlayCards
+		ScoutCard
+		DoubleAction
+
+PlayCards: Verb
+	Play a set of adjacent cards from your Hand that is MorePowerful than the PriorSet
+	Claim the cards from the PriorSet to add to your ScorePile
+	The set you played is now the PriorSet and you are the PriorSetOwner
+
+MorePowerful: Condition
+	A set of cards is more powerful than the PriorSet if any of:
+		There is no PriorSet (e.g., at the beginning of the round)
+		It contains more cards than the PriorSet
+		If it has the same number of cards:
+			It is a SetOfSameNumberCards vs a PriorSet with SetOfConsecutiveCards
+			If they are both the same type of set:
+				If the lowest card in the set is higher than the lowest card in the PriorSet
+
+ScoutCard: Verb
+	Give a VPToken (from the VPPile) to the PriorSetOwner
+		! NotComponentLimited
+	Take 1 card from either end of the PriorSet into your Hand
+	! You may not take a card from the middle of the PriorSet
+	! When adding the card to your Hand, you may insert the card anywhere
+	! You may rotate the card before adding it to your Hand
+
+DoubleAction: Verb
+	Discard your DoubleActionMarker
+	ScoutCard
+	PlayCards
+
+ScoreRound: Verb
+	Adjust your Score as follows:
+		Add 1 VP for each card in your ScorePile
+		Add 1 VP for each VPToken you have
+		Subtract 1 VP for each ScoutCard in your Hand
+	! The Player that triggered the RoundOver condition does not subtract VPs because of cards in Hand
+
+SECTION: Endgame Scoring
+
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	! ShareVictoryIfTieScore

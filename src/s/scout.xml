@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="scout">
+<name>
+	<title>Scout!</title>
+</name>
+<designers>
+	<designer>Kei Kajino</designer>
+</designers>
+<general>
+	<published year="2019" />
+	<age min="9" />
+	<players min="3" max="5" />
+	<time min="15" max="15" />
+</general>
+<bgg id="291453">
+	<weight date="2022-10-14" avg="1.31" />
+</bgg>
+<complexity>
+	<edition>One More Game! 2019 - 2nd edition</edition>
+	<score cost="49">
+		<section name="Vocabulary" cost="12" />
+		<section name="Setup" cost="1" />
+		<section name="Gameplay" cost="36" />
+		<section name="Endgame Scoring" cost="0" />
+	</score>
+	<export>true</export>
+</complexity>
+</game>
