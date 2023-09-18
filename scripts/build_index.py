@@ -38,7 +38,7 @@ class IndexBuilder:
 			for id, d in self.games.items():
 				if d.export_csv == "true":
 					title = d.title
-					if d.subtitle:
+					if d.subtitle and d.subtitle_in_index:
 						title += " " + d.subtitle
 					bgg = str(d.bgg_weight)
 					if bgg == "-":
@@ -74,7 +74,7 @@ class IndexBuilder:
 			for id in sorted(gameGroups[scoreGroup]):
 				info = self.games[id]
 				title = info.title
-				subtitle = info.subtitle
+				subtitle = info.subtitle if info.subtitle_in_index else None
 				parent = info.parent
 				score = info.getScore()
 				self.writeListEntry(out, id, title, subtitle, score)
@@ -82,7 +82,7 @@ class IndexBuilder:
 					for idChild in self.children[id]:
 						infoChild = self.games[idChild]
 						title = infoChild.title
-						subtitle = infoChild.subtitle
+						subtitle = infoChild.subtitle if infoChild.subtitle_in_index else None
 						parent = infoChild.parent
 						scoreChild = infoChild.getScore()
 						self.writeListEntry(out, idChild, title, subtitle, scoreChild, parentScore=score)

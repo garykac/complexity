@@ -53,6 +53,9 @@ class Attr:
 	# <game>,<bgg>
 	ID = "id"
 
+	# <name> : <subtitle>
+	SHOWININDEX = "show-in-index"
+	
 	# <general> : <published>
 	YEAR = "year"
 	
@@ -76,6 +79,7 @@ class GameInfo:
 		# Name
 		self.title = None
 		self.subtitle = None
+		self.subtitle_in_index = True
 		self.parent = None
 
 		self.designers = []
@@ -186,7 +190,12 @@ class GameInfo:
 		fp.write(f"<{Tag.NAME}>\n")
 		fp.write(f"\t<{Tag.TITLE}>{escapeXmlEntities(self.title)}</{Tag.TITLE}>\n")
 		if self.subtitle:
-			fp.write(f"\t<{Tag.SUBTITLE}>{escapeXmlEntities(self.subtitle)}</{Tag.SUBTITLE}>\n")
+			fp.write(f"\t<{Tag.SUBTITLE}")
+			if not self.subtitle_in_index:
+				fp.write(f' {Attr.SHOWININDEX}="false"')
+			fp.write(">")
+			fp.write(escapeXmlEntities(self.subtitle))
+			fp.write(f"</{Tag.SUBTITLE}>\n")
 		if self.parent:
 			fp.write(f"\t<{Tag.PARENT}>{self.parent}</{Tag.PARENT}>\n")
 		fp.write(f"</{Tag.NAME}>\n")
@@ -300,6 +309,8 @@ class GameInfo:
 					self.title = el.text
 				case Tag.SUBTITLE:
 					self.subtitle = el.text
+					if Attr.SHOWININDEX in el.attrib:
+						self.subtitle_in_index = el.attrib[Attr.SHOWININDEX] != "false"
 				case Tag.PARENT:
 					self.parent = el.text
 				case _:
