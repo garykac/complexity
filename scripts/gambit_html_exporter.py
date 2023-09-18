@@ -53,7 +53,7 @@ class GambitHtmlExporter:
 		out.write('</head>\n')
 		out.write('<body>\n')
 		out.write('<div class="container">\n')
-		out.write(f'<div class="title">{htmlify(self.gameInfo.title)}</div>\n')
+		out.write(f'<div class="title">{htmlify(self.gameTitle)}</div>\n')
 		subtitle = self.gameInfo.subtitle
 		if subtitle:
 			out.write(f'<div class="subtitle">{htmlify(self.gameInfo.subtitle)}</div>\n')
