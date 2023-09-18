@@ -17,7 +17,7 @@ class GambitHtmlExporter:
 	def __init__(self, parser, gameInfo):
 		self.parser = parser
 		self.gameInfo = gameInfo
-		self.gameTitle = parser.gameTitle
+		self.gameTitle = gameInfo.title
 		self.maxIndent = parser.maxIndent
 
 		self.calc = parser.calc
