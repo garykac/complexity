@@ -2,6 +2,7 @@
 1830-noprivates
 1830-starter
 automobiles
+cant-stop_
 catan
 checkers
 crazy-eights-28
