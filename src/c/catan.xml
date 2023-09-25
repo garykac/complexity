@@ -18,6 +18,7 @@
 <bgg id="13">
 	<weight date="2022-10-12" avg="2.31" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Catan Studio 5th edition 2020</edition>
 	<score cost="111">
@@ -25,6 +26,5 @@
 		<section name="Setup" cost="13" />
 		<section name="Gameplay" cost="57" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

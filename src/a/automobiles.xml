@@ -15,6 +15,7 @@
 <bgg id="180680">
 	<weight date="2022-10-11" avg="2.20" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Alderac Entertainment Group 2015</edition>
 	<score cost="108">
@@ -23,6 +24,5 @@
 		<section name="Gameplay" cost="47" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

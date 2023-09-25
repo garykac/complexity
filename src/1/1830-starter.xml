@@ -21,6 +21,7 @@
 <bgg>
 	<weight avg="-" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Mayfair Games 2011</edition>
 	<score cost="133">
@@ -29,6 +30,5 @@
 		<section name="Gameplay" cost="78" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

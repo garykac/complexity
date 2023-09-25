@@ -15,6 +15,7 @@
 <bgg id="173064">
 	<weight date="2022-10-11" avg="3.72" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>The Lumenaris Group 2015</edition>
 	<score cost="323">
@@ -23,6 +24,5 @@
 		<section name="Gameplay" cost="207" />
 		<section name="EndGame Scoring" cost="3" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

@@ -17,6 +17,7 @@
 <bgg id="307002">
 	<weight date="2022-10-11" avg="1.91" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Badgers From Mars 2020</edition>
 	<score cost="74">
@@ -25,6 +26,5 @@
 		<section name="Gameplay" cost="54" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

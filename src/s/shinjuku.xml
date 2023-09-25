@@ -15,6 +15,7 @@
 <bgg id="286690">
 	<weight date="2022-10-14" avg="2.0" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<score cost="106">
 		<section name="Vocabulary" cost="33" />
@@ -22,6 +23,5 @@
 		<section name="Gameplay" cost="50" />
 		<section name="Endgame Scoring" cost="8" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

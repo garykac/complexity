@@ -16,6 +16,7 @@
 <bgg id="254640">
 	<weight date="2022-10-11" avg="1.05" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Sombreros Production 2018</edition>
 	<score cost="48">
@@ -24,6 +25,5 @@
 		<section name="Gameplay" cost="33" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

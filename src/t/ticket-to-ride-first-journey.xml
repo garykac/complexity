@@ -16,6 +16,7 @@
 <bgg id="205125">
 	<weight date="2023-09-10" avg="1.42" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Days of Wonder 2017</edition>
 	<score cost="44">
@@ -24,6 +25,5 @@
 		<section name="Gameplay" cost="16" />
 		<section name="Endgame Scoring" cost="6" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

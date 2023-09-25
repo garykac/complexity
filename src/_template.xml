@@ -20,6 +20,7 @@
 <bgg id="">
 	<weight date="" avg="" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition></edition>
 	<score></score>

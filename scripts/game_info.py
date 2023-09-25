@@ -40,11 +40,13 @@ class Tag:
 	
 	# BGG
 	WEIGHT = "weight"          # ATTR = "date", "avg"
-	
+
+	# Export
+	EXPORT = "export"
+
 	# Complexity
 	EDITION = "edition"
 	SCORE = "score"
-	EXPORT = "export"
 
 	# Score
 	SECTION = "section"
@@ -66,6 +68,10 @@ class Attr:
 	# <bgg> : <weight>
 	DATE = "date"
 	AVG = "avg"
+	
+	# <export>
+	HTML = "html"
+	CSV = "csv"
 	
 	# <complexity> : <score>
 	NAME = "name"
@@ -104,7 +110,10 @@ class GameInfo:
 		# Complexity
 		self.edition = None
 		self.score_data = None
-		self.export_csv = False
+		
+		# Export
+		self.export_html = "false"
+		self.export_csv = "false"
 
 		self.basepath = os.path.join(self.id[0], self.id)
 		self.filepath = os.path.join(SRC_DIR, self.basepath)
@@ -175,13 +184,14 @@ class GameInfo:
 				id = id[:-1]
 
 			fp.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-			fp.write(f'<{Tag.GAME} id="{id}">\n')
+			fp.write(f'<{Tag.GAME} {Attr.ID}="{id}">\n')
 
 			self.save_name(fp)
 			self.save_designers(fp)
 			self.save_general(fp)
 			self.save_notes(fp)
 			self.save_bgg(fp)
+			self.save_export(fp)
 			self.save_complexity(fp)
 
 			fp.write(f"</{Tag.GAME}>\n")
@@ -249,6 +259,12 @@ class GameInfo:
 
 		fp.write(f'</{Tag.BGG}>\n')
 
+	def save_export(self, fp):
+		fp.write(f'<{Tag.EXPORT}')
+		fp.write(f' {Attr.HTML}="{self.export_html}"')
+		fp.write(f' {Attr.CSV}="{self.export_csv}"')
+		fp.write(' />\n')
+
 	def save_complexity(self, fp):
 		fp.write(f"<{Tag.COMPLEXITY}>\n")
 		if self.edition:
@@ -269,7 +285,6 @@ class GameInfo:
 		
 		fp.write(f'\t</{Tag.SCORE}>\n')
 
-		fp.write(f"\t<{Tag.EXPORT}>{self.export_csv}</{Tag.EXPORT}>\n")
 		fp.write(f"</{Tag.COMPLEXITY}>\n")
 
 	def load(self):
@@ -296,6 +311,8 @@ class GameInfo:
 					self.load_notes(el)
 				case Tag.BGG:
 					self.load_bgg(el)
+				case Tag.EXPORT:
+					self.load_export(el)
 				case Tag.COMPLEXITY:
 					self.load_complexity(el)
 				case _:
@@ -403,6 +420,16 @@ class GameInfo:
 						self.bgg_weight_date = el.attrib[Attr.DATE]
 				case _:
 					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.BGG}>")
+
+	def load_export(self, elRoot):
+		for attrName, attrValue in elRoot.attrib.items():
+			match attrName:
+				case Attr.HTML:
+					self.export_html = attrValue
+				case Attr.CSV:
+					self.export_csv = attrValue
+				case _:
+					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.EXPORT}>")
 
 	def load_complexity(self, elRoot):
 		for el in elRoot:

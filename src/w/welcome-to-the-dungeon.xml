@@ -19,6 +19,7 @@
 <bgg id="150312">
 	<weight date="2022-10-11" avg="1.23" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Iello Games 2015</edition>
 	<score cost="42">
@@ -27,6 +28,5 @@
 		<section name="Gameplay" cost="21" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

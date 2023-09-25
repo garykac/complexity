@@ -16,6 +16,7 @@
 <bgg id="875">
 	<weight date="2022-10-11" avg="4.19" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Splotter Spellen 2003 - 3rd edition</edition>
 	<score cost="313">
@@ -30,6 +31,5 @@
 			<section name="Endgame Scoring" cost="8" />
 		</section>
 	</score>
-	<export>true</export>
 </complexity>
 </game>

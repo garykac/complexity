@@ -15,6 +15,7 @@
 <bgg id="12942">
 	<weight date="2022-10-11" avg="1.14" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Z-Man Games 2005</edition>
 	<score cost="22">
@@ -23,6 +24,5 @@
 		<section name="Gameplay" cost="8" />
 		<section name="Endgame Scoring" cost="5" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>

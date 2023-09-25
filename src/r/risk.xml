@@ -15,6 +15,7 @@
 <bgg id="181">
 	<weight date="2022-10-11" avg="2.07" />
 </bgg>
+<export html="false" csv="true" />
 <complexity>
 	<edition>Hasbro 2010</edition>
 	<score cost="67">
@@ -23,6 +24,5 @@
 		<section name="Gameplay" cost="42" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
-	<export>true</export>
 </complexity>
 </game>
