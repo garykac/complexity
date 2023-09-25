@@ -10,6 +10,7 @@ from game_list_manager import GameListManager
 
 SRC_DIR = "../src"
 HTML_OUTPUT_FILE = "../index.html"
+HTML_FULL_OUTPUT_FILE = "../index_full.html"
 CSV_OUTPUT_FILE = "../data.csv"
 
 def error(msg):
@@ -24,14 +25,15 @@ class IndexBuilder:
 		self.buckets = [29, 59, 99, 199, 299]
 		self.gameMgr = GameListManager()
 		
-	def loadGames(self):
+	def loadGames(self, allGames = False):
 		self.games = {}
 		self.gameData = {}
 		for (gameId, d) in self.gameMgr.nextGame():
-			self.games[gameId] = d
-			parentId = d.parent
-			if parentId:
-				self.children[parentId] = [ gameId ]
+			if allGames or d.export_html == "true":
+				self.games[gameId] = d
+				parentId = d.parent
+				if parentId:
+					self.children[parentId] = [ gameId ]
 
 	def writeCsvData(self):
 		with open(CSV_OUTPUT_FILE, 'w') as fp:
@@ -89,9 +91,9 @@ class IndexBuilder:
 
 		self.writeListFooter(out)
 
-	def writeHtml(self):
+	def writeHtml(self, outputFilename):
 		bucketStart = 1
-		with open(HTML_OUTPUT_FILE, 'w') as out:
+		with open(outputFilename, 'w') as out:
 			self.writeHtmlHeader(out)
 			for bMax in self.buckets:
 				self.writeBucket(out, bucketStart, bMax)
@@ -143,8 +145,14 @@ class IndexBuilder:
 		out.write('</html>\n')
 
 	def build(self):
+		# Write public index file.
 		self.loadGames()
-		self.writeHtml()
+		self.writeHtml(HTML_OUTPUT_FILE)
+
+		# Write full (all games) index file.
+		self.loadGames(True)
+		self.writeHtml(HTML_FULL_OUTPUT_FILE)
+
 		self.writeCsvData()
 
 def htmlify(str):
