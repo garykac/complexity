@@ -8,6 +8,7 @@ import re
 from gambit import LinePrefix, LineType, RegEx
 from gambit_token import TokenType
 from gambit_tokenizer import GambitTokenizer
+from log import Log
 
 from typing import List
 from typing import Optional
@@ -100,7 +101,7 @@ class GambitLineInfo:
 		if len(keywords) == 2:
 			info.altKeyword = keywords[1]
 		elif len(keywords) > 2:
-			raise Exception(f"Unexpected keyword group {'|'.join(keywords)}")
+			Log.error(f"Unexpected keyword group {'|'.join(keywords)}", lineNum)
 
 		info.parent = None
 		info.types = [defType]
@@ -130,7 +131,8 @@ class GambitLineInfo:
 			cost = 0
 
 		if indent == 0:
-			raise Exception(f"Invalid line: {line}")
+			Log.line(lineNum, line)
+			Log.error(f"Invalid line", lineNum)
 
 		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.DESC)
 		info.cost = cost
@@ -166,7 +168,7 @@ class GambitLineInfo:
 
 		elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
 			#self.vocab.parser.error("Unhandled type in extractAllReferences: {0:s}".format(type))
-			raise Exception(f"Unhandled type in extractAllReferences: {type}")
+			Log.errorInternal(f"Unhandled type in extractAllReferences: {type}", self.lineNum)
 
 		return currDef
 	
@@ -213,11 +215,11 @@ class GambitLineInfo:
 			else:
 				# Verify capitalized words.
 				if firstWord and re.match(r'[A-Z].*[A-Z].*', word0):
-					raise Exception(f'Unable to find definition for "{word0}"')
-					#vocab.parser.errorLine(f"Unable to find definition for '{word0}'", lineNum)
+					Log.line(lineNum, line)
+					Log.error(f'Unable to find definition for "{word0}"', lineNum)
 				elif not firstWord and word0[0].isupper():
-					raise Exception(f'Unable to find definition for "{word0}"')
-					#vocab.parser.errorLine(f"Unable to find definition for '{word0}'", lineNum)
+					Log.line(lineNum, line)
+					Log.error(f'Unable to find definition for "{word0}"', lineNum)
 				newWords.append(word)
 
 			firstWord = False

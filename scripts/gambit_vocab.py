@@ -9,6 +9,7 @@ import traceback
 from gambit import LineType, VocabType
 from gambit_line_processor import GambitLineProcessor
 from gambit_tokenizer import GambitTokenizer
+from log import Log
 
 from typing import Optional, List, Union
 
@@ -22,9 +23,7 @@ STANDARD_TERMS = [
 
 class GambitVocab:
 	"""Vocabulary manager for a GambitParser."""
-	def __init__(self, parser):
-		self.parser = parser
-
+	def __init__(self):
 		self.vocab: dict[str, list] = {}
 		
 		# Dictionary that maps plurals to the normalized form.
@@ -52,10 +51,7 @@ class GambitVocab:
 	def loadImportableTerms(self, import_file) -> None:
 		with open(import_file, 'r') as file:
 			for line in file:
-				try:
-					lineinfo = GambitLineProcessor.processLine(0, line)
-				except Exception as ex:
-					self.parser.errorLine(str(ex))
+				lineinfo = GambitLineProcessor.processLine(0, line)
 
 				if lineinfo:
 					if lineinfo.lineType == LineType.DEF:
@@ -134,7 +130,7 @@ class GambitVocab:
 	def importTerms(self, terms):
 		for t in terms:
 			if not t in self.importable:
-				self.errorLine(f"Unknown term for import: {t}")
+				Log.error(f"Unknown term for import: {t}")
 			keyword = t
 			plural = self.importable[t]
 			self.addImport(keyword, plural)
@@ -170,8 +166,6 @@ class GambitVocab:
 			if self.vocab[k][0] == VocabType.LOCAL and len(v) == 0:
 				# Allow local definitions to overwrite imported defs.
 				if not k in self.old_imports:
-					msg = f"Term is defined but never referenced: {k}"
-					self.parser.warning(msg)
+					Log.warning(f"Term is defined but never referenced: {k}")
 			if self.vocab[k][0] == VocabType.IMPORT and len(v) == 0:
-				msg = f"Term is imported but never referenced: {k}"
-				self.parser.warning(msg)
+				Log.warning(f"Term is imported but never referenced: {k}")

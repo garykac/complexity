@@ -12,7 +12,7 @@ class GambitLineProcessor:
 		pass
 	
 	@staticmethod
-	def calcIndent(str: str) -> int:
+	def calcIndent(lineNum: int, str: str) -> int:
 		m = re.match("(\t+)", str)
 		if m:
 			return len(m.group(1))
@@ -22,7 +22,8 @@ class GambitLineProcessor:
 			if numSpaces % TAB_SIZE == 0:
 				return int(numSpaces / TAB_SIZE)
 			else:
-				raise Exception(f"Invalid leading whitespace. Use tabs or {TAB_SIZE} spaces.")
+				Log.line(lineNum, str)
+				Log.error(f"Invalid leading whitespace. Use tabs or {TAB_SIZE} spaces.", lineNum)
 		return 0
 
 	@staticmethod
@@ -51,7 +52,7 @@ class GambitLineProcessor:
 			comment = m.group(2)
 		comment = comment.strip()
 		if line.strip() == "":
-			indent = GambitLineProcessor.calcIndent(line)
+			indent = GambitLineProcessor.calcIndent(lineNum, line)
 			return GambitLineInfo.comment(lineNum, indent, comment)
 		line = line.rstrip()
 
@@ -73,7 +74,7 @@ class GambitLineProcessor:
 			keywords = keyword.split('|')
 			return GambitLineInfo.definition(lineNum, keywords, type, comment)
 
-		indent = GambitLineProcessor.calcIndent(line)
+		indent = GambitLineProcessor.calcIndent(lineNum, line)
 		line = line.strip()
 
 		if line.startswith(LinePrefix.CONSTRAINT):

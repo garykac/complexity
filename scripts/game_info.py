@@ -4,7 +4,7 @@
 import os
 import re
 
-import xml.etree.ElementTree as ET
+from log import Log
 from xml.etree.ElementTree import Element
 from xml.etree.ElementTree import ElementTree
 
@@ -293,10 +293,10 @@ class GameInfo:
 		root = tree.getroot()
 		
 		#if not Attr.ID in root.attrib:
-		#	raise Exception(f"Missing game id in {self.infopath}")
+		#	Log.error(f"Missing game id in {self.infopath}")
 		#id = root.attrib[Attr.ID]
 		#if self.id != id and self.id != f"{id}_":
-		#	raise Exception(f"Game id doesn't match: {self.id} != {id} in {self.infopath}")
+		#	Log.error(f"Game id doesn't match: {self.id} != {id} in {self.infopath}")
 				
 		for el in root:
 			(ns, tag) = splitTag(el.tag)
@@ -316,7 +316,7 @@ class GameInfo:
 				case Tag.COMPLEXITY:
 					self.load_complexity(el)
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath}")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath}")
 
 	def load_name(self, elRoot):
 		for el in elRoot:
@@ -331,7 +331,7 @@ class GameInfo:
 				case Tag.PARENT:
 					self.parent = el.text
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.NAME}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.NAME}>")
 
 	def load_designers(self, elRoot):
 		for el in elRoot:
@@ -340,7 +340,7 @@ class GameInfo:
 				case Tag.DESIGNER:
 					self.designers.append(el.text)
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.DESIGNERS}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.DESIGNERS}>")
 
 	def load_general(self, elRoot):
 		for el in elRoot:
@@ -355,7 +355,7 @@ class GameInfo:
 				case Tag.TIME:
 					self.load_time(el)
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.GENERAL}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.GENERAL}>")
 
 	def load_published(self, elPublished):
 		for attrName, attrValue in elPublished.attrib.items():
@@ -363,7 +363,7 @@ class GameInfo:
 				case Attr.YEAR:
 					self.year = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.PUBLISHED}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.PUBLISHED}>")
 
 	def load_age(self, elAge):
 		for attrName, attrValue in elAge.attrib.items():
@@ -371,7 +371,7 @@ class GameInfo:
 				case Attr.MIN:
 					self.age = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.AGE}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.AGE}>")
 
 	def load_players(self, elPlayers):
 		for attrName, attrValue in elPlayers.attrib.items():
@@ -381,7 +381,7 @@ class GameInfo:
 				case Attr.MAX:
 					self.players_max = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.PLAYERS}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.PLAYERS}>")
 
 	def load_time(self, elTime):
 		for attrName, attrValue in elTime.attrib.items():
@@ -391,7 +391,7 @@ class GameInfo:
 				case Attr.MAX:
 					self.time_max = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.TIME}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.TIME}>")
 
 	def load_notes(self, elRoot):
 		for el in elRoot:
@@ -400,7 +400,7 @@ class GameInfo:
 				case Tag.P:
 					self.notes.append(el.text)
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.NOTES}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.NOTES}>")
 
 	def load_bgg(self, bggRoot):
 		for attrName, attrValue in bggRoot.attrib.items():
@@ -408,7 +408,7 @@ class GameInfo:
 				case Attr.ID:
 					self.bgg_id = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.BGG}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.BGG}>")
 
 		for el in bggRoot:
 			(ns, tag) = splitTag(el.tag)
@@ -419,7 +419,7 @@ class GameInfo:
 					if Attr.DATE in el.attrib:
 						self.bgg_weight_date = el.attrib[Attr.DATE]
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.BGG}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.BGG}>")
 
 	def load_export(self, elRoot):
 		for attrName, attrValue in elRoot.attrib.items():
@@ -429,7 +429,7 @@ class GameInfo:
 				case Attr.CSV:
 					self.export_csv = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.EXPORT}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.EXPORT}>")
 
 	def load_complexity(self, elRoot):
 		for el in elRoot:
@@ -442,7 +442,7 @@ class GameInfo:
 				case Tag.EXPORT:
 					self.export_csv = el.text
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.COMPLEXITY}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.COMPLEXITY}>")
 
 	def load_score(self, elRoot):
 		score = None
@@ -451,7 +451,7 @@ class GameInfo:
 				case Attr.COST:
 					score = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SCORE}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SCORE}>")
 		
 		sections = []
 		for el in elRoot:
@@ -460,7 +460,7 @@ class GameInfo:
 				case Tag.SECTION:
 					sections.append(self.load_section(el))					
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.SCORE}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.SCORE}>")
 
 		self.score_data = [score, sections]
 
@@ -474,7 +474,7 @@ class GameInfo:
 				case Attr.COST:
 					cost = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SECTION}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SECTION}>")
 
 		subs = []
 		for el in elRoot:
@@ -483,7 +483,7 @@ class GameInfo:
 				case Tag.SECTION:
 					subs.append(self.load_subsection(el))
 				case _:
-					raise Exception(f"Unknown tag '{tag}' in {self.infopath} <{Tag.SECTION}>")
+					Log.error(f"Unknown tag '{tag}' in {self.infopath} <{Tag.SECTION}>")
 		return [name, cost, subs]
 
 	def load_subsection(self, elRoot):
@@ -496,7 +496,7 @@ class GameInfo:
 				case Attr.COST:
 					cost = attrValue
 				case _:
-					raise Exception(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SECTION}>")
+					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.SECTION}>")
 		return [name, cost]
 
 def escapeXmlEntities(s):

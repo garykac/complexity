@@ -10,6 +10,7 @@ from gambit import LineType
 from gambit_calc import GambitCalc
 from gambit_line_processor import GambitLineProcessor
 from gambit_vocab import GambitVocab
+from log import Log
 
 from typing import Optional, List, Union
 
@@ -24,7 +25,6 @@ class GambitParser:
 		self.verbose: bool = False
 		self.useWarnings: bool = False
 		self.warnOnTodo: bool = False
-		self.quitOnError: bool = False
 
 		if 'warnings' in options:
 			self.useWarnings = options['warnings']
@@ -40,8 +40,8 @@ class GambitParser:
 
 		self.currentDir: Optional[str] = None
 	
-		self.vocab = GambitVocab(self)
-		self.calc = GambitCalc(self, self.vocab)
+		self.vocab = GambitVocab()
+		self.calc = GambitCalc(self.vocab)
 
 	def loadImportableTerms(self, importFile) -> None:
 		self.vocab.loadImportableTerms(importFile)
@@ -57,23 +57,21 @@ class GambitParser:
 		elif self.lineNum > 0:
 			num = self.lineNum
 		if num > 0:
-			print(f"LINE {num}: {self.lines[num-1]}")
+			Log.line(num, self.lines[num-1])
 		self.error(msg)
 
 	def error(self, msg: str) -> None:
-		print(f"ERROR: {msg}")
-		#traceback.print_exc()
-		if self.quitOnError:
-			sys.exit(0)
-		raise Exception(msg)
+		Log.error(msg)
 
 	def warning(self, msg: str) -> None:
 		if not self.useWarnings:
 			self.error(msg)
-		print(f"WARNING: {msg}")
+		Log.warning(msg)
 
 	def warningLine(self, msg: str) -> None:
-		print(f"WARNING {self.lineNum}: {msg}")
+		num = self.lineNum
+		Log.line(num, self.lines[num-1])
+		Log.warning(msg, num)
 
 	# ==========
 	# Calculating costs.
@@ -107,10 +105,7 @@ class GambitParser:
 		self.lineNum += 1
 		self.lines.append(line.rstrip())
 
-		try:
-			lineinfo = GambitLineProcessor.processLine(self.lineNum, line)
-		except Exception as ex:
-			self.errorLine(str(ex))
+		lineinfo = GambitLineProcessor.processLine(self.lineNum, line)
 		
 		# |lineinfo| is GambitLineInfo.
 		self.lineInfo.append(lineinfo)

@@ -10,6 +10,7 @@ from gambit import LineType, SectionName
 from gambit_line_processor import GambitLineProcessor
 from gambit_tokenizer import GambitTokenizer
 from gambit_vocab import GambitVocab
+from log import Log
 
 from typing import Optional, List, Union
 
@@ -41,8 +42,7 @@ STANDARD_TERMS = [
 
 class GambitCalc:
 	"""Cost calculations for Gambit (.gm) files."""
-	def __init__(self, parser, vocab):
-		self.parser = parser
+	def __init__(self, vocab):
 		self.vocab = vocab
 		
 		self.costTotal: int = 0
@@ -103,7 +103,7 @@ class GambitCalc:
 				# TODO: Better detection of possible missing imports.
 				# This will only catch it if the import is the only thing on the line.
 				if (not zeroCost) and self.vocab.isImportable(line):
-					self.parser.warning(f"Possibly missing import for {line}")
+					Log.warning(f"Possibly missing import for {line}", r.lineNum)
 
 				# Handle special cases with Vocab
 				words = GambitTokenizer.split(line)
@@ -136,13 +136,13 @@ class GambitCalc:
 					currDefCost += 1
 			
 			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SUBSECTION, LineType.BLANK]:
-				self.parser.error(f"Unhandled type in updateCosts: {type}")
+				Log.errorInternal(f"Unhandled type in updateCosts: {type}")
 
 	# Return true if the DEF at the given index has at least one DESC
 	# associated with it.
 	def defHasDesc(self, lineInfo, iDef):
 		if not lineInfo[iDef].lineType in [LineType.DEF, LineType.TEMPLATE]:
-			self.parser.error(f"Not a DEF on line {iDef}: {lineInfo[iDef].lineType}")
+			Log.errorInternal(f"Not a DEF on line {iDef}: {lineInfo[iDef].lineType}")
 		maxLines = len(lineInfo)
 		i = iDef + 1
 		# Look ahead to search for DESC lines that follow the DEF.
@@ -154,7 +154,7 @@ class GambitCalc:
 			if type == LineType.DESC and r.indent == 1:
 				return True
 			if not type in [LineType.COMMENT, LineType.SECTION, LineType.SUBSECTION, LineType.CONSTRAINT]:
-				self.parser.error(f"Unhandled type in defHasDesc: {type}")
+				Log.errorInternal(f"Unhandled type in defHasDesc: {type}")
 			i += 1
 		return False
 	
@@ -194,7 +194,7 @@ class GambitCalc:
 				cost = 0
 
 			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
-				self.parser.error(f"Unhandled type in calcTotalCost: {type}")
+				Log.errorInternal(f"Unhandled type in calcTotalCost: {type}")
 		
 		# Record cost for last section.
 		if currentSection:

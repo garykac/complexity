@@ -9,6 +9,7 @@ from gambit import LineType, VocabType
 from gambit_line_info import GambitLineInfo
 from gambit_line_processor import GambitLineProcessor
 from gambit_token import TokenType
+from log import Log
 
 GM_CSS_PATH = "gm.css"
 
@@ -265,7 +266,7 @@ class GambitHtmlExporter:
 			elif type == LineType.NAME:
 				continue
 			elif not type in [LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC]:
-				raise Exception(f"Unrecognized type in writeTableRows: {type}")
+				Log.errorInternal(f"Unrecognized type in writeTableRows: {type}")
 
 			if rowclass:
 				row = f'<tr class="{rowclass}">'
@@ -372,7 +373,7 @@ class GambitHtmlExporter:
 					else:
 						newWords.append(f'{prefix}<a class="keyword" href="#{canonicalForm}">{word}</a>{postfix}')
 				else:
-					raise Exception(f'Unknown token type: {ttype}')
+					Log.errorInternal(f'Unknown token type: {ttype}')
 			else:
 				newWords.append(t)
 
