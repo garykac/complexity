@@ -148,10 +148,7 @@ class GambitParser:
 		basename = self.convertInitialCapsToHyphenated(basename) + ".gm"
 		with open(os.path.join(self.currentDir, dirname, basename[0], basename), 'r') as file:
 			for line in file:
-				try:
-					lineinfo: GambitLineInfo = GambitLineProcessor.processLine(self.lineNum, line)
-				except Exception as ex:
-					self.errorLine(str(ex))
+				lineinfo: GambitLineInfo = GambitLineProcessor.processLine(self.lineNum, line)
 
 				if lineinfo:
 					type = lineinfo.lineType
@@ -159,6 +156,10 @@ class GambitParser:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
 						self.vocab.addGameImport(keyword, plural, name)
+					elif type == LineType.VALUES:
+						items = [x.strip() for x in lineinfo.line.split(',')]
+						for i in items:
+							self.vocab.addGameImport(i, None, name)
 	
 	def convertInitialCapsToHyphenated(self, name):
 		matches = [m.start(0) for m in re.finditer("[A-Z]", name)]

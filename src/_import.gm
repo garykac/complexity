@@ -1,6 +1,6 @@
-// ====
-// Game
-// ====
+// ========================
+// Standard Game Vocabulary
+// ========================
 
 Box: Noun
 
@@ -13,18 +13,24 @@ FirstPlayer: Noun
 
 Score: Noun
 
+// ===================
+// Standard Game Verbs
+// ===================
+// These are the 3 verbs that every game should provide a definition for.
+
 Setup: Verb
 	Steps to setup game before play
 	
 PlayGame: Verb
 	Playing the game
 	
-CalculateScore: Verb
-	How each Player calculates their score
-	
 DetermineWinner: Verb
 	Determining the overall winner of the game
 	
+// =================
+// Common Game Verbs
+// =================
+
 Pass: Verb
 	Voluntarily skip your turn or choose not to perform an action
 
@@ -50,6 +56,9 @@ ShareVictoryIfTieScore: Verb
 	If multiple Players have the same Score:
 		Share the victory
 
+DecidedByEndgameTrigger: Verb
+	The endgame trigger in the PlayGame loop has already determined the winner. Nothing to do here.
+	
 // =========
 // Boardgame
 // =========
@@ -73,8 +82,8 @@ PlaceBoard: Verb
 	Place board on table
 
 ChoosePlayerComponents: Verb
-	Choose one of the available Players
-	Take all the components for that Player (usually identified by color)
+	Choose one of the available player colors (or symbol or however player pieces are distinguished)
+	Take all the components that match
 
 VictoryPoint: Noun
 
@@ -89,6 +98,9 @@ ScoringMarker: Noun
 	
 RecordPointsOnScoringTrack: Verb
 	Move your ScoringMarker forward or backward along the ScoringTrack to record the gain or loss of VictoryPoints
+
+// Assumptions
+// You may not use the pieces of another player
 
 // =========
 // Card Game
@@ -132,15 +144,23 @@ Reveal: Verb
 	Turn the Card face up so that all the Players can see
 
 DealCardToEachPlayer: Verb
-	Deal a Card to each Player
+	For each Player:
+		Deal a Card
 
-ReshuffleDiscardToRecreateDeck: Verb
+ReshuffleDiscardToRecreateDeck: Constraint
 	If the DrawDeck runs out of Cards:
 		Reshuffle the corresponding DiscardDeck to recreate the DrawDeck
 
-DrawAsManyAsPossibleIfNotEnough: Verb
+DrawAsManyAsPossibleIfNotEnough: Constraint
 	If there are not enough Cards in the DrawDeck to Draw the specified number of Cards:
 		Draw as many Cards as possible from the DrawDeck
+
+// Assumptions
+// Cards are discarded face-up in a discard pile
+// You may not look at other player's hands
+// You may re-order cards in your hand
+// You are allowed to look at cards as they're being dealt to you
+// You can flip/rotate cards in your hand to re-orient them
 
 // ====
 // Dice
@@ -165,33 +185,18 @@ Roll: Verb
 
 FrenchSuitDeck: Deck
 
-FrenchSuitCard: Noun
+FrenchSuitCard: Card
 
 Suit: Attribute of FrenchSuitCard
-
+	Values: Club, Diamond, Heart, Spade
+	
 Rank: Attribute of FrenchSuitCard
+	Values: Ace, Jack, Queen, King, Number<2-10>
 
 Color: Attribute of FrenchSuitCard
-
-Club: Suit
-
-Diamond: Suit
-
-Heart: Suit
-
-Spade: Suit
-
-Ace: Rank
-
-// 2-10 are standard values
-
-Jack: Rank
-
-Queen: Rank
-
-King: Rank
+	Values: Black, Red
 
 Joker: Card
 
-JQK: Noun
-	Jack, Queen or King
+FaceCard: FrenchSuitCard
+	Any of Jack, Queen or King

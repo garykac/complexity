@@ -54,10 +54,15 @@ class GambitVocab:
 				lineinfo = GambitLineProcessor.processLine(0, line)
 
 				if lineinfo:
-					if lineinfo.lineType == LineType.DEF:
+					type = lineinfo.lineType
+					if type == LineType.DEF:
 						keyword = lineinfo.keyword
 						plural = lineinfo.altKeyword
 						self.importable[keyword] = plural
+					elif type == LineType.VALUES:
+						items = [x.strip() for x in lineinfo.line.split(',')]
+						for i in items:
+							self.importable[i] = None
 
 	# ==========
 	# Vocabulary
