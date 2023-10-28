@@ -12,12 +12,12 @@
 <bgg id="2083">
 	<weight date="2022-10-11" avg="1.75" />
 </bgg>
-<export html="false" csv="true" />
+<export html="true" csv="true" />
 <complexity>
-	<score cost="25">
-		<section name="Vocabulary" cost="7" />
-		<section name="Setup" cost="2" />
-		<section name="Gameplay" cost="15" />
+	<score cost="27">
+		<section name="Vocabulary" cost="9" />
+		<section name="Setup" cost="4" />
+		<section name="Gameplay" cost="13" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>
 </complexity>

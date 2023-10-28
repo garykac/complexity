@@ -6,7 +6,7 @@ IMPORT: Player, NextPlayerClockwise, Pass
 IMPORT: Deck, Card, Hand, DiscardPile, Shuffle
 IMPORT: FrenchSuitDeck
 IMPORT: Suit, Club, Diamond, Heart, Spade
-IMPORT: Rank, JQK, Jack, Queen, King, Ace, Joker
+IMPORT: Rank, Jack, Queen, King, Ace, Joker, FaceCard
 
 SECTION: Vocabulary
 
@@ -167,7 +167,7 @@ HealFromDiscard: Verb
 	Place remaining cards back in DiscardPile
 
 InitEnemyAttack: Verb
-	Set EnemyAttack to CardValue (only JQK are relevant)
+	Set EnemyAttack to CardValue (only FaceCards are relevant)
 	
 InitEnemyHealth: Verb
 	Set EnemyHealth as follows:
@@ -176,7 +176,7 @@ InitEnemyHealth: Verb
 		* King: 40
 	
 PlayOrYield: Verb
-	Choose one:	
+	Choose one:
 		PlaySingleCard
 		PlayCombo
 		PlayJester
@@ -190,7 +190,7 @@ PlaySingleCard: Verb
 	You may add an AnimalCompanion
 	If you do:
 		Add 1 to the Rank
-		CombineSuitPower	
+		CombineSuitPower
 
 PlayCombo: Verb
 	Play a Combo

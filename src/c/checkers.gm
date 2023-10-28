@@ -2,78 +2,83 @@ NAME: Checkers
 
 SECTION: Assumptions
 
-IMPORT: Player, SwitchPlayer
+IMPORT: Player, SwitchPlayer, FirstPlayer
 IMPORT: Gameboard, ChoosePlayerComponents
 
 SECTION: Vocabulary
 
-Square: Part of Gameboard
-	// Squares can be Dark (Black) or Light (often Red).
-DarkSquare: Square	// where Color = Dark
-	! The light Squares on the Gameboard are not used
+CheckersBoard: Gameboard
+	An 8x8 grid of Squares, alternating Dark and Light
 
-KingRow: Part of Gameboard
-	// Row of Squares on the board furthest from the player.
+Square: Part of CheckersBoard
+SquareColor: Attribute of Square
+	Values: Dark, Light
+	! Only the Dark Squares are used in the game
+
+KingRow: Part of CheckersBoard
+	Row of Squares on the board closest to you
 
 Piece: Noun
-	// Player colors are Dark (Black) or Light (often Red).
+	Token used to indicate ownership of a Square
+Color: Attribute of Piece
+	Values: Black, Red
 
 Pawn: Piece
-	// Standard piece. 24 total: 12 pawns each for Dark, Light.
+	Standard piece that can only move forward
 
 King: Piece
-	// Upgraded piece: Traditionally, this isn't a separate piece - a King is created
-	// by stacking 2 Pawns on top of each other.
-	// However, that's just an implementation detail.
+	Upgraded piece that can move in any direction
+	// Traditionally, this isn't a separate piece - a King is created by stacking 2 Pawns on top of each other.
 
 SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	For each Player:
-		ChoosePlayerComponents
-			* Pawns
-		PlacePawns
+	ChoosePlayerComponents
+		* Pawns (and Kings if separate pieces)
+	InitializeBoard
+	Player with Black Pieces is the FirstPlayer
 
 PlaceBoard: Verb
-	Place Gameboard oriented so that a DarkSquare is in lower left corner for each Player
+	Place CheckersBoard oriented so that a Dark SquareColor is in lower left corner for the Players
 
-PlacePawns: Verb
-	Place your 12 Pawns on the DarkSquares closest to you (closest 3 rows)
+InitializeBoard: Verb
+	For each Player:
+		For each Dark Square in the 3 rows closest to you:
+			Place a Pawn of your Color
 
 SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat until a Player cannot MoveOrCapture:
-		MoveOrCapture
-		CheckForPromotion
+	Repeat until a Player cannot take their PlayerTurn, starting with the FirstPlayer:
+		PlayerTurn
+		CheckForKingPromotion
 		SwitchPlayer
-	! Player with the dark Pieces plays first
 
-MoveOrCapture: Verb
-	Choose one of the following:
+PlayerTurn: Verb
+	If you can CapturePiece:
+		CapturePiece
+	Otherwise:
 		MovePiece
-		Capture
-	! If you have a Capture available:
-		you must Capture
 
 MovePiece: Verb
-	Move a Piece diagonally into empty DarkSquare
-	! Pawns may only move forward (away from the Player)
+	Move a Piece diagonally into empty Dark Square
+	! Pawns may only move diagonally forward (away from the Player)
+	! Kings may move on any diagonal (forward or backward)
 
-Capture: Verb
-	Jump diagonally over a Piece into an empty DarkSquare on the opposite side
-	Remove the Piece that was jumped over from the game
-	If the Piece that was moved has another Capture available:
-		Capture
-	! You may only Capture an opponent's piece (not your own)	
-	! If you have multiple Captures available:
-		you may choose whichever
+CapturePiece: Verb
+	Jump diagonally over an opponent's Piece into an empty Dark Square on the opposite side
+	Remove the opponent's Piece that was jumped over from the game
+	If the Piece that was just moved can CapturePiece again:
+		CapturePiece
+	! If you have multiple CapturePiece options available:
+		You may choose whichever
 		// Note: Some variants differ and restrict the choice
+	! Pieces may CapturePiece only in the same direction that they can move
 
-CheckForPromotion: Verb
-	If you have a Pawn in your KingRow:
-		Replace that Pawn with a King
+CheckForKingPromotion: Verb
+	If you have a Pawn in your opponent's KingRow:
+		Replace that Pawn with one of your Kings
 
 SECTION: Endgame Scoring
 

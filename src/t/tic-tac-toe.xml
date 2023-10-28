@@ -4,7 +4,7 @@
 	<title>Tic Tac Toe</title>
 </name>
 <general>
-	<published year="-1300" />
+	<published year="1300BC" />
 	<age min="4" />
 	<players min="2" max="2" />
 	<time min="1" max="2" />
@@ -18,10 +18,10 @@
 <export html="true" csv="true" />
 <complexity>
 	<score cost="10">
-		<section name="Vocabulary" cost="3" />
+		<section name="Vocabulary" cost="4" />
 		<section name="Setup" cost="0" />
 		<section name="Gameplay" cost="6" />
-		<section name="Endgame Scoring" cost="1" />
+		<section name="Endgame Scoring" cost="0" />
 	</score>
 </complexity>
 </game>

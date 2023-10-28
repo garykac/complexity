@@ -4,42 +4,44 @@ SECTION: Assumptions
 
 IMPORT: Player, ChooseFirstPlayer, SwitchPlayer
 IMPORT: PlaceBoard, ChoosePlayerComponents
+IMPORT: DecidedByEndgameTrigger
 
 SECTION: Vocabulary
 
-Board: Noun
-	// 3x3 squares - Physical board
-Square: Part of Board
-	// 9 squares on the board
-Piece: Noun
-	// 10 total. 5 of each 'x' or 'o'
+TicTacToeBoard: Noun
+	Physical board with a 3x3 grid of Squares
+Square: Part of TicTacToeBoard
+
+TicTacToken: Noun
+	Token used to claim a space on the board
+Symbol: Attribute of TicTacToken
+	Either 'x' or 'o'
 
 SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChooseXO
-	ChooseFirstPlayer
-
-ChooseXO: Verb
 	ChoosePlayerComponents
-		* Choose side ('x' or 'o') and take pieces
+		* Each Player should choose a Symbol ('x' or 'o') and take pieces
+	ChooseFirstPlayer
 
 SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat the following:
-		Move Piece into an empty Square
-		CheckWin
+	Repeat until GameOver:
+		PlayerTurn
 		SwitchPlayer
-	! If no empty Square on Board:
-		End the game as tie
 
-CheckWin: Verb
-	If you have 3 of your Pieces in a row (horizontally, vertically or diagonally):
+GameOver: Condition
+	If there are 3 TicTacTokens with your Symbol in a line (horizontally, vertically or diagonally):
 		You win
+	If there are no more empty Squares on TicTacToeBoard:
+		Game ends as a tie
+
+PlayerTurn: Verb
+	Place a TicTacToken with your Symbol into an empty Square on the TicTacToeBoard
 
 SECTION: Endgame Scoring
 
 DetermineWinner: Verb
-	The Player who makes 3 in a row instantly wins.
+	DecidedByEndgameTrigger
