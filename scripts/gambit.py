@@ -20,6 +20,7 @@ class Keyword:
 class LinePrefix:
 	CONSTRAINT = "!"
 	LOOKUP_TABLE = "*"
+	VALUES = "Values:"
 
 # ==================
 # Internal constants
@@ -51,3 +52,4 @@ class LineType:
 	TEMPLATE = "TEMPLATE"
 	CONSTRAINT = "CONSTRAINT"
 	DESC = "DESC"
+	VALUES = "VALUES"

@@ -265,6 +265,8 @@ class GambitHtmlExporter:
 				rowclass = "subsection"
 			elif type == LineType.NAME:
 				continue
+			elif type == LineType.VALUES:
+				prefix = "Values: "
 			elif not type in [LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC]:
 				Log.errorInternal(f"Unrecognized type in writeTableRows: {type}")
 

@@ -123,13 +123,19 @@ class GambitParser:
 					self.errorLine(f"Unknown term: {t}")
 
 			self.vocab.addDef(lineinfo.keyword, lineinfo.altKeyword, lineinfo.types, parent)
+		elif type == LineType.VALUES:
+			items = [x.strip() for x in lineinfo.line.split(',')]
+			for i in items:
+				self.vocab.addDef(i, None, "Value", None)
 		elif type == LineType.TEMPLATE:
 			self.vocab.addTemplate(lineinfo.keyword, lineinfo.param)
 		elif type == LineType.NAME:
 			self.gameTitle = lineinfo.name
 		elif type == "ERROR":
 			self.errorLine(lineinfo.lineComment)
-		elif not type in [LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
+		elif not type in [
+				LineType.COMMENT, LineType.CONSTRAINT, LineType.DESC, LineType.SECTION,
+				LineType.SUBSECTION, LineType.BLANK]:
 			self.error(f"Unhandled type in processLine: {type}")
 
 		# Record the max indent level so that we can format the HTML table correctly.

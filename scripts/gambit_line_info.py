@@ -119,7 +119,16 @@ class GambitLineInfo:
 		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.CONSTRAINT)
 		info.cost = 1
 		info.indent = indent
-		info.line = line[1:].strip()  # Remove the leading '!'
+		info.line = line[len(LinePrefix.CONSTRAINT):].strip()  # Remove the leading '!'
+		info.lineComment = comment
+		return info
+
+	@staticmethod
+	def valuesDescription(lineNum: int, indent: int, line: str, comment: str) -> GambitLineInfo:
+		info: GambitLineInfo = GambitLineInfo(lineNum, LineType.VALUES)
+		info.cost = 1
+		info.indent = indent
+		info.line = line[len(LinePrefix.VALUES):].strip()  # Remove the leading 'Values:'
 		info.lineComment = comment
 		return info
 
@@ -162,12 +171,13 @@ class GambitLineInfo:
 			self.tokens = ["Verb"]
 			self.extractReference(self.lineComment, currDef, vocab, True)
 
-		elif type in [LineType.DESC, LineType.CONSTRAINT]:
+		elif type in [LineType.DESC, LineType.CONSTRAINT, LineType.VALUES]:
 			self.tokens = self.extractReference(self.line, currDef, vocab)
 			self.extractReference(self.lineComment, currDef, vocab, True)
-
-		elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
-			#self.vocab.parser.error("Unhandled type in extractAllReferences: {0:s}".format(type))
+		
+		elif not type in [
+				LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME,
+				LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
 			Log.errorInternal(f"Unhandled type in extractAllReferences: {type}", self.lineNum)
 
 		return currDef

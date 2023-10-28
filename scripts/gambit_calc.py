@@ -87,6 +87,9 @@ class GambitCalc:
 					# Set to None instead of 0 so that the cost column is left blank.
 					r.cost = None
 
+			elif type == LineType.VALUES:
+				currDefCost += 1
+
 			elif type in [LineType.DESC, LineType.CONSTRAINT]:
 				zeroCost = False
 				line = r.line
@@ -151,7 +154,7 @@ class GambitCalc:
 			type = r.lineType
 			if type in [LineType.DEF, LineType.BLANK, LineType.TEMPLATE]:
 				return False
-			if type == LineType.DESC and r.indent == 1:
+			if type in [LineType.DESC, LineType.VALUES] and r.indent == 1:
 				return True
 			if not type in [LineType.COMMENT, LineType.SECTION, LineType.SUBSECTION, LineType.CONSTRAINT]:
 				Log.errorInternal(f"Unhandled type in defHasDesc: {type}")
@@ -169,7 +172,9 @@ class GambitCalc:
 		for r in lineInfo:
 			type = r.lineType
 
-			if type in [LineType.DEF, LineType.TEMPLATE, LineType.DESC, LineType.CONSTRAINT]:
+			if type in [
+					LineType.DEF, LineType.TEMPLATE, LineType.DESC, LineType.CONSTRAINT,
+					LineType.VALUES]:
 				if r.cost:
 					self.costTotal += r.cost
 					cost += r.cost
@@ -193,7 +198,9 @@ class GambitCalc:
 					self.subsectionCosts[currentSection] = []
 				cost = 0
 
-			elif not type in [LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME, LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
+			elif not type in [
+					LineType.COMMENT, LineType.IMPORT, LineType.GAME_IMPORT, LineType.NAME,
+					LineType.SECTION, LineType.SUBSECTION, LineType.BLANK]:
 				Log.errorInternal(f"Unhandled type in calcTotalCost: {type}")
 		
 		# Record cost for last section.

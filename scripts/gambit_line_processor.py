@@ -79,5 +79,7 @@ class GambitLineProcessor:
 
 		if line.startswith(LinePrefix.CONSTRAINT):
 			return GambitLineInfo.constraintDescription(lineNum, indent, line, comment)
+		if line.startswith(LinePrefix.VALUES):
+			return GambitLineInfo.valuesDescription(lineNum, indent, line, comment)
 			
 		return GambitLineInfo.description(lineNum, indent, line, comment)
