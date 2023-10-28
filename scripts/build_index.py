@@ -22,7 +22,8 @@ class IndexBuilder:
 	def __init__(self):
 		self.games = {}
 		self.children = {}
-		self.buckets = [29, 59, 99, 199, 299]
+		#self.buckets = [29, 59, 99, 199, 299]
+		self.buckets = [99]
 		self.gameMgr = GameListManager()
 		
 	def loadGames(self, allGames = False):
