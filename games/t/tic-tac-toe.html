@@ -185,22 +185,33 @@ a.keyword:hover {
 	opacity: 1;
 	transition-delay: 0.5s;
 }
-
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="title">Tic Tac Toe</div>
 <div class="designer"></div>
-<div class="year">-1300</div>
+<div class="year">1300BC</div>
 
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">3</td><td class="summary-data">30.0%</td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">4</td><td class="summary-data">40.0%</td></tr>
 <tr><td class="summary-section-name">Setup</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
 <tr><td class="summary-section-name">Gameplay</td><td class="summary-data">6</td><td class="summary-data">60.0%</td></tr>
-<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">1</td><td class="summary-data">10.0%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
 <tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>10</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
@@ -213,45 +224,47 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Player, ChooseFirstPlayer, SwitchPlayer</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">PlaceBoard, ChoosePlayerComponents</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">DecidedByEndgameTrigger</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Board">Board</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a><a href="#Square">Square</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">3x3 squares - Physical board</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Square">Square</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Part of <a class="keyword" href="#Board">Board</a></td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">9 squares on the board</span></td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Piece">Piece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CheckWin">CheckWin</a><a href="#PlayGame">PlayGame</a></div></div>: Noun</td></tr>
-<tr><td class="cost"></td><td></td><td class="desc" colspan=2><span class="comment">10 total. 5 of each 'x' or 'o'</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TicTacToeBoard">TicTacToeBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#PlayerTurn">PlayerTurn</a><a href="#Square">Square</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Physical board with a 3x3 grid of <a class="keyword" href="#Square">Squares</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Square">Square</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#PlayerTurn">PlayerTurn</a><a href="#TicTacToeBoard">TicTacToeBoard</a></div></div>: Part of <a class="keyword" href="#TicTacToeBoard">TicTacToeBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="TicTacToken">TicTacToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#PlayerTurn">PlayerTurn</a><a href="#Symbol">Symbol</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Token used to claim a space on the board</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Symbol">Symbol</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#PlayerTurn">PlayerTurn</a><a href="#Setup">Setup</a></div></div>: Attribute of <a class="keyword" href="#TicTacToken">TicTacToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Either 'x' or 'o'</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">PlaceBoard</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><a class="keyword" href="#ChooseXO">ChooseXO</a></td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="ChooseXO">ChooseXO</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc">* Choose side ('x' or 'o') and take pieces</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* Each <abbr title="Imported term">Player</abbr> should choose a <a class="keyword" href="#Symbol">Symbol</a> ('x' or 'o') and take pieces</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat the following:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">Move <a class="keyword" href="#Piece">Piece</a> into an empty <a class="keyword" href="#Square">Square</a></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#CheckWin">CheckWin</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <a class="keyword" href="#GameOver">GameOver</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported term">SwitchPlayer</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>&#9888; If no empty <a class="keyword" href="#Square">Square</a> on <a class="keyword" href="#Board">Board</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc">End the game as tie</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="CheckWin">CheckWin</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If you have 3 of your <a class="keyword" href="#Piece">Pieces</a> in a row (horizontally, vertically or diagonally):</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="GameOver">GameOver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Condition</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If there are 3 <a class="keyword" href="#TicTacToken">TicTacTokens</a> with your <a class="keyword" href="#Symbol">Symbol</a> in a line (horizontally, vertically or diagonally):</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc">You win</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>If there are no more empty <a class="keyword" href="#Square">Squares</a> on <a class="keyword" href="#TicTacToeBoard">TicTacToeBoard</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc">Game ends as a tie</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place a <a class="keyword" href="#TicTacToken">TicTacToken</a> with your <a class="keyword" href="#Symbol">Symbol</a> into an empty <a class="keyword" href="#Square">Square</a> on the <a class="keyword" href="#TicTacToeBoard">TicTacToeBoard</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Endgame Scoring</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>The <abbr title="Imported term">Player</abbr> who makes 3 in a row instantly wins.</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">DecidedByEndgameTrigger</abbr></td></tr>
 </table>
 <div class="footer">&nbsp;</div>
 </div>

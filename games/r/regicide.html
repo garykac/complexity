@@ -185,7 +185,18 @@ a.keyword:hover {
 	opacity: 1;
 	transition-delay: 0.5s;
 }
-
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
 </style>
 </head>
 <body>
@@ -214,7 +225,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Deck, Card, Hand, DiscardPile, Shuffle</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">FrenchSuitDeck</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Suit, Club, Diamond, Heart, Spade</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Rank, JQK, Jack, Queen, King, Ace, Joker</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Rank, Jack, Queen, King, Ace, Joker, FaceCard</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
@@ -375,7 +386,7 @@ a.keyword:hover {
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Place remaining cards back in <abbr title="Imported term">DiscardPile</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="InitEnemyAttack">InitEnemyAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RevealEnemy">RevealEnemy</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#EnemyAttack">EnemyAttack</a> to <a class="keyword" href="#CardValue">CardValue</a> (only <abbr title="Imported term">JQK</abbr> are relevant)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#EnemyAttack">EnemyAttack</a> to <a class="keyword" href="#CardValue">CardValue</a> (only <abbr title="Imported term">FaceCards</abbr> are relevant)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="InitEnemyHealth">InitEnemyHealth</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RevealEnemy">RevealEnemy</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Set <a class="keyword" href="#EnemyHealth">EnemyHealth</a> as follows:</td></tr>
