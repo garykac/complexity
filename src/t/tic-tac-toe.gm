@@ -3,12 +3,12 @@ NAME: Tic-tac-toe
 SECTION: Assumptions
 
 IMPORT: Player, ChooseFirstPlayer, SwitchPlayer
-IMPORT: PlaceBoard, ChoosePlayerComponents
+IMPORT: Gameboard, PlaceBoard, ChoosePlayerComponents
 IMPORT: DecidedByEndgameTrigger
 
 SECTION: Vocabulary
 
-TicTacToeBoard: Noun
+TicTacToeBoard: Gameboard
 	Physical board with a 3x3 grid of Squares
 Square: Part of TicTacToeBoard
 
