@@ -208,11 +208,11 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">4</td><td class="summary-data">40.0%</td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">4</td><td class="summary-data">44.4%</td></tr>
 <tr><td class="summary-section-name">Setup</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
-<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">6</td><td class="summary-data">60.0%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">5</td><td class="summary-data">55.6%</td></tr>
 <tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
-<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>10</b></td><td class="summary-data"><b>100%</b></td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>9</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
@@ -222,7 +222,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Assumptions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Player, ChooseFirstPlayer, SwitchPlayer</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Player, FirstPlayer, ChooseFirstPlayer, SwitchPlayer</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">Gameboard, PlaceBoard, ChoosePlayerComponents</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><span class="comment">DecidedByEndgameTrigger</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
@@ -242,13 +242,13 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">PlaceBoard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc">* Each <abbr title="Imported term">Player</abbr> should choose a <a class="keyword" href="#Symbol">Symbol</a> ('x' or 'o') and take pieces</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc">* Choose a <a class="keyword" href="#Symbol">Symbol</a> ('x' or 'o') and take pieces</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=3>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=2>Repeat until <a class="keyword" href="#GameOver">GameOver</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=2>Repeat until <a class="keyword" href="#GameOver">GameOver</a>, starting with <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc"><abbr title="Imported term">SwitchPlayer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=3>&nbsp;</td></tr>

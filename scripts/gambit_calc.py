@@ -29,6 +29,9 @@ FREE_ACTIONS = [
 
 FREE_ACTION_PATTERNS = [
 	f"For each ({RegEx.KEYWORD}):",
+	f"For each ({RegEx.KEYWORD}), starting with ({RegEx.KEYWORD}):",
+	f"Repeat until ({RegEx.KEYWORD}):",
+	f"Repeat until ({RegEx.KEYWORD}), starting with ({RegEx.KEYWORD}):",
 ]
 
 # Handle suffix words like "Discard it" or "Shuffle them"

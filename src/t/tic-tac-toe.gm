@@ -2,7 +2,7 @@ NAME: Tic-tac-toe
 
 SECTION: Assumptions
 
-IMPORT: Player, ChooseFirstPlayer, SwitchPlayer
+IMPORT: Player, FirstPlayer, ChooseFirstPlayer, SwitchPlayer
 IMPORT: Gameboard, PlaceBoard, ChoosePlayerComponents
 IMPORT: DecidedByEndgameTrigger
 
@@ -22,13 +22,13 @@ SECTION: Setup
 Setup: Verb
 	PlaceBoard
 	ChoosePlayerComponents
-		* Each Player should choose a Symbol ('x' or 'o') and take pieces
+		* Choose a Symbol ('x' or 'o') and take pieces
 	ChooseFirstPlayer
 
 SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat until GameOver:
+	Repeat until GameOver, starting with FirstPlayer:
 		PlayerTurn
 		SwitchPlayer
 

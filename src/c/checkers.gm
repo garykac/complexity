@@ -50,7 +50,7 @@ InitializeBoard: Verb
 SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat until a Player cannot take their PlayerTurn, starting with the FirstPlayer:
+	Repeat until a Player cannot take their PlayerTurn, starting with FirstPlayer:
 		PlayerTurn
 		CheckForKingPromotion
 		SwitchPlayer
@@ -62,7 +62,7 @@ PlayerTurn: Verb
 		MovePiece
 
 MovePiece: Verb
-	Move a Piece diagonally into empty Dark Square
+	Move one of your Pieces into an empty diagonally-adjacent Dark Square
 	! Pawns may only move diagonally forward (away from the Player)
 	! Kings may move on any diagonal (forward or backward)
 
