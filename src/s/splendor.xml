@@ -18,9 +18,9 @@
 <export html="false" csv="true" />
 <complexity>
 	<edition>JD Éditions - SPACE Cowboys 2014</edition>
-	<score cost="61">
+	<score cost="60">
 		<section name="Vocabulary" cost="16" />
-		<section name="Setup" cost="9" />
+		<section name="Setup" cost="8" />
 		<section name="Gameplay" cost="29" />
 		<section name="Endgame Scoring" cost="7" />
 	</score>

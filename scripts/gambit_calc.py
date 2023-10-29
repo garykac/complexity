@@ -6,7 +6,7 @@ import re
 import sys
 import traceback
 
-from gambit import LineType, SectionName
+from gambit import LineType, SectionName, RegEx
 from gambit_line_processor import GambitLineProcessor
 from gambit_tokenizer import GambitTokenizer
 from gambit_vocab import GambitVocab
@@ -21,11 +21,14 @@ FREE_ACTIONS = [
 	"If you don't:",
 	"If any of:",
 	"If all of:",
-	"For each Player:",	# TODO: generalize to "For each <term>:"
 	"Choose one:",
 	"Choose one of:",
 	# Conditions
 	"Any of:",
+]
+
+FREE_ACTION_PATTERNS = [
+	f"For each ({RegEx.KEYWORD}):",
 ]
 
 # Handle suffix words like "Discard it" or "Shuffle them"
@@ -51,6 +54,9 @@ class GambitCalc:
 		self.freeActions = {}
 		for a in FREE_ACTIONS:
 			self.freeActions[a] = True
+		self.freeActionPatterns = {}
+		for a in FREE_ACTION_PATTERNS:
+			self.freeActionPatterns[a] = True
 	
 	# ==========
 	# Calculating costs.
@@ -95,6 +101,14 @@ class GambitCalc:
 				# Free actions are free.
 				if line in self.freeActions:
 					zeroCost = True
+				for freePattern in self.freeActionPatterns:
+					m = re.match(freePattern, line)
+					if m:
+						# Make sure each match group is a valid Keyword
+						numGroups = len(m.groups())
+						for i in range(1, numGroups+1):
+							if self.vocab.isDefinedTerm(m.group(i)):
+								zeroCost = True
 
 				# Lines that consist entirely of a single defined term are free.
 				# The cost comes from the definition.

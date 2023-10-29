@@ -19,9 +19,9 @@
 <export html="false" csv="true" />
 <complexity>
 	<edition>Mayfair Games 2011</edition>
-	<score cost="346">
+	<score cost="345">
 		<section name="Vocabulary" cost="88" />
-		<section name="Setup" cost="14" />
+		<section name="Setup" cost="13" />
 		<section name="Gameplay" cost="244">
 			<section name="-" cost="8" />
 			<section name="Privates" cost="39" />
