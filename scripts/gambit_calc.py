@@ -16,14 +16,12 @@ from typing import Optional, List, Union
 
 FREE_ACTIONS = [
 	"Then:",
-	"Else:",
 	"Otherwise:",
 	"If you do:",
 	"If you don't:",
 	"If any of:",
 	"If all of:",
 	"For each Player:",	# TODO: generalize to "For each <term>:"
-	"For each other Player:",
 	"Choose one:",
 	"Choose one of:",
 	# Conditions
