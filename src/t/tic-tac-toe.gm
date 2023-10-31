@@ -13,7 +13,7 @@ TicTacToeBoard: Gameboard
 Square: Part of TicTacToeBoard
 
 TicTacToken: Noun
-	Token used to claim a space on the board
+	Player tokens used to claim a space on the board
 Symbol: Attribute of TicTacToken
 	Either 'x' or 'o'
 
