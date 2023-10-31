@@ -16,7 +16,7 @@
 <bgg id="875">
 	<weight date="2022-10-11" avg="4.19" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>Splotter Spellen 2003 - 3rd edition</edition>
 	<score cost="312">

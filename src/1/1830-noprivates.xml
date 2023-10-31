@@ -20,7 +20,7 @@
 <bgg>
 	<weight avg="-" />
 </bgg>
-<export html="false" csv="false" />
+<export index="false" csv="false" />
 <complexity>
 	<edition>Mayfair Games 2011</edition>
 	<score cost="279">

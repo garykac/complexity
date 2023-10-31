@@ -31,7 +31,7 @@ class IndexBuilder:
 		self.games = {}
 		self.gameData = {}
 		for (gameId, d) in self.gameMgr.nextGame():
-			if allGames or d.export_html == "true":
+			if allGames or d.export_index == "true":
 				self.games[gameId] = d
 				parentId = d.parent
 				if parentId:

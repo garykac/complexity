@@ -70,7 +70,7 @@ class Attr:
 	AVG = "avg"
 	
 	# <export>
-	HTML = "html"
+	INDEX = "index"
 	CSV = "csv"
 	
 	# <complexity> : <score>
@@ -112,7 +112,7 @@ class GameInfo:
 		self.score_data = None
 		
 		# Export
-		self.export_html = "false"
+		self.export_index = "false"
 		self.export_csv = "false"
 
 		self.basepath = os.path.join(self.id[0], self.id)
@@ -261,7 +261,7 @@ class GameInfo:
 
 	def save_export(self, fp):
 		fp.write(f'<{Tag.EXPORT}')
-		fp.write(f' {Attr.HTML}="{self.export_html}"')
+		fp.write(f' {Attr.INDEX}="{self.export_index}"')
 		fp.write(f' {Attr.CSV}="{self.export_csv}"')
 		fp.write(' />\n')
 
@@ -424,8 +424,8 @@ class GameInfo:
 	def load_export(self, elRoot):
 		for attrName, attrValue in elRoot.attrib.items():
 			match attrName:
-				case Attr.HTML:
-					self.export_html = attrValue
+				case Attr.INDEX:
+					self.export_index = attrValue
 				case Attr.CSV:
 					self.export_csv = attrValue
 				case _:

@@ -16,7 +16,7 @@
 <bgg id="421">
 	<weight date="2022-10-11" avg="4.16" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>Mayfair Games 2011</edition>
 	<score cost="344">

@@ -15,7 +15,7 @@
 <bgg id="181">
 	<weight date="2022-10-11" avg="2.07" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>Hasbro 2010</edition>
 	<score cost="67">

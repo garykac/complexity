@@ -15,7 +15,7 @@
 <bgg id="148228">
 	<weight date="2022-10-11" avg="1.79" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>JD Éditions - SPACE Cowboys 2014</edition>
 	<score cost="60">

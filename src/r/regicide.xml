@@ -17,7 +17,7 @@
 <bgg id="307002">
 	<weight date="2022-10-11" avg="1.91" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>Badgers From Mars 2020</edition>
 	<score cost="74">

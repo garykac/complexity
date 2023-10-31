@@ -15,7 +15,7 @@
 <bgg id="54043">
 	<weight date="2022-10-11" avg="1.48" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>JD Éditions - Space Cowboys 2019</edition>
 	<score cost="47">

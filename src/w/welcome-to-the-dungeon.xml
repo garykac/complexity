@@ -19,7 +19,7 @@
 <bgg id="150312">
 	<weight date="2022-10-11" avg="1.23" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>Iello Games 2015</edition>
 	<score cost="41">

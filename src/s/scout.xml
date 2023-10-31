@@ -15,7 +15,7 @@
 <bgg id="291453">
 	<weight date="2022-10-14" avg="1.31" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>One More Game! 2019 - 2nd edition</edition>
 	<score cost="48">

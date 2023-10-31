@@ -16,7 +16,7 @@
 <bgg id="169654">
 	<weight date="2022-10-11" avg="1.17" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition>Oink Games 2016</edition>
 	<score cost="62">
