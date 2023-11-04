@@ -126,7 +126,7 @@ class GambitParser:
 		elif type == LineType.VALUES:
 			items = [x.strip() for x in lineinfo.line.split(',')]
 			for i in items:
-				self.vocab.addDef(i, None, "Value", None)
+				self.vocab.addEnumValue(i)
 		elif type == LineType.TEMPLATE:
 			self.vocab.addTemplate(lineinfo.keyword, lineinfo.param)
 		elif type == LineType.NAME:
