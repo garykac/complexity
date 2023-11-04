@@ -83,6 +83,10 @@ class GambitVocab:
 			info.append(parent)
 		self._addVocab(key, keyPlural, info)
 	
+	def addEnumValue(self, key):
+		info = [VocabType.LOCAL, "Value"]
+		self._addVocab(key, None, info)
+	
 	def addTemplate(self, key, param):
 		info = [VocabType.LOCAL, "Verb", param]
 		self._addVocab(key, None, info)
@@ -104,12 +108,12 @@ class GambitVocab:
 		# Simple default plurals.
 		if keyPlural is None:
 			# "Bonus"
-			if key[-2:] == 'us':
+			if key[-2:] in ['us', 'ex']:
 				keyPlural = key + "es"
 			elif key[-1] == 's':
 				keyPlural = key
 			# "Factory", "Quarry", "City", but not "Donkey"
-			elif key[-2:] == 'ry' or key[-2:] == 'ty':
+			elif key[-2:] in ['ry', 'ty']:
 				keyPlural = key[0:-1] + "ies"
 			# "Domino"
 			elif key[-1:] == 'o':
