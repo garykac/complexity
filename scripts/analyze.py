@@ -52,15 +52,8 @@ class Analyzer:
 		gameInfo.save()
 
 		if self.showCost:
-			score, sections = summary
-			print(f"Score = {score}")
-			for s in sections:
-				name, cost, subs = s
-				print(f"  {name} {cost}")
-				for sub in subs:
-					name, cost = sub
-					print(f"    {name} {cost}")
-
+			self.printCost(parser.calc)
+		
 		parser.checkReferences()
 
 		htmlExporter = GambitHtmlExporter(parser, gameInfo)
@@ -70,6 +63,34 @@ class Analyzer:
 		if not os.path.isdir(dir):
 			os.makedirs(dir)
 		htmlExporter.writeHtml(outpath)
+	
+	def printCost(self, calc):
+		scoreTotal, sections = calc.getSummary()
+		hasSubsections = (len(calc.subsectionCosts) != 0)
+		if hasSubsections:
+			print("+------------------------------------------------+")
+			for s in sections:
+				name, cost, subs = s
+				percent = 100 * (cost / scoreTotal)
+				print(f"| {name:<20} {cost:>3}        {percent:>5.1f}%         |")
+				for sub in subs:
+					subname, subcost = sub
+					percent = 100 * (subcost / scoreTotal)
+					print(f"|    {subname:<20}   {subcost:>3}           {percent:>5.1f}% |")
+			name = "Total"
+			percent = 100
+			print(f"| {name:<20} {scoreTotal:>3}        {percent:>5.1f}%         |")
+			print("+------------------------------------------------+")
+		else:
+			print("+------------------------------------+")
+			for s in sections:
+				name, cost, subs = s
+				percent = 100 * (cost / scoreTotal)
+				print(f"| {name:<20} {cost:>3}    {percent:>5.1f}% |")
+			name = "Total"
+			percent = 100
+			print(f"| {name:<20} {scoreTotal:>3}    {percent:>5.1f}% |")
+			print("+------------------------------------+")
 
 def usage():
 	print("Usage: %s [<options>] [<game>]" % sys.argv[0])
