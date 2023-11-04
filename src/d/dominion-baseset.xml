@@ -22,7 +22,7 @@
 <bgg id="36218">
 	<weight date="2022-10-11" avg="2.35" />
 </bgg>
-<export index="false" csv="false" />
+<export index="false" csv="false" hidden="true" />
 <complexity>
 	<score cost="41">
 		<section name="Vocabulary" cost="2" />

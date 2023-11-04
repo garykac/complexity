@@ -72,6 +72,7 @@ class Attr:
 	# <export>
 	INDEX = "index"
 	CSV = "csv"
+	HIDDEN = "hidden"
 	
 	# <complexity> : <score>
 	NAME = "name"
@@ -112,6 +113,7 @@ class GameInfo:
 		self.score_data = None
 		
 		# Export
+		self.hidden = "false"
 		self.export_index = "false"
 		self.export_csv = "false"
 
@@ -263,6 +265,8 @@ class GameInfo:
 		fp.write(f'<{Tag.EXPORT}')
 		fp.write(f' {Attr.INDEX}="{self.export_index}"')
 		fp.write(f' {Attr.CSV}="{self.export_csv}"')
+		if self.hidden == "true":
+			fp.write(f' {Attr.HIDDEN}="{self.hidden}"')
 		fp.write(' />\n')
 
 	def save_complexity(self, fp):
@@ -428,6 +432,8 @@ class GameInfo:
 					self.export_index = attrValue
 				case Attr.CSV:
 					self.export_csv = attrValue
+				case Attr.HIDDEN:
+					self.hidden = attrValue
 				case _:
 					Log.error(f"Unknown attribute '{attrName}' in {self.infopath} <{Tag.EXPORT}>")
 
