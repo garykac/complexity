@@ -99,6 +99,12 @@ ScoringMarker: Noun
 RecordPointsOnScoringTrack: Verb
 	Move your ScoringMarker forward or backward along the ScoringTrack to record the gain or loss of VictoryPoints
 
+TileOverridesGameboard: Constraint
+	A Tile placed on a space on a Gameboard overrides the info printed on the Gameboard
+
+Money: Noun
+	The set of components (paper money, coins, poker chips, ...) used to track an amount of currency.
+	
 // Assumptions
 // You may not use the pieces of another player
 
@@ -191,7 +197,7 @@ Suit: Attribute of FrenchSuitCard
 	Values: Club, Diamond, Heart, Spade
 	
 Rank: Attribute of FrenchSuitCard
-	Values: Ace, Jack, Queen, King, Number<2-10>
+	Values: Ace, 2-10, Jack, Queen, King
 
 Color: Attribute of FrenchSuitCard
 	Values: Black, Red
