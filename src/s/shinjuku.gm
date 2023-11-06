@@ -258,9 +258,9 @@ SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	Score points based on your sets of Customers as follows:
-		4 different Customers = 10 points
-		3 different Customers = 6 points
-		2 different Customers = 3 points
+		* 4 different Customers = 10 points
+		* 3 different Customers = 6 points
+		* 2 different Customers = 3 points
 	Remaining individual Customers are each worth 1 point
 	! Double Customers count as if they were 2 separate Customers
 
