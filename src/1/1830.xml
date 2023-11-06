@@ -16,9 +16,9 @@
 <bgg id="421">
 	<weight date="2022-10-11" avg="4.16" />
 </bgg>
-<export index="false" csv="true" />
+<export index="true" csv="true" />
 <complexity>
-	<edition>Mayfair Games 2011</edition>
+	<edition>Lookout Spiele 2018</edition>
 	<score cost="334">
 		<section name="Vocabulary" cost="69" />
 		<section name="Setup" cost="13" />
