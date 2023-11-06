@@ -21,7 +21,7 @@ class GambitHtmlExporter:
 		self.gameTitle = gameInfo.title
 		self.maxIndent = parser.maxIndent
 
-		self.addFileIssueLink = False
+		self.addFileIssueLink = True
 		
 		self.calc = parser.calc
 		self.costTotal = parser.calc.costTotal
