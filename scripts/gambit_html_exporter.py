@@ -47,7 +47,7 @@ class GambitHtmlExporter:
 		out.write('	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n')
 		out.write('	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">\n')
 		if self.addFileIssueLink:
-			out.write('	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../_file-issue.js" defer></script>\n')
+			out.write('	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../../scripts/file-issue.js" defer></script>\n')
 		out.write('<style>\n')
 
 		with open(GM_CSS_PATH, 'r') as file:
