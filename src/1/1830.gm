@@ -3,17 +3,21 @@ NAME: 1830
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise, Pass, Score, PlayerWithHighestScore
-IMPORT: Gameboard, Token
-IMPORT: Card
+IMPORT: Gameboard, Token, TileOverridesGameboard, Money
+IMPORT: Card, Deck
 
 SECTION: Vocabulary
 
 MapBoard: Gameboard
 
-Hex: Noun
-	A part of the map, either part of the MapBoard or a TrackTile laid on the board
+Hex: Part of Gameboard
+	An abstract unit of the map, shaped like a hexagon.
 Label: Attribute of Hex
 	Some locations have a special label: "OO", "B", or "NY"
+Color: Attribute of Hex
+	Values: Tan, Yellow, Green, Brown, Red, Gray
+	// Only Tan, Yellow, Red and Gray appear on the gameboard. Green, Brown and Gray are TrackTile colors.
+
 Edge: Attribute of Hex
 	One of the 6 edges around the Hex
 TrackEdge: Edge
@@ -21,45 +25,44 @@ TrackEdge: Edge
 RedEdge: Edge
 	An Edge that crosses a large body of water
 
-City|Cities: Attribute of Hex
+City: Attribute of Hex
 Value: Attribute of City
-LargeCity|LargeCities: City
+LargeCity: City
 	Location that can contain one or more StationCircles
 StationCircle: Part of LargeCity
 	A place where a Station can be placed
-SmallCity|SmallCities: City
+SmallCity: City
 	A small city, represented by a small circle or a short line across the track
 OffmapCity: City
 	A City along the edge of the map that cannot be upgraded
-	// Only found on Red MapHexes
+	// Only found on Red Hexes
 
-MapHex|MapHexes: Hex
-	A Hex that is part of the MapBoard
-DevelopmentCost: Attribute of MapHex
+DevelopmentCost: Attribute of Hex
 	Cost to LayTrack in this location
-SplitValue: Attribute of MapHex
-	A MapHex with an OffmapCity that has different Values depending on the Phase
-	// Only found on Red MapHexes
-Color: Attribute of MapHex
-Tan: Color
-	Basic locations that can be upgraded with a YellowTile
-Yellow: Color
-	Major cities that can be upgraded with a GreenTile
-Red: Color
-	Off-map locations that cannot be upgraded
-Gray: Color
-	MapHexes that cannot be upgraded
+SplitValue: Attribute of Hex
+	A Hex with an OffmapCity that has different Values depending on the Phase
+	// Only found on Red Hexes
 
 TrackTile: Hex
-	Hexagonal tile that is placed on the MapBoard's MapHexes
-YellowTile: TrackTile
-GreenTile: TrackTile
-BrownTile: TrackTile
+	Hexagonal tile that is placed on a MapBoard Hex to override its Color and Edges.
+	! TileOverridesGameboard
+TileId: Attribute of TrackTile
+	This serves as an aid when sorting the tiles. It is not used during the game.
 
 Supply: Noun
 	Storage for TrackTiles
 
 Railroad: Noun
+Name: Attribute of Railroad
+	Values: PRR, NYC, CnO, BnM, NNH, BnO, CPR, ERIE
+	// PRR: Pennsylvania Railroad - HomeCity: Altoona
+	// NYC: New York Central - HomeCity: Albany
+	// C&O: Chesapeake & Ohio - HomeCity: Cleveland
+	// B&M: Boston & Maine - HomeCity: Boston
+	// NNH: NY, New Haven & Hartford - HomeCity: New York City
+	// B&O: Baltimore & Ohio - HomeCity: Baltimore
+	// CPR: Canadian Pacific - HomeCity: Montréal
+	// ERIE: Erie - HomeCity: Buffalo or Dunkirk
 HomeCity: Attribute of Railroad
 	Indicated on the MapBoard with a the Railroad's logo next to the city.
 Floated: Attribute of Railroad
@@ -68,16 +71,6 @@ Floated: Attribute of Railroad
 President: Attribute of Railroad
 	The Player that owns the Railroad's PresidentCertificate
 	
-// Railroads:
-// PRR: Pennsylvania Railroad - HomeCity: Altoona
-// NYC: New York Central - HomeCity: Albany
-// C&O: Chesapeake & Ohio - HomeCity: Cleveland
-// B&M: Boston & Maine - HomeCity: Boston
-// NNH: NY, New Haven & Hartford - HomeCity: New York City
-// B&O: Baltimore & Ohio - HomeCity: Baltimore
-// CPR: Canadian Pacific - HomeCity: Montréal
-// ERIE: Erie - HomeCity: Buffalo or Dunkirk
-
 Charter: Noun
 	A card used to hold the Money, Trains and available Stations for a Railroad.
 StationSpace: Part of Charter
@@ -95,6 +88,7 @@ ShareCertificate: Certificate
 	Represents one Share of the Railroad
 PresidentCertificate: Certificate
 	Represents two Shares of the Railroad and determines who runs the company
+
 CertificateLimit: Noun
 	The maximum number of Certificates a Player may own
 
@@ -120,31 +114,30 @@ Blocked: Noun
 
 Private: Noun
 	One of the 6 small, private railroads
+Name: Attribute of Private
+	Values: SV, CS, DH, MH, CA, BO
+	// SV: Schuylkill Valley
+	// CS: Champlain & St. Lawrence
+	// DH: Delaware & Hudson
+	// MH: Mohawk & Hudson
+	// CA: Camden & Amboy
+	// BO: Baltimore & Ohio
 Cost: Attribute of Private
 Revenue: Attribute of Private
 HomeHex: Attribute of Private
 	Indicated on the map with the name of the Private
 
-RailroadsMayPurchasePrivates: Noun
-	Railroads may only purchase Privates during Phase 3 and 4
-
-SV: Private		// SV: Schuylkill Valley - Cost: $20, Revenue: $5
-CS: Private		// CS: Champlain & St. Lawrence - Cost: $40, Revenue: $10
-DH: Private		// DH: Delaware & Hudson - Cost: $70, Revenue: $15
-MH: Private		// MH: Mohawk & Hudson - Cost: $110, Revenue: $20
-CA: Private		// CA: Camden & Amboy - Cost: $160, Revenue: $25
-BO: Private		// BO: Baltimore & Ohio - Cost: $220, Revenue: $30
-
 Train: Card
 	Represents a train owned by the Railroad (or the Bank)
 Type: Attribute of Train
-	Train type: 2,3,4,5,6,D
-Diesel: Type
-	Noted with a "D"
+	Values: 2, 3, 4, 5, 6, Diesel
 Cost: Attribute of Train
 	Cost to purchase the Train
 TradeInCost: Attribute of Train
 	Cost when purchased with a trade-in (Diesel only)
+
+TrainDeck: Deck
+	Deck of Trains
 
 MaxTrains: Noun
 	The maximum number of Trains a Railroad may own
@@ -157,15 +150,16 @@ StockMarketGrid: Gameboard
 Square: Part of StockMarketGrid
 Value: Attribute of Square
 GridColor: Attribute of Square
-LightGreen: GridColor
-Yellow: GridColor
-Orange: GridColor
-Brown: GridColor
+	Values: LightGreen, Yellow, Orange, Brown
 
 ParTable: Gameboard
 	Table of 6 possible par values when starting a Railroad
 Value: Attribute of ParTable
 	// Values: $67, $71, $76, $82, $90, $100
+
+OperatingRoundTrack: Gameboard
+OperatingRoundMarker: Token
+	For tracking the current operating round.
 
 InitialOffering: Noun
 	Shares owned by the Bank that have never been sold to a Player
@@ -176,18 +170,6 @@ Pool: Noun
 
 Phase: Noun
 	One of the seven stages of the game
-
-EndGameTriggered: Condition
-	Whether or not the endgame conditions have been triggered
-
-StockRound: Noun
-	Part of game where Shares are bought and sold
-OperatingRound: Noun
-	Part of game where Trains are run to make Money
-NumOperatingRounds: Noun
-	The number of OperatingRounds between each StockRound
-
-Money: Noun
 
 Bank: Noun
 	Contains the Money, Trains and InitialOffering Shares
@@ -200,7 +182,7 @@ PriorityPlayer: Noun
 	The Player with the PriorityDealCard
 
 TurnOrderCard: Noun
-	Number card that are used to randomly assign turn order at the start of the game
+	Number cards that are used to randomly assign turn order at the start of the game
 
 SECTION: Setup
 
@@ -218,28 +200,29 @@ Setup: Verb
 SetupBank: Verb
 	Assign one Player to be the Banker
 	Initialize Bank with $12,000
+	Set remaining Money aside since it might be needed when the endgame is triggered
 
 SetupPlayerSeating: Verb
 	Randomly assign Player seating using the TurnOrderCards
 	Give the PriorityDealCard to the first Player
 
 SetupPlayerMoney: Verb
-	From the Bank, give the following amount to each Player, based on Player count:
-		* 2p: $1,200
-		* 3p: $800
-		* 4p: $600
-		* 5p: $480
-		* 6p: $400
+	For each Player:
+		Take the following amount of Money from the Bank, based on Player count:
+			* 2p: $1,200
+			* 3p: $800
+			* 4p: $600
+			* 5p: $480
+			* 6p: $400
 
 SetupTrains: Verb
-	Gather the Trains into a single stack, in the following order (with 2's on top):
+	Create the TrainDeck by gathering the Trains into a single stack, in the following order (with 2's on top):
 		* Type-2: 6 total
 		* Type-3: 5 total
 		* Type-4: 4 total
 		* Type-5: 3 total
 		* Type-6: 2 total
 		* Diesel: 6 total
-	! Diesel trains are unlimited in quantity and may be purchased even if the stack runs out
 
 SetupPrivates: Verb
 	Arrange Privates face-up from lowest Cost to highest
@@ -267,20 +250,23 @@ SECTION: Gameplay
 
 PlayGame: Verb
 	Set Phase to 0
-	NextPhase	// Phase 1
+	NextPhase	// -> Phase 1
 	SellAllPrivates
-	NextPhase	// Phase 2
-	Set EndGameTriggered to "No"
-	Repeat until EndGameTriggered:
+	NextPhase	// -> Phase 2
+	Repeat until endgame has been triggered:
 		StockRound
-		Repeat NumOperatingRounds times:
+		Reset the OperatingRoundMarker
+		OperatingRound
+		If Phase >= 3:
+			OperatingRound
+		If Phase >= 5:
 			OperatingRound
 
 TriggerEndGame: Verb
 	Put remaining Money in Bank
 	If the Bank didn't have enough Money to pay out the last Train run:
 		Make the rest of the Bank payment to the Railroad
-	Set EndGameTriggered to "Yes"
+	! Game continues as normal until the OperatingRounds are finished
 
 SUBSECTION: Privates
 
@@ -368,13 +354,13 @@ CSSpecialEffect: Verb
 DHSpecialEffect: Verb
 	If you LayTrack on location "F 16":
 		You may immediately add a Station to that location without paying
-	// You still need to pay the DevelopmentCost for "F 16"
-	// No may not do this if a TrackTile already exists on "F 16"
-	// You must add the station on the same turn that you lay the TrackTile for it to be free
+	// Note: You still need to pay the DevelopmentCost for "F 16"
+	! You may not do this if a TrackTile already exists on "F 16"
+	! You must add the station on the same turn that you lay the TrackTile for it to be free
 
 MHSpecialEffect: Constraint
 	If you (Player) own the MH Private:
-		You may exchange it for a ShareCertificate of "NYC" from the Bank or Pool
+		You may exchange it for a ShareCertificate of NYC from the Bank or Pool
 		If you do:
 			ClosePrivate
 	! You can make this exchange during your StockRound or in-between other Players' turns (StockRound or OperatingRound)
@@ -383,11 +369,11 @@ MHSpecialEffect: Constraint
 
 CASpecialEffect: Constraint
 	If you purchase the CA Private:
-		You immediately take a ShareCertificate of "PRR" from the Bank without payment
+		You immediately take a ShareCertificate of PRR from the Bank without payment
 
 BOSpecialEffect: Constraint
 	If you purchase the BO Private:
-		You immediately GainPresidentCertificate of "B&O"
+		You immediately GainPresidentCertificate of BnO
 
 SUBSECTION: Stock Round
 
@@ -510,7 +496,7 @@ GainPresidentCertificate: Verb
 	Take the PresidentCertificate
 	Choose a par value for this Railroad from the values listed in the ParTable
 	Place the Railroad's ParValueMarker on that Value in the ParTable
-	MoveShareValueToken for this Railroad to the LightGreen Square in the StockMarketGrid with that Value
+	MoveShareValueToken for this Railroad to the LightGreen GridColor Square in the StockMarketGrid with that Value
 
 MoveShareValueToken: Verb
 	If there is already one or more ShareValueTokens in the space:
@@ -523,6 +509,7 @@ EndGameIfBankCannotPay: Constraint
 SUBSECTION: Operating Round
 
 OperatingRound: Verb
+	Move the OperatingRoundMarker to the next location on the OperatingRoundTrack
 	For each Private that has not been closed:
 		Pay Money equal to the Private's Revenue to the owner
 	For each Railroad that has Floated, ordered by SharePrice from highest to lowest:
@@ -539,13 +526,13 @@ OperatingRound: Verb
 			Start with the Railroad the furthest right on the StockMarketGrid
 			If they are in the same column:
 				Start with the Railroad the furthest up on the StockMarketGrid
-	! If RailroadsMayPurchasePrivates:
+	! If Phase is 3 or 4:
 		Railroads may purchase Privates at any time during their OperatingRound turn
-		! The "BO" Private may not be sold to a Railroad
+		! The BO Private may not be sold to a Railroad
 
 PlaceHomeStation: Verb
 	Place your first Station (with Cost of $0) on your HomeCity
-	! The "ERIE" Railroad may choose either "Dunkirk" or "Buffalo" as their HomeCity
+	! The ERIE Railroad may choose either "Dunkirk" or "Buffalo" as their HomeCity
 
 ConstructTrack: Verb
 	You may choose one of the following:
@@ -557,89 +544,95 @@ ConstructTrack: Verb
 		DHSpecialEffect
 
 LayTrack: Verb
-	Choose a MapHex that doesn't have any TrackTiles
-	Select based on the Color of the MapHex:
+	Choose a Hex that doesn't have any TrackTiles
+	Select based on the Hex's Color:
 		Tan: LayYellowTrack
 		Yellow: LayGreenTrack
-	! TrackTiles may not be placed on Red or Gray MapHexes
+	! TrackTiles may not be placed on Hexes with Color = (Red, Gray)
 
 LayYellowTrack: Verb
-	If the MapHex has a DevelopmentCost:
+	Place a Yellow TrackTile in the Hex
+	! If the Hex has a DevelopmentCost:
 		Your Railroad must pay this cost to lay track here
-	Place a YellowTile in the MapHex
 	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 	! NotOnPrivateHomes
-	! The "NYC" Railroad may LayYellowTrack on the Hex containing its HomeCity "E 19", ignoring route restrictions
+	! The NYC Railroad may LayYellowTrack on the Hex containing its HomeCity "E 19", ignoring route restrictions
 
 LayGreenTrack: Verb
-	Place a GreenTile in the MapHex
-	! GreenTilesOnlyInPhase2
+	Place a Green TrackTile in the Hex
+	! GreenTilesOnlyInPhase3
 	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 	! MustMatchCityLabel
-	! The "ERIC" Railroad may LayGreenTrack on the Hex containing its HomeCity "E 11", ignoring route restrictions
+	! The ERIE Railroad may LayGreenTrack on the Hex containing its HomeCity "E 11", ignoring route restrictions
 
 UpgradeTrack: Verb
-	Choose a MapHex with a YellowTile or GreenTile
-	Choose an upgrade TrackTile based on the tile being upgraded:
-		YellowTile: GreenTile
-		GreenTile: BrownTile
-	Replace the existing TrackTile in the MapHex with the new one
+	Choose a Hex that has a Yellow or Green TrackTile
+	Choose an upgrade TrackTile based on the Color of the existing TrackTile:
+		* Yellow: Upgrade to Green TrackTile
+		* Green: Upgrade to Brown TrackTile
+		* Brown: Upgrade to Gray TrackTile
+	Replace the existing TrackTile in the Hex with a TrackTile of the new Color
 	Add the previous TrackTile to the Supply
-	! GreenTilesOnlyInPhase2
-	! BrownTilesOnlyInPhase4
+	! GreenTilesOnlyInPhase3
+	! BrownTilesOnlyInPhase5
+	! GrayTilesOnlyInPhase6
 	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTraceUnblockedPathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 	! MustMatchCityLabel
-	// There is no cost to upgrade a TrackTile, even if the MapHex originally had a TerrainCost
+	// Note: There is no cost to upgrade a TrackTile, even if the Hex originally had a TerrainCost
 
-GreenTilesOnlyInPhase2: Constraint
-	GreenTiles may only be used if Phase >= 2
+GreenTilesOnlyInPhase3: Constraint
+	Green TrackTiles may only be used if Phase >= 3
 
-BrownTilesOnlyInPhase4: Constraint
-	BrownTiles may only be chosen if Phase >= 4
+BrownTilesOnlyInPhase5: Constraint
+	Brown TrackTiles may only be chosen if Phase >= 5
+		
+GrayTilesOnlyInPhase6: Constraint
+	Brown TrackTiles may only be chosen if Phase >= 6
 		
 MustMatchExistingTrack: Constraint
 	The orientation of the new TrackTile being placed must match all the existing TrackEdges
 
 MustMatchCities: Constraint
-	If the MapHex or existing TrackTile on the MapHex has LargeCities or SmallCities:
+	If the Hex has LargeCities or SmallCities:
 		The new TrackTile being placed must:
 			Match the number of LargeCities and SmallCities
 			Maintain the connections (or lack thereof) between the Cities within the tile
 
 MustMatchCityLabel: Constraint
-	If the MapHex or existingTrackTile has a Label:
+	If the Hex has a Label:
 		The new TrackTile being placed must also have the same Label
 
 MustTraceUnblockedPathToYourStation: Constraint
 	You must be able to track a continuous path (of any length) from this TrackTile to one of your Railroad's Stations
 	! MayNotPassThroughBlockedCities
-	// You may start or end at a Blocked City
-	// If there are multiple paths on the TrackTile, only 1 needs to connect to a Station
+	! You may start or end at a Blocked City
+	! If there are multiple paths on the TrackTile:
+		Only 1 needs to connect to a Station
 
 NoRailLeadingIntoForbiddenEdges: Constraint
-	If the MapHex has an Edge that matches any of:
+	If the Hex has an Edge that matches any of:
 		Is along the outside of the MapBoard
 		Is a RedEdge
-		Abuts a non-TrackEdge Edge of a Red or Gray MapHex
+		Abuts a non-TrackEdge Edge of a Red or Gray Hex
 	Then:
 		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
 
 NotOnPrivateHomes: Constraint
 	If all of:
-		The MapHex is a HomeHex of a Private
+		The Hex is a HomeHex of a Private
 		That Private is owned by a Player
 	Then:
-		You may not place a TrackTile in this location
-	// Tile placement is allowed if the Private is closed or owned by a Railroad
+		You may not place a TrackTile in this Hex
+	! Tile placement is allowed if the Private is closed or owned by a Railroad
 
 BuildStation: Verb
 	If you have a Station available on one of your Charter's StationSpaces:
@@ -655,7 +648,7 @@ PlaceStation: Verb
 	! A Railroad may not build multiple Stations in the same LargeCity
 	! If your new Station would block a Railroad from placing a Station in their HomeCity:
 		You may not place a Station there
-	! You may not place a Station in "E 11" until the "ERIE" Railroad has placed a Station in their HomeCity
+	! You may not place a Station in "E 11" until the ERIE Railroad has placed a Station in their HomeCity
 
 OperateTrains: Verb
 	total_revenue = 0
@@ -685,8 +678,9 @@ MayNotPassThroughBlockedCities: Constraint
 	Any LargeCity you pass through must not be Blocked
 
 CalcRunValue: Verb
-	The value of the run is the sum of the Value of each City visited
-	If the run includes an OffmapCity (in a Red MapHex) with a SplitValue:
+	For each City visited:
+		Add the Value of the City to the total run value
+	! If the run includes an OffmapCity (in a Red Hex) with a SplitValue:
 		Choose the value based on the current Phase:
 			* Phase 2-4: use the lower value
 			* Phase 5 or later: use the higher value
@@ -715,16 +709,16 @@ PurchaseTrains: Verb
 		PurchaseTrainFromBank
 		PurchaseTrainFromMarket
 		PurchaseTrainFromRailroad
-	If you already have at least MaxTrains Trains:
+	! If you already have at least MaxTrains Trains:
 		Then you may not buy a Train
 		Unless you are trading in for a Diesel
-	If you do not have any Trains:
+	! If you do not have any Trains:
 		ForcedTrainPurchase
-	! When the "B&O" Railroad purchases its first Train:
+	! When the BnO Railroad purchases its first Train:
 		ClosePrivate BO
 
 PurchaseTrainFromBank: Verb
-	You may purchase the lowest numbered Train available in the Bank for the Train's Cost
+	You may purchase the top (lowest numbered) Train in the TrainDeck for the Train's Cost
 	If you do:
 		PayBankForTrain
 		If this is the first Type 3, 4, 5, 6 or Diesel Train purchased (by any Player):
@@ -752,7 +746,7 @@ DieselTradeIn: Verb
 PurchaseTrainFromRailroad: Verb
 	You may purchase a Train from another Railroad for a price mutually agreed upon by the 2 Presidents
 	Minimum purchase price is $1
-	// Entire transaction must take place during the turn of the Railroad making the purchase
+	! Entire transaction must take place during the turn of the Railroad making the purchase
 
 ForcedTrainPurchase: Verb
 	You may purchase a Train from the Bank, OpenMarket or another Railroad
@@ -773,7 +767,7 @@ ForcedStockSaleForTrain: Verb
 	You may not sell Shares that would cause you to no longer be President of the Railroad trying to purchase a Train
 	If you sell Shares that cause you to no longer be President of another Railroad:
 		ExchangePresidentCertificate
-		// The new President may cancel and in-progress transactions
+		! The new President may cancel any in-progress transactions
 	If you can't come up with enough Money:
 		You go bankrupt and the game ends immediately
 
@@ -784,37 +778,22 @@ NextPhase: Verb
 		* 2-3: 4
 		* 4: 3
 		* 5-7: 2
-	Set NumOperatingRounds based on current Phase:
-		* 1: 0
-		* 2: 1
-		* 3-4: 2
-		* 5-7: 3
-	Set RailroadsMayPurchasePrivates based on current Phase:
-		* 1-2: "no"
-		* 3-4: "yes"
-		// All Privates are closed in Phase 5, so there are none to purchase
 	If Phase is 4:
-		RustTrains of Type 2
+		Remove all Trains of Type 2 from the game
 	If Phase is 5:
 		CloseAllPrivates
 	If Phase is 6:
-		RustTrains of Type 3
+		Remove all Trains of Type 3 from the game
 	If Phase is 7:
-		RustTrains of Type 4
-	For each Railroad with more than MaxTrains Trains:
+		Remove all Trains of Type 4 from the game
+	For each Railroad with more than MaxTrains Trains, ordered by SharePrice:
 		AddTrainToMarket
-
-RustTrains: Verb
-	For each Railroad with a Train of the Type being rusted, ordered by SharePrice:
-		RemoveTrain
-
-RemoveTrain: Verb
-	Choose one of your Trains and remove it from the game
 
 AddTrainToMarket: Verb
 	President chooses a Train to add to the OpenMarket
+	// Note: No payment is received for this train
 
-SUBSECTION: Endgame Scoring
+SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	A Player's Score is the total sum of their wealth:
