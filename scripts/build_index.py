@@ -153,7 +153,7 @@ class IndexBuilder:
 		self.writeHtml(HTML_OUTPUT_FILE)
 
 		# Write full (all games) index file.
-		self.buckets = [29, 59, 99, 199, 299]
+		self.buckets = [29, 59, 99, 199]
 		self.loadGames(True)
 		self.writeHtml(HTML_FULL_OUTPUT_FILE)
 
