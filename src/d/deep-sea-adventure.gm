@@ -20,9 +20,7 @@ PlayerToken: Token
 Color: Attribute of PlayerToken
 	// 6 different colors
 Direction: Attribute of PlayerToken
-	The direction the player is heading: toward or away from the Submarine
-ReturnToSub: Direction
-ContinueSearch: Direction
+	Values: ReturnToSub, ContinueSearch
 
 MovementDice: D3
 	Two d6 with 1-3 twice	
@@ -36,15 +34,8 @@ Dot: Attribute of RuinsChip
 	Used to determine how far the piece starts away from the Submarine
 TreasurePoints: Attribute of RuinsChip
 	Treasure value for this piece
-
-TriangleChip: RuinsChip
-	8 chips, each with 1 Dot and TreasurePoints 0-3
-SquareChip: RuinsChip
-	8 chips, each with 2 Dots and TreasurePoints 4-7
-PentagonChip: RuinsChip
-	8 chips, each with 3 Dots and TreasurePoints 8-11
-HexagonChip: RuinsChip
-	8 chips, each with 4 Dots and TreasurePoints 12-15
+Shape: Attribute of RuinsChip
+	Values: Triangle, Square, Pentagon, Hexagon
 
 ChipStack: Noun
 	A stack of (up to) 3 RuinsChips created when you lose your treasure.
@@ -77,9 +68,9 @@ ResetAirGauge: Verb
 SetupRuins: Verb
 	Flip over all RuinsChips so that only the Dots are showing
 	Sort the RuinsChips by type (number of Dots)
-	Starting with the TriangleChips (with 1 Dot):
+	Starting with the Triangle Shape RuinsChips (with 1 Dot):
 		Build a line of RuinsChips leading out from the Submarine
-		Continue with SquareChips (2 Dots), PentagonChips (3 Dots) and then HexagonChips (4 Dots)
+		Continue with Square (2 Dots), Pentagon (3 Dots) and then Hexagon RuinsChips (4 Dots)
 
 SECTION: Gameplay					
 
@@ -134,11 +125,12 @@ CalcMovement: Verb
 
 ChooseDirection: Verb
 	If your PlayerToken's Direction is ContinueSearch:
-		Decide if you want to change your Direction to ReturnToSub
-	// You should turn your PlayerToken so it is facing to match your Direction.
+		If you want to change your Direction to ReturnToSub:
+			Change your PlayerToken so it is facing toward the Submarine
+	! If you forget to declare your Direction:
+		It stays the same as last turn.
 	// Note that once you ReturnToSub, you cannot change Directions this round.
 	// Remember: On your first turn, your Direction is set to ContinueSearch (to leave the Submarine)
-	! If you forget to declare your Direction, it stays the same as last turn.
 
 DropTreasure: Verb
 	If your PlayerToken is on CircleChip:

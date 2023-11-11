@@ -19,10 +19,10 @@
 <export index="false" csv="true" />
 <complexity>
 	<edition>Oink Games 2016</edition>
-	<score cost="64">
-		<section name="Vocabulary" cost="24" />
+	<score cost="60">
+		<section name="Vocabulary" cost="19" />
 		<section name="Setup" cost="8" />
-		<section name="Gameplay" cost="31" />
+		<section name="Gameplay" cost="32" />
 		<section name="EndGame Scoring" cost="1" />
 	</score>
 </complexity>

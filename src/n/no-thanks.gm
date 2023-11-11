@@ -23,7 +23,7 @@ Pool: Noun
 	A Player's collection of Chips
 
 Tableau: Noun
-	The set of Cards owned by the Player
+	The set of NTCards owned by the Player
 
 SECTION: Setup
 
