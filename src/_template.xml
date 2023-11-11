@@ -20,10 +20,9 @@
 <bgg id="">
 	<weight date="" avg="" />
 </bgg>
-<export html="false" csv="true" />
+<export index="false" csv="true" />
 <complexity>
 	<edition></edition>
 	<score></score>
-	<export></export>
 </complexity>
 </game>
