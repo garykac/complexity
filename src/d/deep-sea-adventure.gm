@@ -12,52 +12,53 @@ Submarine: Gameboard
 
 AirGauge: Part of Submarine
 AirGaugeSpace: Part of AirGauge
-	// 26 spaces on Submarine: Counting down from 25 to 0
+	26 spaces on Submarine that count down from 25 to 0
 RemainingAir: Token
-	// Red disc
+	Red disc to track air on the AirGauge
 
 PlayerToken: Token
-	// 6 different colors	
+Color: Attribute of PlayerToken
+	// 6 different colors
 Direction: Attribute of PlayerToken
-	// What direction the player is heading: toward or away from the Submarine
+	The direction the player is heading: toward or away from the Submarine
 ReturnToSub: Direction
 ContinueSearch: Direction
 
 MovementDice: D3
-	// 2 d6 with 1-3 twice	
+	Two d6 with 1-3 twice	
 
 Chip: Noun
 CircleChip: Chip
-	// 16 chips
+	This is used as a placeholder location when you remove treasure
 
 RuinsChip: Chip
 Dot: Attribute of RuinsChip
-	// Used to determine how far the piece starts away from the Submarine
+	Used to determine how far the piece starts away from the Submarine
 TreasurePoints: Attribute of RuinsChip
-	// Treasure value for this piece
+	Treasure value for this piece
 
 TriangleChip: RuinsChip
-	// 8 chips, each with 1 dot; Values: 0-3
+	8 chips, each with 1 Dot and TreasurePoints 0-3
 SquareChip: RuinsChip
-	// 8 chips, each with 2 dots; Values: 4-7
+	8 chips, each with 2 Dots and TreasurePoints 4-7
 PentagonChip: RuinsChip
-	// 8 chips, each with 3 dots; Values: 8-11
+	8 chips, each with 3 Dots and TreasurePoints 8-11
 HexagonChip: RuinsChip
-	// 8 chips, each with 4 dots; Values: 12-15
+	8 chips, each with 4 Dots and TreasurePoints 12-15
 
 ChipStack: Noun
-	// A stack of (up to) 3 RuinsChips created when you lose your treasure.
+	A stack of (up to) 3 RuinsChips created when you lose your treasure.
 
 Ruins: Gameboard
-	// Line of RuinsSpaces leading out from the Submarine.
+	Line of RuinsSpaces leading out from the Submarine.
 	// This is a dynamic board created during gameplay.
 RuinsSpace: Part of Ruins
-	// A location that contains a Chip
+	A location that contains a Chip
 
 Inventory: Noun
-	// Collection of Ruins Chips that you are holding
+	Collection of Ruins Chips that you are holding
 TreasurePile: Noun
-	// Accumulated treasure
+	Accumulated treasure
 
 SECTION: Setup
 
@@ -67,8 +68,8 @@ Setup: Verb
 	SetupRuins
 	For each Player:
 		ChoosePlayerComponents
-			* PlayerToken
-		Place PlayerToken on Submarine
+			* PlayerToken of your Color
+		Place PlayerToken on Submarine facing out toward the Ruins (in the ContinueSearch Direction)
 
 ResetAirGauge: Verb
 	Place the RemainingAir token on AirGaugeSpace 25	
@@ -134,10 +135,10 @@ CalcMovement: Verb
 ChooseDirection: Verb
 	If your PlayerToken's Direction is ContinueSearch:
 		Decide if you want to change your Direction to ReturnToSub
-	// Your PlayerToken should be facing to match your Direction.
-	// Once you ReturnToSub, you cannot change Directions this round.
-	// If you forget to declare your Direction, it stays the same as last turn.
-	! On first turn, your Direction must be ContinueSearch (to leave the Submarine)
+	// You should turn your PlayerToken so it is facing to match your Direction.
+	// Note that once you ReturnToSub, you cannot change Directions this round.
+	// Remember: On your first turn, your Direction is set to ContinueSearch (to leave the Submarine)
+	! If you forget to declare your Direction, it stays the same as last turn.
 
 DropTreasure: Verb
 	If your PlayerToken is on CircleChip:
@@ -151,7 +152,7 @@ LoseTreasure: Verb
 		The next player will add to this partial stack first.	
 
 PickUpTreasure: Verb
-	If on RuinsChip:
+	If you are on RuinsChip:
 		Replace the RuinsChip with a CircleChip
 		Add the RuinsChip to your Inventory
 	! You may not look at any RuinsChip until you are back in the Submarine	

@@ -9,10 +9,13 @@ IMPORT: Score, PlayerWithLowestScore
 
 SECTION: Vocabulary
 
-Number: Attribute of Card
+NTCard: Card
+Number: Attribute of NTCard
 
-CurrentCard: Card
-	The currently revealed Card
+NTDeck: Deck
+
+CurrentCard: NTCard
+	The currently revealed NTCard at the top of the NTDeck
 	
 Chip: Noun
 
@@ -31,21 +34,21 @@ Setup: Verb
 		! Keep your Chips hidden from other Players
 	
 CreateDeck: Verb
-	Shuffle Cards
-	Deal 24 Cards face down to create the Deck
-	Place remaining Cards back in the Box (without looking)
+	Shuffle NTCards
+	Deal 24 NTCards face down to create the NTDeck
+	Place remaining NTCards back in the Box (without looking)
 
 SECTION: Gameplay
 
 PlayGame: Verb
 	ChooseFirstPlayer
 	RevealNextCard
-	Repeat until Deck is empty:
+	Repeat until NTDeck is empty:
 		PlayerTurn
 		NextPlayerClockwise
 
 RevealNextCard: Verb
-	Reveal top Card from Deck as the CurrentCard
+	Reveal top NTCard from NTDeck as the CurrentCard
 
 PlayerTurn: Verb
 	Choose one of:
@@ -59,10 +62,10 @@ TakeCard: Verb
 	RevealNextCard
 
 AddCardToTableau: Verb
-	If the Card's Number is adjacent to a Card already in your Tableau:
-		Arrange adjacent Cards in an unbroken sequence
+	If the NTCard's Number is adjacent to an NTCard already in your Tableau:
+		Arrange adjacent NTCards in an unbroken sequence
 	Otherwise:
-		Add Card separated from other Cards in Tableau
+		Add NTCard separated from other NTCards in Tableau
 	
 DeclineCard: Verb
 	Place a Chip from your Pool onto the CurrentCard
@@ -70,9 +73,9 @@ DeclineCard: Verb
 SECTION: Endgame Scoring
 	
 CalculateScore: Verb
-	For each single Card in your Tableau:
-		Add the Cards's Number to your Score
-	For each unbroken sequence of Cards in your Tableau:
+	For each single NTCard in your Tableau:
+		Add the NTCard's Number to your Score
+	For each unbroken sequence of NTCards in your Tableau:
 		Add the lowest Number of the sequence to your Score
 	Subtract the number of Chips in your Pool from your Score
 		
