@@ -15,7 +15,7 @@
 <bgg id="12942">
 	<weight date="2022-10-11" avg="1.14" />
 </bgg>
-<export index="false" csv="true" />
+<export index="true" csv="true" />
 <complexity>
 	<edition>Z-Man Games 2005</edition>
 	<score cost="24">

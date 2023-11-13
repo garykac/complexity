@@ -148,7 +148,7 @@ class IndexBuilder:
 
 	def build(self):
 		# Write public index file.
-		self.buckets = [99, 199]
+		self.buckets = [29, 99, 199]
 		self.loadGames()
 		self.writeHtml(HTML_OUTPUT_FILE)
 
