@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="my-first-stone-age">
+<name>
+	<title>My First Stone Age</title>
+</name>
+<designers>
+	<designer>Marco Teubner</designer>
+</designers>
+<general>
+	<published year="2016" />
+	<age min="5" />
+	<players min="2" max="4" />
+	<time min="15" max="15" />
+</general>
+<bgg id="191004">
+	<weight date="2023-11-15" avg="1.13" />
+</bgg>
+<export index="false" csv="true" />
+<complexity>
+	<edition>Z-Man Games</edition>
+	<score cost="63">
+		<section name="Vocabulary" cost="20" />
+		<section name="Setup" cost="12" />
+		<section name="Gameplay" cost="30" />
+		<section name="Endgame Scoring" cost="1" />
+	</score>
+</complexity>
+</game>

@@ -23,6 +23,8 @@ FREE_ACTIONS = [
 	"If all of:",
 	"Choose one:",
 	"Choose one of:",
+	"As many times as you like:",
+	"You may optionally:",
 	# Conditions
 	"Any of:",
 ]

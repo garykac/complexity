@@ -15,6 +15,7 @@ just-one
 kingdomino
 leaving-earth
 mancala
+my-first-stone-age
 no-thanks
 race-for-the-galaxy_
 regicide

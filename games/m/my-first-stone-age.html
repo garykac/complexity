@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>My First Stone Age</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../../scripts/file-issue.js" defer></script>
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.subtitle {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+.designer {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.year {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 2rem 0;
+	font-weight: 400;
+	font-size: 0.9rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-name {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-name {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subdata {
+	width: 12.5%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">My First Stone Age</div>
+<div class="designer">Marco Teubner</div>
+<div class="year">2016</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">20</td><td class="summary-data">31.7%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">12</td><td class="summary-data">19.0%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">30</td><td class="summary-data">47.6%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">1</td><td class="summary-data">1.6%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>63</b></td><td class="summary-data"><b>100%</b></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, PlaceBoard, ChoosePlayerComponents</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Box, Gameboard, Token, Shuffle</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StoneAgeBoard">StoneAgeBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BoardArrow">BoardArrow</a><a href="#BoardSpace">BoardSpace</a><a href="#DogStorage">DogStorage</a><a href="#HutStorage">HutStorage</a><a href="#PlayerFigure">PlayerFigure</a><a href="#SetupForest">SetupForest</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BoardSpace">BoardSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BoardArrow">BoardArrow</a><a href="#BuildHut">BuildHut</a><a href="#ClaimGood">ClaimGood</a><a href="#MoveFigure">MoveFigure</a><a href="#PerformAction">PerformAction</a><a href="#SetupGoods">SetupGoods</a><a href="#SetupPlayer">SetupPlayer</a><a href="#Symbol">Symbol</a></div></div>: Part of <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Symbol">Symbol</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveFigure">MoveFigure</a><a href="#PerformAction">PerformAction</a><a href="#SetupGoods">SetupGoods</a><a href="#SetupPlayer">SetupPlayer</a></div></div>: Attribute of <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#BuildingSite">BuildingSite</a>, <a class="keyword" href="#TradingPost">TradingPost</a>, <a class="keyword" href="#Dog">Dog</a>, <a class="keyword" href="#Berry">Berry</a>, <a class="keyword" href="#Fish">Fish</a>, <a class="keyword" href="#Pot">Pot</a>, <a class="keyword" href="#Arrowhead">Arrowhead</a>, <a class="keyword" href="#Tooth">Tooth</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HutStorage">HutStorage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupHuts">SetupHuts</a></div></div>: Part of <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Where the stacks of <a class="keyword" href="#HutToken">HutTokens</a> are stored</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DogStorage">DogStorage</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#ClaimDog">ClaimDog</a><a href="#SetupDogs">SetupDogs</a></div></div>: Part of <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Where the <a class="keyword" href="#DogToken">DogTokens</a> are stored</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BoardArrow">BoardArrow</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveFigure">MoveFigure</a></div></div>: Part of <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Arrows the connect the various <a class="keyword" href="#BoardSpace">BoardSpaces</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerPiece">PlayerPiece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Color">Color</a><a href="#PlayerFigure">PlayerFigure</a><a href="#PlayerMarker">PlayerMarker</a><a href="#Settlement">Settlement</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Color">Color</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupPlayer">SetupPlayer</a></div></div>: Attribute of <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#Blue">Blue</a>, <a class="keyword" href="#Yellow">Yellow</a>, <a class="keyword" href="#Green">Green</a>, <a class="keyword" href="#Pink">Pink</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerMarker">PlayerMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupPlayer">SetupPlayer</a></div></div>: <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shows which color the <abbr title="Imported term">Player</abbr> has claimed</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerFigure">PlayerFigure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveFigure">MoveFigure</a><a href="#PerformAction">PerformAction</a><a href="#SetupPlayer">SetupPlayer</a></div></div>: <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shows <abbr title="Imported term">Player</abbr> location on <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Settlement">Settlement</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimDog">ClaimDog</a><a href="#ClaimGood">ClaimGood</a><a href="#HutSlot">HutSlot</a><a href="#Mastodon">Mastodon</a><a href="#Pool">Pool</a><a href="#SetupPlayer">SetupPlayer</a></div></div>: <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Mastodon">Mastodon</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupPlayer">SetupPlayer</a></div></div>: Attribute of <a class="keyword" href="#Settlement">Settlement</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#Blue">Blue</a>, <a class="keyword" href="#Yellow">Yellow</a>, <a class="keyword" href="#Green">Green</a>, <a class="keyword" href="#Pink">Pink</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HutSlot">HutSlot</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a></div></div>: Part of <a class="keyword" href="#Settlement">Settlement</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>This is where you place claimed <a class="keyword" href="#HutToken">HutTokens</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Good">Good</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#ClaimGood">ClaimGood</a><a href="#GoodType">GoodType</a><a href="#Pool">Pool</a><a href="#RequiredGoods">RequiredGoods</a><a href="#TradeGoods">TradeGoods</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GoodType">GoodType</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupGoods">SetupGoods</a></div></div>: Attribute of <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#Berry">Berry</a>, <a class="keyword" href="#Fish">Fish</a>, <a class="keyword" href="#Pot">Pot</a>, <a class="keyword" href="#Arrowhead">Arrowhead</a>, <a class="keyword" href="#Tooth">Tooth</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HutToken">HutToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#DetermineWinner">DetermineWinner</a><a href="#GameOver">GameOver</a><a href="#HutSlot">HutSlot</a><a href="#HutStorage">HutStorage</a><a href="#RequiredGoods">RequiredGoods</a><a href="#SetupHuts">SetupHuts</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RequiredGoods">RequiredGoods</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a></div></div>: Attribute of <a class="keyword" href="#HutToken">HutToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set of <a class="keyword" href="#Good">Goods</a> that you need to pay to claim this <a class="keyword" href="#HutToken">HutToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DogToken">DogToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#ClaimDog">ClaimDog</a><a href="#DogStorage">DogStorage</a><a href="#SetupDogs">SetupDogs</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ForestToken">ForestToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#FlipForest">FlipForest</a><a href="#MoveFigure">MoveFigure</a><a href="#ResetForest">ResetForest</a><a href="#SetupForest">SetupForest</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pool">Pool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#ClaimGood">ClaimGood</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Your collection of <a class="keyword" href="#Good">Goods</a> that you keep hidden behind your <a class="keyword" href="#Settlement">Settlement</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlaceBoard</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupPlayer">SetupPlayer</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupGoods">SetupGoods</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupHuts">SetupHuts</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupDogs">SetupDogs</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupForest">SetupForests</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupPlayer">SetupPlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#PlayerMarker">PlayerMarker</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#PlayerFigure">PlayerFigure</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>* <a class="keyword" href="#Settlement">Settlement</a> with <a class="keyword" href="#Mastodon">Mastodon</a> that matches <abbr title="Imported term">Player</abbr> <a class="keyword" href="#Color">Color</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#PlayerFigure">PlayerFigure</a> in the <a class="keyword" href="#BoardSpace">BoardSpace</a> with the <a class="keyword" href="#BuildingSite">BuildingSite</a> <a class="keyword" href="#Symbol">Symbol</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#PlayerMarker">PlayerMarker</a> in front of you</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupGoods">SetupGoods</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#GoodType">GoodType</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Select number of each good based on <abbr title="Imported term">Player</abbr> count:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 2 players: 3 of each type</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 2-4 players: 4 of each type</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Return unused good back into the <abbr title="Imported term">Box</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place 1 good in the <a class="keyword" href="#TradingPost">TradingPost</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place remaining goods in the <a class="keyword" href="#BoardSpace">BoardSpace</a> whose <a class="keyword" href="#Symbol">Symbol</a> matches the <a class="keyword" href="#GoodType">GoodType</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupHuts">SetupHuts</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Shuffle</abbr> <a class="keyword" href="#HutToken">HutTokens</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Make 3 piles of 5 facedown <a class="keyword" href="#HutToken">HutTokens</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place each pile on available <a class="keyword" href="#HutStorage">HutStorage</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#HutStorage">HutStorage</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Flip over the top <a class="keyword" href="#HutToken">HutToken</a> so it is face up</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupDogs">SetupDogs</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#DogToken">DogToken</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#DogToken">DogToken</a> in an available <a class="keyword" href="#DogStorage">DogStorage</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupForest">SetupForest</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Shuffle</abbr> <a class="keyword" href="#ForestToken">ForestTokens</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Arrange the <a class="keyword" href="#ForestToken">ForestTokens</a> facedown so that they surround the <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>4 <a class="keyword" href="#ForestToken">ForestTokens</a> above and below the board; 3 <a class="keyword" href="#ForestToken">ForestTokens</a> left and right</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#GameOver">GameOver</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GameOver">GameOver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Condition</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Game is over when a <abbr title="Imported term">Player</abbr> claims their third <a class="keyword" href="#HutToken">HutToken</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#FlipForest">FlipForest</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#MoveFigure">MoveFigure</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PerformAction">PerformAction</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="FlipForest">FlipForest</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Flip over one of the <a class="keyword" href="#ForestToken">ForestTokens</a> that is currently facedown</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveFigure">MoveFigure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#ForestToken">ForestToken</a> you just flipped:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Die symbol: Move forward the number of spaces equal to the die, following the direction of the <a class="keyword" href="#BoardArrow">BoardArrows</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BoardSpace">BoardSpace</a> <a class="keyword" href="#Symbol">Symbol</a>: Move your <a class="keyword" href="#PlayerFigure">PlayerFigure</a> directly to the matching <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformAction">PerformAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#Symbol">Symbol</a> of the <a class="keyword" href="#BoardSpace">BoardSpace</a> that contains your <a class="keyword" href="#PlayerFigure">PlayerFigure</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BuildingSite">BuildingSite</a>: <a class="keyword" href="#Construction">Construction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#TradingPost">TradingPost</a>: <a class="keyword" href="#TradeGoods">TradeGoods</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#Dog">Dog</a>: <a class="keyword" href="#ClaimDog">ClaimDog</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Otherwise:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ClaimGood">ClaimGood</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClaimGood">ClaimGood</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take one of the <a class="keyword" href="#Good">Goods</a> in the <a class="keyword" href="#BoardSpace">BoardSpace</a> into your <a class="keyword" href="#Pool">Pool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If the <a class="keyword" href="#BoardSpace">BoardSpace</a> is empty:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>There are no <a class="keyword" href="#Good">Goods</a> to claim, so you can't claim one</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may place your claimed <a class="keyword" href="#Good">Good</a> behind your <a class="keyword" href="#Settlement">Settlement</a> to hide it from other <abbr title="Imported term">Players</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TradeGoods">TradeGoods</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>As many times as you like:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Trade one of your <a class="keyword" href="#Good">Goods</a> with one in the <a class="keyword" href="#TradingPost">TradingPost</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClaimDog">ClaimDog</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Claim a <a class="keyword" href="#DogToken">DogToken</a> from <a class="keyword" href="#DogStorage">DogStorage</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place this <a class="keyword" href="#DogToken">DogToken</a> next to your <a class="keyword" href="#Settlement">Settlement</a> so that other <abbr title="Imported term">Players</abbr> can see it</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If there are no <a class="keyword" href="#DogToken">DogTokens</a> in <a class="keyword" href="#DogStorage">DogStorage</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Take a <a class="keyword" href="#DogToken">DogToken</a> from the closest <abbr title="Imported term">Player</abbr> on your left who has one</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you already had both <a class="keyword" href="#DogToken">DogTokens</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You get nothing, or (if you prefer) you take it from yourself</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Construction">Construction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>You may optionally:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BuildHut">BuildHut</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResetForest">ResetForest</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildHut">BuildHut</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Construction">Construction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have <a class="keyword" href="#Good">Goods</a> in your <a class="keyword" href="#Pool">Pool</a> that match the <a class="keyword" href="#RequiredGoods">RequiredGoods</a> for a revealed <a class="keyword" href="#HutToken">HutToken</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#Good">Good</a> in the <a class="keyword" href="#RequiredGoods">RequiredGoods</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Return a matching <a class="keyword" href="#Good">Good</a> from your <a class="keyword" href="#Pool">Pool</a> to its matching <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#HutToken">HutToken</a> in one of your 3 <a class="keyword" href="#HutSlot">HutSlots</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If there were more <a class="keyword" href="#HutToken">HutTokens</a> beneath the one you claimed:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Reveal the top <a class="keyword" href="#HutToken">HutToken</a> of that stack</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you have a <a class="keyword" href="#DogToken">DogToken</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may use the <a class="keyword" href="#DogToken">DogToken</a> in place of any <a class="keyword" href="#Good">Good</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>If you do:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Return the <a class="keyword" href="#DogToken">DogToken</a> to <a class="keyword" href="#DogStorage">DogStorage</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may only claim a single <a class="keyword" href="#HutToken">HutToken</a> per <a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ResetForest">ResetForest</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Construction">Construction</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Flip over the <a class="keyword" href="#ForestToken">ForestTokens</a> so that they are all facedown</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Swap the positions of 2 <a class="keyword" href="#ForestToken">ForestTokens</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Make sure everyone is watching when you swap the <a class="keyword" href="#ForestToken">ForestTokens</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The <abbr title="Imported term">Player</abbr> who claimed their third <a class="keyword" href="#HutToken">HutToken</a> is the winner</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+NAME: My First Stone Age
+
+SECTION: Assumptions
+
+IMPORT: Player, PlaceBoard, ChoosePlayerComponents
+IMPORT: NextPlayerClockwise
+IMPORT: Box, Gameboard, Token, Shuffle
+
+SECTION: Vocabulary
+
+StoneAgeBoard: Gameboard
+
+BoardSpace: Part of StoneAgeBoard
+Symbol: Attribute of BoardSpace
+	Values: BuildingSite, TradingPost, Dog, Berry, Fish, Pot, Arrowhead, Tooth
+
+HutStorage: Part of StoneAgeBoard
+	Where the stacks of HutTokens are stored
+DogStorage: Part of StoneAgeBoard
+	Where the DogTokens are stored
+
+BoardArrow: Part of StoneAgeBoard
+	Arrows the connect the various BoardSpaces
+
+PlayerPiece: Token
+Color: Attribute of PlayerPiece
+	Values: Blue, Yellow, Green, Pink
+
+PlayerMarker: PlayerPiece
+	Shows which color the Player has claimed
+PlayerFigure: PlayerPiece
+	Shows Player location on StoneAgeBoard
+
+Settlement: PlayerPiece
+Mastodon: Attribute of Settlement
+	Values: Blue, Yellow, Green, Pink
+HutSlot: Part of Settlement
+	This is where you place claimed HutTokens
+
+Good: Noun
+GoodType: Attribute of Good
+	Values: Berry, Fish, Pot, Arrowhead, Tooth
+
+HutToken: Token
+RequiredGoods: Attribute of HutToken
+	Set of Goods that you need to pay to claim this HutToken
+
+DogToken: Token
+
+ForestToken: Token
+
+Pool: Noun
+	Your collection of Goods that you keep hidden behind your Settlement
+	
+SECTION: Setup	
+
+Setup: Verb
+	PlaceBoard
+	SetupPlayer
+	SetupGoods
+	SetupHuts
+	SetupDogs
+	SetupForests
+
+SetupPlayer: Verb
+	ChoosePlayerComponents
+		* PlayerMarker
+		* PlayerFigure
+		* Settlement with Mastodon that matches Player Color
+	For each Player:
+		Place the PlayerFigure in the BoardSpace with the BuildingSite Symbol
+		Place the PlayerMarker in front of you
+
+SetupGoods: Verb
+	For each GoodType:
+		Select number of each good based on Player count:
+			* 2 players: 3 of each type
+			* 2-4 players: 4 of each type
+		Return unused good back into the Box
+		Place 1 good in the TradingPost
+		Place remaining goods in the BoardSpace whose Symbol matches the GoodType
+
+SetupHuts: Verb
+	Shuffle HutTokens
+	Make 3 piles of 5 facedown HutTokens
+	Place each pile on available HutStorage
+	For each HutStorage:
+		Flip over the top HutToken so it is face up
+	
+SetupDogs: Verb
+	For each DogToken:
+		Place the DogToken in an available DogStorage
+
+SetupForest: Verb
+	Shuffle ForestTokens
+	Arrange the ForestTokens facedown so that they surround the StoneAgeBoard:
+		4 ForestTokens above and below the board; 3 ForestTokens left and right
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until GameOver:
+		PlayerTurn
+		NextPlayerClockwise
+
+GameOver: Condition
+	Game is over when a Player claims their third HutToken
+
+PlayerTurn: Verb
+	FlipForest
+	MoveFigure
+	PerformAction
+
+FlipForest: Verb
+	Flip over one of the ForestTokens that is currently facedown
+	
+MoveFigure: Verb
+	Based on the ForestToken you just flipped:
+		Die symbol: Move forward the number of spaces equal to the die, following the direction of the BoardArrows
+		BoardSpace Symbol: Move your PlayerFigure directly to the matching BoardSpace
+	
+PerformAction: Verb
+	Based on the Symbol of the BoardSpace that contains your PlayerFigure:
+		BuildingSite: Construction
+		TradingPost: TradeGoods
+		Dog: ClaimDog
+		Otherwise:
+			ClaimGood
+
+ClaimGood: Verb
+	Take one of the Goods in the BoardSpace into your Pool
+	! If the BoardSpace is empty:
+		There are no Goods to claim, so you can't claim one
+	! You may place your claimed Good behind your Settlement to hide it from other Players
+
+TradeGoods: Verb
+	As many times as you like:
+		Exchange one of the Goods in your Pool with one in the TradingPost
+
+ClaimDog: Verb
+	Claim a DogToken from DogStorage
+	Place this DogToken next to your Settlement so that other Players can see it
+	! If there are no DogTokens in DogStorage:
+		Take a DogToken from the closest Player on your left who has one
+	! If you already had both DogTokens:
+		You get nothing, or (if you prefer) you take it from yourself
+
+Construction: Verb
+	You may optionally:
+		BuildHut
+	ResetForest
+	
+BuildHut: Verb
+	If you have Goods in your Pool that match the RequiredGoods for a revealed HutToken:
+		For each Good in the RequiredGoods:
+			Return a matching Good from your Pool to its matching BoardSpace
+		Place the HutToken in one of your 3 HutSlots
+		If there were more HutTokens beneath the one you claimed:
+			Reveal the top HutToken of that stack
+	! If you have a DogToken:
+		You may use the DogToken in place of any Good
+		If you do:
+			Return the DogToken to DogStorage
+	! You may only claim a single HutToken per PlayerTurn
+
+ResetForest: Verb
+	Flip over the ForestTokens so that they are all facedown
+	Swap the positions of 2 ForestTokens
+	! Make sure everyone is watching when you swap the ForestTokens
+
+SECTION: Endgame Scoring
+
+DetermineWinner: Verb
+	The Player who claimed their third HutToken is the winner

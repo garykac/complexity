@@ -71,6 +71,9 @@ Token: Noun
 
 Tile: Noun
 
+//Facedown: Noun
+//Faceup: Noun
+
 NotComponentLimited: Verb
 	Assume there are an infinite number of these items
 	If this component runs out:
@@ -79,7 +82,7 @@ NotComponentLimited: Verb
 PlayerAid: Noun
 
 PlaceBoard: Verb
-	Place board on table
+	Place board on the center of the table
 
 ChoosePlayerComponents: Verb
 	Choose one of the available player colors (or symbol or however player pieces are distinguished)
