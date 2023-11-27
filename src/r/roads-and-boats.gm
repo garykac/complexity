@@ -37,7 +37,7 @@ Shore: Noun
 
 EmptyPasture: Noun
 	A PastureTile with no Buildings
-	// The Roads, Bridges, Walls and the HomeMarker do not count as Buildings
+	// Note that the Roads, Bridges, Walls and HomeMarker do not count as Buildings
 
 Livestock: Noun
 

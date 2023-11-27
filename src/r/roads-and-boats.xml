@@ -19,16 +19,16 @@
 <export index="false" csv="true" />
 <complexity>
 	<edition>Splotter Spellen 2003 - 3rd edition</edition>
-	<score cost="312">
+	<score cost="311">
 		<section name="Vocabulary" cost="104" />
 		<section name="Setup" cost="16" />
-		<section name="Gameplay" cost="192">
+		<section name="Gameplay" cost="191">
 			<section name="-" cost="13" />
 			<section name="Production Phase" cost="56" />
 			<section name="Movement Phase" cost="31" />
 			<section name="Building Phase" cost="73" />
 			<section name="Construct Wonder Phase" cost="11" />
-			<section name="Endgame Scoring" cost="8" />
+			<section name="Endgame Scoring" cost="7" />
 		</section>
 	</score>
 </complexity>

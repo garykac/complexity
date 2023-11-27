@@ -27,5 +27,6 @@ shinjuku
 splendor
 tic-tac-toe
 ticket-to-ride
+ticket-to-ride-europe
 ticket-to-ride-first-journey
 welcome-to-the-dungeon

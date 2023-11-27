@@ -209,11 +209,11 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">20</td><td class="summary-data">31.7%</td></tr>
-<tr><td class="summary-section-name">Setup</td><td class="summary-data">12</td><td class="summary-data">19.0%</td></tr>
-<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">30</td><td class="summary-data">47.6%</td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">20</td><td class="summary-data">32.3%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">12</td><td class="summary-data">19.4%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">29</td><td class="summary-data">46.8%</td></tr>
 <tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">1</td><td class="summary-data">1.6%</td></tr>
-<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>63</b></td><td class="summary-data"><b>100%</b></td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>62</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
@@ -269,7 +269,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ForestToken">ForestToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#FlipForest">FlipForest</a><a href="#MoveFigure">MoveFigure</a><a href="#ResetForest">ResetForest</a><a href="#SetupForest">SetupForest</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pool">Pool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#ClaimGood">ClaimGood</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Pool">Pool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildHut">BuildHut</a><a href="#ClaimGood">ClaimGood</a><a href="#TradeGoods">TradeGoods</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Your collection of <a class="keyword" href="#Good">Goods</a> that you keep hidden behind your <a class="keyword" href="#Settlement">Settlement</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
@@ -355,7 +355,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TradeGoods">TradeGoods</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3>As many times as you like:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Trade one of your <a class="keyword" href="#Good">Goods</a> with one in the <a class="keyword" href="#TradingPost">TradingPost</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Exchange one of the <a class="keyword" href="#Good">Goods</a> in your <a class="keyword" href="#Pool">Pool</a> with one in the <a class="keyword" href="#TradingPost">TradingPost</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClaimDog">ClaimDog</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Claim a <a class="keyword" href="#DogToken">DogToken</a> from <a class="keyword" href="#DogStorage">DogStorage</a></td></tr>
@@ -372,7 +372,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BuildHut">BuildHut</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Construction">Construction</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you have <a class="keyword" href="#Good">Goods</a> in your <a class="keyword" href="#Pool">Pool</a> that match the <a class="keyword" href="#RequiredGoods">RequiredGoods</a> for a revealed <a class="keyword" href="#HutToken">HutToken</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#Good">Good</a> in the <a class="keyword" href="#RequiredGoods">RequiredGoods</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#Good">Good</a> in the <a class="keyword" href="#RequiredGoods">RequiredGoods</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Return a matching <a class="keyword" href="#Good">Good</a> from your <a class="keyword" href="#Pool">Pool</a> to its matching <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#HutToken">HutToken</a> in one of your 3 <a class="keyword" href="#HutSlot">HutSlots</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If there were more <a class="keyword" href="#HutToken">HutTokens</a> beneath the one you claimed:</td></tr>
