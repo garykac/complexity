@@ -29,11 +29,16 @@ FREE_ACTIONS = [
 	"Any of:",
 ]
 
-FREE_ACTION_PATTERNS = [
+FREE_ACTION_KEYWORD_PATTERNS = [
 	f"For each ({RegEx.KEYWORD}):",
 	f"For each ({RegEx.KEYWORD}), starting with ({RegEx.KEYWORD}):",
+	f"For each ({RegEx.KEYWORD}) in the ({RegEx.KEYWORD}):",
 	f"Repeat until ({RegEx.KEYWORD}):",
 	f"Repeat until ({RegEx.KEYWORD}), starting with ({RegEx.KEYWORD}):",
+]
+
+FREE_ACTION_PATTERNS = [
+	f"Repeat ([0-9]+) times:",
 ]
 
 # Handle suffix words like "Discard it" or "Shuffle them"
@@ -62,6 +67,9 @@ class GambitCalc:
 		self.freeActionPatterns = {}
 		for a in FREE_ACTION_PATTERNS:
 			self.freeActionPatterns[a] = True
+		self.freeActionKeywordPatterns = {}
+		for a in FREE_ACTION_KEYWORD_PATTERNS:
+			self.freeActionKeywordPatterns[a] = True
 	
 	# ==========
 	# Calculating costs.
@@ -107,6 +115,9 @@ class GambitCalc:
 				if line in self.freeActions:
 					zeroCost = True
 				for freePattern in self.freeActionPatterns:
+					if re.match(freePattern, line):
+						zeroCost = True
+				for freePattern in self.freeActionKeywordPatterns:
 					m = re.match(freePattern, line)
 					if m:
 						# Make sure each match group is a valid Keyword
