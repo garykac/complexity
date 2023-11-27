@@ -24,7 +24,7 @@ class IndexBuilder:
 		self.children = {}
 		# Define buckets here once we stop have 2 index files.
 		#self.buckets = [29, 59, 99, 199, 299]
-		#self.buckets = [99]
+		self.buckets = [29, 59, 99, 199]
 		self.gameMgr = GameListManager()
 		
 	def loadGames(self, allGames = False):
@@ -148,12 +148,10 @@ class IndexBuilder:
 
 	def build(self):
 		# Write public index file.
-		self.buckets = [29, 99, 199]
 		self.loadGames()
 		self.writeHtml(HTML_OUTPUT_FILE)
 
 		# Write full (all games) index file.
-		self.buckets = [29, 59, 99, 199]
 		self.loadGames(True)
 		self.writeHtml(HTML_FULL_OUTPUT_FILE)
 
