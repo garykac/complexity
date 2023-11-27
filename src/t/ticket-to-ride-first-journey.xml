@@ -16,13 +16,13 @@
 <bgg id="205125">
 	<weight date="2023-09-10" avg="1.42" />
 </bgg>
-<export index="false" csv="true" />
+<export index="true" csv="true" />
 <complexity>
 	<edition>Days of Wonder 2017</edition>
 	<score cost="44">
-		<section name="Vocabulary" cost="18" />
+		<section name="Vocabulary" cost="19" />
 		<section name="Setup" cost="4" />
-		<section name="Gameplay" cost="16" />
+		<section name="Gameplay" cost="15" />
 		<section name="Endgame Scoring" cost="6" />
 	</score>
 </complexity>

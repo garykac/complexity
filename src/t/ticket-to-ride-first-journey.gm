@@ -3,14 +3,16 @@ NAME: Ticket to Ride - First Journey (US)
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise
-IMPORT: Gameboard, Token, ChoosePlayerComponents
+IMPORT: Gameboard, PlaceBoard, Token, ChoosePlayerComponents
 IMPORT: Card, Deck, Hand
 
 IMPORT: ReshuffleDiscardToRecreateDeck
 
 SECTION: Vocabulary
 
-City: Part of Gameboard
+Map: Gameboard
+
+City: Part of Map
 
 EastCoastCity: City
 	Any of "New York", "Washington" or "South Miami"
@@ -19,8 +21,8 @@ WestCoastCity: City
 	Any of "Seattle", "San Francisco" or "Los Angeles"
 	// "Dublin", "Brest", or "Madrid" for European version
 
-Route: Part of Gameboard
-	A connection between 2 Cities on the Gameboard
+Route: Part of Map
+	A connection between 2 Cities on the Map
 
 DoubleRoute: Route
 	A Route that is actually 2 separate Routes of the same length (but different Color) between the same Cities
@@ -61,6 +63,7 @@ GoldenTicket: Ticket	// 1 copy
 SECTION: Setup
 
 Setup: Verb
+	PlaceBoard
 	ChoosePlayerComponents
 		* Claim 20 Train tokens of your color
 	Shuffle all the TrainCards to create the TrainDeck
@@ -86,7 +89,7 @@ PlayGame: Verb
 GameOver: Condition
 	Any of:
 		A Player has 6 Tickets
-		A Player places their last Train token on the Gameboard
+		A Player places their last Train token on the Map
 
 PlayerTurn: Verb
 	Choose one:

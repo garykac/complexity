@@ -1,9 +1,9 @@
-NAME: Ticket to Ride
+NAME: Ticket to Ride - Europe
 
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise
-IMPORT: Gameboard, PlaceBoard, Token, ChoosePlayerComponents
+IMPORT: Box, Gameboard, PlaceBoard, Token, ChoosePlayerComponents
 IMPORT: Card, Deck, Hand, Reveal
 
 IMPORT: ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack
@@ -24,10 +24,15 @@ Route: Part of Map
 DoubleRoute: Route
 	A Route that is actually 2 separate Routes of the same length between the same Cities
 
+FerryRoute: Route
+	A Route across water
+TunnelRoute: Route
+	A Route that goes underground
+
 RouteSpace: Part of Route
 	Each Route is comprised of one or more RouteSpaces (that share a common Color)
 Color: Attribute of RouteSpace
-	Values: Black, Blue, Green, Orange, Purple, Red, White, Yellow, Gray
+	Values: Black, Blue, Green, Orange, Purple, Red, White, Yellow, Gray, GrayLocomotive
 	
 TrainCard: Card
 Color: Attribute of TrainCard
@@ -53,8 +58,8 @@ RouteScoringTable: Noun
 		* 2: 2 points
 		* 3: 4 points
 		* 4: 7 points
-		* 5: 10 points
 		* 6: 15 points
+		* 8: 21 points
 
 Ticket: Card
 
@@ -68,12 +73,20 @@ Points: Attribute of DestinationTicket
 TicketDeck: Deck
 	Deck of DestinationTickets
 
+LongRouteTicket: Card
+	Long route tickets with a blue background
+	
 ContinuousPath: Noun
 	A ContinuousPath between two Cities is a series of Routes claimed by the same Player that connect the 2 Cities
 	! This path may visit a City multiple times, but each Route may only be used once
-	
+	! If you have a TrainStation on a City:
+		You can claim one Route owned by another Player as if it were your own for purposes of determining a ContinuousPath
+		The Route claimed by the TrainStation must be the same for all DestinationTickets that use the TrainStation
+
 LongestContinuousPath: Card
 	A bonus card given at the end of the game if you have the longest ContinuousPath.
+
+TrainStation: Token
 
 SECTION: Setup
 
@@ -82,6 +95,7 @@ Setup: Verb
 	ChoosePlayerComponents
 		* Claim 45 Train tokens of your color
 		* Claim ScoringMarker of your color
+		* Claim 3 TrainStations of your color
 	SetupTrainCards
 	SetupTickets
 	For each Player:
@@ -95,13 +109,17 @@ SetupTrainCards: Verb
 		DrawTrainCard x4
 
 SetupTrainCardMarket: Verb
-	DrawTrainCard x5 and place them face-up next to the TrainDeck
+	DrawTrainCard x5 and place them face-up next to the TrainDeck to create the TrainCardMarket
 
 DrawTrainCard: Verb
 	Draw a TrainCard from the TrainDeck
 	! ReshuffleDiscardToRecreateDeck
 
 SetupTickets: Verb
+	Shuffle all the LongRouteTickets
+	For each Player:
+		Draw a LongRouteTicket
+	Return all unused LongRouteTickets to the Box without looking at them
 	Shuffle all the DestinationTickets to create the TicketDeck
 	For each Player:
 		DrawStartTickets
@@ -116,12 +134,12 @@ DrawTicket: Verb
 	! Keep your DestinationTickets hidden from other Players
 
 DiscardTicket: Verb
-	Place the DestinationTicket on the bottom of the TicketDeck
+	Return the DestinationTicket to the Box without looking at it
 	
 SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat until GameOver, starting with most experienced traveler:
+	Repeat until GameOver, starting with Player who has visited to most european countries:
 		PlayerTurn
 		NextPlayerClockwise
 	FinalTurn
@@ -139,6 +157,7 @@ PlayerTurn: Verb
 		DrawNewTrainCards
 		ClaimRoute
 		DrawNewTickets
+		BuildTrainStation
 
 DrawNewTrainCards: Verb
 	Repeat 2 times:
@@ -156,7 +175,7 @@ DrawCardFromMarket: Verb
 RefillMarket: Verb
 	DrawTrainCard to refill the TrainCardMarket back up to 5 TrainCards
 	! If there are 3 Locomotives in the TrainCardMarket:
-		For each TrainCard in the TrainCardMarket:
+		For each TrainCard in the TrainCardMarket
 			DiscardTrainCard
 		SetupTrainCardMarket
 
@@ -165,15 +184,46 @@ DiscardTrainCard: Verb
 	
 ClaimRoute: Verb
 	Choose an available (empty) Route on the Map
-	For each RouteSpace in the Route:
-		DiscardTrainCard from your Hand that matches the RouteSpace Color
-			! A Wild TrainCard can match any color
-			! If the RouteSpace Color is Gray:
-				You may choose any Color for this RouteSpace, but you must use the same Color for all Gray RouteSpaces in this Route
-		Place one of your Trains on the RouteSpace
-	ScoreRoute
+	If the Route is a TunnelRoute:
+		ClaimTunnelRoute
+	Otherwise:
+		For each RouteSpace in the Route:
+			DiscardTrainCard from your Hand that matches the RouteSpace Color
+				! WildTrainCardsMatchAnyColor
+				! ChooseAnyColorForGrayRouteSpaces
+				! If the RouteSpace Color is GrayLocomotive:
+					You must match this RouteSpace with a Locomotive
+			Place one of your Trains on the RouteSpace
+		ScoreRoute
 	! You may not claim both Routes in a DoubleRoute
 	! In a 2- or 3- player game, the second Route of a DoubleRoute may not be claimed by any Player
+
+ClaimTunnelRoute: Verb
+	For each RouteSpace in the Route:
+		Reveal a TrainCard from your Hand that matches the RouteSpace Color
+			! WildTrainCardsMatchAnyColor
+			! ChooseAnyColorForGrayRouteSpaces
+	Repeat 3 times:
+		DrawTrainCard and reveal it
+			! If there are not enough TrainCards in the TrainDeck to draw 3 cards:
+				Reveal as many as possible
+		If it matches the Color of the TrainCards you used to claim the TunnelRoute:
+			You must reveal another matching TrainCard from your Hand
+			! Any Locomotive TrainCard drawn from the TrainDeck will match any Color that you used to claim the Route
+			! If you used only Locomotive TrainCards to claim the Route:
+				Only Locomotive cards will require you to spend additional cards
+				These additional cards from your Hand will need to be Locomotive cards
+			! If you cannot (or choose not to) reveal another matching TrainCard:
+				You do not score this Route (and your turn is over)
+	ScoreRoute
+	
+		
+WildTrainCardsMatchAnyColor: Constraint
+	A Wild TrainCard can match any RouteSpace Color
+	
+ChooseAnyColorForGrayRouteSpaces: Constraint
+	If the RouteSpace Color is Gray:
+		You may choose any Color for this RouteSpace, but you must use the same Color for all Gray RouteSpaces in this Route
 
 ScoreRoute: Verb
 	Using the RouteScoringTable, look up the number of points scored for this Route
@@ -189,6 +239,13 @@ DrawNewTickets: Verb
 		// You must keep at least one.
 	! DrawAsManyAsPossibleIfNotEnough
 
+BuildTrainStation: Verb
+	Pay cost based on which station you are building:
+		* First station: DiscardTrainCard a single TrainCard of any color
+		* Second station: DiscardTrainCard two TrainCards with matching Color
+		* Third station: DiscardTrainCard three TrainCards with matching Color
+	Place one of your TrainStations in any City that does not already have a TrainStation
+	
 SECTION: Endgame Scoring
 
 CalculateScore: Verb
@@ -199,11 +256,14 @@ CalculateScore: Verb
 				ScorePoints equal to the Points on the DestinationTicket
 			Otherwise:
 				ScorePoints equal to the negative Points on the card
+		For each unused TrainStation:
+			ScorePoints x4
 	The Player with the longest ContinuousPath:
 		Claims the LongestContinuousPath card
 		ScorePoints x10
 		! If multiple Players are tied for the longest ContinuousPath:
 			All tied Players score the 10 points
+		! Ignore TrainStations when calculating the longest ContinuousPath
 
 DetermineWinner: Verb
 	PlayerWithHighestScore
