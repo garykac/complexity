@@ -95,7 +95,7 @@ SetupTrainCards: Verb
 		DrawTrainCard x4
 
 SetupTrainCardMarket: Verb
-	DrawTrainCard x5 and place them face-up next to the TrainDeck
+	DrawTrainCard x5 and place them face-up next to the TrainDeck to create the TrainCardMarket
 
 DrawTrainCard: Verb
 	Draw a TrainCard from the TrainDeck

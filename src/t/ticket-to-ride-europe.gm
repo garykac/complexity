@@ -175,7 +175,7 @@ DrawCardFromMarket: Verb
 RefillMarket: Verb
 	DrawTrainCard to refill the TrainCardMarket back up to 5 TrainCards
 	! If there are 3 Locomotives in the TrainCardMarket:
-		For each TrainCard in the TrainCardMarket
+		For each TrainCard in the TrainCardMarket:
 			DiscardTrainCard
 		SetupTrainCardMarket
 
