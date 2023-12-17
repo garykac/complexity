@@ -35,7 +35,7 @@ Pass: Verb
 	Voluntarily skip your turn or choose not to perform an action
 
 ChooseFirstPlayer: Verb
-	Choose the FirstPlayer (however you like)
+	Choose the FirstPlayer (however you like) and give them the FirstPlayerToken (if available)
 
 SwitchPlayer: Verb
 	Switch player (in a 2 Player game)
@@ -70,6 +70,9 @@ Piece: Noun
 Token: Noun
 
 Tile: Noun
+
+FirstPlayerToken: Token
+	Token that identifies the FirstPlayer
 
 //Facedown: Noun
 //Faceup: Noun
