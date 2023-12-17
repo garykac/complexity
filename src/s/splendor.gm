@@ -3,8 +3,8 @@ NAME: Splendor
 SECTION: Assumptions
 
 IMPORT: Player, Box, ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
-IMPORT: Token
-IMPORT: Card, Deck, Draw, Shuffle
+IMPORT: Token, Card, Deck, Draw, Shuffle
+IMPORT: VictoryPoint, PlayerWithHighestScore
 
 SECTION: Vocabulary
 
@@ -20,8 +20,8 @@ Pile: Noun
 
 DevelopmentCard: Noun
 Level: Attribute of DevelopmentCard
-DevelopmentPP: Attribute of DevelopmentCard
-	PrestigePoints earned from this DevelopmentCard
+DevelopmentVP: Attribute of DevelopmentCard
+	VictoryPoints earned from this DevelopmentCard
 Cost: Attribute of DevelopmentCard
 	Cost to acquire this Card
 BonusGem: Attribute of DevelopmentCard
@@ -31,8 +31,8 @@ DevelopmentDeck: Noun
 	A stack of DevelopmentCards with the same Level
 
 NobleTile: Noun
-NoblePP: Attribute of NobleTile
-	PrestigePoints earned from this NobleTile
+NobleVP: Attribute of NobleTile
+	VictoryPoints earned from this NobleTile
 VisitRequirement: Attribute of NobleTile
 
 Market: Noun
@@ -40,9 +40,6 @@ Market: Noun
 
 InactiveArea: Noun
 	An area to store DevelopmentCards that you have reserved
-
-PrestigePoints: Noun
-	Victory points
 
 SECTION: Setup
 
@@ -74,7 +71,7 @@ SECTION: Gameplay
 
 PlayGame: Verb
 	ChooseFirstPlayer
-	Repeat until a Player has 15 or more PrestigePoints:
+	Repeat until a Player has 15 or more VictoryPoints:
 		AllPlayerTurns
 
 AllPlayerTurns: Verb
@@ -147,11 +144,11 @@ SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	For each of your DevelopmentCards:
-		Add DevelopmentPP to your PrestigePoints
+		Add DevelopmentVP to your VictoryPoints
 	For each of your NobleTiles:
-		Add NoblePP to your PrestigePoints
+		Add NobleVP to your VictoryPoints
 	
 DetermineWinner: Verb
-	Winner is the Player with the most PrestigePoints
+	PlayerWithHighestScore
 	! In case of a tie:
 		Player with fewest DevelopmentCards wins

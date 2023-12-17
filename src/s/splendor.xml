@@ -18,11 +18,11 @@
 <export index="true" csv="true" />
 <complexity>
 	<edition>JD Éditions - SPACE Cowboys 2014</edition>
-	<score cost="59">
-		<section name="Vocabulary" cost="16" />
+	<score cost="57">
+		<section name="Vocabulary" cost="15" />
 		<section name="Setup" cost="8" />
 		<section name="Gameplay" cost="28" />
-		<section name="Endgame Scoring" cost="7" />
+		<section name="Endgame Scoring" cost="6" />
 	</score>
 </complexity>
 </game>
