@@ -154,7 +154,7 @@ class GambitCalc:
 					if words[1] in FREE_SUFFIX_WORDS:
 						zeroCost = True
 					# Handle: "Discard x2"
-					if re.match(r'x\d+$', words[1]):
+					if re.match(r'x\-?\d+$', words[1]):
 						zeroCost = True
 
 				# Handle "Success:" and "Success: DrawCard"
