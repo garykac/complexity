@@ -31,10 +31,11 @@ FREE_ACTIONS = [
 
 FREE_ACTION_KEYWORD_PATTERNS = [
 	f"For each ({RegEx.KEYWORD}):",
-	f"For each ({RegEx.KEYWORD}), starting with ({RegEx.KEYWORD}):",
-	f"For each ({RegEx.KEYWORD}) in the ({RegEx.KEYWORD}):",
+	f"For each ({RegEx.KEYWORD}), starting with(?: the)? ({RegEx.KEYWORD}):",
+	f"For each ({RegEx.KEYWORD}) in(?: the)? ({RegEx.KEYWORD}):",
 	f"Repeat until ({RegEx.KEYWORD}):",
-	f"Repeat until ({RegEx.KEYWORD}), starting with ({RegEx.KEYWORD}):",
+	f"Repeat until ({RegEx.KEYWORD}), starting with(?: the)? ({RegEx.KEYWORD}):",
+	f"Based on(?: the)? ({RegEx.KEYWORD}):",
 ]
 
 FREE_ACTION_PATTERNS = [
