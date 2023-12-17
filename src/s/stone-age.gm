@@ -1,0 +1,349 @@
+NAME: Stone Age
+
+SECTION: Assumptions
+
+IMPORT: Player, PlaceBoard, ChoosePlayerComponents
+IMPORT: ChooseFirstPlayer, FirstPlayer, FirstPlayerToken, NextPlayerClockwise
+IMPORT: Box, Gameboard, Token, Tile, Dice
+IMPORT: Card, Deck, Shuffle
+IMPORT: ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
+
+SECTION: Vocabulary
+
+StoneAgeBoard: Gameboard
+
+BoardSpace: Part of StoneAgeBoard
+WorkerSpot: Part of BoardSpace
+	A place where a single Worker may be placed
+
+HuntingGrounds: BoardSpace
+	Where one finds Food
+	
+ResourceSpace: BoardSpace
+Type: Attribute of ResourceSpace
+	Values: Forest, ClayPit, Quarry, River
+
+AgricultureHut: BoardSpace
+
+ToolHut: BoardSpace
+
+ConjugalVisitHut: BoardSpace
+
+CivilizationSpace: BoardSpace
+	One of the four spaces that holds a CivilizationCard.
+ResourceCost: Attribute of CivilizationSpace
+	The cost in Resources to purchase this card
+	
+HutSpace: BoardSpace
+	Where the HutPiles are stored
+
+AgricultureTrack: Part of StoneAgeBoard
+	Used for tracking agriculture progress to make Food
+
+PlayerBoard: Gameboard
+PlayerTools: Part of PlayerBoard
+PlayerHuts: Part of PlayerBoard
+PlayerCivilizationCards: Part of PlayerBoard
+ResourcePool: Part of PlayerBoard
+	Where you can temporarily store your Food and Resources
+
+FoodResourceValueTable: Noun
+	The value of the Food and Resources when they are gathered
+
+Food: Noun
+	Represented by 1, 2, 5, and 10 tokens
+
+Resource: Noun
+	Values: Wood, Clay, Stone, Gold
+
+ToolTile: Tile
+Value: Attribute of ToolTile
+
+CivilizationCard: Card
+ImmediateBonus: Attribute of CivilizationCard
+	Values: DiceBonus, FoodBonus, ResourceBonus, ResourceDiceBonus, VpBonus, ToolBonus, AgricultureBonus, CivilizationCardBonus, SingleUseToolBonus, YouChooseResourceBonus
+FinalScoring: Attribute of CivilizationCard
+	Values: Green, Sand
+
+GreenScoring: Attribute of FinalScoring
+	Values: Healing, Art, Writing, Pottery, Time, Transport, Music, Weaving
+SandScoring: Attribute of FinalScoring
+	Values: Farmer, ToolMaker, Builder, Shaman
+
+CivilizationDeck: Deck
+
+HutTile: Tile
+HutVp: Attribute of HutTile
+	Values: Number, Variable
+HutCost: Attribute of HutTile
+	Values: SpecificResources, FourOfTwoKinds, AnyUpToSeven
+
+HutPile: Noun
+	Stack of 7 HutTiles
+
+PlayerPiece: Token
+Color: Attribute of PlayerPiece
+	Values: Red, Green, Blue, Yellow
+
+Worker: PlayerPiece
+SmallMarker: PlayerPiece
+
+GeneralSupply: Noun
+	A place to keep all the available but unused Workers
+
+SECTION: Setup	
+
+Setup: Verb
+	PlaceBoard
+	SetupFoodResources
+	SetupTools
+	SetupCivilizationCards
+	SetupHuts
+	SetupPlayers
+
+SetupFoodResources: Verb
+	Place all the Food tokens in the HuntingGrounds
+	Add Resources to their corresponding ResourceSpace Type:
+		Wood: Forest
+		Clay: ClayPit
+		Stone: Quarry
+		Gold: River
+
+SetupTools: Verb
+	Sort the ToolTiles into 2 stacks: the 1/2 tiles and the 3/4 tiles
+	Place these stacks in the ToolHut
+
+SetupCivilizationCards: Verb
+	Shuffle the CivilizationCards to create the CivilizationDeck
+	Place the CivilizationDeck next to the StoneAgeBoard
+	DealCivilizationCard x4
+
+DealCivilizationCard: Verb
+	Draw from the CivilizationDeck into the rightmost empty CivilizationSpace
+	! GameEndsIfNoMoreCivilizationCards
+
+GameEndsIfNoMoreCivilizationCards: Constraint
+	The game ends if there are no more CivilizationCards in the CivilizationDeck
+
+SetupHuts: Verb
+	Shuffle HutTiles
+	For each Player:
+		Create a HutPile that contains 7 HutTiles
+	Place the HutPiles in the HutSpace
+	Return all remaining HutTiles back in the Box without looking at them
+		
+SetupPlayers: Verb
+	ChoosePlayerComponents
+		* PlayerBoard
+		* Workers
+		* SmallMarker
+		* ScoringMarker
+	For each Player:
+		Place 5 Workers on your PlayerBoard
+		Set remaining Workers aside in the GeneralSupply
+		Add 12 Food to your ResourcePool
+		Place SmallMarker on the 0 space of the AgricultureTrack
+		Place ScoringMarker on the 0 space of the ScoringTrack
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	ChooseFirstPlayer
+	Repeat until GameOver, starting with FirstPlayer:
+		GameRound
+		NextRoundSetup
+
+GameOver: Condition
+	Game is over when any of:
+		One of the HutPiles is empty
+		The CivilizationDeck is empty
+
+GameRound: Verb
+	WorkerPlacementPhase
+	ActionPhase
+	FeedingPhase
+
+NextRoundSetup: Verb
+	Give FirstPlayerToken to the NextPlayerClockwise to update the FirstPlayer
+	Slide any CivilizationCards remaining in the CivilizationSpaces over to the right
+	For each empty CivilizationSpace:
+		DealCivilizationCard
+	For each Player:
+		Reset your ToolTiles so that you can use them again
+
+WorkerPlacementPhase: Verb
+	Repeat until WorkerPlacementDone, starting with FirstPlayer:
+		Choose a BoardSpace where:
+			You do not already have Workers
+			The BoardSpace has an available WorkerSpot
+		Choose the number of Workers to add to that space, limited by:
+			The number of available WorkerSpots
+			The number of Workers you have available on your PlayerBoard
+		NextPlayerClockwise
+	! The HuntingGrounds allows an unlimited number of Workers
+	! The ConjugalVisitHut requires that 2 Workers be placed by the same Player
+	! The CivilizationSpaces and HutSpaces have one WorkerSpot each
+	! Skip over Players who have already placed all their Workers
+
+WorkerPlacementDone: Condition
+	Worker placement is finished when any of:
+		All Players' Workers have been placed
+		All remaining Workers cannot be placed in the available BoardSpaces
+
+ActionPhase: Verb
+	For each Player, starting with the FirstPlayer:
+		For each BoardSpace (in any order) where you have Workers:
+			Based on the BoardSpace:
+				AgricultureHut: UpgradeAgriculture
+				ToolHut: UpgradeTool
+				ConjugalVisitHut: ConjugalVisitation
+				HuntingGrounds: GatherFoodOrResources
+				ResourceSpace: GatherFoodOrResources
+				CivilizationSpace: AcquireCivilizationCard
+				HutSpace: AcquireHut
+			Reclaim your Workers from that space to your PlayerBoard
+
+UpgradeAgriculture: Verb
+	Move your SmallMarker one step up the AgricultureTrack
+	
+UpgradeTool: Verb
+	If you have an empty PlayerTools slot:
+		Place a ToolTile with Value "1" in one of your PlayerTools slots
+	Otherwise:
+		Based on the lowest ToolTile that you have:
+			"1": Flip it over to turn it into a "2" tile
+			"2": Replace it with a "3" ToolTile
+			"3": Flip it over to turn it into a "4" tile
+
+ConjugalVisitation: Verb
+	Take a Worker of your Color from the GeneralSupply and add it to your PlayerBoard
+
+GatherFoodOrResources: Verb
+	Roll Dice equal to number of Workers you have in the BoardSpace
+	Add Dice values together
+	If you have unused ToolTiles, you may optionally:
+		For each ToolTile you choose to use:
+			Add the ToolTile's Value to the die roll
+			Rotate the ToolTile 90 degrees to indicate that it has been used
+			! The entire tool value must be used. You can't save part for later.
+	Divide by the value in the FoodResourceValueTable for this Food/Resource
+	Add that many Food or Resources to your ResourcePool
+	! If you have one or more CivilizationCards next to your PlayerBoard with a SingleUseToolBonus:
+		For each SingleUseToolBonus you choose to use:
+			Add the value of the SingleUseToolBonus to the die roll
+			Move the CivilizationCard to your stack of PlayerCivilizationCards
+
+PayResource: Verb
+	Move a Resource from your ResourcePool back to their matching BoardSpace
+	! ApplyYouChooseResourceBonus
+
+ApplyYouChooseResourceBonus: Verb
+	If you have the CivilizationCard with the YouChooseResourceBonus next to your PlayerBoard, you may:
+		Add 2 Resources of your choice to your ResourcePool
+		If you do:
+			Add the CivilizationCard to your stack of PlayerCivilizationCards
+	
+AcquireCivilizationCard: Verb
+	PayResources that match the ResourceCost for this CivilizationSpace
+	GainImmediateBonus
+	Add the card face down to your PlayerCivilizationCards on your PlayerBoard
+	! SkipIfYouCannotPayTheCost
+
+SkipIfYouCannotPayTheCost: Constraint
+	Skip if you cannot (or choose not to) pay the Resource cost
+
+GainImmediateBonus: Verb
+	Based on the ImmediateBonus:
+		DiceBonus: HandleDiceBonus
+		FoodBonus: Gain the amount of Food shown on card from the HuntingGrounds
+		ResourceBonus: Gain the Resource shown on the card from the corresponding ResourceSpace
+		ResourceDiceBonus: GatherFoodOrResources as if you had 2 Workers
+		VpBonus: RecordPointsOnScoringTrack x3
+		ToolBonus: UpgradeTool
+		AgricultureBonus: UpgradeAgriculture
+		CivilizationCardBonus: DrawBonusCivilizationCard
+		SingleUseToolBonus: Place this card next to your PlayerBoard
+		YouChooseResourceBonus: GainYouChooseResource
+
+HandleDiceBonus: Verb
+	Roll number of Dice equal to the number of Players
+	Place the Dice around the CivilizationCard, matching the location of the numbers
+	For each Player, starting with you:
+		Select a die
+		Claim the corresponding Resource
+		NextPlayerClockwise
+	! You may not use ToolTiles to change the die value
+
+DrawBonusCivilizationCard: Verb
+	Draw a CivilizationCard to add to your PlayerCivilizationCards
+	! You do not gain the ImmediateBonus for this card
+	! GameEndsIfNoMoreCivilizationCards
+
+GainYouChooseResource: Verb
+	Place this card next to your PlayerBoard
+	ApplyYouChooseResourceBonus
+
+AcquireHut: Verb
+	Based on the HutCost:
+		SpecificResources: PaySpecificResources
+		FourOfTwoKinds: PayFourOfTwoKinds
+		AnyUpToSeven: PayAnyUpToSeven
+	Add HutTile to your PlayerHuts
+	Reveal the next HutTile (if any) in that HutPile
+	! SkipIfYouCannotPayTheCost
+	! If you do not have room in your PlayerHuts for the new HutTile:
+		Stack the new tile on an existing one
+
+PaySpecificResources: Verb
+	PayResources that match the HutCost for this HutTile
+	RecordPointsOnScoringTrack equal to the HutVp Number
+	
+PayFourOfTwoKinds: Verb
+	PayResources x4 with the following condition:
+		The 4 Resources must be from exactly 2 different kinds
+	GainVpsFromResources
+
+PayAnyUpToSeven: Verb
+	PayResource using between 1-7 Resources of your choice
+	GainVpsFromResources
+
+GainVpsFromResources: Verb
+	For each Resource used to pay for this HutTile:
+		RecordPointsOnScoringTrack equal to the value of this Resource in the FoodResourceValueTable
+
+FeedingPhase: Verb
+	Gain Food equal to the position of your SmallMarker on the AgricultureTrack
+	Pay Food equal to the number of Workers you have on your PlayerBoard
+	If you do not have enough Food to feed all your Workers:
+		Pay for as many Workers are you can with all your Food
+		You may optionally spend Resources as if they were Food to feed Workers
+		If you still have unfed Workers:
+			RecordPointsOnScoringTrack x-10
+		
+SECTION: Endgame Scoring
+
+CalculateScore: Verb
+	Start with your score from the ScoringTrack
+	ScoreGreenCivilizationCards
+	ScoreSandCivilizationCards
+
+ScoreGreenCivilizationCards: Verb
+	Count the number of your unique GreenScoring CivilizationCards
+	RecordPointsOnScoringTrack equal to the square this number (multiply it by itself)
+	For each duplicate GreenScoring CivilizationCard:
+		RecordPointsOnScoringTrack x1
+
+ScoreSandCivilizationCards: Verb
+	Count the number of Farmers on your SandScoring CivilizationCards
+	RecordPointsOnScoringTrack equal to this number times your position on the AgricultureTrack
+	Count the number of ToolMakers on your SandScoring CivilizationCards
+	RecordPointsOnScoringTrack equal to this number times the total value of your ToolTiles
+	Count the number of Builders on your SandScoring CivilizationCards
+	RecordPointsOnScoringTrack equal to this number times the total number of HutTiles on your PlayerBoard
+	Count the number of Shaman on your SandScoring CivilizationCards
+	RecordPointsOnScoringTrack equal to this number times the total number of Workers on your PlayerBoard
+	
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	! If tied:
+		Compare the sum of value on AgricultureTrack, total value of ToolTiles and number of Workers

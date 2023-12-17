@@ -25,6 +25,7 @@ san-juan_
 scout
 shinjuku
 splendor
+stone-age
 tic-tac-toe
 ticket-to-ride
 ticket-to-ride-europe

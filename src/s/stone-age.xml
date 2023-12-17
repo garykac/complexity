@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="stone-age">
+<name>
+	<title>Stone Age</title>
+</name>
+<designers>
+	<designer>Bernd Brunnhofer</designer>
+</designers>
+<general>
+	<published year="2008" />
+	<age min="10" />
+	<players min="2" max="4" />
+	<time min="60" max="90" />
+</general>
+<bgg id="34635">
+	<weight date="2023-12-12" avg="2.46" />
+</bgg>
+<export index="false" csv="true" />
+<complexity>
+	<edition>Z-Man Games</edition>
+	<score cost="147">
+		<section name="Vocabulary" cost="38" />
+		<section name="Setup" cost="16" />
+		<section name="Gameplay" cost="79" />
+		<section name="Endgame Scoring" cost="14" />
+	</score>
+</complexity>
+</game>

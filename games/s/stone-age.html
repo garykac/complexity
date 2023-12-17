@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Stone Age</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../../scripts/file-issue.js" defer></script>
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.subtitle {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+.designer {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.year {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 2rem 0;
+	font-weight: 400;
+	font-size: 0.9rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-name {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-name {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subdata {
+	width: 12.5%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Stone Age</div>
+<div class="designer">Bernd Brunnhofer</div>
+<div class="year">2008</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">38</td><td class="summary-data">25.9%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">16</td><td class="summary-data">10.9%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">79</td><td class="summary-data">53.7%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">14</td><td class="summary-data">9.5%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>147</b></td><td class="summary-data"><b>100%</b></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=5>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Player, PlaceBoard, ChoosePlayerComponents</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">ChooseFirstPlayer, FirstPlayer, FirstPlayerToken, NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Box, Gameboard, Token, Tile, Dice</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Card, Deck, Shuffle</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="StoneAgeBoard">StoneAgeBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AgricultureTrack">AgricultureTrack</a><a href="#BoardSpace">BoardSpace</a><a href="#SetupCivilizationCards">SetupCivilizationCards</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="BoardSpace">BoardSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#AgricultureHut">AgricultureHut</a><a href="#CivilizationSpace">CivilizationSpace</a><a href="#ConjugalVisitHut">ConjugalVisitHut</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#HuntingGrounds">HuntingGrounds</a><a href="#HutSpace">HutSpace</a><a href="#PayResource">PayResource</a><a href="#ResourceSpace">ResourceSpace</a><a href="#ToolHut">ToolHut</a><a href="#WorkerPlacementDone">WorkerPlacementDone</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a><a href="#WorkerSpot">WorkerSpot</a></div></div>: Part of <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="WorkerSpot">WorkerSpot</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: Part of <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A place where a single <a class="keyword" href="#Worker">Worker</a> may be placed</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HuntingGrounds">HuntingGrounds</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a><a href="#SetupFoodResources">SetupFoodResources</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Where one finds <a class="keyword" href="#Food">Food</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResourceSpace">ResourceSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a><a href="#SetupFoodResources">SetupFoodResources</a><a href="#Type">Type</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Type">Type</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SetupFoodResources">SetupFoodResources</a></div></div>: Attribute of <a class="keyword" href="#ResourceSpace">ResourceSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Forest">Forest</a>, <a class="keyword" href="#ClayPit">ClayPit</a>, <a class="keyword" href="#Quarry">Quarry</a>, <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AgricultureHut">AgricultureHut</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ToolHut">ToolHut</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#SetupTools">SetupTools</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ConjugalVisitHut">ConjugalVisitHut</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CivilizationSpace">CivilizationSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a><a href="#ActionPhase">ActionPhase</a><a href="#DealCivilizationCard">DealCivilizationCard</a><a href="#NextRoundSetup">NextRoundSetup</a><a href="#ResourceCost">ResourceCost</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>One of the four spaces that holds a <a class="keyword" href="#CivilizationCard">CivilizationCard</a>.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResourceCost">ResourceCost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a></div></div>: Attribute of <a class="keyword" href="#CivilizationSpace">CivilizationSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The cost in <a class="keyword" href="#Resource">Resources</a> to purchase this card</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HutSpace">HutSpace</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#SetupHuts">SetupHuts</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Where the <a class="keyword" href="#HutPile">HutPiles</a> are stored</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AgricultureTrack">AgricultureTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DetermineWinner">DetermineWinner</a><a href="#FeedingPhase">FeedingPhase</a><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><a href="#SetupPlayers">SetupPlayers</a><a href="#UpgradeAgriculture">UpgradeAgriculture</a></div></div>: Part of <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Used for tracking agriculture progress to make <a class="keyword" href="#Food">Food</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerBoard">PlayerBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a><a href="#ActionPhase">ActionPhase</a><a href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a><a href="#ConjugalVisitation">ConjugalVisitation</a><a href="#FeedingPhase">FeedingPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a><a href="#GainYouChooseResource">GainYouChooseResource</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#PlayerCivilizationCards">PlayerCivilizationCards</a><a href="#PlayerHuts">PlayerHuts</a><a href="#PlayerTools">PlayerTools</a><a href="#ResourcePool">ResourcePool</a><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><a href="#SetupPlayers">SetupPlayers</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerTools">PlayerTools</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#UpgradeTool">UpgradeTool</a></div></div>: Part of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerHuts">PlayerHuts</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a></div></div>: Part of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerCivilizationCards">PlayerCivilizationCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a><a href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a><a href="#DrawBonusCivilizationCard">DrawBonusCivilizationCard</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a></div></div>: Part of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ResourcePool">ResourcePool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#PayResource">PayResource</a><a href="#SetupPlayers">SetupPlayers</a></div></div>: Part of <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Where you can temporarily store your <a class="keyword" href="#Food">Food</a> and <a class="keyword" href="#Resource">Resources</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="FoodResourceValueTable">FoodResourceValueTable</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainVpsFromResources">GainVpsFromResources</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The value of the <a class="keyword" href="#Food">Food</a> and <a class="keyword" href="#Resource">Resources</a> when they are gathered</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Food">Food</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AgricultureTrack">AgricultureTrack</a><a href="#FeedingPhase">FeedingPhase</a><a href="#FoodResourceValueTable">FoodResourceValueTable</a><a href="#GainImmediateBonus">GainImmediateBonus</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#HuntingGrounds">HuntingGrounds</a><a href="#ResourcePool">ResourcePool</a><a href="#SetupFoodResources">SetupFoodResources</a><a href="#SetupPlayers">SetupPlayers</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Represented by 1, 2, 5, and 10 tokens</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Resource">Resource</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a><a href="#FeedingPhase">FeedingPhase</a><a href="#FoodResourceValueTable">FoodResourceValueTable</a><a href="#GainImmediateBonus">GainImmediateBonus</a><a href="#GainVpsFromResources">GainVpsFromResources</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#HandleDiceBonus">HandleDiceBonus</a><a href="#PayAnyUpToSeven">PayAnyUpToSeven</a><a href="#PayFourOfTwoKinds">PayFourOfTwoKinds</a><a href="#PayResource">PayResource</a><a href="#ResourceCost">ResourceCost</a><a href="#ResourcePool">ResourcePool</a><a href="#SetupFoodResources">SetupFoodResources</a><a href="#SkipIfYouCannotPayTheCost">SkipIfYouCannotPayTheCost</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Wood">Wood</a>, <a class="keyword" href="#Clay">Clay</a>, <a class="keyword" href="#Stone">Stone</a>, <a class="keyword" href="#Gold">Gold</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ToolTile">ToolTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DetermineWinner">DetermineWinner</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#HandleDiceBonus">HandleDiceBonus</a><a href="#NextRoundSetup">NextRoundSetup</a><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><a href="#SetupTools">SetupTools</a><a href="#UpgradeTool">UpgradeTool</a><a href="#Value">Value</a></div></div>: <abbr title="Imported term">Tile</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Value">Value</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#UpgradeTool">UpgradeTool</a></div></div>: Attribute of <a class="keyword" href="#ToolTile">ToolTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CivilizationCard">CivilizationCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a><a href="#CivilizationSpace">CivilizationSpace</a><a href="#DrawBonusCivilizationCard">DrawBonusCivilizationCard</a><a href="#FinalScoring">FinalScoring</a><a href="#GameEndsIfNoMoreCivilizationCards">GameEndsIfNoMoreCivilizationCards</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#HandleDiceBonus">HandleDiceBonus</a><a href="#ImmediateBonus">ImmediateBonus</a><a href="#NextRoundSetup">NextRoundSetup</a><a href="#ScoreGreenCivilizationCards">ScoreGreenCivilizationCards</a><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><a href="#SetupCivilizationCards">SetupCivilizationCards</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ImmediateBonus">ImmediateBonus</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawBonusCivilizationCard">DrawBonusCivilizationCard</a><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Attribute of <a class="keyword" href="#CivilizationCard">CivilizationCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#DiceBonus">DiceBonus</a>, <a class="keyword" href="#FoodBonus">FoodBonus</a>, <a class="keyword" href="#ResourceBonus">ResourceBonus</a>, <a class="keyword" href="#ResourceDiceBonus">ResourceDiceBonus</a>, <a class="keyword" href="#VpBonus">VpBonus</a>, <a class="keyword" href="#ToolBonus">ToolBonus</a>, <a class="keyword" href="#AgricultureBonus">AgricultureBonus</a>, <a class="keyword" href="#CivilizationCardBonus">CivilizationCardBonus</a>, <a class="keyword" href="#SingleUseToolBonus">SingleUseToolBonus</a>, <a class="keyword" href="#YouChooseResourceBonus">YouChooseResourceBonus</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="FinalScoring">FinalScoring</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GreenScoring">GreenScoring</a><a href="#SandScoring">SandScoring</a></div></div>: Attribute of <a class="keyword" href="#CivilizationCard">CivilizationCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Green">Green</a>, <a class="keyword" href="#Sand">Sand</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GreenScoring">GreenScoring</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreGreenCivilizationCards">ScoreGreenCivilizationCards</a></div></div>: Attribute of <a class="keyword" href="#FinalScoring">FinalScoring</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Healing">Healing</a>, <a class="keyword" href="#Art">Art</a>, <a class="keyword" href="#Writing">Writing</a>, <a class="keyword" href="#Pottery">Pottery</a>, <a class="keyword" href="#Time">Time</a>, <a class="keyword" href="#Transport">Transport</a>, <a class="keyword" href="#Music">Music</a>, <a class="keyword" href="#Weaving">Weaving</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SandScoring">SandScoring</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a></div></div>: Attribute of <a class="keyword" href="#FinalScoring">FinalScoring</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Farmer">Farmer</a>, <a class="keyword" href="#ToolMaker">ToolMaker</a>, <a class="keyword" href="#Builder">Builder</a>, <a class="keyword" href="#Shaman">Shaman</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CivilizationDeck">CivilizationDeck</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealCivilizationCard">DealCivilizationCard</a><a href="#GameEndsIfNoMoreCivilizationCards">GameEndsIfNoMoreCivilizationCards</a><a href="#GameOver">GameOver</a><a href="#SetupCivilizationCards">SetupCivilizationCards</a></div></div>: <abbr title="Imported term">Deck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HutTile">HutTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a><a href="#GainVpsFromResources">GainVpsFromResources</a><a href="#HutCost">HutCost</a><a href="#HutPile">HutPile</a><a href="#HutVp">HutVp</a><a href="#PaySpecificResources">PaySpecificResources</a><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><a href="#SetupHuts">SetupHuts</a></div></div>: <abbr title="Imported term">Tile</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HutVp">HutVp</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PaySpecificResources">PaySpecificResources</a></div></div>: Attribute of <a class="keyword" href="#HutTile">HutTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Number">Number</a>, <a class="keyword" href="#Variable">Variable</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HutCost">HutCost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a><a href="#PaySpecificResources">PaySpecificResources</a></div></div>: Attribute of <a class="keyword" href="#HutTile">HutTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#SpecificResources">SpecificResources</a>, <a class="keyword" href="#FourOfTwoKinds">FourOfTwoKinds</a>, <a class="keyword" href="#AnyUpToSeven">AnyUpToSeven</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HutPile">HutPile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a><a href="#GameOver">GameOver</a><a href="#HutSpace">HutSpace</a><a href="#SetupHuts">SetupHuts</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Stack of 7 <a class="keyword" href="#HutTile">HutTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerPiece">PlayerPiece</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Color">Color</a><a href="#SmallMarker">SmallMarker</a><a href="#Worker">Worker</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Color">Color</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConjugalVisitation">ConjugalVisitation</a></div></div>: Attribute of <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Values: <a class="keyword" href="#Red">Red</a>, <a class="keyword" href="#Green">Green</a>, <a class="keyword" href="#Blue">Blue</a>, <a class="keyword" href="#Yellow">Yellow</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Worker">Worker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#ConjugalVisitation">ConjugalVisitation</a><a href="#DetermineWinner">DetermineWinner</a><a href="#FeedingPhase">FeedingPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a><a href="#GatherFoodOrResources">GatherFoodOrResources</a><a href="#GeneralSupply">GeneralSupply</a><a href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><a href="#SetupPlayers">SetupPlayers</a><a href="#WorkerPlacementDone">WorkerPlacementDone</a><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a><a href="#WorkerSpot">WorkerSpot</a></div></div>: <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SmallMarker">SmallMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#FeedingPhase">FeedingPhase</a><a href="#SetupPlayers">SetupPlayers</a><a href="#UpgradeAgriculture">UpgradeAgriculture</a></div></div>: <a class="keyword" href="#PlayerPiece">PlayerPiece</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GeneralSupply">GeneralSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ConjugalVisitation">ConjugalVisitation</a><a href="#SetupPlayers">SetupPlayers</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A place to keep all the available but unused <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">PlaceBoard</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupFoodResources">SetupFoodResources</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupTools">SetupTools</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupCivilizationCards">SetupCivilizationCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupHuts">SetupHuts</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SetupPlayers">SetupPlayers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupFoodResources">SetupFoodResources</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place all the <a class="keyword" href="#Food">Food</a> tokens in the <a class="keyword" href="#HuntingGrounds">HuntingGrounds</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add <a class="keyword" href="#Resource">Resources</a> to their corresponding <a class="keyword" href="#ResourceSpace">ResourceSpace</a> <a class="keyword" href="#Type">Type</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#Wood">Wood</a>: <a class="keyword" href="#Forest">Forest</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#Clay">Clay</a>: <a class="keyword" href="#ClayPit">ClayPit</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#Stone">Stone</a>: <a class="keyword" href="#Quarry">Quarry</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#Gold">Gold</a>: <a class="keyword" href="#River">River</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupTools">SetupTools</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Sort the <a class="keyword" href="#ToolTile">ToolTiles</a> into 2 stacks: the 1/2 tiles and the 3/4 tiles</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place these stacks in the <a class="keyword" href="#ToolHut">ToolHut</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupCivilizationCards">SetupCivilizationCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">Shuffle</abbr> the <a class="keyword" href="#CivilizationCard">CivilizationCards</a> to create the <a class="keyword" href="#CivilizationDeck">CivilizationDeck</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place the <a class="keyword" href="#CivilizationDeck">CivilizationDeck</a> next to the <a class="keyword" href="#StoneAgeBoard">StoneAgeBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DealCivilizationCard">DealCivilizationCard</a> x4</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DealCivilizationCard">DealCivilizationCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#NextRoundSetup">NextRoundSetup</a><a href="#SetupCivilizationCards">SetupCivilizationCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw from the <a class="keyword" href="#CivilizationDeck">CivilizationDeck</a> into the rightmost empty <a class="keyword" href="#CivilizationSpace">CivilizationSpace</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#GameEndsIfNoMoreCivilizationCards">GameEndsIfNoMoreCivilizationCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GameEndsIfNoMoreCivilizationCards">GameEndsIfNoMoreCivilizationCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DealCivilizationCard">DealCivilizationCard</a><a href="#DrawBonusCivilizationCard">DrawBonusCivilizationCard</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The game ends if there are no more <a class="keyword" href="#CivilizationCard">CivilizationCards</a> in the <a class="keyword" href="#CivilizationDeck">CivilizationDeck</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupHuts">SetupHuts</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">Shuffle</abbr> <a class="keyword" href="#HutTile">HutTiles</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Create a <a class="keyword" href="#HutPile">HutPile</a> that contains 7 <a class="keyword" href="#HutTile">HutTiles</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place the <a class="keyword" href="#HutPile">HutPiles</a> in the <a class="keyword" href="#HutSpace">HutSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Return all remaining <a class="keyword" href="#HutTile">HutTiles</a> back in the <abbr title="Imported term">Box</abbr> without looking at them</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SetupPlayers">SetupPlayers</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* <a class="keyword" href="#SmallMarker">SmallMarker</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* <abbr title="Imported term">ScoringMarker</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place 5 <a class="keyword" href="#Worker">Workers</a> on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Set remaining <a class="keyword" href="#Worker">Workers</a> aside in the <a class="keyword" href="#GeneralSupply">GeneralSupply</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Add 12 <a class="keyword" href="#Food">Food</a> to your <a class="keyword" href="#ResourcePool">ResourcePool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#SmallMarker">SmallMarker</a> on the 0 space of the <a class="keyword" href="#AgricultureTrack">AgricultureTrack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place <abbr title="Imported term">ScoringMarker</abbr> on the 0 space of the <abbr title="Imported term">ScoringTrack</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Repeat until <a class="keyword" href="#GameOver">GameOver</a>, starting with <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#GameRound">GameRound</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#NextRoundSetup">NextRoundSetup</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GameOver">GameOver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Condition</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Game is over when any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>One of the <a class="keyword" href="#HutPile">HutPiles</a> is empty</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The <a class="keyword" href="#CivilizationDeck">CivilizationDeck</a> is empty</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GameRound">GameRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#WorkerPlacementPhase">WorkerPlacementPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ActionPhase">ActionPhase</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#FeedingPhase">FeedingPhase</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="NextRoundSetup">NextRoundSetup</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Give <abbr title="Imported term">FirstPlayerToken</abbr> to the <abbr title="Imported term">NextPlayerClockwise</abbr> to update the <abbr title="Imported term">FirstPlayer</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Slide any <a class="keyword" href="#CivilizationCard">CivilizationCards</a> remaining in the <a class="keyword" href="#CivilizationSpace">CivilizationSpaces</a> over to the right</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each empty <a class="keyword" href="#CivilizationSpace">CivilizationSpace</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#DealCivilizationCard">DealCivilizationCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Reset your <a class="keyword" href="#ToolTile">ToolTiles</a> so that you can use them again</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="WorkerPlacementPhase">WorkerPlacementPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Repeat until <a class="keyword" href="#WorkerPlacementDone">WorkerPlacementDone</a>, starting with <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#BoardSpace">BoardSpace</a> where:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>You do not already have <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>The <a class="keyword" href="#BoardSpace">BoardSpace</a> has an available <a class="keyword" href="#WorkerSpot">WorkerSpot</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Choose the number of <a class="keyword" href="#Worker">Workers</a> to add to that space, limited by:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>The number of available <a class="keyword" href="#WorkerSpot">WorkerSpots</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>The number of <a class="keyword" href="#Worker">Workers</a> you have available on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; The <a class="keyword" href="#HuntingGrounds">HuntingGrounds</a> allows an unlimited number of <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; The <a class="keyword" href="#ConjugalVisitHut">ConjugalVisitHut</a> requires that 2 <a class="keyword" href="#Worker">Workers</a> be placed by the same <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; The <a class="keyword" href="#CivilizationSpace">CivilizationSpaces</a> and <a class="keyword" href="#HutSpace">HutSpaces</a> have one <a class="keyword" href="#WorkerSpot">WorkerSpot</a> each</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; Skip over <abbr title="Imported term">Players</abbr> who have already placed all their <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="WorkerPlacementDone">WorkerPlacementDone</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#WorkerPlacementPhase">WorkerPlacementPhase</a></div></div>: Condition</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#Worker">Worker</a> placement is finished when any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>All <abbr title="Imported term">Players</abbr>' <a class="keyword" href="#Worker">Workers</a> have been placed</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>All remaining <a class="keyword" href="#Worker">Workers</a> cannot be placed in the available <a class="keyword" href="#BoardSpace">BoardSpaces</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ActionPhase">ActionPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>, starting with the <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#BoardSpace">BoardSpace</a> (in any order) where you have <a class="keyword" href="#Worker">Workers</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>Based on the <a class="keyword" href="#BoardSpace">BoardSpace</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#AgricultureHut">AgricultureHut</a>: <a class="keyword" href="#UpgradeAgriculture">UpgradeAgriculture</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ToolHut">ToolHut</a>: <a class="keyword" href="#UpgradeTool">UpgradeTool</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ConjugalVisitHut">ConjugalVisitHut</a>: <a class="keyword" href="#ConjugalVisitation">ConjugalVisitation</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#HuntingGrounds">HuntingGrounds</a>: <a class="keyword" href="#GatherFoodOrResources">GatherFoodOrResources</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ResourceSpace">ResourceSpace</a>: <a class="keyword" href="#GatherFoodOrResources">GatherFoodOrResources</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#CivilizationSpace">CivilizationSpace</a>: <a class="keyword" href="#AcquireCivilizationCard">AcquireCivilizationCard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#HutSpace">HutSpace</a>: <a class="keyword" href="#AcquireHut">AcquireHut</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Reclaim your <a class="keyword" href="#Worker">Workers</a> from that space to your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="UpgradeAgriculture">UpgradeAgriculture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move your <a class="keyword" href="#SmallMarker">SmallMarker</a> one step up the <a class="keyword" href="#AgricultureTrack">AgricultureTrack</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="UpgradeTool">UpgradeTool</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you have an empty <a class="keyword" href="#PlayerTools">PlayerTools</a> slot:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place a <a class="keyword" href="#ToolTile">ToolTile</a> with <a class="keyword" href="#Value">Value</a> "1" in one of your <a class="keyword" href="#PlayerTools">PlayerTools</a> slots</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Based on the lowest <a class="keyword" href="#ToolTile">ToolTile</a> that you have:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>"1" : Flip it over to turn it into a "2" tile</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>"2" : Replace it with a "3" <a class="keyword" href="#ToolTile">ToolTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>"3" : Flip it over to turn it into a "4" tile</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ConjugalVisitation">ConjugalVisitation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Take a <a class="keyword" href="#Worker">Worker</a> of your <a class="keyword" href="#Color">Color</a> from the <a class="keyword" href="#GeneralSupply">GeneralSupply</a> and add it to your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GatherFoodOrResources">GatherFoodOrResources</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Roll <abbr title="Imported term">Dice</abbr> equal to number of <a class="keyword" href="#Worker">Workers</a> you have in the <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add <abbr title="Imported term">Dice</abbr> values together</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you have unused <a class="keyword" href="#ToolTile">ToolTiles</a>, you may optionally:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#ToolTile">ToolTile</a> you choose to use:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Add the <a class="keyword" href="#ToolTile">ToolTile</a>'s <a class="keyword" href="#Value">Value</a> to the die roll</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Rotate the <a class="keyword" href="#ToolTile">ToolTile</a> 90 degrees to indicate that it has been used</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>&#9888; The entire tool value must be used. You can't save part for later.</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Divide by the value in the <a class="keyword" href="#FoodResourceValueTable">FoodResourceValueTable</a> for this <a class="keyword" href="#Food">Food</a>/Resource</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add that many <a class="keyword" href="#Food">Food</a> or <a class="keyword" href="#Resource">Resources</a> to your <a class="keyword" href="#ResourcePool">ResourcePool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; If you have one or more <a class="keyword" href="#CivilizationCard">CivilizationCards</a> next to your <a class="keyword" href="#PlayerBoard">PlayerBoard</a> with a <a class="keyword" href="#SingleUseToolBonus">SingleUseToolBonus</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#SingleUseToolBonus">SingleUseToolBonus</a> you choose to use:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Add the value of the <a class="keyword" href="#SingleUseToolBonus">SingleUseToolBonus</a> to the die roll</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Move the <a class="keyword" href="#CivilizationCard">CivilizationCard</a> to your stack of <a class="keyword" href="#PlayerCivilizationCards">PlayerCivilizationCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PayResource">PayResource</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a><a href="#PayAnyUpToSeven">PayAnyUpToSeven</a><a href="#PayFourOfTwoKinds">PayFourOfTwoKinds</a><a href="#PaySpecificResources">PaySpecificResources</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move a <a class="keyword" href="#Resource">Resource</a> from your <a class="keyword" href="#ResourcePool">ResourcePool</a> back to their matching <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainYouChooseResource">GainYouChooseResource</a><a href="#PayResource">PayResource</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you have the <a class="keyword" href="#CivilizationCard">CivilizationCard</a> with the <a class="keyword" href="#YouChooseResourceBonus">YouChooseResourceBonus</a> next to your <a class="keyword" href="#PlayerBoard">PlayerBoard</a>, you may:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Add 2 <a class="keyword" href="#Resource">Resources</a> of your choice to your <a class="keyword" href="#ResourcePool">ResourcePool</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>If you do:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Add the <a class="keyword" href="#CivilizationCard">CivilizationCard</a> to your stack of <a class="keyword" href="#PlayerCivilizationCards">PlayerCivilizationCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AcquireCivilizationCard">AcquireCivilizationCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayResource">PayResources</a> that match the <a class="keyword" href="#ResourceCost">ResourceCost</a> for this <a class="keyword" href="#CivilizationSpace">CivilizationSpace</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#GainImmediateBonus">GainImmediateBonus</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add the card face down to your <a class="keyword" href="#PlayerCivilizationCards">PlayerCivilizationCards</a> on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#SkipIfYouCannotPayTheCost">SkipIfYouCannotPayTheCost</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SkipIfYouCannotPayTheCost">SkipIfYouCannotPayTheCost</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a><a href="#AcquireHut">AcquireHut</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Skip if you cannot (or choose not to) pay the <a class="keyword" href="#Resource">Resource</a> cost</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainImmediateBonus">GainImmediateBonus</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireCivilizationCard">AcquireCivilizationCard</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Based on the <a class="keyword" href="#ImmediateBonus">ImmediateBonus</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#DiceBonus">DiceBonus</a>: <a class="keyword" href="#HandleDiceBonus">HandleDiceBonus</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#FoodBonus">FoodBonus</a>: Gain the amount of <a class="keyword" href="#Food">Food</a> shown on card from the <a class="keyword" href="#HuntingGrounds">HuntingGrounds</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResourceBonus">ResourceBonus</a>: Gain the <a class="keyword" href="#Resource">Resource</a> shown on the card from the corresponding <a class="keyword" href="#ResourceSpace">ResourceSpace</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ResourceDiceBonus">ResourceDiceBonus</a>: <a class="keyword" href="#GatherFoodOrResources">GatherFoodOrResources</a> as if you had 2 <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#VpBonus">VpBonus</a>: <abbr title="Imported term">RecordPointsOnScoringTrack</abbr> x3</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#ToolBonus">ToolBonus</a>: <a class="keyword" href="#UpgradeTool">UpgradeTool</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#AgricultureBonus">AgricultureBonus</a>: <a class="keyword" href="#UpgradeAgriculture">UpgradeAgriculture</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#CivilizationCardBonus">CivilizationCardBonus</a>: <a class="keyword" href="#DrawBonusCivilizationCard">DrawBonusCivilizationCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#SingleUseToolBonus">SingleUseToolBonus</a>: Place this card next to your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#YouChooseResourceBonus">YouChooseResourceBonus</a>: <a class="keyword" href="#GainYouChooseResource">GainYouChooseResource</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="HandleDiceBonus">HandleDiceBonus</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Roll number of <abbr title="Imported term">Dice</abbr> equal to the number of <abbr title="Imported term">Players</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place the <abbr title="Imported term">Dice</abbr> around the <a class="keyword" href="#CivilizationCard">CivilizationCard</a>, matching the location of the numbers</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>, starting with you:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Select a die</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Claim the corresponding <a class="keyword" href="#Resource">Resource</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You may not use <a class="keyword" href="#ToolTile">ToolTiles</a> to change the die value</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DrawBonusCivilizationCard">DrawBonusCivilizationCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw a <a class="keyword" href="#CivilizationCard">CivilizationCard</a> to add to your <a class="keyword" href="#PlayerCivilizationCards">PlayerCivilizationCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; You do not gain the <a class="keyword" href="#ImmediateBonus">ImmediateBonus</a> for this card</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#GameEndsIfNoMoreCivilizationCards">GameEndsIfNoMoreCivilizationCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainYouChooseResource">GainYouChooseResource</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GainImmediateBonus">GainImmediateBonus</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place this card next to your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ApplyYouChooseResourceBonus">ApplyYouChooseResourceBonus</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="AcquireHut">AcquireHut</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ActionPhase">ActionPhase</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Based on the <a class="keyword" href="#HutCost">HutCost</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpecificResources">SpecificResources</a>: <a class="keyword" href="#PaySpecificResources">PaySpecificResources</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#FourOfTwoKinds">FourOfTwoKinds</a>: <a class="keyword" href="#PayFourOfTwoKinds">PayFourOfTwoKinds</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#AnyUpToSeven">AnyUpToSeven</a>: <a class="keyword" href="#PayAnyUpToSeven">PayAnyUpToSeven</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add <a class="keyword" href="#HutTile">HutTile</a> to your <a class="keyword" href="#PlayerHuts">PlayerHuts</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Reveal the next <a class="keyword" href="#HutTile">HutTile</a> (if any) in that <a class="keyword" href="#HutPile">HutPile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>&#9888; <a class="keyword" href="#SkipIfYouCannotPayTheCost">SkipIfYouCannotPayTheCost</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; If you do not have room in your <a class="keyword" href="#PlayerHuts">PlayerHuts</a> for the new <a class="keyword" href="#HutTile">HutTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Stack the new tile on an existing one</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PaySpecificResources">PaySpecificResources</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayResource">PayResources</a> that match the <a class="keyword" href="#HutCost">HutCost</a> for this <a class="keyword" href="#HutTile">HutTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to the <a class="keyword" href="#HutVp">HutVp</a> <a class="keyword" href="#Number">Number</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PayFourOfTwoKinds">PayFourOfTwoKinds</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayResource">PayResources</a> x4 with the following condition:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The 4 <a class="keyword" href="#Resource">Resources</a> must be from exactly 2 different kinds</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#GainVpsFromResources">GainVpsFromResources</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PayAnyUpToSeven">PayAnyUpToSeven</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#AcquireHut">AcquireHut</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayResource">PayResource</a> using between 1-7 <a class="keyword" href="#Resource">Resources</a> of your choice</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#GainVpsFromResources">GainVpsFromResources</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GainVpsFromResources">GainVpsFromResources</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PayAnyUpToSeven">PayAnyUpToSeven</a><a href="#PayFourOfTwoKinds">PayFourOfTwoKinds</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each <a class="keyword" href="#Resource">Resource</a> used to pay for this <a class="keyword" href="#HutTile">HutTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to the value of this <a class="keyword" href="#Resource">Resource</a> in the <a class="keyword" href="#FoodResourceValueTable">FoodResourceValueTable</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="FeedingPhase">FeedingPhase</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameRound">GameRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Gain <a class="keyword" href="#Food">Food</a> equal to the position of your <a class="keyword" href="#SmallMarker">SmallMarker</a> on the <a class="keyword" href="#AgricultureTrack">AgricultureTrack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Pay <a class="keyword" href="#Food">Food</a> equal to the number of <a class="keyword" href="#Worker">Workers</a> you have on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If you do not have enough <a class="keyword" href="#Food">Food</a> to feed all your <a class="keyword" href="#Worker">Workers</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Pay for as many <a class="keyword" href="#Worker">Workers</a> are you can with all your <a class="keyword" href="#Food">Food</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>You may optionally spend <a class="keyword" href="#Resource">Resources</a> as if they were <a class="keyword" href="#Food">Food</a> to feed <a class="keyword" href="#Worker">Workers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If you still have unfed <a class="keyword" href="#Worker">Workers</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> x-10</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CalculateScore">CalculateScore</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Start with your score from the <abbr title="Imported term">ScoringTrack</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ScoreGreenCivilizationCards">ScoreGreenCivilizationCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ScoreSandCivilizationCards">ScoreSandCivilizationCards</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ScoreGreenCivilizationCards">ScoreGreenCivilizationCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Count the number of your unique <a class="keyword" href="#GreenScoring">GreenScoring</a> <a class="keyword" href="#CivilizationCard">CivilizationCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to the square this number (multiply it by itself)</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each duplicate <a class="keyword" href="#GreenScoring">GreenScoring</a> <a class="keyword" href="#CivilizationCard">CivilizationCard</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> x1</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ScoreSandCivilizationCards">ScoreSandCivilizationCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Count the number of <a class="keyword" href="#Farmer">Farmers</a> on your <a class="keyword" href="#SandScoring">SandScoring</a> <a class="keyword" href="#CivilizationCard">CivilizationCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to this number times your position on the <a class="keyword" href="#AgricultureTrack">AgricultureTrack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Count the number of <a class="keyword" href="#ToolMaker">ToolMakers</a> on your <a class="keyword" href="#SandScoring">SandScoring</a> <a class="keyword" href="#CivilizationCard">CivilizationCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to this number times the total value of your <a class="keyword" href="#ToolTile">ToolTiles</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Count the number of <a class="keyword" href="#Builder">Builders</a> on your <a class="keyword" href="#SandScoring">SandScoring</a> <a class="keyword" href="#CivilizationCard">CivilizationCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to this number times the total number of <a class="keyword" href="#HutTile">HutTiles</a> on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Count the number of <a class="keyword" href="#Shaman">Shaman</a> on your <a class="keyword" href="#SandScoring">SandScoring</a> <a class="keyword" href="#CivilizationCard">CivilizationCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr> equal to this number times the total number of <a class="keyword" href="#Worker">Workers</a> on your <a class="keyword" href="#PlayerBoard">PlayerBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; If tied:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Compare the sum of value on <a class="keyword" href="#AgricultureTrack">AgricultureTrack</a>, total value of <a class="keyword" href="#ToolTile">ToolTiles</a> and number of <a class="keyword" href="#Worker">Workers</a></td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>
