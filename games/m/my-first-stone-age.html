@@ -223,7 +223,7 @@ a.keyword:hover {
 <tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, PlaceBoard, ChoosePlayerComponents</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Box, Gameboard, Token, Shuffle</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
@@ -319,7 +319,8 @@ a.keyword:hover {
 <tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
-<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#GameOver">GameOver</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Repeat until <a class="keyword" href="#GameOver">GameOver</a>, starting with <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
@@ -336,7 +337,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveFigure">MoveFigure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Based on the <a class="keyword" href="#ForestToken">ForestToken</a> you just flipped:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Die symbol: Move forward the number of spaces equal to the die, following the direction of the <a class="keyword" href="#BoardArrow">BoardArrows</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Die symbol: Move forward the number of <a class="keyword" href="#BoardSpace">BoardSpaces</a> equal to the die, following the direction of the <a class="keyword" href="#BoardArrow">BoardArrows</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#BoardSpace">BoardSpace</a> <a class="keyword" href="#Symbol">Symbol</a>: Move your <a class="keyword" href="#PlayerFigure">PlayerFigure</a> directly to the matching <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformAction">PerformAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
@@ -348,7 +349,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ClaimGood">ClaimGood</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ClaimGood">ClaimGood</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformAction">PerformAction</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take one of the <a class="keyword" href="#Good">Goods</a> in the <a class="keyword" href="#BoardSpace">BoardSpace</a> into your <a class="keyword" href="#Pool">Pool</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take one of the <a class="keyword" href="#Good">Goods</a> from the <a class="keyword" href="#BoardSpace">BoardSpace</a> into your <a class="keyword" href="#Pool">Pool</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If the <a class="keyword" href="#BoardSpace">BoardSpace</a> is empty:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>There are no <a class="keyword" href="#Good">Goods</a> to claim, so you can't claim one</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may place your claimed <a class="keyword" href="#Good">Good</a> behind your <a class="keyword" href="#Settlement">Settlement</a> to hide it from other <abbr title="Imported term">Players</abbr></td></tr>
@@ -375,7 +376,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>For each <a class="keyword" href="#Good">Good</a> in the <a class="keyword" href="#RequiredGoods">RequiredGoods</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Return a matching <a class="keyword" href="#Good">Good</a> from your <a class="keyword" href="#Pool">Pool</a> to its matching <a class="keyword" href="#BoardSpace">BoardSpace</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place the <a class="keyword" href="#HutToken">HutToken</a> in one of your 3 <a class="keyword" href="#HutSlot">HutSlots</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If there were more <a class="keyword" href="#HutToken">HutTokens</a> beneath the one you claimed:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If there were more <a class="keyword" href="#HutToken">HutTokens</a> in the pile beneath the one you claimed:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Reveal the top <a class="keyword" href="#HutToken">HutToken</a> of that stack</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you have a <a class="keyword" href="#DogToken">DogToken</a>:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You may use the <a class="keyword" href="#DogToken">DogToken</a> in place of any <a class="keyword" href="#Good">Good</a></td></tr>

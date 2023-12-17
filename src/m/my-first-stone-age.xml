@@ -13,9 +13,9 @@
 	<time min="15" max="15" />
 </general>
 <bgg id="191004">
-	<weight date="2023-11-15" avg="1.13" />
+	<weight date="2023-12-10" avg="1.12" />
 </bgg>
-<export index="false" csv="true" />
+<export index="true" csv="true" />
 <complexity>
 	<edition>Z-Man Games</edition>
 	<score cost="62">

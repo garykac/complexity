@@ -3,7 +3,7 @@ NAME: My First Stone Age
 SECTION: Assumptions
 
 IMPORT: Player, PlaceBoard, ChoosePlayerComponents
-IMPORT: NextPlayerClockwise
+IMPORT: ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
 IMPORT: Box, Gameboard, Token, Shuffle
 
 SECTION: Vocabulary
@@ -99,7 +99,8 @@ SetupForest: Verb
 SECTION: Gameplay
 
 PlayGame: Verb
-	Repeat until GameOver:
+	ChooseFirstPlayer
+	Repeat until GameOver, starting with FirstPlayer:
 		PlayerTurn
 		NextPlayerClockwise
 
@@ -116,7 +117,7 @@ FlipForest: Verb
 	
 MoveFigure: Verb
 	Based on the ForestToken you just flipped:
-		Die symbol: Move forward the number of spaces equal to the die, following the direction of the BoardArrows
+		Die symbol: Move forward the number of BoardSpaces equal to the die, following the direction of the BoardArrows
 		BoardSpace Symbol: Move your PlayerFigure directly to the matching BoardSpace
 	
 PerformAction: Verb
@@ -128,7 +129,7 @@ PerformAction: Verb
 			ClaimGood
 
 ClaimGood: Verb
-	Take one of the Goods in the BoardSpace into your Pool
+	Take one of the Goods from the BoardSpace into your Pool
 	! If the BoardSpace is empty:
 		There are no Goods to claim, so you can't claim one
 	! You may place your claimed Good behind your Settlement to hide it from other Players
@@ -155,7 +156,7 @@ BuildHut: Verb
 		For each Good in the RequiredGoods:
 			Return a matching Good from your Pool to its matching BoardSpace
 		Place the HutToken in one of your 3 HutSlots
-		If there were more HutTokens beneath the one you claimed:
+		If there were more HutTokens in the pile beneath the one you claimed:
 			Reveal the top HutToken of that stack
 	! If you have a DogToken:
 		You may use the DogToken in place of any Good
