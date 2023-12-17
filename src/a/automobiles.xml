@@ -18,9 +18,9 @@
 <export index="false" csv="true" />
 <complexity>
 	<edition>Alderac Entertainment Group 2015</edition>
-	<score cost="108">
+	<score cost="107">
 		<section name="Vocabulary" cost="45" />
-		<section name="Setup" cost="15" />
+		<section name="Setup" cost="14" />
 		<section name="Gameplay" cost="47" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>

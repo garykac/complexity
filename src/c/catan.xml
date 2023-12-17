@@ -21,10 +21,10 @@
 <export index="false" csv="true" />
 <complexity>
 	<edition>Catan Studio 5th edition 2020</edition>
-	<score cost="112">
+	<score cost="111">
 		<section name="Vocabulary" cost="41" />
 		<section name="Setup" cost="13" />
-		<section name="Gameplay" cost="58" />
+		<section name="Gameplay" cost="57" />
 	</score>
 </complexity>
 </game>

@@ -10,7 +10,7 @@ SECTION: Vocabulary
 
 GemToken: Token
 Color: Attribute of GemToken
-	// Emerald, Sapphire, Ruby, Diamond, Onyx
+	Values: Emerald, Sapphire, Ruby, Diamond, Onyx
 
 GoldToken: Token
 	A special Token that can be used in place of a GemToken

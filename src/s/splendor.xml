@@ -15,13 +15,13 @@
 <bgg id="148228">
 	<weight date="2022-10-11" avg="1.79" />
 </bgg>
-<export index="false" csv="true" />
+<export index="true" csv="true" />
 <complexity>
 	<edition>JD Éditions - SPACE Cowboys 2014</edition>
-	<score cost="60">
+	<score cost="59">
 		<section name="Vocabulary" cost="16" />
 		<section name="Setup" cost="8" />
-		<section name="Gameplay" cost="29" />
+		<section name="Gameplay" cost="28" />
 		<section name="Endgame Scoring" cost="7" />
 	</score>
 </complexity>
