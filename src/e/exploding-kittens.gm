@@ -94,8 +94,7 @@ HandleCombo: Verb
 	Take a random card from that Player's Hand into your Hand
 
 EndTurnImmediately: Verb
-	Your turn ends immediately
-	! Do not DrawCard
+	Your turn ends immediately - do not DrawCard
 
 DrawCard: Verb
 	Draw the top card from the DrawDeck
