@@ -58,7 +58,10 @@ ShareVictoryIfTieScore: Verb
 
 DecidedByEndgameTrigger: Verb
 	The endgame trigger in the PlayGame loop has already determined the winner. Nothing to do here.
-	
+
+LastPlayerRemaining: Verb
+	The last Player remaining after the others have been eliminated is the winner
+
 // =========
 // Boardgame
 // =========

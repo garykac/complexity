@@ -1,0 +1,115 @@
+NAME: Exploding Kittens
+
+SECTION: Assumptions
+
+IMPORT: Player, NextPlayerClockwise, ChooseFirstPlayer
+IMPORT: Card, DrawDeck, DiscardPile, Deal, Hand
+IMPORT: LastPlayerRemaining
+
+SECTION: Vocabulary
+
+EKCard: Card
+Name: Attribute of EKCard
+CardType: Attribute of EKCard
+	Values: ExplodingKitten, Defuse, Skip, Attack, Favor, Nope, ShuffleCard, SeeTheFuture, CatComboCard
+
+ValidCardset: Noun
+	Any of:
+		A single card of the following CardTypes: Skip, Attack, Favor, ShuffleCard, SeeTheFuture
+		A set of 2 CatComboCards with the same Name
+
+SECTION: Setup
+
+Setup: Verb
+	Remove all the ExplodingKitten and Defuse cards
+	Shuffle the remaining EKCards to form the DrawDeck
+	Deal 7 cards face-down to each Player
+	SetupDiffuseCards
+	SetupExplodingKittens
+	Shuffle the DrawDeck
+	ChooseFirstPlayer
+	
+SetupDiffuseCards: Verb
+	Deal 1 Defuse card to each Player
+	Add any remaining Defuse cards to the DrawDeck
+
+SetupExplodingKittens: Verb
+	Add ExplodingKitten cards to each DrawDeck equal to the number of Players minus 1
+	Remove all remaining ExplodingKitten cards from the game
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until only one Player remains:
+		PlayerTurn
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	Choose one:
+		PlayCards
+		Pass
+	DrawCard
+
+PlayCards: Verb
+	Repeat as many times as you wish:
+		Play a ValidCardset from your Hand face up onto the DiscardPile
+		Based on the CardType of the card(s) you played:
+			Skip: HandleSkip
+			Attack: HandleAttack
+			Favor: HandleFavor
+			ShuffleCard: HandleShuffle
+			SeeTheFuture: HandleSeeTheFuture
+			CatComboCard: HandleCombo
+		! The effect of any card except ExplodingKitten or Defuse can be canceled by playing a Nope card.
+		! This Nope card can be played by any Player (it doesn't have to be their turn)
+		! If a Nope card is played on another Nope card:
+			Both cards are still discarded, but otherwise it the same as if the Nope cards were not played
+		// Note that it's not possible to play an ExplodingKitten card (you'll never have one in your Hand)
+		// Note that you'll never want to play a Defuse or Nope card on your turn
+
+HandleSkip: Verb
+	EndTurnImmediately
+
+HandleAttack: Verb
+	EndTurnImmediately
+	Next Player must take 2 turns in a row
+	! If an Attack card is played by a Player being attacked (ie: taking either of their 2 turns ):
+		The attack is deflected to the next Player, with 2 additional turns added for that Player
+		// So, the target of a deflected attack would take 4 turns, and it that's deflected, the new target would take 6 turns, and so on.
+
+HandleFavor: Verb
+	Choose another Player
+	The chosen Player must give you 1 card (their choice) from their Hand
+
+HandleShuffle: Verb
+	Repeat until you are told to stop:
+		Shuffle the DrawDeck
+
+HandleSeeTheFuture: Verb
+	Look at the top 3 cards of the DrawDeck
+	Replace them in the same order without showing them to anyone else
+
+HandleCombo: Verb
+	Choose another Player
+	Take a random card from that Player's Hand into your Hand
+
+EndTurnImmediately: Verb
+	Your turn ends immediately
+	! Do not DrawCard
+
+DrawCard: Verb
+	Draw the top card from the DrawDeck
+	If you draw an ExplodingKitten card:
+		Reveal the card immediately to everyone
+		If you have a Defuse card from your Hand:
+			Discard the Defuse card
+			Secretly add the ExplodingKitten card back into the DrawDeck
+			! You may not look at or re-order the DrawDeck
+		Otherwise:
+			You are eliminated from the game
+			Discard all of the cards from your Hand, including the ExplodingKitten
+
+SECTION: Endgame Scoring
+
+DetermineWinner: Verb
+	LastPlayerRemaining

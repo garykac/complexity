@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="exploding-kittens">
+<name>
+	<title>Exploding Kittens</title>
+</name>
+<designers>
+	<designer>Matthew Inman</designer>
+	<designer>Elan Lee</designer>
+	<designer>Shane Small</designer>
+</designers>
+<general>
+	<published year="2015" />
+	<age min="7" />
+	<players min="2" max="5" />
+	<time min="15" max="15" />
+</general>
+<bgg id="172225">
+	<weight date="2024-01-25" avg="1.09" />
+</bgg>
+<export index="true" csv="true" />
+<complexity>
+	<score cost="44">
+		<section name="Vocabulary" cost="5" />
+		<section name="Setup" cost="8" />
+		<section name="Gameplay" cost="31" />
+		<section name="Endgame Scoring" cost="0" />
+	</score>
+</complexity>
+</game>

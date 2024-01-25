@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Exploding Kittens</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../../scripts/file-issue.js" defer></script>
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.subtitle {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+.designer {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.year {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 2rem 0;
+	font-weight: 400;
+	font-size: 0.9rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-name {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-name {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subdata {
+	width: 12.5%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Exploding Kittens</div>
+<div class="designer">Matthew Inman, Elan Lee, Shane Small</div>
+<div class="year">2015</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">5</td><td class="summary-data">11.4%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">8</td><td class="summary-data">18.2%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">31</td><td class="summary-data">70.5%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>44</b></td><td class="summary-data"><b>100%</b></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, NextPlayerClockwise, ChooseFirstPlayer</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Card, DrawDeck, DiscardPile, Deal, Hand</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">LastPlayerRemaining</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EKCard">EKCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CardType">CardType</a><a href="#Name">Name</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Name">Name</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ValidCardset">ValidCardset</a></div></div>: Attribute of <a class="keyword" href="#EKCard">EKCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CardType">CardType</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a><a href="#ValidCardset">ValidCardset</a></div></div>: Attribute of <a class="keyword" href="#EKCard">EKCard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a>, <a class="keyword" href="#Defuse">Defuse</a>, <a class="keyword" href="#Skip">Skip</a>, <a class="keyword" href="#Attack">Attack</a>, <a class="keyword" href="#Favor">Favor</a>, <a class="keyword" href="#Nope">Nope</a>, <a class="keyword" href="#ShuffleCard">ShuffleCard</a>, <a class="keyword" href="#SeeTheFuture">SeeTheFuture</a>, <a class="keyword" href="#CatComboCard">CatComboCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ValidCardset">ValidCardset</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Noun</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A single card of the following <a class="keyword" href="#CardType">CardTypes</a>: <a class="keyword" href="#Skip">Skip</a>, <a class="keyword" href="#Attack">Attack</a>, <a class="keyword" href="#Favor">Favor</a>, <a class="keyword" href="#ShuffleCard">ShuffleCard</a>, <a class="keyword" href="#SeeTheFuture">SeeTheFuture</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>A set of 2 <a class="keyword" href="#CatComboCard">CatComboCards</a> with the same <a class="keyword" href="#Name">Name</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove all the <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> and <a class="keyword" href="#Defuse">Defuse</a> cards</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle the remaining <a class="keyword" href="#EKCard">EKCards</a> to form the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Deal</abbr> 7 cards face-down to each <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupDiffuseCards">SetupDiffuseCards</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupExplodingKittens">SetupExplodingKittens</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupDiffuseCards">SetupDiffuseCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Deal</abbr> 1 <a class="keyword" href="#Defuse">Defuse</a> card to each <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add any remaining <a class="keyword" href="#Defuse">Defuse</a> cards to the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupExplodingKittens">SetupExplodingKittens</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Add <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> cards to each <abbr title="Imported term">DrawDeck</abbr> equal to the number of <abbr title="Imported term">Players</abbr> minus 1</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove all remaining <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> cards from the game</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until only one <abbr title="Imported term">Player</abbr> remains:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayCards">PlayCards</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Pass</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayCards">PlayCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat as many times as you wish:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Play a <a class="keyword" href="#ValidCardset">ValidCardset</a> from your <abbr title="Imported term">Hand</abbr> face up onto the <abbr title="Imported term">DiscardPile</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Based on the <a class="keyword" href="#CardType">CardType</a> of the card(s) you played:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Skip">Skip</a>: <a class="keyword" href="#HandleSkip">HandleSkip</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Attack">Attack</a>: <a class="keyword" href="#HandleAttack">HandleAttack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#Favor">Favor</a>: <a class="keyword" href="#HandleFavor">HandleFavor</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ShuffleCard">ShuffleCard</a>: <a class="keyword" href="#HandleShuffle">HandleShuffle</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#SeeTheFuture">SeeTheFuture</a>: <a class="keyword" href="#HandleSeeTheFuture">HandleSeeTheFuture</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#CatComboCard">CatComboCard</a>: <a class="keyword" href="#HandleCombo">HandleCombo</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; The effect of any card except <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> or <a class="keyword" href="#Defuse">Defuse</a> can be canceled by playing a <a class="keyword" href="#Nope">Nope</a> card.</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; This <a class="keyword" href="#Nope">Nope</a> card can be played by any <abbr title="Imported term">Player</abbr> (it doesn't have to be their turn)</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; If a <a class="keyword" href="#Nope">Nope</a> card is played on another <a class="keyword" href="#Nope">Nope</a> card:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Both cards are still discarded, but otherwise it the same as if the <a class="keyword" href="#Nope">Nope</a> cards were not played</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note that it's not possible to play an ExplodingKitten card (you'll never have one in your Hand)</span></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note that you'll never want to play a Defuse or Nope card on your turn</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleSkip">HandleSkip</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EndTurnImmediately">EndTurnImmediately</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleAttack">HandleAttack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#EndTurnImmediately">EndTurnImmediately</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Next <abbr title="Imported term">Player</abbr> must take 2 turns in a row</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If an <a class="keyword" href="#Attack">Attack</a> card is played by a <abbr title="Imported term">Player</abbr> being attacked (ie: taking either of their 2 turns ):</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The attack is deflected to the next <abbr title="Imported term">Player</abbr>, with 2 additional turns added for that <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">So, the target of a deflected attack would take 4 turns, and it that's deflected, the new target would take 6 turns, and so on.</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleFavor">HandleFavor</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose another <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The chosen <abbr title="Imported term">Player</abbr> must give you 1 card (their choice) from their <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleShuffle">HandleShuffle</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you are told to stop:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Shuffle the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleSeeTheFuture">HandleSeeTheFuture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Look at the top 3 cards of the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Replace them in the same order without showing them to anyone else</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleCombo">HandleCombo</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose another <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Take a random card from that <abbr title="Imported term">Player</abbr>'s <abbr title="Imported term">Hand</abbr> into your <abbr title="Imported term">Hand</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EndTurnImmediately">EndTurnImmediately</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#HandleAttack">HandleAttack</a><a href="#HandleSkip">HandleSkip</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Your turn ends immediately</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Do not <a class="keyword" href="#DrawCard">DrawCard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DrawCard">DrawCard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndTurnImmediately">EndTurnImmediately</a><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Draw the top card from the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you draw an <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> card:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Reveal the card immediately to everyone</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>If you have a <a class="keyword" href="#Defuse">Defuse</a> card from your <abbr title="Imported term">Hand</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Discard the <a class="keyword" href="#Defuse">Defuse</a> card</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Secretly add the <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> card back into the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">&#9888; You may not look at or re-order the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Otherwise:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">You are eliminated from the game</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">Discard all of the cards from your <abbr title="Imported term">Hand</abbr>, including the <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">LastPlayerRemaining</abbr></td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

@@ -9,6 +9,7 @@ crazy-eights-52
 deep-sea-adventure
 dominion-baseset
 dominion-first10
+exploding-kittens
 innovation_
 jaipur
 just-one
