@@ -3,7 +3,7 @@ NAME: Exploding Kittens
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise, ChooseFirstPlayer
-IMPORT: Card, DrawDeck, DiscardPile, Deal, Hand
+IMPORT: Card, DrawDeck, DiscardPile, Deal, Hand, Pass
 IMPORT: LastPlayerRemaining
 
 SECTION: Vocabulary
