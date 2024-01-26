@@ -1,0 +1,119 @@
+NAME: High Society
+
+SECTION: Assumptions
+
+IMPORT: Player, FirstPlayer, ChooseFirstPlayer, NextPlayerClockwise
+IMPORT: Card, Deck, Hand
+IMPORT: PlayerWithHighestScore
+
+SECTION: Vocabulary
+
+StatusCard: Card
+BackgroundColor: Attribute of StatusCard
+	Values: Tan, Green
+StatusValue: Attribute of StatusCard
+
+LuxuryCard: StatusCard
+
+PrestigeCard: StatusCard
+
+DisgraceCard: StatusCard
+Name: Attribute of DisgraceCard
+	Values: FauxPas, Passe, Scandale
+
+StatusCardDeck: Deck
+	Deck of all the StatusCards
+
+MoneyCard: Card
+Francs: Attribute of MoneyCard
+	The value of the MoneyCard
+
+SECTION: Setup
+
+Setup: Verb
+	For each Player:
+		Take all the MoneyCards with the same back color into your Hand
+	Shuffle all the StatusCards to create the StatusCardDeck
+	ChooseFirstPlayer
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat:
+		PlayRound
+
+PlayRound: Verb
+	Reveal the top card of the StatusCardDeck
+	If it is the 4th StatusCard revealed with a Green BackgroundColor:
+		Game ends immediately
+	Based on the StatusCard:
+		LuxuryCard: WantThisAuction
+		PrestigeCard: WantThisAuction
+		DisgraceCard: DontWantThisAuction
+
+WantThisAuction: Verb
+	Repeat until all Players except 1 have chosen Pass, starting with the FirstPlayer:
+		Choose one:
+			Bid
+			Pass
+		NextPlayerClockwise
+		! If all Players pass without making a bid:
+			The last Player to Pass will ClaimStatusCard
+	Discard all of the MoneyCards still on the table
+	If you are the Player who did not Pass:
+		ClaimStatusCard
+	
+DontWantThisAuction: Verb
+	Repeat until a Player chooses Pass, starting with the FirstPlayer:
+		Choose one:
+			Bid
+			Pass
+		NextPlayerClockwise
+	If you are the Player who chose Pass:
+		Reclaim your MoneyCards from the table
+		ClaimStatusCard
+		HandleDisgraceCard
+
+ClaimStatusCard: Verb
+	Place the StatusCard face-up on the table in front of you
+	You are now the FirstPlayer for the next round
+	! If all of:
+		The StatusCard is a LuxuryCard
+		You have a FauxPas card in front of you
+	Then:
+		Discard both the StatusCard and the FauxPas card
+
+Bid: Verb
+	Increase your bid by placing one or more MoneyCards from your Hand onto the table in front of you
+	! The total Francs on your MoneyCards must be greater than the previous bid
+	! You may not pick up MoneyCards that you have already played
+
+Pass: Verb
+	Reclaim all your MoneyCards that you played on the table back into your Hand
+	! You may not Bid again this round
+
+HandleDisgraceCard: Verb
+	If the Name of the DisgraceCard is FauxPas:
+		! If you have LuxuryCards in front of you:
+			Discard one of the LuxuryCards (your choice) in front of you along with the FauxPas card
+
+SECTION: Endgame Scoring
+
+CalculateScore: Verb
+	Your base score is the sum of the StatusValues on the StatusCards that you've claimed
+	If you have the Scandale DisgraceCard:
+		Multiply score x0.5
+	For each PrestigeCard:
+		Multiply score x2
+
+DetermineWinner: Verb
+	CastOut
+	PlayerWithHighestScore
+	! If tied:
+		Player (amongst tied) with most Francs on MoneyCards wins
+		If still tied:
+			Player (amongst tied) with most valuable LuxuryCard wins
+
+CastOut: Verb
+	If you are the Player with the lowest total Francs on the MoneyCards in your Hand:
+		You are eliminated and cannot win the game

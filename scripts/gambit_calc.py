@@ -25,6 +25,7 @@ FREE_ACTIONS = [
 	"Choose one of:",
 	"As many times as you like:",
 	"You may optionally:",
+	"Repeat:",
 	# Conditions
 	"Any of:",
 ]

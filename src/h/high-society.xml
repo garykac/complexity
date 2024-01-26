@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="high-society">
+<name>
+	<title>High Society</title>
+</name>
+<designers>
+	<designer>Reiner Knizia</designer>
+</designers>
+<general>
+	<published year="1995" />
+	<age min="10" />
+	<players min="3" max="5" />
+	<time min="15" max="30" />
+</general>
+<bgg id="220">
+	<weight date="2024-01-25" avg="1.49" />
+</bgg>
+<export index="true" csv="true" />
+<complexity>
+	<score cost="46">
+		<section name="Vocabulary" cost="10" />
+		<section name="Setup" cost="2" />
+		<section name="Gameplay" cost="24" />
+		<section name="Endgame Scoring" cost="10" />
+	</score>
+</complexity>
+</game>
