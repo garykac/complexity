@@ -24,12 +24,12 @@ Setup: Verb
 	Remove all the ExplodingKitten and Defuse cards
 	Shuffle the remaining EKCards to form the DrawDeck
 	Deal 7 cards face-down to each Player
-	SetupDiffuseCards
+	SetupDefuseCards
 	SetupExplodingKittens
 	Shuffle the DrawDeck
 	ChooseFirstPlayer
 	
-SetupDiffuseCards: Verb
+SetupDefuseCards: Verb
 	Deal 1 Defuse card to each Player
 	Add any remaining Defuse cards to the DrawDeck
 
