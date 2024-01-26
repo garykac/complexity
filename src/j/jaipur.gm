@@ -10,18 +10,12 @@ SECTION: Vocabulary
 
 GoodsCard: Card
 Type: Attribute of GoodsCard
-	Any of "Diamond", "Gold", "Silver", "Cloth", "Spice", "Leather", "Camel"
-
-CamelCard: GoodsCard
-	Alias for a GoodsCard of Type "Camel"
+	Values: DiamondCard, GoldCard, SilverCard, ClothCard, SpiceCard, LeatherCard, CamelCard
 
 GoodsToken: Token
 Type: Attribute of GoodsToken
-	Any of "Diamond", "Gold", "Silver", "Cloth", "Spice", "Leather", "Camel"
+	Values: DiamondToken, GoldToken, SilverToken, ClothToken, SpiceToken, LeatherToken, CamelToken
 Value: Attribute of GoodsToken
-
-CamelToken: GoodsToken
-	Alias for a GoodsToken of Type "Camel"
 
 GoodsStack: Noun
 	A stack of GoodsTokens of the same Type
@@ -110,9 +104,9 @@ SellCards: Verb
 		* 4 Cards: Bonus4Token
 		* 5 or more Cards: Bonus5Token
 	! GoodsTokens are always taken from the top of the GoodsStack
-	! When selling GoodsCards of Type "Silver", "Gold" or "Diamonds":
+	! When selling SilverCards, GoldCards or DiamondCards:
 		You must sell a minimum of 2 Cards
-	// Note: You claim the BonusToken based on number of Cards sold, even if there weren't enough GoodsTokens to match the number of Cards sold.
+	! You claim the BonusToken based on number of Cards sold, even if there weren't enough GoodsTokens to match the number of Cards sold.
 
 CalculateScore: Verb
 	The Player with the most CamelCards in their Herd claims the CamelToken

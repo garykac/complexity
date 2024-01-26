@@ -97,7 +97,7 @@ EndTurnImmediately: Verb
 	Your turn ends immediately - do not DrawCard
 
 DrawCard: Verb
-	Draw the top card from the DrawDeck
+	Draw the top card from the DrawDeck into your Hand
 	If you draw an ExplodingKitten card:
 		Reveal the card immediately to everyone
 		If you have a Defuse card from your Hand:

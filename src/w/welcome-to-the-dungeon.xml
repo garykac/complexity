@@ -19,12 +19,12 @@
 <bgg id="150312">
 	<weight date="2022-10-11" avg="1.23" />
 </bgg>
-<export index="false" csv="true" />
+<export index="true" csv="true" />
 <complexity>
 	<edition>Iello Games 2015</edition>
-	<score cost="41">
+	<score cost="40">
 		<section name="Vocabulary" cost="13" />
-		<section name="Setup" cost="7" />
+		<section name="Setup" cost="6" />
 		<section name="Gameplay" cost="20" />
 		<section name="Endgame Scoring" cost="1" />
 	</score>

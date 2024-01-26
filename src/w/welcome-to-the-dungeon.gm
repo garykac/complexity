@@ -17,27 +17,16 @@ AdventurerTile: Noun
 BaseHP: Attribute of AdventurerTile
 	// Base hit points
 
-// AdventurerTiles:
-// Warrior: HP = 3
-
 EquipmentTile: Noun
 	// 24 total. 6 per AdventurerTile.
-BonusHP: Attribute of EquipmentTile		// Optional
-
-// EquipmentTiles:
-// Torch: Defeat Monsters with 3 or less Strength
-// PlateArmor: HP +5
-// HolyGrail: Defeat all Monsters with even-numbered strength
-// VorpalSword: Defeat one Monster chosen before Enter Dungeon
-// DragonSpear: Defeat Dragon
-// KnightShield: HP +3
+BonusHP: Attribute of EquipmentTile
+	Optional hit point bonus provided by the equipment
 
 SuccessCard: Card
 	Used to track successful runs through the dungeon
 
 PlayerAid: Noun
-	// Also used to track Failures. White background on one side; red on other.
-	// White = full health; Red = half health
+	This is also used to track Failures. White background (0 failures) on one side; red (1 failure) on other.
 
 MonsterDeck: Deck
 	// Deck of MonsterCards
@@ -62,16 +51,15 @@ SetupAdventurer: Verb
 	// For first game, choose the "Warrior" as the Adventurer
 	Place AdventurerTile on table
 	Place the 6 matching EquipmentTiles in the Inventory (next to AdventurerTile)
-	// Matching EquipmentTiles are the same color as Adventurer
+	// Note: Matching EquipmentTiles are the same color as Adventurer
 
 SetupMonsterDeck: Verb
 	Shuffle all the MonsterCards
 	Place facedown to create MonsterDeck
 
 SetupPlayerAid: Verb
-	For each player:
-		Place PlayerAid in front of you with the white background side showing
-	// The PlayerAid is also a health tracker for the Player.
+	For each Player:
+		Place PlayerAid in front of you with the white background (=0 failures) side showing
 
 SECTION: Gameplay
 
