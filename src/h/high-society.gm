@@ -3,7 +3,7 @@ NAME: High Society
 SECTION: Assumptions
 
 IMPORT: Player, FirstPlayer, ChooseFirstPlayer, NextPlayerClockwise
-IMPORT: Card, Deck, Hand
+IMPORT: Card, Deck, Hand, Shuffle
 IMPORT: PlayerWithHighestScore
 
 SECTION: Vocabulary

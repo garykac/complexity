@@ -18,10 +18,10 @@
 <export index="false" csv="true" />
 <complexity>
 	<edition>The Lumenaris Group 2015</edition>
-	<score cost="314">
+	<score cost="312">
 		<section name="Vocabulary" cost="97" />
 		<section name="Setup" cost="14" />
-		<section name="Gameplay" cost="200" />
+		<section name="Gameplay" cost="198" />
 		<section name="EndGame Scoring" cost="3" />
 	</score>
 </complexity>

@@ -24,12 +24,12 @@
 </bgg>
 <export index="false" csv="false" hidden="true" />
 <complexity>
-	<score cost="41">
+	<score cost="40">
 		<section name="Vocabulary" cost="2" />
 		<section name="Setup" cost="2" />
-		<section name="Gameplay" cost="37">
+		<section name="Gameplay" cost="36">
 			<section name="-" cost="6" />
-			<section name="Cards" cost="31" />
+			<section name="Cards" cost="30" />
 		</section>
 	</score>
 </complexity>

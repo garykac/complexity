@@ -144,6 +144,8 @@ class GambitCalc:
 				# Lines that consist entirely of a defined terms are free.
 				allDefined = True
 				for w in words:
+					if w in ["the", "a", "an"]:
+						continue
 					if not self.vocab.isDefinedTerm(w):
 						allDefined = False
 				if allDefined:

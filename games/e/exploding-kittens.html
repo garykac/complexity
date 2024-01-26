@@ -209,11 +209,11 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">5</td><td class="summary-data">11.9%</td></tr>
-<tr><td class="summary-section-name">Setup</td><td class="summary-data">8</td><td class="summary-data">19.0%</td></tr>
-<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">29</td><td class="summary-data">69.0%</td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">5</td><td class="summary-data">12.5%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">7</td><td class="summary-data">17.5%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">28</td><td class="summary-data">70.0%</td></tr>
 <tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
-<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>42</b></td><td class="summary-data"><b>100%</b></td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>40</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
@@ -223,7 +223,7 @@ a.keyword:hover {
 <tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, NextPlayerClockwise, ChooseFirstPlayer</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Card, DrawDeck, DiscardPile, Deal, Hand, Pass</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Card, DrawDeck, Shuffle, DiscardPile, Deal, Hand, Pass</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">LastPlayerRemaining</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
@@ -242,11 +242,11 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove all the <a class="keyword" href="#ExplodingKitten">ExplodingKitten</a> and <a class="keyword" href="#Defuse">Defuse</a> cards</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle the remaining <a class="keyword" href="#EKCard">EKCards</a> to form the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Shuffle</abbr> the remaining <a class="keyword" href="#EKCard">EKCards</a> to form the <abbr title="Imported term">DrawDeck</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Deal</abbr> 7 cards face-down to each <abbr title="Imported term">Player</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupDefuseCards">SetupDefuseCards</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SetupExplodingKittens">SetupExplodingKittens</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">Shuffle</abbr> the <abbr title="Imported term">DrawDeck</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SetupDefuseCards">SetupDefuseCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
@@ -303,7 +303,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleShuffle">HandleShuffle</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat until you are told to stop:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Shuffle the <abbr title="Imported term">DrawDeck</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">Shuffle</abbr> the <abbr title="Imported term">DrawDeck</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="HandleSeeTheFuture">HandleSeeTheFuture</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayCards">PlayCards</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Look at the top 3 cards of the <abbr title="Imported term">DrawDeck</abbr></td></tr>
