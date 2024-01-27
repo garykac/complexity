@@ -16,3 +16,5 @@ At a high-level, the goals of this project are to:
 • Categorize various mitigating (and exacerbating!) techniques for teaching complex rules
 
 For more information, see the companion blog on BGG: [It's Complicated - A discussion of complexity in board game rules](https://boardgamegeek.com/blog/12853).
+
+For a list of games analyzed so far, see [garykac.github.io/complexity](https://garykac.github.io/complexity/).
