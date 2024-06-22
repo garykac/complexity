@@ -18,8 +18,8 @@
 	<p>It was included in the 2011 Mayfair release of 1830.</p>
 	<p>It is intended as an introductory game to learn the train-related rules before tackling the full game.</p>
 </notes>
-<bgg>
-	<weight avg="-" />
+<bgg id="0">
+	<weight date="" avg="-" />
 </bgg>
 <export index="true" csv="false" />
 <complexity>
