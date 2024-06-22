@@ -2,6 +2,7 @@
 1830-starter
 automobiles
 cant-stop_
+carcassonne
 catan
 checkers
 crazy-eights-28

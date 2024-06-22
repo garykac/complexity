@@ -1,0 +1,163 @@
+NAME: Carcassonne
+
+SECTION: Assumptions
+
+IMPORT: Player, Box, Token
+IMPORT: ChoosePlayerComponents, ChooseFirstPlayer, NextPlayerClockwise
+IMPORT: Tile, TileEdge, TileCorner
+IMPORT: Gameboard, ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
+
+SECTION: Vocabulary
+
+LandTile: Tile
+
+EdgeType: Attribute of TileEdge
+	Values: FieldEdge, RoadEdge, CityEdge
+
+TileSection: Attribute of LandTile
+	Values: RoadSection, CitySection, Monastery, FieldSection, Crossroad
+ClaimedSection: Noun
+	A TileSection that is connected through a series of matching TileSections (on multiple LandTiles) to one that contains a Player's Follower
+
+CityBanner: Attribute of LandTile
+
+Region: Noun
+	A series of connected TileSections
+
+Road: Region
+	A series of connected RoadSections
+City: Region
+	A series of connected CitySections
+Field: Region
+	A series of connected FieldSections
+
+CompletedRoad: Noun
+	A Road where both ends are connected to a Crossroad, CitySection or Monastery
+CompletedCity: Noun
+	A City that has no unmatched CityEdges
+CompletedMonastery: Noun
+	A Monastery whose LandTile has 8 neighbors that connect to all TileEdges and TileCorners
+
+DominantPlayer: Noun
+	The Player with the most Followers in a Region
+	! If there is a tie for the most Followers:
+		All tied Players are considered to be dominant (and all gain the benefit of being dominant)
+
+StartTile: LandTile
+
+TileStacks: Noun
+	Collection of face down tiles to draw from
+TableTiles: Noun
+	Tiles arranged face up on the table
+
+Follower: Token
+PersonalSupply: Noun
+	A Player's collection of Followers
+
+Scoreboard: Gameboard
+	Board that contains the ScoringTrack
+
+SECTION: Setup
+
+Setup: Verb
+	Place StartTile in center of table
+	CreateTileStacks
+	Place Scoreboard close to edge of table
+	For each Player:
+		ChoosePlayerComponents
+			* 8 Followers
+		Place 1 Follower on the "0" space of the ScoringTrack to use as a ScoringMarker
+	ChooseFirstPlayer
+
+CreateTileStacks: Verb
+	Shuffle all remaining LandTiles
+	Arrange LandTiles in face down stacks (so all Players can access them easily) to create the TileStacks
+	
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until there are no more LandTiles:
+		PlayerTurn
+		NextPlayerClockwise
+
+PlayerTurn: Verb
+	DrawAndPlaceLandTile
+	PlaceAFollower
+	ScoreCompletedRoadsCitiesMonasteries
+
+DrawAndPlaceLandTile: Verb
+	Draw a LandTile from the TileStacks
+	Add it face-up to the TableTiles subject to the following conditions:
+		The new Tile must share at least one TileEdge with Tiles already part of the TableTiles
+			! The new Tile cannot be connected only by a TileCorner
+		The shared EdgeType must match
+	! If all Players agree that the LandTile cannot be placed, then
+		Return the LandTile to the Box
+		DrawAndPlaceLandTile
+	
+PlaceAFollower: Verb
+	You may optionally place a single Follower from your PersonalSupply onto a TileSection of the LandTile you just placed
+	If you are placing a Follower on a Field TileSection:
+		Place the Follower on its side (so it's easy to distinguish from Followers on different TileSection types)
+	! You may not place a Follower on a ClaimedSection
+
+ScoreCompletedRoadsCitiesMonasteries: Verb
+	For each TileSection on the newly placed LandTile:
+		If it is a ClaimedSection:
+			If it is part of a CompletedRoad:
+				ScoreCompletedRoad
+			If it is part of a CompletedCity:
+				ScoreCompletedCity
+	If the newly placed LandTile is part of a CompletedMonastery:
+		The Player who has claimed the Monastery (if any) should:
+			RecordPointsOnScoringTrack x9
+			Return the Follower to their PersonalSupply
+
+ScoreCompletedRoad: Verb
+	The DominantPlayer of the Road should:
+		RecordPointsOnScoringTrack equal to the number of LandTiles that the Road runs through
+			! ScoreEachTileOnlyOnce
+		RecoverFollowers
+
+ScoreCompletedCity: Verb
+	The DominantPlayer of the City should:
+		RecordPointsOnScoringTrack equal to the number of LandTiles that the City runs through
+			! ScoreEachTileOnlyOnce
+		RecordPointsOnScoringTrack equal to the number of CityBanners the City contains
+		RecoverFollowers
+
+ScoreEachTileOnlyOnce: Constraint
+	! Each LandTile is counted once regardless of how many matching TileSections it contains
+
+RecoverFollowers: Verb
+	All Followers in the Region are returned to the owning Player's PersonalSupply
+
+SECTION: Endgame Scoring
+
+CalculateScore: Verb
+	ScoreIncompleteRoadsCitiesMonasteries
+	ScoreFarmers
+
+ScoreIncompleteRoadsCitiesMonasteries: Verb
+	For each Road with a Follower on it:
+		ScoreIncomplete
+	For each City with a Follower on it:
+		RecordPointsOnScoringTrack equal to the number of CityBanners in the City
+		ScoreIncomplete
+	For each Monastery with a Follower on it:
+		RecordPointsOnScoringTrack equal to 1 plus the number of LandTiles that share a TileEdge or TileCorner with the Monastery
+
+ScoreIncomplete: Verb
+	The DominantPlayer of the Region should:
+		RecordPointsOnScoringTrack equal to the number of LandTiles it runs through
+		RecoverFollowers
+
+ScoreFarmers: Verb
+	For each Field that touches at least one CompletedCity:
+		For each CompletedCity:
+			The DominantPlayer should RecordPointsOnScoringTrack x3
+	
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	! If tied:
+		Play another game to determine the winner

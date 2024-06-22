@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="carcassonne">
+<name>
+	<title>Carcassonne</title>
+</name>
+<designers>
+	<designer>Klaus-Jürgen Wrede</designer>
+</designers>
+<general>
+	<published year="2000" />
+	<age min="7" />
+	<players min="2" max="5" />
+	<time min="30" max="45" />
+</general>
+<bgg id="822">
+	<weight date="2024-06-22" avg="1.89" />
+</bgg>
+<export index="false" csv="true" />
+<complexity>
+	<score cost="64">
+		<section name="Vocabulary" cost="21" />
+		<section name="Setup" cost="5" />
+		<section name="Gameplay" cost="27" />
+		<section name="Endgame Scoring" cost="11" />
+	</score>
+</complexity>
+</game>
