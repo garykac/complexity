@@ -73,6 +73,8 @@ Piece: Noun
 Token: Noun
 
 Tile: Noun
+TileEdge: Attribute of Tile
+TileCorner: Attribute of Tile
 
 FirstPlayerToken: Token
 	Token that identifies the FirstPlayer
