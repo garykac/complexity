@@ -34,7 +34,7 @@ SetupDefuseCards: Verb
 	Add any remaining Defuse cards to the DrawDeck
 
 SetupExplodingKittens: Verb
-	Add ExplodingKitten cards to each DrawDeck equal to the number of Players minus 1
+	Add ExplodingKitten cards to the DrawDeck equal to the number of Players minus 1
 	Remove all remaining ExplodingKitten cards from the game
 
 SECTION: Gameplay
