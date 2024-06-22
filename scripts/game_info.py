@@ -106,7 +106,7 @@ class GameInfo:
 		# BoardGameGeek stats
 		self.bgg_id = 0
 		self.bgg_weight = 0
-		self.bgg_weight_date = None
+		self.bgg_weight_date = ""
 		
 		# Complexity
 		self.edition = None
@@ -248,14 +248,10 @@ class GameInfo:
 			fp.write(f"</{Tag.NOTES}>\n")
 
 	def save_bgg(self, fp):
-		if self.bgg_id and self.bgg_id != 0:
-			fp.write(f'<{Tag.BGG} {Attr.ID}="{self.bgg_id}">\n')
-		else:
-			fp.write(f'<{Tag.BGG}>\n')
+		fp.write(f'<{Tag.BGG} {Attr.ID}="{self.bgg_id}">\n')
 
 		fp.write(f'\t<{Tag.WEIGHT}')
-		if self.bgg_weight_date:
-			fp.write(f' {Attr.DATE}="{self.bgg_weight_date}"')
+		fp.write(f' {Attr.DATE}="{self.bgg_weight_date}"')
 		fp.write(f' {Attr.AVG}="{self.bgg_weight}"')
 		fp.write(f' />\n')
 
@@ -506,7 +502,8 @@ class GameInfo:
 		return [name, cost]
 
 def escapeXmlEntities(s):
-	s = s.replace("&", "&amp;")
+	if s:
+		s = s.replace("&", "&amp;")
 	return s
 	
 def splitTag(tag):

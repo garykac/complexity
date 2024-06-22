@@ -385,5 +385,6 @@ class GambitHtmlExporter:
 		return ' '.join(newWords)
 
 def htmlify(str):
-	str = str.replace("&", "&amp;")
+	if str:
+		str = str.replace("&", "&amp;")
 	return str
