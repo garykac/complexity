@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="carcassonne-no-fields">
+<name>
+	<title>Carcassonne</title>
+	<subtitle>Without Fields</subtitle>
+</name>
+<designers>
+	<designer>Klaus-Jürgen Wrede</designer>
+</designers>
+<general>
+	<published year="2000" />
+	<age min="7" />
+	<players min="2" max="5" />
+	<time min="30" max="45" />
+</general>
+<notes>
+	<p>The Z-Man 2016 edition recommends "playing a few games before introducing farmers
+		and fields" and the 2017 Big Box edition has Farmers/Fields downgraded to an
+		expansion that you should add "after your first game".
+		</p>
+</notes>
+<bgg id="0">
+	<weight date="" avg="-" />
+</bgg>
+<export index="true" csv="false" />
+<complexity>
+	<edition>Z-Man 2016</edition>
+	<score cost="61">
+		<section name="Vocabulary" cost="20" />
+		<section name="Setup" cost="5" />
+		<section name="Gameplay" cost="27" />
+		<section name="Endgame Scoring" cost="9" />
+	</score>
+</complexity>
+</game>

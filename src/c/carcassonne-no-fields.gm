@@ -28,8 +28,6 @@ Road: Region
 	A series of connected RoadSections
 City: Region
 	A series of connected CitySections
-Field: Region
-	A series of connected FieldSections
 
 CompletedRoad: Noun
 	A Road where both ends are connected to a Crossroad, CitySection or Monastery
@@ -97,8 +95,6 @@ DrawAndPlaceLandTile: Verb
 	
 PlaceAFollower: Verb
 	You may optionally place a single Follower from your PersonalSupply onto a TileSection of the LandTile you just placed
-	If you are placing a Follower on a Field TileSection:
-		Place the Follower on its side (so it's easy to distinguish from Followers on different TileSection types)
 	! You may not place a Follower on a ClaimedSection
 
 ScoreCompletedRoadsCitiesMonasteries: Verb
@@ -141,7 +137,6 @@ SECTION: Endgame Scoring
 
 CalculateScore: Verb
 	ScoreIncompleteRoadsCitiesMonasteries
-	ScoreFarmers
 
 ScoreIncompleteRoadsCitiesMonasteries: Verb
 	For each Road with a Follower on it:
@@ -157,11 +152,6 @@ ScoreIncomplete: Verb
 		ScorePoints equal to the number of LandTiles it runs through
 		RecoverFollowers
 
-ScoreFarmers: Verb
-	For each Field that touches at least one CompletedCity:
-		For each CompletedCity:
-			The DominantPlayer should ScorePoints x3
-	
 DetermineWinner: Verb
 	PlayerWithHighestScore
 	! If tied:

@@ -3,6 +3,8 @@
 automobiles
 cant-stop_
 carcassonne
+carcassonne-no-fields
+carcassonne-river
 catan
 checkers
 crazy-eights-28

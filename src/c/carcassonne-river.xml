@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<game id="carcassonne">
+<game id="carcassonne-river">
 <name>
 	<title>Carcassonne</title>
+	<subtitle>+ The River</subtitle>
 </name>
 <designers>
+	<designer>Rudolf Ross</designer>
 	<designer>Klaus-Jürgen Wrede</designer>
 </designers>
 <general>
-	<published year="2000" />
-	<age min="7" />
+	<published year="2001" />
+	<age min="8" />
 	<players min="2" max="5" />
 	<time min="30" max="45" />
 </general>
-<bgg id="822">
-	<weight date="2024-06-22" avg="1.89" />
+<bgg id="2591">
+	<weight date="2024-06-23" avg="1.69" />
 </bgg>
 <export index="true" csv="true" />
 <complexity>
-	<score cost="66">
-		<section name="Vocabulary" cost="21" />
-		<section name="Setup" cost="5" />
-		<section name="Gameplay" cost="29" />
+	<score cost="81">
+		<section name="Vocabulary" cost="25" />
+		<section name="Setup" cost="9" />
+		<section name="Gameplay" cost="36" />
 		<section name="Endgame Scoring" cost="11" />
 	</score>
 </complexity>

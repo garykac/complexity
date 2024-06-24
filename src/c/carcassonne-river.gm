@@ -1,4 +1,4 @@
-NAME: Carcassonne
+NAME: Carcassonne with The River
 
 SECTION: Assumptions
 
@@ -12,13 +12,18 @@ SECTION: Vocabulary
 LandTile: Tile
 
 EdgeType: Attribute of TileEdge
-	Values: FieldEdge, RoadEdge, CityEdge
+	Values: FieldEdge, RoadEdge, CityEdge, RiverEdge
 
 TileSection: Attribute of LandTile
-	Values: RoadSection, CitySection, Monastery, FieldSection, Crossroad
+	Values: RoadSection, CitySection, Monastery, FieldSection, Crossroad, RiverSection
 ClaimedSection: Noun
 	A TileSection that is connected through a series of matching TileSections (on multiple LandTiles) to one that contains a Player's Follower
 
+RiverTile: LandTile
+	A LandTile with a RiverSection
+SourceTile: RiverTile
+LakeTile: RiverTile
+	
 CityBanner: Attribute of LandTile
 
 Region: Noun
@@ -47,6 +52,8 @@ StartTile: LandTile
 
 TileStack: Noun
 	Collection of face down tiles to draw from
+RiverStack: TileStack
+	A TileStack with all the RiverTiles
 TableTiles: Noun
 	Tiles arranged face up on the table
 
@@ -60,7 +67,7 @@ Scoreboard: Gameboard
 SECTION: Setup
 
 Setup: Verb
-	Place StartTile in center of table
+	Return the StartTile to the Box
 	CreateTileStacks
 	Place Scoreboard close to edge of table
 	For each Player:
@@ -70,9 +77,16 @@ Setup: Verb
 	ChooseFirstPlayer
 
 CreateTileStacks: Verb
+	CreateRiverStack
 	Shuffle all remaining LandTiles
 	Arrange LandTiles in face down stacks (so all Players can access them easily) to create the TileStacks
-	
+
+CreateRiverStack: Verb
+	Set aside the SourceTile and the LakeTile
+	Shuffle the remaining RiverTiles into a face down stack to create the RiverStack
+	Add the LakeTile at the bottom of the RiverStack
+	Place the SourceTile in the center of the table
+
 SECTION: Gameplay
 
 PlayGame: Verb
@@ -87,10 +101,16 @@ PlayerTurn: Verb
 
 DrawAndPlaceLandTile: Verb
 	Draw a LandTile from the TileStacks
+		! If there are any tiles remaining in the RiverStack:
+			You must draw from the RiverStack
 	Add it face-up to the TableTiles subject to the following conditions:
 		The new Tile must share at least one TileEdge with Tiles already part of the TableTiles
 			! The new Tile cannot be connected only by a TileCorner
 		The shared EdgeType must match
+		! If placing a RiverTile:
+			You must match the RiverEdge of the previous tile
+	! If placing a RiverTile with a bend:
+		The river may not turn the same direction twice in a row (to prevent it looping back on itself)
 	! If all Players agree that the LandTile cannot be placed, then
 		Return the LandTile to the Box
 		DrawAndPlaceLandTile
@@ -100,6 +120,7 @@ PlaceAFollower: Verb
 	If you are placing a Follower on a Field TileSection:
 		Place the Follower on its side (so it's easy to distinguish from Followers on different TileSection types)
 	! You may not place a Follower on a ClaimedSection
+	! You may not place a Follower on a RiverSection
 
 ScoreCompletedRoadsCitiesMonasteries: Verb
 	For each TileSection on the newly placed LandTile:
