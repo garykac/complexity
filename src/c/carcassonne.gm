@@ -116,16 +116,21 @@ ScoreCompletedRoadsCitiesMonasteries: Verb
 
 ScoreCompletedRoad: Verb
 	The DominantPlayer of the Road should:
-		ScorePoints equal to the number of LandTiles that the Road runs through
-			! ScoreEachTileOnlyOnce
-		RecoverFollowers
+		ScoreRegion
+	RecoverFollowers
 
 ScoreCompletedCity: Verb
 	The DominantPlayer of the City should:
-		ScorePoints equal to the number of LandTiles that the City runs through
-			! ScoreEachTileOnlyOnce
-		ScorePoints equal to the number of CityBanners the City contains
-		RecoverFollowers
+		ScoreRegion x2
+		ScoreCityBanners
+	RecoverFollowers
+
+ScoreRegion: Verb
+	ScorePoints equal to the number of LandTiles in the Region
+	! Each LandTile is counted once regardless of how many matching TileSections it contains
+
+ScoreCityBanners: Verb
+	ScorePoints equal to the number of CityBanners the City contains
 
 ScorePoints: Verb
 	RecordPointsOnScoringTrack
@@ -134,9 +139,6 @@ ScorePoints: Verb
 
 RecoverFollowers: Verb
 	All Followers in the Region are returned to the owning Player's PersonalSupply
-
-ScoreEachTileOnlyOnce: Constraint
-	! Each LandTile is counted once regardless of how many matching TileSections it contains
 
 SECTION: Endgame Scoring
 
@@ -148,15 +150,15 @@ ScoreIncompleteRoadsCitiesMonasteries: Verb
 	For each Road with a Follower on it:
 		ScoreIncomplete
 	For each City with a Follower on it:
-		ScorePoints equal to the number of CityBanners in the City
+		ScoreCityBanners
 		ScoreIncomplete
 	For each Monastery with a Follower on it:
 		ScorePoints equal to 1 plus the number of LandTiles that share a TileEdge or TileCorner with the Monastery
 
 ScoreIncomplete: Verb
 	The DominantPlayer of the Region should:
-		ScorePoints equal to the number of LandTiles it runs through
-		RecoverFollowers
+		ScoreRegion
+	RecoverFollowers
 
 ScoreFarmers: Verb
 	For each Field:

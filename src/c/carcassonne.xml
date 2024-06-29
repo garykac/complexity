@@ -17,11 +17,11 @@
 </bgg>
 <export index="true" csv="true" />
 <complexity>
-	<score cost="67">
+	<score cost="63">
 		<section name="Vocabulary" cost="21" />
 		<section name="Setup" cost="6" />
-		<section name="Gameplay" cost="29" />
-		<section name="Endgame Scoring" cost="11" />
+		<section name="Gameplay" cost="27" />
+		<section name="Endgame Scoring" cost="9" />
 	</score>
 </complexity>
 </game>
