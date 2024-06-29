@@ -67,6 +67,7 @@ Setup: Verb
 		ChoosePlayerComponents
 			* 8 Followers
 		Place 1 Follower on the "0" space of the ScoringTrack to use as a ScoringMarker
+		Add the remaining Followers to your PersonalSupply
 	ChooseFirstPlayer
 
 CreateTileStacks: Verb
@@ -97,7 +98,7 @@ DrawAndPlaceLandTile: Verb
 	
 PlaceAFollower: Verb
 	You may optionally place a single Follower from your PersonalSupply onto a TileSection of the LandTile you just placed
-	If you are placing a Follower on a Field TileSection:
+	If you are placing a Follower on a FieldSection:
 		Place the Follower on its side (so it's easy to distinguish from Followers on different TileSection types)
 	! You may not place a Follower on a ClaimedSection
 
@@ -158,9 +159,10 @@ ScoreIncomplete: Verb
 		RecoverFollowers
 
 ScoreFarmers: Verb
-	For each Field that touches at least one CompletedCity:
-		For each CompletedCity:
+	For each Field:
+		For each CompletedCity that the Field touches:
 			The DominantPlayer should ScorePoints x3
+		RecoverFollowers
 	
 DetermineWinner: Verb
 	PlayerWithHighestScore

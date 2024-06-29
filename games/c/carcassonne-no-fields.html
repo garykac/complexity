@@ -210,17 +210,20 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">20</td><td class="summary-data">32.8%</td></tr>
-<tr><td class="summary-section-name">Setup</td><td class="summary-data">5</td><td class="summary-data">8.2%</td></tr>
-<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">27</td><td class="summary-data">44.3%</td></tr>
-<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">9</td><td class="summary-data">14.8%</td></tr>
-<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>61</b></td><td class="summary-data"><b>100%</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">20</td><td class="summary-data">32.3%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">6</td><td class="summary-data">9.7%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">27</td><td class="summary-data">43.5%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">9</td><td class="summary-data">14.5%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>62</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
 <colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
 <thead><tr><th class="cost">Cost</th><th colspan=5>Description</th></tr></thead>
-<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">The Z-Man 2016 edition recommends "playing a few games before introducing farmers and fields".</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">The Z-Man 2016 edition recommends "playing a few games before introducing farmers
+		and fields" and the 2017 Big Box edition has Farmers/Fields downgraded to an
+		expansion that you should add "after your first game".
+		</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=5>Assumptions</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
@@ -261,17 +264,17 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DominantPlayer">DominantPlayer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreCompletedCity">ScoreCompletedCity</a><a href="#ScoreCompletedRoad">ScoreCompletedRoad</a><a href="#ScoreIncomplete">ScoreIncomplete</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The <abbr title="Imported term">Player</abbr> with the most <a class="keyword" href="#Follower">Followers</a> in a <a class="keyword" href="#Region">Region</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; If there is a tie for the most <a class="keyword" href="#Follower">Followers</a>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>All tied <abbr title="Imported term">Players</abbr> are considered to be dominant (and all gain the benefit of being dominant)</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>All tied <abbr title="Imported term">Players</abbr> are considered to be dominant (and all gain the full benefit of being dominant)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="StartTile">StartTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#LandTile">LandTile</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TileStacks">TileStacks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTileStacks">CreateTileStacks</a><a href="#DrawAndPlaceLandTile">DrawAndPlaceLandTile</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TileStack">TileStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTileStacks">CreateTileStacks</a><a href="#DrawAndPlaceLandTile">DrawAndPlaceLandTile</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Collection of face down tiles to draw from</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TableTiles">TableTiles</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawAndPlaceLandTile">DrawAndPlaceLandTile</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4><abbr title="Imported term">Tiles</abbr> arranged face up on the table</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Follower">Follower</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ClaimedSection">ClaimedSection</a><a href="#DominantPlayer">DominantPlayer</a><a href="#PersonalSupply">PersonalSupply</a><a href="#PlaceAFollower">PlaceAFollower</a><a href="#RecoverFollowers">RecoverFollowers</a><a href="#ScoreCompletedRoadsCitiesMonasteries">ScoreCompletedRoadsCitiesMonasteries</a><a href="#ScoreIncompleteRoadsCitiesMonasteries">ScoreIncompleteRoadsCitiesMonasteries</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PersonalSupply">PersonalSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceAFollower">PlaceAFollower</a><a href="#RecoverFollowers">RecoverFollowers</a><a href="#ScoreCompletedRoadsCitiesMonasteries">ScoreCompletedRoadsCitiesMonasteries</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PersonalSupply">PersonalSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceAFollower">PlaceAFollower</a><a href="#RecoverFollowers">RecoverFollowers</a><a href="#ScoreCompletedRoadsCitiesMonasteries">ScoreCompletedRoadsCitiesMonasteries</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <abbr title="Imported term">Player</abbr>'s collection of <a class="keyword" href="#Follower">Followers</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Scoreboard">Scoreboard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
@@ -287,11 +290,12 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 8 <a class="keyword" href="#Follower">Followers</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place 1 <a class="keyword" href="#Follower">Follower</a> on the "0" space of the <abbr title="Imported term">ScoringTrack</abbr> to use as a <abbr title="Imported term">ScoringMarker</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Add the remaining <a class="keyword" href="#Follower">Followers</a> to your <a class="keyword" href="#PersonalSupply">PersonalSupply</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CreateTileStacks">CreateTileStacks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Shuffle all remaining <a class="keyword" href="#LandTile">LandTiles</a></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Arrange <a class="keyword" href="#LandTile">LandTiles</a> in face down stacks (so all <abbr title="Imported term">Players</abbr> can access them easily) to create the <a class="keyword" href="#TileStacks">TileStacks</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Arrange <a class="keyword" href="#LandTile">LandTiles</a> in face down stacks (so all <abbr title="Imported term">Players</abbr> can access them easily) to create the <a class="keyword" href="#TileStack">TileStacks</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=5>Gameplay</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
@@ -306,7 +310,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#ScoreCompletedRoadsCitiesMonasteries">ScoreCompletedRoadsCitiesMonasteries</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DrawAndPlaceLandTile">DrawAndPlaceLandTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw a <a class="keyword" href="#LandTile">LandTile</a> from the <a class="keyword" href="#TileStacks">TileStacks</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Draw a <a class="keyword" href="#LandTile">LandTile</a> from the <a class="keyword" href="#TileStack">TileStacks</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Add it face-up to the <a class="keyword" href="#TableTiles">TableTiles</a> subject to the following conditions:</td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The new <abbr title="Imported term">Tile</abbr> must share at least one <abbr title="Imported term">TileEdge</abbr> with <abbr title="Imported term">Tiles</abbr> already part of the <a class="keyword" href="#TableTiles">TableTiles</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>&#9888; The new <abbr title="Imported term">Tile</abbr> cannot be connected only by a <abbr title="Imported term">TileCorner</abbr></td></tr>

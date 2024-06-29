@@ -65,6 +65,7 @@ Setup: Verb
 		ChoosePlayerComponents
 			* 8 Followers
 		Place 1 Follower on the "0" space of the ScoringTrack to use as a ScoringMarker
+		Add the remaining Followers to your PersonalSupply
 	ChooseFirstPlayer
 
 CreateTileStacks: Verb
