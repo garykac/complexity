@@ -72,6 +72,7 @@ Piece: Noun
 
 Token: Noun
 
+// Tiles implicitly have an edge and a corner.
 Tile: Noun
 TileEdge: Attribute of Tile
 TileCorner: Attribute of Tile
@@ -79,6 +80,7 @@ TileCorner: Attribute of Tile
 FirstPlayerToken: Token
 	Token that identifies the FirstPlayer
 
+// Flat components implicitly have a front and back and can be faceup or down
 //Facedown: Noun
 //Faceup: Noun
 
@@ -92,6 +94,9 @@ PlayerAid: Noun
 PlaceBoard: Verb
 	Place board on the center of the table
 
+PlaceNextToBoard: Verb
+	Place board on the center of the table
+
 ChoosePlayerComponents: Verb
 	Choose one of the available player colors (or symbol or however player pieces are distinguished)
 	Take all the components that match
@@ -101,11 +106,12 @@ VictoryPoint: Noun
 VP: Noun
 	Abbreviation for VictoryPoint
 
-ScoringTrack: Noun
-	A track of sequentially number spaces (often along the outer edge of a Gameboard) that Players can use to keep track of their VictoryPoints using a ScoringMarker.
+NumberTrack: Noun
+	A track of sequentially number spaces used to track a resource using a NumberTrackMarker.
+	// This is commonly used to track VictoryPoints along the outer edge of a Gameboard.
 
-ScoringMarker: Noun
-	A Token that each Player has to track their VictoryPoints on a ScoringTrack
+NumberTrackMarker: Noun
+	A Token that each Player has to track a resource on a NumberTrack
 	
 RecordPointsOnScoringTrack: Verb
 	Move your ScoringMarker forward or backward along the ScoringTrack to record the gain or loss of VictoryPoints
@@ -124,6 +130,8 @@ Money: Noun
 // =========
 
 Card: Noun
+// Implicitly has a front and back
+// Implicitly can be faceup or facedown
 
 Title: Attribute of Card
 

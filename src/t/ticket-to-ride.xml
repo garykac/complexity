@@ -18,8 +18,8 @@
 <export index="true" csv="true" />
 <complexity>
 	<edition>Days of Wonder 2015</edition>
-	<score cost="63">
-		<section name="Vocabulary" cost="22" />
+	<score cost="65">
+		<section name="Vocabulary" cost="24" />
 		<section name="Setup" cost="10" />
 		<section name="Gameplay" cost="20" />
 		<section name="Endgame Scoring" cost="11" />

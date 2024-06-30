@@ -5,7 +5,7 @@ SECTION: Assumptions
 IMPORT: Player, Box, Token
 IMPORT: ChoosePlayerComponents, ChooseFirstPlayer, NextPlayerClockwise
 IMPORT: Tile, TileEdge, TileCorner
-IMPORT: Gameboard, ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
+IMPORT: Gameboard, NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
 
 SECTION: Vocabulary
 
@@ -53,7 +53,8 @@ PersonalSupply: Noun
 	A Player's collection of Followers
 
 Scoreboard: Gameboard
-	Board that contains the ScoringTrack
+ScoringTrack: NumberTrack of Scoreboard
+ScoringMarker: NumberTrackMarker
 
 SECTION: Setup
 

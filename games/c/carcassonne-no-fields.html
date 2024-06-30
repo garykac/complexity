@@ -210,11 +210,11 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">20</td><td class="summary-data">34.5%</td></tr>
-<tr><td class="summary-section-name">Setup</td><td class="summary-data">6</td><td class="summary-data">10.3%</td></tr>
-<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">25</td><td class="summary-data">43.1%</td></tr>
-<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">7</td><td class="summary-data">12.1%</td></tr>
-<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>58</b></td><td class="summary-data"><b>100%</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">22</td><td class="summary-data">36.7%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">6</td><td class="summary-data">10.0%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">25</td><td class="summary-data">41.7%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">7</td><td class="summary-data">11.7%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>60</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
@@ -230,7 +230,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Player, Box, Token</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">ChoosePlayerComponents, ChooseFirstPlayer, NextPlayerClockwise</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Tile, TileEdge, TileCorner</span></td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Gameboard, ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Gameboard, NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=5>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
@@ -277,8 +277,9 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PersonalSupply">PersonalSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceAFollower">PlaceAFollower</a><a href="#RecoverFollowers">RecoverFollowers</a><a href="#ScoreCompletedRoadsCitiesMonasteries">ScoreCompletedRoadsCitiesMonasteries</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <abbr title="Imported term">Player</abbr>'s collection of <a class="keyword" href="#Follower">Followers</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Scoreboard">Scoreboard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
-<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Board that contains the <abbr title="Imported term">ScoringTrack</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Scoreboard">Scoreboard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoringTrack">ScoringTrack</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ScoringTrack">ScoringTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrack</abbr> of <a class="keyword" href="#Scoreboard">Scoreboard</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ScoringMarker">ScoringMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScorePoints">ScorePoints</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrackMarker</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=5>Setup</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
@@ -289,7 +290,7 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* 8 <a class="keyword" href="#Follower">Followers</a></td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place 1 <a class="keyword" href="#Follower">Follower</a> on the "0" space of the <abbr title="Imported term">ScoringTrack</abbr> to use as a <abbr title="Imported term">ScoringMarker</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place 1 <a class="keyword" href="#Follower">Follower</a> on the "0" space of the <a class="keyword" href="#ScoringTrack">ScoringTrack</a> to use as a <a class="keyword" href="#ScoringMarker">ScoringMarker</a></td></tr>
 <tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Add the remaining <a class="keyword" href="#Follower">Followers</a> to your <a class="keyword" href="#PersonalSupply">PersonalSupply</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
@@ -356,7 +357,7 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="ScorePoints">ScorePoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreCityBanners">ScoreCityBanners</a><a href="#ScoreCompletedRoadsCitiesMonasteries">ScoreCompletedRoadsCitiesMonasteries</a><a href="#ScoreIncompleteRoadsCitiesMonasteries">ScoreIncompleteRoadsCitiesMonasteries</a><a href="#ScoreRegion">ScoreRegion</a></div></div>: Verb</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">RecordPointsOnScoringTrack</abbr></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; If you pass from the "49" space to the "0" space:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Lay your <abbr title="Imported term">ScoringMarker</abbr> on its side (to indicate +50)</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Lay your <a class="keyword" href="#ScoringMarker">ScoringMarker</a> on its side (to indicate +50)</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RecoverFollowers">RecoverFollowers</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreCompletedCity">ScoreCompletedCity</a><a href="#ScoreCompletedRoad">ScoreCompletedRoad</a><a href="#ScoreIncomplete">ScoreIncomplete</a></div></div>: Verb</td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=4>All <a class="keyword" href="#Follower">Followers</a> in the <a class="keyword" href="#Region">Region</a> are returned to the owning <abbr title="Imported term">Player</abbr>'s <a class="keyword" href="#PersonalSupply">PersonalSupply</a></td></tr>

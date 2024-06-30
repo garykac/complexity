@@ -19,8 +19,8 @@
 </bgg>
 <export index="true" csv="true" />
 <complexity>
-	<score cost="78">
-		<section name="Vocabulary" cost="25" />
+	<score cost="80">
+		<section name="Vocabulary" cost="27" />
 		<section name="Setup" cost="10" />
 		<section name="Gameplay" cost="34" />
 		<section name="Endgame Scoring" cost="9" />

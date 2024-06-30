@@ -18,8 +18,8 @@
 <export index="false" csv="true" />
 <complexity>
 	<edition>Z-Man Games</edition>
-	<score cost="147">
-		<section name="Vocabulary" cost="38" />
+	<score cost="149">
+		<section name="Vocabulary" cost="40" />
 		<section name="Setup" cost="16" />
 		<section name="Gameplay" cost="79" />
 		<section name="Endgame Scoring" cost="14" />

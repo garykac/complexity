@@ -6,7 +6,7 @@ IMPORT: Player, NextPlayerClockwise
 IMPORT: Box, Gameboard, PlaceBoard, Token, ChoosePlayerComponents
 IMPORT: Card, Deck, Hand, Reveal
 
-IMPORT: ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack
+IMPORT: NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack
 IMPORT: ReshuffleDiscardToRecreateDeck
 IMPORT: DrawAsManyAsPossibleIfNotEnough
 IMPORT: PlayerWithHighestScore
@@ -14,6 +14,8 @@ IMPORT: PlayerWithHighestScore
 SECTION: Vocabulary
 
 Map: Gameboard
+
+ScoringTrack: NumberTrack of Map
 
 City: Part of Map
 
@@ -60,6 +62,8 @@ RouteScoringTable: Noun
 		* 4: 7 points
 		* 6: 15 points
 		* 8: 21 points
+
+ScoringMarker: NumberTrackMarker
 
 Ticket: Card
 

@@ -210,11 +210,11 @@ a.keyword:hover {
 <table class="summary">
 <colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
 <tr><td colspan="3"><b>Rule Complexity</b></td></tr>
-<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">29</td><td class="summary-data">31.5%</td></tr>
-<tr><td class="summary-section-name">Setup</td><td class="summary-data">13</td><td class="summary-data">14.1%</td></tr>
-<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">37</td><td class="summary-data">40.2%</td></tr>
-<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">13</td><td class="summary-data">14.1%</td></tr>
-<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>92</b></td><td class="summary-data"><b>100%</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">31</td><td class="summary-data">33.0%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">13</td><td class="summary-data">13.8%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">37</td><td class="summary-data">39.4%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">13</td><td class="summary-data">13.8%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>94</b></td><td class="summary-data"><b>100%</b></td></tr>
 </table>
 
 <table class="main">
@@ -227,14 +227,16 @@ a.keyword:hover {
 <tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">Box, Gameboard, PlaceBoard, Token, ChoosePlayerComponents</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">Card, Deck, Hand, Reveal</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">ScoringTrack, ScoringMarker, RecordPointsOnScoringTrack</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">ReshuffleDiscardToRecreateDeck</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">DrawAsManyAsPossibleIfNotEnough</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><span class="comment">PlayerWithHighestScore</span></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr class="section"><td class="cost"></td><td colspan=6>Vocabulary</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
-<tr><td class="cost">1</td><td class="desc" colspan=6><div class="def-container"><a class="def" id="Map">Map</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#City">City</a><a href="#ClaimRoute">ClaimRoute</a><a href="#DestinationTicket">DestinationTicket</a><a href="#Route">Route</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=6><div class="def-container"><a class="def" id="Map">Map</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#City">City</a><a href="#ClaimRoute">ClaimRoute</a><a href="#DestinationTicket">DestinationTicket</a><a href="#Route">Route</a><a href="#ScoringTrack">ScoringTrack</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=6><div class="def-container"><a class="def" id="ScoringTrack">ScoringTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrack</abbr> of <a class="keyword" href="#Map">Map</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=6><div class="def-container"><a class="def" id="City">City</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BuildTrainStation">BuildTrainStation</a><a href="#ContinuousPath">ContinuousPath</a><a href="#DestinationCity">DestinationCity</a><a href="#DestinationTicket">DestinationTicket</a><a href="#DoubleRoute">DoubleRoute</a><a href="#Route">Route</a></div></div>: Part of <a class="keyword" href="#Map">Map</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
@@ -282,6 +284,8 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* 6: 15 points</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* 8: 21 points</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=6><div class="def-container"><a class="def" id="ScoringMarker">ScoringMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrackMarker</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost">1</td><td class="desc" colspan=6><div class="def-container"><a class="def" id="Ticket">Ticket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DestinationCity">DestinationCity</a><a href="#DestinationTicket">DestinationTicket</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="DestinationTicket">DestinationTicket</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CalculateScore">CalculateScore</a><a href="#ContinuousPath">ContinuousPath</a><a href="#DestinationCity">DestinationCity</a><a href="#DetermineWinner">DetermineWinner</a><a href="#DiscardTicket">DiscardTicket</a><a href="#DrawTicket">DrawTicket</a><a href="#Points">Points</a><a href="#SetupTickets">SetupTickets</a><a href="#TicketDeck">TicketDeck</a></div></div>: <abbr title="Imported term">Card</abbr></td></tr>
@@ -315,12 +319,12 @@ a.keyword:hover {
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><abbr title="Imported term">PlaceBoard</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><abbr title="Imported term">ChoosePlayerComponents</abbr></td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* Claim 45 <a class="keyword" href="#Train">Train</a> tokens of your color</td></tr>
-<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* Claim <abbr title="Imported term">ScoringMarker</abbr> of your color</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* Claim <a class="keyword" href="#ScoringMarker">ScoringMarker</a> of your color</td></tr>
 <tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=4>* Claim 3 <a class="keyword" href="#TrainStation">TrainStations</a> of your color</td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#SetupTrainCards">SetupTrainCards</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5><a class="keyword" href="#SetupTickets">SetupTickets</a></td></tr>
 <tr><td class="cost">0</td><td></td><td class="desc" colspan=5>For each <abbr title="Imported term">Player</abbr>:</td></tr>
-<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Place <abbr title="Imported term">ScoringMarker</abbr> on the start of the <abbr title="Imported term">ScoringTrack</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=4>Place <a class="keyword" href="#ScoringMarker">ScoringMarker</a> on the start of the <a class="keyword" href="#ScoringTrack">ScoringTrack</a></td></tr>
 <tr><td class="cost">1</td><td></td><td class="desc" colspan=5>Place the <a class="keyword" href="#LongestContinuousPath">LongestContinuousPath</a> bonus card next to the <a class="keyword" href="#Map">Map</a></td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6>&nbsp;</td></tr>
 <tr><td class="cost"></td><td class="desc" colspan=6><div class="def-container"><a class="def" id="SetupTrainCards">SetupTrainCards</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
