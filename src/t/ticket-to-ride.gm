@@ -3,7 +3,7 @@ NAME: Ticket to Ride
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise
-IMPORT: Gameboard, PlaceBoard, Token, ChoosePlayerComponents
+IMPORT: Gameboard, PlaceBoard, Token, ChoosePlayerColorComponents
 IMPORT: Card, Deck, Hand, Reveal
 
 IMPORT: NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack
@@ -83,7 +83,7 @@ SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* Claim 45 Train tokens of your color
 		* Claim ScoringMarker of your color
 	SetupTrainCards

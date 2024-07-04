@@ -3,7 +3,7 @@ NAME: Risk
 SECTION: Assumptions
 
 IMPORT: Player, Box, NextPlayerClockwise
-IMPORT: Gameboard, ChoosePlayerComponents
+IMPORT: Gameboard, ChoosePlayerColorComponents
 IMPORT: Card, Deck, Hand
 IMPORT: D6, Roll, Dice
 
@@ -52,7 +52,7 @@ Setup: Verb
 
 GatherArmies: Verb
 	For each Player:
-		ChoosePlayerComponents
+		ChoosePlayerColorComponents
 			* Armies
 		Takes the following Armies, based on Player count:
 			* 3p: 35 Armies

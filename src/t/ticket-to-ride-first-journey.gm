@@ -3,7 +3,7 @@ NAME: Ticket to Ride - First Journey (US)
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise
-IMPORT: Gameboard, PlaceBoard, Token, ChoosePlayerComponents
+IMPORT: Gameboard, PlaceBoard, Token, ChoosePlayerColorComponents
 IMPORT: Card, Deck, Hand
 
 IMPORT: ReshuffleDiscardToRecreateDeck
@@ -64,7 +64,7 @@ SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* Claim 20 Train tokens of your color
 	Shuffle all the TrainCards to create the TrainDeck
 	Shuffle all the DestinationTickets to create the TicketDeck

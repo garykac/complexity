@@ -3,7 +3,7 @@ NAME: Roads & Boats
 SECTION: Assumptions
 
 IMPORT: Player, Score, PlayerWithHighestScore
-IMPORT: Gameboard, Token, Tile, ChoosePlayerComponents, PlayerAid
+IMPORT: Gameboard, Token, Tile, ChoosePlayerColorComponents, PlayerAid
 
 SECTION: Vocabulary
 
@@ -230,7 +230,7 @@ Setup: Verb
 	SetupMap
 	Set BrickCost to 1
 	For each Player:
-		ChoosePlayerComponents
+		ChoosePlayerColorComponents
 			* Transporters
 			* Walls
 			* PlayerBricks

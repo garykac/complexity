@@ -3,7 +3,7 @@ NAME: Ticket to Ride - Europe
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise
-IMPORT: Box, Gameboard, PlaceBoard, Token, ChoosePlayerComponents
+IMPORT: Box, Gameboard, PlaceBoard, Token, ChoosePlayerColorComponents
 IMPORT: Card, Deck, Hand, Reveal
 
 IMPORT: NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack
@@ -96,7 +96,7 @@ SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* Claim 45 Train tokens of your color
 		* Claim ScoringMarker of your color
 		* Claim 3 TrainStations of your color

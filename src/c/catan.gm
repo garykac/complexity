@@ -4,7 +4,7 @@ SECTION: Assumptions
 
 IMPORT: Player, Rulebook
 IMPORT: NextPlayerClockwise
-IMPORT: Gameboard, Token, Piece, ChoosePlayerComponents
+IMPORT: Gameboard, Token, Piece, ChoosePlayerColorComponents
 IMPORT: Card, Deck, Hand
 IMPORT: D6
 
@@ -85,7 +85,7 @@ Setup: Verb
 	SetupDevelopmentCards
 	SetupSpecialCards
 	For each Player:
-		ChoosePlayerComponents
+		ChoosePlayerColorComponents
 		Add the following Pieces into your Supply:
 			* 5 Settlements
 			* 4 Cities

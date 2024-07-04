@@ -3,15 +3,15 @@ NAME: Carcassonne
 SECTION: Assumptions
 
 IMPORT: Player, Box, Token
-IMPORT: ChoosePlayerComponents, ChooseFirstPlayer, NextPlayerClockwise
-IMPORT: Tile, TileEdge, TileCorner
+IMPORT: ChoosePlayerColorComponents, ChooseFirstPlayer, NextPlayerClockwise
+IMPORT: Tile, Edge, Corner
 IMPORT: Gameboard, NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
 
 SECTION: Vocabulary
 
 LandTile: Tile
 
-EdgeType: Attribute of TileEdge
+EdgeType: Attribute of Edge
 	Values: FieldEdge, RoadEdge, CityEdge
 
 TileSection: Attribute of LandTile
@@ -36,7 +36,7 @@ CompletedRoad: Noun
 CompletedCity: Noun
 	A City that has no unmatched CityEdges
 CompletedMonastery: Noun
-	A Monastery whose LandTile has 8 neighbors that connect to all TileEdges and TileCorners
+	A Monastery whose LandTile has 8 neighbors that connect to all Edges and Corners
 
 DominantPlayer: Noun
 	The Player with the most Followers in a Region
@@ -65,7 +65,7 @@ Setup: Verb
 	CreateTileStacks
 	Place Scoreboard close to edge of table
 	For each Player:
-		ChoosePlayerComponents
+		ChoosePlayerColorComponents
 			* 8 Followers
 		Place 1 Follower on the "0" space of the ScoringTrack to use as a ScoringMarker
 		Add the remaining Followers to your PersonalSupply
@@ -90,8 +90,8 @@ PlayerTurn: Verb
 DrawAndPlaceLandTile: Verb
 	Draw a LandTile from the TileStacks
 	Add it face-up to the TableTiles subject to the following conditions:
-		The new Tile must share at least one TileEdge with Tiles already part of the TableTiles
-			! The new Tile cannot be connected only by a TileCorner
+		The new Tile must share at least one Edge with Tiles already part of the TableTiles
+			! The new Tile cannot be connected only by a Corner
 		The shared EdgeType must match
 	! If all Players agree that the LandTile cannot be placed, then
 		Return the LandTile to the Box
@@ -154,7 +154,7 @@ ScoreIncompleteRoadsCitiesMonasteries: Verb
 		ScoreCityBanners
 		ScoreIncomplete
 	For each Monastery with a Follower on it:
-		ScorePoints equal to 1 plus the number of LandTiles that share a TileEdge or TileCorner with the Monastery
+		ScorePoints equal to 1 plus the number of LandTiles that share a Edge or Corner with the Monastery
 
 ScoreIncomplete: Verb
 	The DominantPlayer of the Region should:

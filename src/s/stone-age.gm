@@ -2,7 +2,7 @@ NAME: Stone Age
 
 SECTION: Assumptions
 
-IMPORT: Player, PlaceBoard, ChoosePlayerComponents
+IMPORT: Player, PlaceBoard, ChoosePlayerColorComponents
 IMPORT: ChooseFirstPlayer, FirstPlayer, FirstPlayerToken, NextPlayerClockwise
 IMPORT: Box, Gameboard, Token, Tile, Dice
 IMPORT: Card, Deck, Shuffle
@@ -138,7 +138,7 @@ SetupHuts: Verb
 	Return all remaining HutTiles back in the Box without looking at them
 		
 SetupPlayers: Verb
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* PlayerBoard
 		* Workers
 		* SmallMarker

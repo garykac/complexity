@@ -3,7 +3,7 @@ NAME: Carcassonne
 SECTION: Assumptions
 
 IMPORT: Player, Box, Token
-IMPORT: ChoosePlayerComponents, ChooseFirstPlayer, NextPlayerClockwise
+IMPORT: ChoosePlayerColorComponents, ChooseFirstPlayer, NextPlayerClockwise
 IMPORT: Tile, TileEdge, TileCorner
 IMPORT: Gameboard, NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
 
@@ -63,7 +63,7 @@ Setup: Verb
 	CreateTileStacks
 	Place Scoreboard close to edge of table
 	For each Player:
-		ChoosePlayerComponents
+		ChoosePlayerColorComponents
 			* 8 Followers
 		Place 1 Follower on the "0" space of the ScoringTrack to use as a ScoringMarker
 		Add the remaining Followers to your PersonalSupply

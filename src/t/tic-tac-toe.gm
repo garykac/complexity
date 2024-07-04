@@ -3,7 +3,7 @@ NAME: Tic-tac-toe
 SECTION: Assumptions
 
 IMPORT: Player, FirstPlayer, ChooseFirstPlayer, SwitchPlayer
-IMPORT: Gameboard, PlaceBoard, ChoosePlayerComponents
+IMPORT: Gameboard, PlaceBoard, ChoosePlayerColorComponents
 IMPORT: DecidedByEndgameTrigger
 
 SECTION: Vocabulary
@@ -21,7 +21,7 @@ SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* Choose a Symbol ('x' or 'o') and take pieces
 	ChooseFirstPlayer
 

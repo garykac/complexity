@@ -3,29 +3,27 @@ NAME: 1830 Starter
 SECTION: Assumptions
 
 IMPORT: Player, Box, PlayerWithHighestScore
-IMPORT: Gameboard, Token, TileOverridesGameboard, Money
-IMPORT: Card, Deck, Shuffle
+IMPORT: Gameboard, Tile, Token, Shape, Edge, TileOverridesTileSpace
+IMPORT: Card, Deck, Shuffle, Money
 
 SECTION: Vocabulary
 
 MapBoard: Gameboard
 
-Hex: Part of Gameboard
+GameHex: Shape
 	An abstract unit of the map, shaped like a hexagon.
-Label: Attribute of Hex
+Label: Attribute of GameHex
 	Some locations have a special label: "OO", "B", or "NY"
-Color: Attribute of Hex
+Color: Attribute of GameHex
 	Values: Tan, Yellow, Green, Brown, Red, Gray
 	// Only Tan, Yellow, Red and Gray appear on the gameboard. Green and Brown are TrackTile colors.
 
-Edge: Attribute of Hex
-	One of the 6 edges around the Hex
-TrackEdge: Attribute of Hex
-	An Edge of the Hex that has a track connection running through it
-RedEdge: Edge
+TrackEdge: Edge of GameHex
+	An Edge that has a track connection running through it
+RedEdge: Edge of GameHex
 	An Edge that crosses a large body of water
 
-City: Attribute of Hex
+City: Attribute of GameHex
 Value: Attribute of City
 LargeCity: City
 	Location that can contain one or more StationCircles
@@ -35,17 +33,20 @@ SmallCity: City
 	A small city, represented by a small circle or a short line across the track
 OffmapCity: City
 	A City along the edge of the map that cannot be upgraded
-	// Only found on Red Hexes
+	// Only found on Red GameHexes
 
-DevelopmentCost: Attribute of Hex
+DevelopmentCost: Attribute of GameHex
 	Cost to LayTrack in this location
-SplitValue: Attribute of Hex
-	A Hex with an OffmapCity that has different Values depending on the Phase
+SplitValue: Attribute of GameHex
+	An OffmapCity on a GameHex that has different Values depending on the Phase
 	// Only found on Red Hexes
 
-TrackTile: Hex
-	Hexagonal tile that is placed on a MapBoard Hex to override its Color and Edges.
-	! TileOverridesGameboard
+BoardHex: GameHex of Gameboard
+	A GameHex printed directly on the Gameboard
+
+TrackTile: GameHex
+	A GameHex Tile that is placed on a BoardHex.
+	! TileOverridesTileSpace
 TileId: Attribute of TrackTile
 	This serves as an aid when sorting the tiles. It is not used during the game.
 
@@ -183,24 +184,24 @@ ConstructTrack: Verb
 		UpgradeTrack
 
 LayTrack: Verb
-	Choose a Hex that doesn't have any TrackTiles
-	Select based on the Color of the Hex:
+	Choose a BoardHex that doesn't have any TrackTiles
+	Select based on the Color of the GameHex:
 		Tan: LayYellowTrack
 		Yellow: LayGreenTrack
-	! TrackTiles may not be placed on Red or Gray Hexes
+	! TrackTiles may not be placed on Red or Gray GameHexes
 
 LayYellowTrack: Verb
-	If the Hex has a DevelopmentCost:
+	If the GameHex has a DevelopmentCost:
 		Your Railroad must pay 1/2 this cost to lay track here
 		// 1/2 cost is for the starter game
-	Place a Yellow TrackTile in the Hex
+	Place a Yellow TrackTile in the GameHex
 	! MustMatchExistingTrack
 	! MustMatchCities
 	! MustTracePathToYourStation
 	! NoRailLeadingIntoForbiddenEdges
 
 LayGreenTrack: Verb
-	Place a Green TrackTile in the Hex
+	Place a Green TrackTile in the GameHex
 	! GreenTilesOnlyInPhase2
 	! MustTracePathToYourStation
 	! MustMatchExistingTrack
@@ -209,11 +210,11 @@ LayGreenTrack: Verb
 	! MustMatchCityLabel
 
 UpgradeTrack: Verb
-	Choose a Hex with a Yellow or Green TrackTile
+	Choose a GameHex with a Yellow or Green TrackTile
 	Choose an upgrade TrackTile based on the tile being upgraded:
 		* Yellow: Upgrade to Green TrackTile
 		* Green: Upgrade to Brown TrackTile
-	Replace the existing TrackTile in the Hex with the new one
+	Replace the existing TrackTile in the GameHex with the new one
 	Add the previous TrackTile to the Supply
 	! GreenTilesOnlyInPhase2
 	! BrownTilesOnlyInPhase4
@@ -222,7 +223,7 @@ UpgradeTrack: Verb
 	! MustMatchCities
 	! NoRailLeadingIntoForbiddenEdges
 	! MustMatchCityLabel
-	// Note: There is no cost to upgrade a TrackTile, even if the Hex originally had a TerrainCost
+	// Note: There is no cost to upgrade a TrackTile, even if the GameHex originally had a TerrainCost
 
 GreenTilesOnlyInPhase2: Constraint
 	Green TrackTiles may only be used if Phase >= 2
@@ -237,21 +238,21 @@ MustMatchExistingTrack: Constraint
 	The orientation of the new TrackTile being placed must match all the existing TrackEdges
 
 MustMatchCities: Constraint
-	If the Hex has LargeCities or SmallCities:
+	If the GameHex has LargeCities or SmallCities:
 		The new TrackTile being placed must:
 			Match the number of LargeCities and SmallCities
 			Maintain the connections (or lack thereof) between the Cities
 
 NoRailLeadingIntoForbiddenEdges: Constraint
-	If the Hex has an Edge that matches any of:
+	If the GameHex has an Edge that matches any of:
 		Is along the outside of the MapBoard
 		Is a RedEdge
-		Abuts a non-TrackEdge Edge of a Red or Gray Hex
+		Abuts a non-TrackEdge Edge of a Red or Gray GameHex
 	Then:
 		The new TrackTile being placed must must be oriented so that this Edge is not a TrackEdge
 
 MustMatchCityLabel: Constraint
-	If the Hex has a Label:
+	If the GameHex has a Label:
 		The new TrackTile being placed must also have the same Label
 
 BuildStation: Verb
@@ -289,7 +290,7 @@ RunTrain: Verb
 CalcRunValue: Verb
 	For each City visited:
 		Add the Value of the City to the total run value
-	! If the run includes an OffmapCity (in a Red Hex) with a SplitValue:
+	! If the run includes an OffmapCity (in a Red GameHex) with a SplitValue:
 		Choose the value based on the current Phase:
 			* Phase 1-3: use the lower value
 			* Phase 4: use the higher value

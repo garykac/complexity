@@ -2,7 +2,7 @@ NAME: My First Stone Age
 
 SECTION: Assumptions
 
-IMPORT: Player, PlaceBoard, ChoosePlayerComponents
+IMPORT: Player, PlaceBoard, ChoosePlayerColorComponents
 IMPORT: ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
 IMPORT: Box, Gameboard, Token, Shuffle
 
@@ -63,7 +63,7 @@ Setup: Verb
 	SetupForests
 
 SetupPlayer: Verb
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* PlayerMarker
 		* PlayerFigure
 		* Settlement with Mastodon that matches Player Color

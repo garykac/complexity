@@ -3,7 +3,7 @@ NAME: Leaving Earth
 SECTION: Assumptions
 
 IMPORT: Box, Rulebook, Pass, NextPlayerClockwise, PlayerWithHighestScore
-IMPORT: Token, Gameboard, ChoosePlayerComponents
+IMPORT: Token, Gameboard, ChoosePlayerColorComponents
 IMPORT: Card, Reveal, Discard, Shuffle
 
 SECTION: Vocabulary
@@ -298,7 +298,7 @@ Setup: Verb
 	SetupCalendar
 
 ChooseAgencies: Verb
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* Choose an Agency
 		* Take corresponding AgencyCard
 		* Take Agency's 4 SpacecraftCards and matching SpacecraftTokens

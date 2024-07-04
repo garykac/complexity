@@ -3,7 +3,7 @@ NAME: Checkers
 SECTION: Assumptions
 
 IMPORT: Player, SwitchPlayer, FirstPlayer
-IMPORT: Gameboard, ChoosePlayerComponents
+IMPORT: Gameboard, ChoosePlayerColorComponents
 
 SECTION: Vocabulary
 
@@ -34,7 +34,7 @@ SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerComponents
+	ChoosePlayerColorComponents
 		* Pawns (and Kings if separate pieces)
 	InitializeBoard
 	Player with Black Pieces is the FirstPlayer

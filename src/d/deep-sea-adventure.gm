@@ -3,7 +3,7 @@ NAME: Deep Sea Adventure
 SECTION: Assumptions
 
 IMPORT: Player, NextPlayerClockwise, PlayerWithHighestScore, Pass
-IMPORT: Gameboard, Token, ChoosePlayerComponents
+IMPORT: Gameboard, Token, ChoosePlayerColorComponents
 IMPORT: D3
 
 SECTION: Vocabulary
@@ -58,7 +58,7 @@ Setup: Verb
 	ResetAirGauge
 	SetupRuins
 	For each Player:
-		ChoosePlayerComponents
+		ChoosePlayerColorComponents
 			* PlayerToken of your Color
 		Place PlayerToken on Submarine facing out toward the Ruins (in the ContinueSearch Direction)
 

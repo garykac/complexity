@@ -8,8 +8,10 @@ Rulebook: Noun
 
 Player: Noun
 
-FirstPlayer: Noun
+FirstPlayer: Player
 	The Player who takes the first turn
+
+CurrentPlayer: Player
 
 Score: Noun
 
@@ -72,10 +74,22 @@ Piece: Noun
 
 Token: Noun
 
-// Tiles implicitly have an edge and a corner.
-Tile: Noun
-TileEdge: Attribute of Tile
-TileCorner: Attribute of Tile
+Shape: Noun
+Edge: Attribute of Shape
+Corner: Attribute of Shape
+
+FlatShape: Shape
+
+Tile: FlatShape
+	A Piece that has a flat Shape
+TileEdge: Edge
+TileCorner: Corner
+
+TileSpace: FlatShape
+	A space on a Gameboard where a Tile can be placed
+
+TileOverridesTileSpace: Constraint
+	A Tile placed on a TileSpace overrides the info printed on the TileSpace
 
 FirstPlayerToken: Token
 	Token that identifies the FirstPlayer
@@ -97,7 +111,7 @@ PlaceBoard: Verb
 PlaceNextToBoard: Verb
 	Place board on the center of the table
 
-ChoosePlayerComponents: Verb
+ChoosePlayerColorComponents: Verb
 	Choose one of the available player colors (or symbol or however player pieces are distinguished)
 	Take all the components that match
 
@@ -115,9 +129,6 @@ NumberTrackMarker: Noun
 	
 RecordPointsOnScoringTrack: Verb
 	Move your ScoringMarker forward or backward along the ScoringTrack to record the gain or loss of VictoryPoints
-
-TileOverridesGameboard: Constraint
-	A Tile placed on a space on a Gameboard overrides the info printed on the Gameboard
 
 Money: Noun
 	The set of components (paper money, coins, poker chips, ...) used to track an amount of currency.

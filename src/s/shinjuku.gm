@@ -4,7 +4,7 @@ SECTION: Assumptions
 
 IMPORT: Gameboard, PlaceBoard, Token
 IMPORT: Card, Deck, DiscardPile, Hand
-IMPORT: Player, ChoosePlayerComponents, PlayerWithHighestScore
+IMPORT: Player, ChoosePlayerColorComponents, PlayerWithHighestScore
 IMPORT: ChooseFirstPlayer, FirstPlayer, NextPlayerClockwise
 
 SECTION: Vocabulary
@@ -86,8 +86,11 @@ SECTION: Setup
 
 Setup: Verb
 	PlaceBoard
-	ChoosePlayerComponents
-		// SpecialtyStores, DepartmentStores and Track of the same color
+	ChoosePlayerColorComponents
+		* SpecialtyStores
+		* DepartmentStores
+		* Track
+		* Screen
 	CreateWardDeck
 	InitCustomerQueue
 	InitUpgradeBonusBoard
