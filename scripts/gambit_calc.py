@@ -17,6 +17,7 @@ from typing import Optional, List, Union
 FREE_ACTIONS = [
 	"Then:",
 	"Otherwise:",
+	"Do the following:",
 	"If you do:",
 	"If you don't:",
 	"If any of:",
@@ -32,10 +33,10 @@ FREE_ACTIONS = [
 
 FREE_ACTION_KEYWORD_PATTERNS = [
 	f"For each ({RegEx.KEYWORD}):",
-	f"For each ({RegEx.KEYWORD}), starting with(?: the)? ({RegEx.KEYWORD}):",
+	f"For each ({RegEx.KEYWORD}),? starting with(?: the)? ({RegEx.KEYWORD}):",
 	f"For each ({RegEx.KEYWORD}) in(?: the)? ({RegEx.KEYWORD}):",
 	f"Repeat until ({RegEx.KEYWORD}):",
-	f"Repeat until ({RegEx.KEYWORD}), starting with(?: the)? ({RegEx.KEYWORD}):",
+	f"Repeat until ({RegEx.KEYWORD}),? starting with(?: the)? ({RegEx.KEYWORD}):",
 	f"Based on(?: the)? ({RegEx.KEYWORD}):",
 ]
 
