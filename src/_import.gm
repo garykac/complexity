@@ -115,8 +115,11 @@ ChoosePlayerColorComponents: Verb
 	Choose one of the available player colors (or symbol or however player pieces are distinguished)
 	Take all the components that match
 
+ActionPoint: Noun
+AP: Noun
+	Abbreviation for ActionPoint
+	
 VictoryPoint: Noun
-
 VP: Noun
 	Abbreviation for VictoryPoint
 
