@@ -62,7 +62,9 @@ class GambitHtmlExporter:
 		subtitle = self.gameInfo.subtitle
 		if subtitle:
 			out.write(f'<div class="subtitle">{htmlify(self.gameInfo.subtitle)}</div>\n')
-		designers = ', '.join(self.gameInfo.designers)
+		designers = self.gameInfo.designers
+		if designers:
+			designers = ', '.join(self.gameInfo.designers)
 		out.write(f'<div class="designer">{designers}</div>\n')
 		year = self.gameInfo.year
 		if not year:
