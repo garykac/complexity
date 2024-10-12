@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="rat-race">
+<name>
+	<title>Rat Race</title>
+	<subtitle>(prototype)</subtitle>
+</name>
+<designers>
+	<designer>Tyler Mayes</designer>
+	<designer>Nick McCollum</designer>
+</designers>
+<general>
+	<players min="2" max="4" />
+	<time min="30" max="45" />
+</general>
+<bgg id="">
+	<weight date="" avg="" />
+</bgg>
+<export index="false" csv="false" />
+<complexity>
+	<score cost="65">
+		<section name="Vocabulary" cost="16" />
+		<section name="Setup" cost="15" />
+		<section name="Gameplay" cost="34" />
+		<section name="Endgame Scoring" cost="0" />
+	</score>
+</complexity>
+</game>

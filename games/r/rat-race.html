@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Rat Race</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../../scripts/file-issue.js" defer></script>
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.subtitle {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+.designer {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.year {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 2rem 0;
+	font-weight: 400;
+	font-size: 0.9rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-name {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-name {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subdata {
+	width: 12.5%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Rat Race</div>
+<div class="subtitle">(prototype)</div>
+<div class="designer">Tyler Mayes, Nick McCollum</div>
+<div class="year"></div>
+
+<table class="summary">
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">16</td><td class="summary-data">24.6%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">15</td><td class="summary-data">23.1%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">34</td><td class="summary-data">52.3%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">-</td><td class="summary-data">-</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>65</b></td><td class="summary-data"><b>100%</b></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=5>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Player, FirstPlayer, CurrentPlayer, ChooseFirstPlayer, NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">Token, Tile, Edge</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">ActionPoint</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">NumberTrack, NumberTrackMarker</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><span class="comment">DecidedByEndgameTrigger</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RatToken">RatToken</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#InitialTurns">InitialTurns</a><a href="#MoveRat">MoveRat</a><a href="#PlaceRat">PlaceRat</a><a href="#PlaceRatOnHex">PlaceRatOnHex</a><a href="#PlaceTile">PlaceTile</a><a href="#RatColor">RatColor</a><a href="#RatSupply">RatSupply</a><a href="#RecoverRat">RecoverRat</a><a href="#Scurry">Scurry</a><a href="#Setup">Setup</a><a href="#SquishRats">SquishRats</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RatColor">RatColor</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Attribute of <a class="keyword" href="#RatToken">RatToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>This identifies the player color</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Hex">Hex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashMound">CreateTrashMound</a><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#MoveRat">MoveRat</a><a href="#PlaceRat">PlaceRat</a><a href="#PlaceRatOnHex">PlaceRatOnHex</a><a href="#PlaceTile">PlaceTile</a><a href="#Scurry">Scurry</a><a href="#SquishRats">SquishRats</a><a href="#TrashRegion">TrashRegion</a><a href="#TrashShape">TrashShape</a><a href="#TrashTile">TrashTile</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashTile">TrashTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashMound">CreateTrashMound</a><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#CurrentTrashStackMarker">CurrentTrashStackMarker</a><a href="#DrawTiles">DrawTiles</a><a href="#Level">Level</a><a href="#PlaceRat">PlaceRat</a><a href="#PlaceTile">PlaceTile</a><a href="#SquishRats">SquishRats</a><a href="#TrashMound">TrashMound</a><a href="#TrashRegion">TrashRegion</a><a href="#TrashShape">TrashShape</a><a href="#TrashStack">TrashStack</a><a href="#TrashSupply">TrashSupply</a><a href="#TrashType">TrashType</a></div></div>: <abbr title="Imported term">Tile</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <abbr title="Imported term">Tile</abbr> comprised of 2 to 4 <a class="keyword" href="#Hex">Hexes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashType">TrashType</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashMound">CreateTrashMound</a><a href="#GameOver">GameOver</a><a href="#MoveRat">MoveRat</a><a href="#TrashRegion">TrashRegion</a></div></div>: Attribute of <a class="keyword" href="#TrashTile">TrashTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The kind of trash, indicated by color and pattern</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashShape">TrashShape</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#TrashStack">TrashStack</a></div></div>: Attribute of <a class="keyword" href="#TrashTile">TrashTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>How the <a class="keyword" href="#Hex">Hexes</a> are arranged to form the <a class="keyword" href="#TrashTile">TrashTile</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Level">Level</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#MoveRat">MoveRat</a><a href="#PlaceRat">PlaceRat</a><a href="#PlaceTile">PlaceTile</a><a href="#SquishRats">SquishRats</a></div></div>: Attribute of <a class="keyword" href="#TrashTile">TrashTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The height of the <a class="keyword" href="#TrashTile">TrashTile</a> after it's been placed on the table. Lowest level is <a class="keyword" href="#Level">Level</a> 1</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashMound">TrashMound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashMound">CreateTrashMound</a><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#PlaceRat">PlaceRat</a><a href="#PlaceTile">PlaceTile</a><a href="#RecoverRat">RecoverRat</a><a href="#TrashRegion">TrashRegion</a><a href="#TrashRing">TrashRing</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The collection of <a class="keyword" href="#TrashTile">TrashTiles</a> in the center of the table, surrounded by the <a class="keyword" href="#TrashRing">TrashRing</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashRegion">TrashRegion</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#MoveRat">MoveRat</a><a href="#PlaceRat">PlaceRat</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>The set of connected <a class="keyword" href="#Hex">Hexes</a> on <a class="keyword" href="#TrashTile">TrashTiles</a> of the same <a class="keyword" href="#TrashType">TrashType</a>, that are visible when looking at the <a class="keyword" href="#TrashMound">TrashMound</a> from above</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashStack">TrashStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashMound">CreateTrashMound</a><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#CurrentTrashStackMarker">CurrentTrashStackMarker</a><a href="#DrawTiles">DrawTiles</a><a href="#TrashRing">TrashRing</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A set of <a class="keyword" href="#TrashTile">TrashTiles</a> of the same <a class="keyword" href="#TrashShape">TrashShape</a> arranged in a stack</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashRing">TrashRing</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashMound">CreateTrashMound</a><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#TrashMound">TrashMound</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A ring of <a class="keyword" href="#TrashStack">TrashStacks</a> arranged in a large circle around the <a class="keyword" href="#TrashMound">TrashMound</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CurrentTrashStackMarker">CurrentTrashStackMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTrashTileRing">CreateTrashTileRing</a><a href="#DrawTiles">DrawTiles</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Marker that indicates the last <a class="keyword" href="#TrashStack">TrashStack</a> from which a <a class="keyword" href="#TrashTile">TrashTile</a> was drawn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PaymentTrack">PaymentTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrack</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PaymentMarker">PaymentMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#GameOver">GameOver</a><a href="#Setup">Setup</a><a href="#SquishRats">SquishRats</a></div></div>: <abbr title="Imported term">NumberTrackMarker</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RatSupply">RatSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceRat">PlaceRat</a><a href="#RecoverRat">RecoverRat</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <abbr title="Imported term">Player</abbr>'s set of available <a class="keyword" href="#RatToken">RatTokens</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="TrashSupply">TrashSupply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#DrawTiles">DrawTiles</a><a href="#PlaceTile">PlaceTile</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <abbr title="Imported term">Player</abbr>'s set of available <a class="keyword" href="#TrashTile">TrashTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#CreateTrashTileRing">CreateTrashTileRing</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Claim of the <a class="keyword" href="#RatToken">RatTokens</a> of your chosen <a class="keyword" href="#RatColor">RatColor</a> into your <a class="keyword" href="#RatSupply">RatSupply</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Place a <a class="keyword" href="#PaymentMarker">PaymentMarker</a> on the 18 space of the <a class="keyword" href="#PaymentTrack">PaymentTrack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#CreateTrashMound">CreateTrashMound</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#InitialTurns">InitialTurns</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CreateTrashTileRing">CreateTrashTileRing</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Create <a class="keyword" href="#TrashStack">TrashStacks</a> by building stacks of 5 <a class="keyword" href="#TrashTile">TrashTiles</a> with matching <a class="keyword" href="#TrashShape">TrashShape</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3>* Note: there are 5 copies of <a class="keyword" href="#TrashTile">TrashTiles</a> with 4 <a class="keyword" href="#Hex">Hexes</a>; 10 with 3 <a class="keyword" href="#Hex">Hexes</a>; and 15 with 2 <a class="keyword" href="#Hex">Hexes</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Create the <a class="keyword" href="#TrashRing">TrashRing</a> by arranging these <a class="keyword" href="#TrashStack">TrashStacks</a> in random order to build a circle of stacks around the <a class="keyword" href="#TrashMound">TrashMound</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place the <a class="keyword" href="#CurrentTrashStackMarker">CurrentTrashStackMarker</a> on a random <a class="keyword" href="#TrashStack">TrashStack</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="CreateTrashMound">CreateTrashMound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">More details here?</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">For a 4-player game, you can place all initial rats if 2- or 3- hex tiles are chosen.</span></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=4><span class="comment">Do you only choose 4-hex tiles?</span></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Choose 3 <a class="keyword" href="#TrashTile">TrashTiles</a> at random from the <a class="keyword" href="#TrashStack">TrashStacks</a> in the <a class="keyword" href="#TrashRing">TrashRing</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>&#9888; The 3 <a class="keyword" href="#TrashTile">TrashTiles</a> must not share the same <a class="keyword" href="#TrashType">TrashType</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Arrange them in a <a class="keyword" href="#TrashMound">TrashMound</a> so that:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Each <a class="keyword" href="#TrashTile">TrashTile</a> shares at least one <abbr title="Imported term">Edge</abbr> with the other 2 <a class="keyword" href="#TrashTile">TrashTiles</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>There is an empty <a class="keyword" href="#Hex">Hex</a> in the middle of these 3 <a class="keyword" href="#TrashTile">TrashTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="InitialTurns">InitialTurns</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>For each <abbr title="Imported term">Player</abbr>, starting with the <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlaceRatOnHex">PlaceRatOnHex</a> based on <abbr title="Imported term">Player</abbr> order:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* First player: 1 <a class="keyword" href="#RatToken">RatToken</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* Second player: 2 <a class="keyword" href="#RatToken">RatTokens</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* Third player: 3 <a class="keyword" href="#RatToken">RatTokens</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2>* Fourth player: 4 <a class="keyword" href="#RatToken">RatTokens</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#DrawTiles">DrawTiles</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlaceRatOnHex">PlaceRatOnHex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitialTurns">InitialTurns</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place a <a class="keyword" href="#RatToken">RatToken</a> on an empty <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DrawTiles">DrawTiles</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#InitialTurns">InitialTurns</a><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Repeat until you have 3 <a class="keyword" href="#TrashTile">TrashTiles</a> in your <a class="keyword" href="#TrashSupply">TrashSupply</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Draw a <a class="keyword" href="#TrashTile">TrashTile</a> from one of the <a class="keyword" href="#TrashStack">TrashStacks</a> that is 1 to 5 spaces ahead from the <a class="keyword" href="#CurrentTrashStackMarker">CurrentTrashStackMarker</a>, counting clockwise</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>Move the <a class="keyword" href="#CurrentTrashStackMarker">CurrentTrashStackMarker</a> to the chosen <a class="keyword" href="#TrashStack">TrashStack</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>Repeat until <a class="keyword" href="#GameOver">GameOver</a>, starting with <abbr title="Imported term">FirstPlayer</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="GameOver">GameOver</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Condition</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4>If any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Player</abbr> has all of their <a class="keyword" href="#RatToken">RatTokens</a> on <a class="keyword" href="#Level">Level</a> 2 or higher</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Player</abbr> has a <a class="keyword" href="#RatToken">RatToken</a> on <a class="keyword" href="#Level">Level</a> 5 of a <a class="keyword" href="#TrashRegion">TrashRegion</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Player</abbr>'s <a class="keyword" href="#PaymentMarker">PaymentMarker</a> reaches 0 on the <a class="keyword" href="#PaymentTrack">PaymentTrack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>A <abbr title="Imported term">Player</abbr> has a <a class="keyword" href="#RatToken">RatToken</a> at <a class="keyword" href="#Level">Level</a> 3 or higher on <a class="keyword" href="#TrashRegion">TrashRegions</a> of 3 different <a class="keyword" href="#TrashType">TrashTypes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Spend 7 <abbr title="Imported term">ActionPoints</abbr> on any of the following actions:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlaceTile">PlaceTile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlaceRat">PlaceRat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#MoveRat">MoveRat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#RecoverRat">RecoverRat</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#DrawTiles">DrawTiles</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; Any unspent <abbr title="Imported term">ActionPoints</abbr> are lost</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlaceTile">PlaceTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place a <a class="keyword" href="#TrashTile">TrashTile</a> from your <a class="keyword" href="#TrashSupply">TrashSupply</a> onto the <a class="keyword" href="#TrashMound">TrashMound</a> with the following restrictions:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>It must share at least one <abbr title="Imported term">Edge</abbr> with a <a class="keyword" href="#TrashTile">TrashTile</a> already in the <a class="keyword" href="#TrashMound">TrashMound</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>For <a class="keyword" href="#TrashTile">TrashTiles</a> being placed on <a class="keyword" href="#Level">Level</a> 2 or higher:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>All <a class="keyword" href="#Hex">Hexes</a> in the tile must be supported by <a class="keyword" href="#Hex">Hexes</a> on a lower <a class="keyword" href="#Level">Level</a>, i.e., they cannot overhang</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>The newly placed tile must span 2 separate <a class="keyword" href="#TrashTile">TrashTiles</a> on the immediately lower <a class="keyword" href="#Level">Level</a>, i.e., they cannot sit entirely on a single tile</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#SquishRats">SquishRats</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayActionPoint">PayActionPoints</a> equal to the <a class="keyword" href="#Level">Level</a> that the tile was placed</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>&#9888; For each of your <a class="keyword" href="#RatToken">RatTokens</a> that you squish:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Reduce the <abbr title="Imported term">ActionPoint</abbr> cost by 1</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="SquishRats">SquishRats</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceTile">PlaceTile</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>For each <a class="keyword" href="#RatToken">RatToken</a> that is in a <a class="keyword" href="#Hex">Hex</a> covered by the newly placed <a class="keyword" href="#TrashTile">TrashTile</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#RatToken">RatToken</a> can not <a class="keyword" href="#Scurry">Scurry</a>:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>Return the <a class="keyword" href="#RatToken">RatToken</a> to the <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc" colspan=2>If the <a class="keyword" href="#RatToken">RatToken</a> is not yours:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td></td><td class="desc">Move that <abbr title="Imported term">Player</abbr>'s <a class="keyword" href="#PaymentMarker">PaymentMarker</a> down points equal to the <a class="keyword" href="#Level">Level</a> of the <a class="keyword" href="#Hex">Hex</a> that the <a class="keyword" href="#RatToken">RatToken</a> was on</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="Scurry">Scurry</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SquishRats">SquishRats</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>A <a class="keyword" href="#RatToken">RatToken</a> can move out of the way of being squished subject to the following constraints:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>It cannot move through a <a class="keyword" href="#Hex">Hex</a> occupied by another <a class="keyword" href="#RatToken">RatToken</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; When choosing which <a class="keyword" href="#RatToken">RatTokens</a> can scurry, they must scurry in the order that allows the most number of rats to escape being squished</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>&#9888; If tied, the <abbr title="Imported term">CurrentPlayer</abbr> chooses which rats get squished</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PlaceRat">PlaceRat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Place a <a class="keyword" href="#RatToken">RatToken</a> from your <a class="keyword" href="#RatSupply">RatSupply</a> into an empty <a class="keyword" href="#Hex">Hex</a> of a <a class="keyword" href="#Level">Level</a> 1 <a class="keyword" href="#TrashTile">TrashTile</a>, with the following constraint:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>The <a class="keyword" href="#Hex">Hex</a> space have an <abbr title="Imported term">Edge</abbr> on the outside border of the <a class="keyword" href="#TrashMound">TrashMound</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Optionally slide that <a class="keyword" href="#RatToken">RatToken</a> within the same <a class="keyword" href="#Level">Level</a> of that <a class="keyword" href="#TrashRegion">TrashRegion</a> to any connected empty <a class="keyword" href="#Hex">Hex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayActionPoint">PayActionPoints</a> equal to the <a class="keyword" href="#Level">Level</a> of the <a class="keyword" href="#TrashTile">TrashTile</a> where the <a class="keyword" href="#RatToken">RatToken</a> was placed</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="MoveRat">MoveRat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Move your <a class="keyword" href="#RatToken">RatToken</a> to an adjacent <a class="keyword" href="#Hex">Hex</a> that is one <a class="keyword" href="#Level">Level</a> higher that its current <a class="keyword" href="#Level">Level</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; Before going up, the <a class="keyword" href="#RatToken">RatToken</a> may move through empty <a class="keyword" href="#Hex">Hexes</a> in the same <a class="keyword" href="#TrashRegion">TrashRegion</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>&#9888; After going up, the <a class="keyword" href="#RatToken">RatToken</a> my move through empty <a class="keyword" href="#Hex">Hexes</a> in the same <a class="keyword" href="#TrashRegion">TrashRegion</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayActionPoint">PayActionPoint</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>If the start and destination <a class="keyword" href="#TrashRegion">TrashRegions</a> do not share the same <a class="keyword" href="#TrashType">TrashType</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=3><a class="keyword" href="#PayActionPoint">PayActionPoint</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=3>For each other <abbr title="Imported term">Player</abbr> already in the destination <a class="keyword" href="#TrashRegion">TrashRegion</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PayActionPoint">PayActionPoint</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="RecoverRat">RecoverRat</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Return one of your <a class="keyword" href="#RatToken">RatTokens</a> that is on the <a class="keyword" href="#TrashMound">TrashMound</a> back into your <a class="keyword" href="#RatSupply">RatSupply</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><a class="keyword" href="#PayActionPoint">PayActionPoint</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="PayActionPoint">PayActionPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveRat">MoveRat</a><a href="#PlaceRat">PlaceRat</a><a href="#PlaceTile">PlaceTile</a><a href="#RecoverRat">RecoverRat</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=4>Pay 1 <abbr title="Imported term">ActionPoint</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=5>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=5><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=4><abbr title="Imported term">DecidedByEndgameTrigger</abbr></td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+NAME: Rat Race
+
+SECTION: Assumptions
+
+IMPORT: Player, FirstPlayer, CurrentPlayer, ChooseFirstPlayer, NextPlayerClockwise
+IMPORT: Token, Tile, Edge
+IMPORT: ActionPoint
+IMPORT: NumberTrack, NumberTrackMarker
+IMPORT: DecidedByEndgameTrigger
+
+SECTION: Vocabulary
+
+RatToken: Token
+RatColor: Attribute of RatToken
+	This identifies the player color
+
+Hex: Noun
+TrashTile: Tile
+	A Tile comprised of 2 to 4 Hexes
+TrashType: Attribute of TrashTile
+	The kind of trash, indicated by color and pattern
+TrashShape: Attribute of TrashTile
+	How the Hexes are arranged to form the TrashTile
+Level: Attribute of TrashTile
+	The height of the TrashTile after it's been placed on the table. Lowest level is Level 1
+
+TrashMound: Noun
+	The collection of TrashTiles in the center of the table, surrounded by the TrashRing
+TrashRegion: Noun
+	The set of connected Hexes on TrashTiles of the same TrashType, that are visible when looking at the TrashMound from above
+	
+TrashStack: Noun
+	A set of TrashTiles of the same TrashShape arranged in a stack
+	
+TrashRing: Noun
+	A ring of TrashStacks arranged in a large circle around the TrashMound
+
+CurrentTrashStackMarker: Noun
+	Marker that indicates the last TrashStack from which a TrashTile was drawn
+
+PaymentTrack: NumberTrack
+PaymentMarker: NumberTrackMarker
+
+RatSupply: Noun
+	A Player's set of available RatTokens
+TrashSupply: Noun
+	A Player's set of available TrashTiles
+
+SECTION: Setup
+
+Setup: Verb
+	CreateTrashTileRing
+	For each Player:
+		Claim of the RatTokens of your chosen RatColor into your RatSupply
+		Place a PaymentMarker on the 18 space of the PaymentTrack
+	ChooseFirstPlayer
+	CreateTrashMound
+	InitialTurns
+
+CreateTrashTileRing: Verb
+	Create TrashStacks by building stacks of 5 TrashTiles with matching TrashShape
+		* Note: there are 5 copies of TrashTiles with 4 Hexes; 10 with 3 Hexes; and 15 with 2 Hexes
+	Create the TrashRing by arranging these TrashStacks in random order to build a circle of stacks around the TrashMound
+	Place the CurrentTrashStackMarker on a random TrashStack
+
+CreateTrashMound: Verb
+	// More details here?
+	// For a 4-player game, you can place all initial rats if 2- or 3- hex tiles are chosen.
+	// Do you only choose 4-hex tiles?
+	Choose 3 TrashTiles at random from the TrashStacks in the TrashRing
+		! The 3 TrashTiles must not share the same TrashType
+	Arrange them in a TrashMound so that:
+		Each TrashTile shares at least one Edge with the other 2 TrashTiles
+		There is an empty Hex in the middle of these 3 TrashTiles
+			
+InitialTurns: Verb
+	For each Player, starting with the FirstPlayer:
+		PlaceRatOnHex based on Player order:
+			* First player: 1 RatToken
+			* Second player: 2 RatTokens
+			* Third player: 3 RatTokens
+			* Fourth player: 4 RatTokens
+		DrawTiles
+
+PlaceRatOnHex: Verb
+	Place a RatToken on an empty Hex
+
+DrawTiles: Verb
+	Repeat until you have 3 TrashTiles in your TrashSupply:
+		Draw a TrashTile from one of the TrashStacks that is 1 to 5 spaces ahead from the CurrentTrashStackMarker, counting clockwise
+		Move the CurrentTrashStackMarker to the chosen TrashStack	
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	Repeat until GameOver, starting with FirstPlayer:
+		PlayerTurn
+		NextPlayerClockwise
+
+GameOver: Condition
+	If any of:
+		A Player has all of their RatTokens on Level 2 or higher
+		A Player has a RatToken on Level 5 of a TrashRegion
+		A Player's PaymentMarker reaches 0 on the PaymentTrack
+		A Player has a RatToken at Level 3 or higher on TrashRegions of 3 different TrashTypes
+
+PlayerTurn: Verb
+	Spend 7 ActionPoints on any of the following actions:
+		PlaceTile
+		PlaceRat
+		MoveRat
+		RecoverRat
+	DrawTiles
+	! Any unspent ActionPoints are lost
+
+PlaceTile: Verb
+	Place a TrashTile from your TrashSupply onto the TrashMound with the following restrictions:
+		It must share at least one Edge with a TrashTile already in the TrashMound
+		For TrashTiles being placed on Level 2 or higher:
+			All Hexes in the tile must be supported by Hexes on a lower Level, i.e., they cannot overhang
+			The newly placed tile must span 2 separate TrashTiles on the immediately lower Level, i.e., they cannot sit entirely on a single tile
+	SquishRats
+	PayActionPoints equal to the Level that the tile was placed
+		! For each of your RatTokens that you squish:
+			Reduce the ActionPoint cost by 1
+
+SquishRats: Verb
+	For each RatToken that is in a Hex covered by the newly placed TrashTile:
+		If the RatToken can not Scurry:
+			Return the RatToken to the Player
+			If the RatToken is not yours:
+				Move that Player's PaymentMarker down points equal to the Level of the Hex that the RatToken was on
+
+Scurry: Verb
+	A RatToken can move out of the way of being squished subject to the following constraints:
+		It cannot move through a Hex occupied by another RatToken
+	! When choosing which RatTokens can scurry, they must scurry in the order that allows the most number of rats to escape being squished
+		! If tied, the CurrentPlayer chooses which rats get squished
+	
+PlaceRat: Verb
+	Place a RatToken from your RatSupply into an empty Hex of a Level 1 TrashTile, with the following constraint:
+		The Hex space have an Edge on the outside border of the TrashMound
+	Optionally slide that RatToken within the same Level of that TrashRegion to any connected empty Hex
+	PayActionPoints equal to the Level of the TrashTile where the RatToken was placed
+
+MoveRat: Verb
+	Move your RatToken to an adjacent Hex that is one Level higher that its current Level
+	! Before going up, the RatToken may move through empty Hexes in the same TrashRegion
+	! After going up, the RatToken my move through empty Hexes in the same TrashRegion
+	PayActionPoint
+	If the start and destination TrashRegions do not share the same TrashType:
+		PayActionPoint
+		For each other Player already in the destination TrashRegion
+			PayActionPoint
+
+RecoverRat: Verb
+	Return one of your RatTokens that is on the TrashMound back into your RatSupply
+	PayActionPoint
+
+PayActionPoint: Verb
+	Pay 1 ActionPoint
+	
+SECTION: Endgame Scoring
+
+DetermineWinner: Verb
+	DecidedByEndgameTrigger
