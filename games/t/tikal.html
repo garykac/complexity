@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Tikal</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+	<script data-file-issue-url="https://github.com/garykac/complexity/issues/new" src="../../scripts/file-issue.js" defer></script>
+<style>
+html {
+	font-size: 1rem;
+	font-family: 'Noto Sans', sans;
+}
+body {
+	background-color: #dce1e3;
+	margin: auto;
+	color: #5c5f58;
+	width: 95%;
+	padding: 0;
+}
+.container {
+	width: 80%;
+	margin: auto;
+	min-width: 400px;
+	max-width: 700px;
+}
+.title {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 1rem 0 0 0;
+	font-weight: 700;
+	font-size: 2rem;
+}
+.subtitle {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+.designer {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 0 0;
+	font-weight: 500;
+	font-size: 1rem;
+}
+.year {
+	display: block;
+	margin: auto;
+	text-align: center;
+	margin: 0 0 2rem 0;
+	font-weight: 400;
+	font-size: 0.9rem;
+}
+.footer {
+	display: block;
+	margin: auto;
+	margin: 0.4rem 0;
+}
+table.summary {
+	min-width: 200px;
+	margin: auto;
+	text-align: center;
+	font-weight: 400;
+	font-size: 0.9rem;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+.summary-section-name {
+	width: 50%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-data {
+	width: 25%;
+	text-align: center;
+	padding: 0 5px;
+}
+.summary-subsection-indent {
+	width: 5%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subsection-name {
+	width: 45%;
+	text-align: left;
+	padding: 0 5px;
+}
+.summary-subdata {
+	width: 12.5%;
+	text-align: center;
+	padding: 0 5px;
+}
+table.main {
+	table-layout: fixed;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: left;
+	border-collapse: collapse;
+}
+table.main td {
+	padding: 0.2rem 0;
+}
+.section {
+	background-color: #cccfd8;
+	color: #5c5f58;
+}
+.section td {
+	padding: 0.6rem 0;
+	font-weight: 600;
+}
+.subsection {
+	background-color: #d4d7e0;
+	color: #5c5f58;
+}
+.subsection td {
+	padding: 0.1rem 0;
+	font-style: italic;
+}
+.cost {
+	width: 10%;
+	text-align: center;
+	vertical-align: baseline;
+}
+.desc {
+	vertical-align: baseline;
+}
+.comment {
+	font-style: italic;
+}
+.indent {
+	width: 5%;
+}
+.def {
+	font-weight: 700;
+	color: #2c2f28;
+}
+.keyword {
+	font-weight: 600;
+}
+a.keyword:link, a.keyword:visited, a.keyword:active {
+	color: #5c5f58;
+	text-decoration: none;
+}
+a.keyword:hover {
+	color: #0c0f08;
+	text-decoration: underline;
+}
+/* Definition popup menu with references */
+.def-container {
+	position: relative;
+	display: inline-block;
+}
+.def-menu {
+	display: block;
+	position: absolute;
+	background-color: #ecf1f3;
+	font-size: 0.8rem;
+	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.2);
+	visibility: hidden;
+	z-index: 1;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
+}
+.def-menu-title {
+	padding: 0.1rem 0.5rem;
+}
+.def-menu a {
+	color: black;
+	padding: 0.1rem 0.5rem;
+	text-decoration: none;
+	display: block;
+}
+.def-menu a:hover {
+	background-color: #cccfd8;
+}
+.def-container:hover .def-menu {
+	visibility: visible;
+	opacity: 1;
+	transition-delay: 0.5s;
+}
+.selected-text-file-issue {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	font-size: .7em;
+	text-align: center;
+	background-color: rgba(240,240,240,0.6);
+	border: 1px solid rgba(200,200,200,0.6);
+	border-radius: 5px;
+	padding: 4px 10px;
+	margin: 4px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="title">Tikal</div>
+<div class="designer">Michael Kiesling, Wolfgang Kramer</div>
+<div class="year">1999</div>
+
+<table class="summary">
+<colgroup><col class="summary-section-name"><col class="summary-data"><col class="summary-data"></colgroup>
+<tr><td colspan="3"><b>Rule Complexity</b></td></tr>
+<tr><td class="summary-section-name">Vocabulary</td><td class="summary-data">33</td><td class="summary-data">34.4%</td></tr>
+<tr><td class="summary-section-name">Setup</td><td class="summary-data">10</td><td class="summary-data">10.4%</td></tr>
+<tr><td class="summary-section-name">Gameplay</td><td class="summary-data">51</td><td class="summary-data">53.1%</td></tr>
+<tr><td class="summary-section-name">Endgame Scoring</td><td class="summary-data">2</td><td class="summary-data">2.1%</td></tr>
+<tr><td class="summary-section-name"><b>Total</b></td><td class="summary-data"><b>96</b></td><td class="summary-data"><b>100%</b></td></tr>
+</table>
+
+<table class="main">
+<colgroup><col class="cost"><col class="indent"><col class="indent"><col class="indent"><col></colgroup>
+<thead><tr><th class="cost">Cost</th><th colspan=4>Description</th></tr></thead>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Assumptions</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Player, ChooseFirstPlayer, ChoosePlayerColorComponents, CurrentPlayer, NextPlayerClockwise</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Box, Gameboard, PlaceBoard, PlaceNextToBoard</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><span class="comment">Shape, Edge, Tile, Token, Piece, TileOverridesTileSpace</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Vocabulary</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TikalBoard">TikalBoard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoringTrack">ScoringTrack</a></div></div>: <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoringTrack">ScoringTrack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrack</abbr> of <a class="keyword" href="#TikalBoard">TikalBoard</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="GameHex">GameHex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#BoardHex">BoardHex</a><a href="#EstablishCamp">EstablishCamp</a><a href="#ExpeditionForce">ExpeditionForce</a><a href="#ExploredHex">ExploredHex</a><a href="#MoveExpeditionMember">MoveExpeditionMember</a><a href="#NeedMemberPerAction">NeedMemberPerAction</a><a href="#NoMoreThanTwicePerTurn">NoMoreThanTwicePerTurn</a><a href="#PlaceGuard">PlaceGuard</a><a href="#RecoverTreasure">RecoverTreasure</a><a href="#ScoreTemples">ScoreTemples</a><a href="#StoneCount">StoneCount</a><a href="#TempleValue">TempleValue</a><a href="#TerrainHex">TerrainHex</a><a href="#TerrainType">TerrainType</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: <abbr title="Imported term">Shape</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>An abstract unit of the map, shaped like a hexagon.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TerrainType">TerrainType</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExploredHex">ExploredHex</a><a href="#PlaceTerrain">PlaceTerrain</a><a href="#TempleValue">TempleValue</a></div></div>: Attribute of <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#Basecamp">Basecamp</a>, <a class="keyword" href="#Temple">Temple</a>, <a class="keyword" href="#Jungle">Jungle</a>, <a class="keyword" href="#Treasure">Treasure</a>, <a class="keyword" href="#Volcano">Volcano</a>, <a class="keyword" href="#Unexplored">Unexplored</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TempleValue">TempleValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTempleStacks">CreateTempleStacks</a><a href="#ScoreTemples">ScoreTemples</a><a href="#TempleStack">TempleStack</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: Attribute of <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>(only used for <a class="keyword" href="#Temple">Temple</a> <a class="keyword" href="#TerrainType">TerrainTypes</a>)</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExploredHex">ExploredHex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PassableEdge">PassableEdge</a><a href="#SharedEdgeStoneCount">SharedEdgeStoneCount</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> <a class="keyword" href="#GameHex">GameHex</a> with any <a class="keyword" href="#TerrainType">TerrainType</a> other than <a class="keyword" href="#Unexplored">Unexplored</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Stone">Stone</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#StoneCount">StoneCount</a></div></div>: Noun</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="StoneCount">StoneCount</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#SharedEdgeStoneCount">SharedEdgeStoneCount</a></div></div>: Attribute of <abbr title="Imported term">Edge</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The number of <a class="keyword" href="#Stone">Stones</a> on this <a class="keyword" href="#GameHex">GameHex</a> <abbr title="Imported term">Edge</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PassableEdge">PassableEdge</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveExpeditionMember">MoveExpeditionMember</a><a href="#PlaceTerrain">PlaceTerrain</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> <abbr title="Imported term">Edge</abbr> between 2 <a class="keyword" href="#ExploredHex">ExploredHexes</a> where the <a class="keyword" href="#SharedEdgeStoneCount">SharedEdgeStoneCount</a> is at least 1.</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SharedEdgeStoneCount">SharedEdgeStoneCount</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#MoveExpeditionMember">MoveExpeditionMember</a><a href="#PassableEdge">PassableEdge</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The sum of the <a class="keyword" href="#StoneCount">StoneCount</a> on both sides of the shared <abbr title="Imported term">Edge</abbr> between two <a class="keyword" href="#ExploredHex">ExploredHexes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="BoardHex">BoardHex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceTerrain">PlaceTerrain</a><a href="#TerrainHex">TerrainHex</a></div></div>: <a class="keyword" href="#GameHex">GameHex</a> of <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> <a class="keyword" href="#GameHex">GameHex</a> printed directly on the <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td></td><td class="desc" colspan=3><span class="comment">All BoardHexes are Unexplored except for 1 Basecamp, 1 Jungle and 2 Temples</span></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TerrainHex">TerrainHex</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTerrainStack">CreateTerrainStack</a><a href="#PlaceTerrain">PlaceTerrain</a><a href="#PlayGame">PlayGame</a><a href="#TerrainHexGroup">TerrainHexGroup</a><a href="#TerrainStack">TerrainStack</a></div></div>: <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> <a class="keyword" href="#GameHex">GameHex</a> <abbr title="Imported term">Tile</abbr> that is placed on a <a class="keyword" href="#BoardHex">BoardHex</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <abbr title="Imported term">TileOverridesTileSpace</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TerrainHexGroup">TerrainHexGroup</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTerrainStack">CreateTerrainStack</a></div></div>: Attribute of <a class="keyword" href="#TerrainHex">TerrainHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#A">A</a>, <a class="keyword" href="#B">B</a>, <a class="keyword" href="#C">C</a>, <a class="keyword" href="#D">D</a>, <a class="keyword" href="#E">E</a>, <a class="keyword" href="#F">F</a>, <a class="keyword" href="#G">G</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TerrainStack">TerrainStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTerrainStack">CreateTerrainStack</a><a href="#PlaceTerrain">PlaceTerrain</a><a href="#PlayGame">PlayGame</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> stack of <a class="keyword" href="#TerrainHex">TerrainHexes</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasureWafer">TreasureWafer</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTreasureStacks">CreateTreasureStacks</a><a href="#ExchangeTreasure">ExchangeTreasure</a><a href="#RecoverTreasure">RecoverTreasure</a><a href="#ScoreTreasures">ScoreTreasures</a><a href="#TreasurePile">TreasurePile</a><a href="#TreasureStack">TreasureStack</a></div></div>: <abbr title="Imported term">Tile</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasureStack">TreasureStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTreasureStacks">CreateTreasureStacks</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> stack of <a class="keyword" href="#TreasureWafer">TreasureWafers</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TreasurePile">TreasurePile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExchangeTreasure">ExchangeTreasure</a><a href="#RecoverTreasure">RecoverTreasure</a><a href="#ScoreTreasures">ScoreTreasures</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> <abbr title="Imported term">Player</abbr>'s collection of <a class="keyword" href="#TreasureWafer">TreasureWafers</a>, placed face up in front of them</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TempleTile">TempleTile</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTempleStacks">CreateTempleStacks</a><a href="#TempleStack">TempleStack</a><a href="#TempleValue">TempleValue</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: <abbr title="Imported term">Tile</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TempleValue">TempleValue</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTempleStacks">CreateTempleStacks</a><a href="#ScoreTemples">ScoreTemples</a><a href="#TempleStack">TempleStack</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: Attribute of <a class="keyword" href="#TempleTile">TempleTile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Values: <a class="keyword" href="#2-10">2-10</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TempleStack">TempleStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CreateTempleStacks">CreateTempleStacks</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> stack of <a class="keyword" href="#TempleTile">TempleTiles</a> with the same <a class="keyword" href="#TempleValue">TempleValue</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExpeditionMember">ExpeditionMember</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExpeditionForce">ExpeditionForce</a><a href="#ExpeditionLeader">ExpeditionLeader</a><a href="#ExpeditionWorker">ExpeditionWorker</a><a href="#MoveExpeditionMember">MoveExpeditionMember</a><a href="#NeedMemberPerAction">NeedMemberPerAction</a><a href="#PlaceExpeditionMember">PlaceExpeditionMember</a><a href="#PlaceGuard">PlaceGuard</a><a href="#RecoverTreasure">RecoverTreasure</a><a href="#Supply">Supply</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExpeditionLeader">ExpeditionLeader</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ExpeditionForce">ExpeditionForce</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#ExpeditionMember">ExpeditionMember</a></td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExpeditionWorker">ExpeditionWorker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Guard">Guard</a><a href="#Setup">Setup</a></div></div>: <a class="keyword" href="#ExpeditionMember">ExpeditionMember</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Supply">Supply</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EstablishCamp">EstablishCamp</a><a href="#Setup">Setup</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set of <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a> not yet placed on the <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Guard">Guard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreTemples">ScoreTemples</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> former <a class="keyword" href="#ExpeditionWorker">ExpeditionWorker</a> that has now been assigned to protect a <a class="keyword" href="#Temple">Temple</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExpeditionForce">ExpeditionForce</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceGuard">PlaceGuard</a><a href="#ScoreTemples">ScoreTemples</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>The count of all your <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a> in a <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#ExpeditionLeader">ExpeditionLeaders</a> count as 3</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost">1</td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerCamp">PlayerCamp</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#CampLocation">CampLocation</a><a href="#EstablishCamp">EstablishCamp</a><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Token</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CampLocation">CampLocation</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlaceExpeditionMember">PlaceExpeditionMember</a></div></div>: Noun</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Any of:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The location of the <a class="keyword" href="#Basecamp">Basecamp</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>The location of any of your <a class="keyword" href="#PlayerCamp">PlayerCamps</a> on the <abbr title="Imported term">Gameboard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoringMarker">ScoringMarker</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">NumberTrackMarker</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>One for each <abbr title="Imported term">Player</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="TurnIndicator">TurnIndicator</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: <abbr title="Imported term">Piece</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Only used for auction variant</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ActionPoint">ActionPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EndTurn">EndTurn</a><a href="#PerformActions">PerformActions</a><a href="#SpendActionPoint">SpendActionPoint</a></div></div>: Noun</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#A">A</a> way of tracking the different costs for each type of action</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Setup</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="Setup">Setup</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlaceBoard</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateTerrainStack">CreateTerrainStack</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateTempleStacks">CreateTempleStacks</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#CreateTreasureStacks">CreateTreasureStacks</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">ChoosePlayerColorComponents</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 1 <a class="keyword" href="#ExpeditionLeader">ExpeditionLeader</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 18 <a class="keyword" href="#ExpeditionWorker">ExpeditionWorker</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 2 <a class="keyword" href="#PlayerCamp">PlayerCamp</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 1 <a class="keyword" href="#ScoringMarker">ScoringMarker</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc">* 1 <a class="keyword" href="#TurnIndicator">TurnIndicator</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Add your <a class="keyword" href="#PlayerCamp">PlayerCamp</a>, <a class="keyword" href="#ExpeditionLeader">ExpeditionLeader</a> and all <a class="keyword" href="#ExpeditionWorker">ExpeditionWorkers</a> to your <a class="keyword" href="#Supply">Supply</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Place your <a class="keyword" href="#ScoringMarker">ScoringMarker</a> next to the "1" on the <a class="keyword" href="#ScoringTrack">ScoringTrack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Return your <a class="keyword" href="#TurnIndicator">TurnIndicator</a> back to the <abbr title="Imported term">Box</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">ChooseFirstPlayer</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CreateTerrainStack">CreateTerrainStack</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Sort the <a class="keyword" href="#TerrainHex">TerrainHex</a> tiles based on their <a class="keyword" href="#TerrainHexGroup">TerrainHexGroup</a>: <a class="keyword" href="#A">A</a> - <a class="keyword" href="#G">G</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle each group facedown</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Create the <a class="keyword" href="#TerrainStack">TerrainStack</a> by stacking each group in alphabetical order, with <a class="keyword" href="#A">A</a> on top</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlaceNextToBoard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CreateTempleStacks">CreateTempleStacks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Sort the <a class="keyword" href="#TempleTile">TempleTiles</a> tiles based on their <a class="keyword" href="#TempleValue">TempleValue</a>: 2 - 10</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Create a <a class="keyword" href="#TempleStack">TempleStack</a> for each <a class="keyword" href="#TempleValue">TempleValue</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlaceNextToBoard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="CreateTreasureStacks">CreateTreasureStacks</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#Setup">Setup</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Shuffle the <a class="keyword" href="#TreasureWafer">TreasureWafers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Create 2 <a class="keyword" href="#TreasureStack">TreasureStacks</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlaceNextToBoard</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Gameplay</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayGame">PlayGame</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>While there are <a class="keyword" href="#TerrainHex">TerrainHexes</a> remaining in the <a class="keyword" href="#TerrainStack">TerrainStack</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PlayerTurn">PlayerTurn</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><abbr title="Imported term">NextPlayerClockwise</abbr></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#FinalScoringRound">FinalScoringRound</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlayerTurn">PlayerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PlaceTerrain">PlaceTerrain</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#PerformActions">PerformActions</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceTerrain">PlaceTerrain</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Draw topmost <a class="keyword" href="#TerrainHex">TerrainHex</a> from the <a class="keyword" href="#TerrainStack">TerrainStack</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If the <a class="keyword" href="#TerrainType">TerrainType</a> is <a class="keyword" href="#Volcano">Volcano</a> then:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScoringRound">ScoringRound</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place <a class="keyword" href="#TerrainHex">TerrainHex</a> on an empty <a class="keyword" href="#BoardHex">BoardHex</a> with the following constraints:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>It must create at least 1 new <a class="keyword" href="#PassableEdge">PassableEdge</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#Volcano">Volcano</a> <a class="keyword" href="#TerrainHex">TerrainHexes</a> do not require a <a class="keyword" href="#PassableEdge">PassableEdge</a> to be placed</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PerformActions">PerformActions</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayerTurn">PlayerTurn</a><a href="#ScoringRound">ScoringRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Set <a class="keyword" href="#ActionPoint">ActionPoints</a> to 10</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Repeat while you still have <a class="keyword" href="#ActionPoint">ActionPoints</a> remaining:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2>Choose one:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PlaceExpeditionMember">PlaceExpeditionMember</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#MoveExpeditionMember">MoveExpeditionMember</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#UncoverTempleLevel">UncoverTempleLevel</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#RecoverTreasure">RecoverTreasure</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#ExchangeTreasure">ExchangeTreasure</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#EstablishCamp">EstablishCamp</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#PlaceGuard">PlaceGuard</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td></td><td class="desc"><a class="keyword" href="#EndTurn">EndTurn</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceExpeditionMember">PlaceExpeditionMember</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoint</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose an <a class="keyword" href="#ExpeditionMember">ExpeditionMember</a> located in a <a class="keyword" href="#CampLocation">CampLocation</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move it to another <a class="keyword" href="#CampLocation">CampLocation</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="MoveExpeditionMember">MoveExpeditionMember</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose an <a class="keyword" href="#ExpeditionMember">ExpeditionMember</a> in a <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Move it across a <a class="keyword" href="#PassableEdge">PassableEdge</a> to a neighboring <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoints</a> equal to the <a class="keyword" href="#SharedEdgeStoneCount">SharedEdgeStoneCount</a> of the <a class="keyword" href="#PassableEdge">PassableEdge</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may not move into a <a class="keyword" href="#Volcano">Volcano</a> <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; Do not place <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a> on the stone, temple or treasure images in the <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="UncoverTempleLevel">UncoverTempleLevel</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoint</a> x2</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#Temple">Temple</a> <a class="keyword" href="#GameHex">GameHex</a> that contains at least one of your <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; <a class="keyword" href="#Guard">Guards</a> do not count as <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Claim a <a class="keyword" href="#TempleTile">TempleTile</a> with a <a class="keyword" href="#TempleValue">TempleValue</a> one higher than the current <a class="keyword" href="#TempleValue">TempleValue</a> of the <a class="keyword" href="#Temple">Temple</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>&#9888; If the next numbered <a class="keyword" href="#TempleTile">TempleTile</a> is not available:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td></td><td class="desc">You may not perform this action</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place the <a class="keyword" href="#TempleTile">TempleTile</a> to cover the previous <a class="keyword" href="#TempleValue">TempleValue</a></td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: Leaving the previous TempleTile (if any) underneath</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#NeedMemberPerAction">NeedMemberPerAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#NoMoreThanTwicePerTurn">NoMoreThanTwicePerTurn</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="RecoverTreasure">RecoverTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoint</a> x3</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#Treasure">Treasure</a> <a class="keyword" href="#GameHex">GameHex</a> that contains at least one of your <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Claim the topmost <a class="keyword" href="#TreasureWafer">TreasureWafer</a> from the <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place it face up in your <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#NeedMemberPerAction">NeedMemberPerAction</a></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>&#9888; <a class="keyword" href="#NoMoreThanTwicePerTurn">NoMoreThanTwicePerTurn</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NeedMemberPerAction">NeedMemberPerAction</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RecoverTreasure">RecoverTreasure</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>If you want to perform this action twice in the same <a class="keyword" href="#GameHex">GameHex</a> on the same turn:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You need to have at least 2 <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a> in that <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="NoMoreThanTwicePerTurn">NoMoreThanTwicePerTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#RecoverTreasure">RecoverTreasure</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: Constraint</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>You may perform this action in the same <a class="keyword" href="#GameHex">GameHex</a> at most twice per turn</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ExchangeTreasure">ExchangeTreasure</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoint</a> x3</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose 1 <a class="keyword" href="#TreasureWafer">TreasureWafer</a> from your <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose 1 <a class="keyword" href="#TreasureWafer">TreasureWafer</a> from another <abbr title="Imported term">Player</abbr>'s <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Exchange the 2 <a class="keyword" href="#TreasureWafer">TreasureWafers</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; You may not choose a <a class="keyword" href="#TreasureWafer">TreasureWafer</a> that has a matching <a class="keyword" href="#TreasureWafer">TreasureWafer</a> in the same <a class="keyword" href="#TreasurePile">TreasurePile</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; The other <abbr title="Imported term">Player</abbr> cannot refuse the exchange</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EstablishCamp">EstablishCamp</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoint</a> x5</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a valid <a class="keyword" href="#GameHex">GameHex</a> location:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Any <a class="keyword" href="#Jungle">Jungle</a> <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Any empty <a class="keyword" href="#Treasure">Treasure</a> <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place a <a class="keyword" href="#PlayerCamp">PlayerCamp</a> from your <a class="keyword" href="#Supply">Supply</a> onto the <a class="keyword" href="#GameHex">GameHex</a></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; The location may not already have a <a class="keyword" href="#PlayerCamp">PlayerCamp</a> (or <a class="keyword" href="#Basecamp">Basecamp</a>) present</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="PlaceGuard">PlaceGuard</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#SpendActionPoint">SpendActionPoint</a> x5</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Choose a <a class="keyword" href="#Temple">Temple</a> <a class="keyword" href="#GameHex">GameHex</a> where your <a class="keyword" href="#ExpeditionForce">ExpeditionForce</a> is greater than that of all other <abbr title="Imported term">Players</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Place one of your <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a> from that hex onto the image of the <a class="keyword" href="#Temple">Temple</a> to claim it</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Remove all of your remaining <a class="keyword" href="#ExpeditionMember">ExpeditionMembers</a> back into the <abbr title="Imported term">Box</abbr></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="SpendActionPoint">SpendActionPoint</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#EstablishCamp">EstablishCamp</a><a href="#ExchangeTreasure">ExchangeTreasure</a><a href="#MoveExpeditionMember">MoveExpeditionMember</a><a href="#PlaceExpeditionMember">PlaceExpeditionMember</a><a href="#PlaceGuard">PlaceGuard</a><a href="#RecoverTreasure">RecoverTreasure</a><a href="#UncoverTempleLevel">UncoverTempleLevel</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Reduce <a class="keyword" href="#ActionPoint">ActionPoints</a> by 1</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="EndTurn">EndTurn</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PerformActions">PerformActions</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>Forfeit remaining <a class="keyword" href="#ActionPoint">ActionPoints</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoringRound">ScoringRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#FinalScoringRound">FinalScoringRound</a><a href="#PlaceTerrain">PlaceTerrain</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>For each <abbr title="Imported term">Player</abbr>, starting with <abbr title="Imported term">CurrentPlayer</abbr>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#PerformActions">PerformActions</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScoreTemples">ScoreTemples</a></td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScoreTreasures">ScoreTreasures</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoreTemples">ScoreTemples</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoringRound">ScoringRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each <a class="keyword" href="#Temple">Temple</a> <a class="keyword" href="#GameHex">GameHex</a> where any of the following are true:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>You have a <a class="keyword" href="#Guard">Guard</a></td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Your <a class="keyword" href="#ExpeditionForce">ExpeditionForce</a> in the <a class="keyword" href="#Temple">Temple</a> <a class="keyword" href="#GameHex">GameHex</a> is larger than any other <abbr title="Imported term">Player</abbr>'s force.</td></tr>
+<tr><td class="cost"></td><td></td><td></td><td class="desc" colspan=2><span class="comment">Note: Ties don't count</span></td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3>Do the following:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScorePoints">ScorePoints</a> equal to the <a class="keyword" href="#TempleValue">TempleValue</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScoreTreasures">ScoreTreasures</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoringRound">ScoringRound</a></div></div>: Verb</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each set of 3 matching <a class="keyword" href="#TreasureWafer">TreasureWafers</a> in your <a class="keyword" href="#TreasurePile">TreasurePile</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScorePoints">ScorePoints</a> x6</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each set of 2 matching <a class="keyword" href="#TreasureWafer">TreasureWafers</a> in your <a class="keyword" href="#TreasurePile">TreasurePile</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScorePoints">ScorePoints</a> x3</td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>For each remaining (unmatched) <a class="keyword" href="#TreasureWafer">TreasureWafer</a> in your <a class="keyword" href="#TreasurePile">TreasurePile</a>:</td></tr>
+<tr><td class="cost">0</td><td></td><td></td><td class="desc" colspan=2><a class="keyword" href="#ScorePoints">ScorePoints</a> x1</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="ScorePoints">ScorePoints</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#ScoreTemples">ScoreTemples</a><a href="#ScoreTreasures">ScoreTreasures</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">RecordPointsOnScoringTrack</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If you pass from the "100" space to the "1" space:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Note that you have passed 100 points</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr class="section"><td class="cost"></td><td colspan=4>Endgame Scoring</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="FinalScoringRound">FinalScoringRound</a><div class="def-menu"><div class="def-menu-title">Referenced&nbsp;by:</div><a href="#PlayGame">PlayGame</a></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><a class="keyword" href="#ScoringRound">ScoringRound</a></td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4>&nbsp;</td></tr>
+<tr><td class="cost"></td><td class="desc" colspan=4><div class="def-container"><a class="def" id="DetermineWinner">DetermineWinner</a><div class="def-menu"><div class="def-menu-title">No&nbsp;references</div></div></div>: Verb</td></tr>
+<tr><td class="cost">0</td><td></td><td class="desc" colspan=3><abbr title="Imported term">PlayerWithHighestScore</abbr></td></tr>
+<tr><td class="cost">1</td><td></td><td class="desc" colspan=3>&#9888; If tied:</td></tr>
+<tr><td class="cost">1</td><td></td><td></td><td class="desc" colspan=2>Rules don't specify</td></tr>
+</table>
+<div class="footer">&nbsp;</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,263 @@
+NAME: GameTitle
+
+SECTION: Assumptions
+
+IMPORT: Player, ChooseFirstPlayer, ChoosePlayerColorComponents, CurrentPlayer, NextPlayerClockwise
+IMPORT: Box, Gameboard, PlaceBoard, PlaceNextToBoard
+IMPORT: NumberTrack, NumberTrackMarker, RecordPointsOnScoringTrack, PlayerWithHighestScore
+IMPORT: Shape, Edge, Tile, Token, Piece, TileOverridesTileSpace
+
+SECTION: Vocabulary
+
+TikalBoard: Gameboard
+ScoringTrack: NumberTrack of TikalBoard
+
+GameHex: Shape
+	An abstract unit of the map, shaped like a hexagon.
+TerrainType: Attribute of GameHex
+	Values: Basecamp, Temple, Jungle, Treasure, Volcano, Unexplored
+
+TempleValue: Attribute of GameHex
+	(only used for Temple TerrainTypes)
+
+ExploredHex: Noun
+	A GameHex with any TerrainType other than Unexplored
+
+Stone: Noun
+StoneCount: Attribute of Edge
+	The number of Stones on this GameHex Edge
+
+PassableEdge: Noun
+	A Edge between 2 ExploredHexes where the SharedEdgeStoneCount is at least 1.
+SharedEdgeStoneCount: Noun
+	The sum of the StoneCount on both sides of the shared Edge between two ExploredHexes
+
+BoardHex: GameHex of Gameboard
+	A GameHex printed directly on the Gameboard
+	// All BoardHexes are Unexplored except for 1 Basecamp, 1 Jungle and 2 Temples
+
+TerrainHex: GameHex
+	A GameHex Tile that is placed on a BoardHex
+	! TileOverridesTileSpace
+TerrainHexGroup: Attribute of TerrainHex
+	Values: A, B, C, D, E, F, G
+
+TerrainStack: Noun
+	A stack of TerrainHexes
+
+TreasureWafer: Tile
+TreasureStack: Noun
+	A stack of TreasureWafers
+
+TreasurePile: Noun
+	A Player's collection of TreasureWafers, placed face up in front of them
+	
+TempleTile: Tile
+TempleValue: Attribute of TempleTile
+	Values: 2-10
+
+TempleStack: Noun
+	A stack of TempleTiles with the same TempleValue
+
+ExpeditionMember: Token
+ExpeditionLeader: ExpeditionMember
+ExpeditionWorker: ExpeditionMember
+
+Supply: Noun
+	Set of ExpeditionMembers not yet placed on the Gameboard
+	
+Guard: Noun
+	A former ExpeditionWorker that has now been assigned to protect a Temple
+
+ExpeditionForce: Noun
+	The count of all your ExpeditionMembers in a GameHex
+	! ExpeditionLeaders count as 3
+
+PlayerCamp: Token
+
+CampLocation: Noun
+	Any of:
+		The location of the Basecamp
+		The location of any of your PlayerCamps on the Gameboard
+
+ScoringMarker: NumberTrackMarker
+	One for each Player
+
+TurnIndicator: Piece
+	Only used for auction variant
+
+ActionPoint: Noun
+	A way of tracking the different costs for each type of action
+
+SECTION: Setup
+
+Setup: Verb
+	PlaceBoard
+	CreateTerrainStack
+	CreateTempleStacks
+	CreateTreasureStacks
+	For each Player:
+		ChoosePlayerColorComponents
+			* 1 ExpeditionLeader
+			* 18 ExpeditionWorker
+			* 2 PlayerCamp
+			* 1 ScoringMarker
+			* 1 TurnIndicator
+		Add your PlayerCamp, ExpeditionLeader and all ExpeditionWorkers to your Supply
+		Place your ScoringMarker next to the "1" on the ScoringTrack
+		Return your TurnIndicator back to the Box
+	ChooseFirstPlayer
+	
+CreateTerrainStack: Verb
+	Sort the TerrainHex tiles based on their TerrainHexGroup: A - G
+	Shuffle each group facedown
+	Create the TerrainStack by stacking each group in alphabetical order, with A on top		
+	PlaceNextToBoard
+
+CreateTempleStacks: Verb
+	Sort the TempleTiles tiles based on their TempleValue: 2 - 10
+	Create a TempleStack for each TempleValue
+	PlaceNextToBoard
+
+CreateTreasureStacks: Verb
+	Shuffle the TreasureWafers
+	Create 2 TreasureStacks
+		// Having 2 TreasureStacks is not critical, and is apparently only because a single stack of 24 tokens would topple over.
+	PlaceNextToBoard
+
+SECTION: Gameplay
+
+PlayGame: Verb
+	While there are TerrainHexes remaining in the TerrainStack:
+		PlayerTurn
+		NextPlayerClockwise
+	FinalScoringRound
+
+PlayerTurn: Verb
+	PlaceTerrain
+	PerformActions
+
+PlaceTerrain: Verb
+	Draw topmost TerrainHex from the TerrainStack
+	If the TerrainType is Volcano then:
+		ScoringRound
+	Place TerrainHex on an empty BoardHex with the following constraints:
+		It must create at least 1 new PassableEdge
+		! Volcano TerrainHexes do not require a PassableEdge to be placed
+
+PerformActions: Verb
+	Set ActionPoints to 10
+	Repeat while you still have ActionPoints remaining:
+		Choose one:
+			PlaceExpeditionMember
+			MoveExpeditionMember
+			UncoverTempleLevel
+			RecoverTreasure
+			ExchangeTreasure
+			EstablishCamp
+			PlaceGuard
+			EndTurn
+
+PlaceExpeditionMember: Verb
+	SpendActionPoint
+	Choose an ExpeditionMember located in a CampLocation
+	Move it to another CampLocation
+
+MoveExpeditionMember: Verb
+	Choose an ExpeditionMember in a GameHex
+	Move it across a PassableEdge to a neighboring GameHex
+	SpendActionPoints equal to the SharedEdgeStoneCount of the PassableEdge
+	! You may not move into a Volcano GameHex
+	! Do not place ExpeditionMembers on the stone, temple or treasure images in the GameHex
+
+UncoverTempleLevel: Verb
+	SpendActionPoint x2
+	Choose a Temple GameHex that contains at least one of your ExpeditionMembers
+		! Guards do not count as ExpeditionMembers
+	Claim a TempleTile with a TempleValue one higher than the current TempleValue of the Temple
+		! If the next numbered TempleTile is not available:
+			You may not perform this action
+	Place the TempleTile to cover the previous TempleValue
+		// Note: Leaving the previous TempleTile (if any) underneath
+	! NeedMemberPerAction
+	! NoMoreThanTwicePerTurn
+	
+RecoverTreasure: Verb
+	SpendActionPoint x3
+	Choose a Treasure GameHex that contains at least one of your ExpeditionMembers
+	Claim the topmost TreasureWafer from the GameHex
+	Place it face up in your TreasurePile
+	! NeedMemberPerAction
+	! NoMoreThanTwicePerTurn
+
+NeedMemberPerAction: Constraint
+	If you want to perform this action twice in the same GameHex on the same turn:
+		You need to have at least 2 ExpeditionMembers in that GameHex
+		
+NoMoreThanTwicePerTurn: Constraint
+	You may perform this action in the same GameHex at most twice per turn
+	
+ExchangeTreasure: Verb
+	SpendActionPoint x3
+	Choose 1 TreasureWafer from your TreasurePile
+	Choose 1 TreasureWafer from another Player's TreasurePile
+	Exchange the 2 TreasureWafers
+	! You may not choose a TreasureWafer that has a matching TreasureWafer in the same TreasurePile
+	! The other Player cannot refuse the exchange
+
+EstablishCamp: Verb
+	SpendActionPoint x5
+	Choose a valid GameHex location:
+		Any Jungle GameHex
+		Any empty Treasure GameHex
+	Place a PlayerCamp from your Supply onto the GameHex
+	! The location may not already have a PlayerCamp (or Basecamp) present
+
+PlaceGuard: Verb
+	SpendActionPoint x5
+	Choose a Temple GameHex where your ExpeditionForce is greater than that of all other Players
+	Place one of your ExpeditionMembers from that hex onto the image of the Temple to claim it
+	Remove all of your remaining ExpeditionMembers back into the Box
+	
+SpendActionPoint: Verb
+	Reduce ActionPoints by 1
+
+EndTurn: Verb
+	Forfeit remaining ActionPoints
+
+ScoringRound: Verb
+	For each Player, starting with CurrentPlayer:
+		PerformActions
+		ScoreTemples
+		ScoreTreasures
+
+ScoreTemples: Verb
+	For each Temple GameHex where any of the following are true:
+		You have a Guard
+		Your ExpeditionForce in the Temple GameHex is larger than any other Player's force.
+		// Note: Ties don't count
+	Do the following:
+		ScorePoints equal to the TempleValue
+		
+ScoreTreasures: Verb
+	For each set of 3 matching TreasureWafers in your TreasurePile:
+		ScorePoints x6
+	For each set of 2 matching TreasureWafers in your TreasurePile:
+		ScorePoints x3
+	For each remaining (unmatched) TreasureWafer in your TreasurePile:
+		ScorePoints x1
+		
+ScorePoints: Verb
+	RecordPointsOnScoringTrack
+	! If you pass from the "100" space to the "1" space:
+		Note that you have passed 100 points
+
+SECTION: Endgame Scoring
+
+FinalScoringRound: Verb
+	ScoringRound
+
+DetermineWinner: Verb
+	PlayerWithHighestScore
+	! If tied:
+		Rules don't specify

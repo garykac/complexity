@@ -35,4 +35,5 @@ tic-tac-toe
 ticket-to-ride
 ticket-to-ride-europe
 ticket-to-ride-first-journey
+tikal
 welcome-to-the-dungeon

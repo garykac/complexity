@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game id="tikal">
+<name>
+	<title>Tikal</title>
+</name>
+<designers>
+	<designer>Michael Kiesling</designer>
+	<designer>Wolfgang Kramer</designer>
+</designers>
+<general>
+	<published year="1999" />
+	<age min="10" />
+	<players min="2" max="4" />
+	<time min="90" max="90" />
+</general>
+<bgg id="54">
+	<weight date="2024-06-22" avg="2.78" />
+</bgg>
+<export index="true" csv="true" />
+<complexity>
+	<edition>Rio Grande Games 2005</edition>
+	<score cost="96">
+		<section name="Vocabulary" cost="33" />
+		<section name="Setup" cost="10" />
+		<section name="Gameplay" cost="51" />
+		<section name="Endgame Scoring" cost="2" />
+	</score>
+</complexity>
+</game>
